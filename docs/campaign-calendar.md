@@ -39,7 +39,6 @@
 |------|------|-----|------|
 | Mon May 18 | 🤝 **Meeting 3 — Swag + Prompt Card Brainstorm** — 10:00–10:45am ET | Jeff, Camille, Michael | Meeting |
 | Mon May 18 | Vendor specs confirmed — print + swag | Denise | Milestone |
-| Mon May 18 | Ambassador list + all headshots in | Denise | **BLOCKER** |
 | Tue May 19 | All 4 visual systems ready for review | Lee, Camille | Deliverable |
 | Tue May 20 | 🤝 **Meeting 4 — Visual Systems Review** — 11:00am–12:00pm ET | Mark, Michael, Lee, Camille | Meeting |
 | Tue May 20 | All 4 systems approved or revisions assigned | Mark | Gate |
@@ -51,7 +50,8 @@
 
 | Date | What | Who | Type |
 |------|------|-----|------|
-| Thu May 21 | Ambassador posters sprint begins (×17) | Lee + Camille | Production |
+| Thu May 21 | Ambassador list + all headshots in — Denise back from SOF Week *(delegate if needed)* | Denise | **BLOCKER** |
+| Thu May 21 | Ambassador posters sprint begins (×17) — contingent on list above | Lee + Camille | Production |
 | Thu May 21 | Executive posters ×4 begins | Michael | Production |
 | Thu May 21 | Badge designs + Tier 1/2 swag designs begin | Camille, Lee | Production |
 | Thu May 21 | Copy: logo guide, badge back, prompt card begin | Jeff | Production |
@@ -97,4 +97,4 @@
 
 ---
 
-*Last updated: 2026-05-05*
+*Last updated: 2026-05-06*

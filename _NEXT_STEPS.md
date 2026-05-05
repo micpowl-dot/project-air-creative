@@ -153,8 +153,8 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 
 | Question | Blocks | Owner | Due |
 |----------|--------|-------|-----|
-| Do we have speaker headshots for all 17 ambassadors? | Phase 3 | Denise Denson | May 14 |
-| Who are the 17 ambassadors? Names needed for D1-01–D1-17 | Phase 3 | Denise Denson | May 14 |
+| Do we have speaker headshots for all 17 ambassadors? | Phase 3 | Denise Denson *(or delegate — Denise OOO/SOF through May 20)* | May 21 |
+| Who are the 17 ambassadors? Names needed for D1-01–D1-17 | Phase 3 | Denise Denson *(or delegate — Denise OOO/SOF through May 20)* | May 21 |
 | Print vendor selected? | Phase 5 | Denise Denson | May 16 |
 | Swag vendor selected? | Phase 5 | Denise Denson | May 16 |
 | Gemini/AI meeting notes set up for Google Meet? | Ongoing | Michael Powell | May 9 |

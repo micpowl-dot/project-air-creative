@@ -11,8 +11,8 @@
 
 | Task | Due | Status |
 |------|-----|--------|
-| Ambassador list — 17 names + titles | May 14 | ⬜ |
-| Headshots for all 17 ambassadors | May 14 | ⬜ |
+| Ambassador list — 17 names + titles | May 21 *(shifted — OOO/SOF through May 20; delegate if possible)* | ⬜ |
+| Headshots for all 17 ambassadors | May 21 *(shifted — OOO/SOF through May 20; delegate if possible)* | ⬜ |
 | Print vendor confirmed | May 16 | ⬜ |
 | Swag vendor confirmed | May 16 | ⬜ |
 | Tier 2 + 3 sourcing | May 22 | ⬜ |
@@ -23,15 +23,17 @@
 
 ---
 
-### Task 1 — Ambassador List + Headshots (by May 14)
+### Task 1 — Ambassador List + Headshots (by May 21)
 
-This is the single biggest blocker on the project. Lee and Camille cannot produce 17 posters without names and faces. Start on this today.
+This is the single biggest blocker on the project. Lee and Camille cannot produce 17 posters without names and faces.
+
+**Note:** Original deadline was May 14. Shifted to May 21 due to Denise's OOO May 11–16 and SOF Week May 18–20. If someone on the team can get a head start on the list before May 21, that creates buffer. Start outreach before you leave on the 11th if possible.
 
 **How to approach it:**
 
 1. Get the confirmed list of 17 ambassadors from whoever owns the program roster — this likely lives with Maigh Houlihan or the event team
 2. Once you have names, reach out to each person (or their EA) for a headshot — high-res, professional preferred, minimum 1500px wide
-3. Set a hard internal deadline of May 12 for headshots so you have two days of buffer before May 14
+3. Aim to deliver the full list + headshots by May 21 morning so Lee and Camille can start same day
 4. If someone misses the deadline, flag it to Michael immediately — do not wait
 
 **Recommended tools:**
@@ -114,7 +116,7 @@ Tier 2/3 swag needs to be on-site at all venues by June 6.
 
 ## Ambassador List
 
-*Fill this in as names are confirmed. Michael needs this by May 14.*
+*Fill this in as names are confirmed. Michael needs this by May 21.*
 
 | # | Name | Title | Headshot Received |
 |---|------|-------|------------------|
