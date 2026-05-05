@@ -26,8 +26,8 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
-| | | | | |
+| Lee Payne | Strong | Adobe Creative Suite | TBD | AI-assisted workflows |
+| Camille Nettles | Strong | Adobe Creative Suite | TBD | |
 
 ### 2. Motion Design & Animation
 
@@ -39,7 +39,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
+| Jeff Hampton | Lead | Google Docs, Gemini | TBD | |
 
 ### 4. Presentation Design
 
@@ -69,7 +69,8 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
+| Jeff Hampton | Lead | ElevenLabs, Google Flow, Gemini, Nanobanana | TBD | Primary AI resource |
+| Lee Payne | Support | Adobe Firefly / AI tools | TBD | |
 
 ### 9. Video & AV Production
 
@@ -97,4 +98,4 @@
 
 ---
 
-*Last updated: YYYY-MM-DD*
+*Last updated: 2026-05-05*
