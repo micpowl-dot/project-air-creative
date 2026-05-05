@@ -26,6 +26,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
+| Michael Powell | Lead | Adobe Creative Suite | TBD | Creative Director |
 | Lee Payne | Strong | Adobe Creative Suite | TBD | AI-assisted workflows |
 | Camille Nettles | Strong | Adobe Creative Suite | TBD | |
 
@@ -33,12 +34,13 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
+| Michael Powell | Lead | After Effects, Adobe Creative Suite | TBD | Creative Director |
 
 ### 3. Copywriting & Content Strategy
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
+| Mark Fredo | Lead | TBD | TBD | Executive Creative Director |
 | Jeff Hampton | Lead | Google Docs, Gemini | TBD | |
 
 ### 4. Presentation Design
@@ -82,7 +84,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
+| Denise Denson | Lead | TBD | TBD | Project Manager / Producer |
 
 ---
 
