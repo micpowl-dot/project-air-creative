@@ -18,6 +18,7 @@
 | 🤖 Working with Claude | [docs/claude-workflow.md](docs/claude-workflow.md) | How to use AI as a team member |
 | 📁 Brief Template | [assets/templates/content-brief-template.md](assets/templates/content-brief-template.md) | Blank brief for new assets |
 | 📓 Decision Log | [decisions/](decisions/) | Key decisions and rationale |
+| 👥 Team Folders | [team/](team/) | Individual notes and resources — one folder per person |
 
 ---
 
