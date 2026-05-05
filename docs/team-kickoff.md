@@ -1,109 +1,110 @@
-# 👋 Team Kickoff — Project AIR
+# 🌀 Project AIR — Let's Go
 
-> Individual assignments for each team member. Copy the relevant section and send directly in Slack.
-> Full game plan: [NEXT_STEPS.md](../NEXT_STEPS.md)
+**AI Day. June 9. 835 people. Festival energy.**
+
+We are the team making it look and feel like something. Here is what each of us is running with. Mark is our ECD and the final call on creative — but this is a team sport and everyone's work matters.
+
+Repo (our source of truth): https://github.com/micpowl-dot/project-air-creative
 
 ---
 
-## Mark Fredo — Executive Creative Director
+## Mark Fredo — ECD
 
-Hey Mark! Here is what we need from you to keep Project AIR moving.
+The creative vision lives with you. Two things we need from you to unblock everyone:
 
-**This week (by May 9):**
-- Write the positioning/messaging brief — the creative voice and feeling that everything else is built on
-- Review Michael's logo concepts and pick a direction (or redirect) by May 7
-- Sign off on the final logo and brand guidelines by May 9 — this is the gate that unlocks the whole team
+- Positioning brief — the feeling and voice that everything else is built on (by May 9)
+- Logo direction sign-off — Michael's bringing 2-3 concepts, we need a call by May 7
 
-**Later in May:**
-- Review all posters, badges, and PPT template before they go to print (by May 27)
-- Final approval on all files before anything hits a vendor
+After that you're reviewing work at the end of each phase and making the final calls before anything goes to print. Big picture stuff — the team handles the execution.
 
-You are the decision maker at every phase gate. Nothing goes to production without your sign-off.
+---
 
-Repo: https://github.com/micpowl-dot/project-air-creative
+## Michael Powell — Creative Director
+
+You're in the driver's seat on brand foundation and motion.
+
+- Logo concepts, 2-3 directions (by May 7)
+- Logo final, all formats (by May 9)
+- Brand guidelines — colors, type, direction (by May 9)
+- Executive posters x4 — Rohit, Matthew, Brian, Dan (by May 22)
+- Logo animation, 3-5 sec loop (by May 27)
+
+Once the logo is approved, Lee and Camille are off. The faster Phase 1 ships, the more runway the whole team has.
 
 ---
 
 ## Lee Payne — Designer
 
-Hey Lee! Here is what your runway looks like for Project AIR.
+You're building the frameworks everything else runs on, then executing at volume.
 
-**Phase 2 — starts May 9 (once logo is approved):**
-- PowerPoint template — all slide layouts (by May 14)
-- Poster visual system — layout, type, color grid (by May 14)
+- PPT template, all layouts (by May 14)
+- Poster visual system (by May 14)
 - Swag visual system (by May 14)
-
-**Phase 3 — starts May 14:**
-- Ambassador posters ×17 (split with Camille, by May 22)
+- Ambassador posters ×17 with Camille (by May 22)
 - Digital adaptations for social and venue screens (by May 22)
-- Tier 2 swag designs — t-shirt/hoodie, tote (by May 22)
+- Tier 2 swag designs — t-shirt, tote (by May 22)
 
-Nothing starts until the logo and brand guidelines are locked (target May 9). Watch for Michael's sign-off in Slack.
-
-Repo: https://github.com/micpowl-dot/project-air-creative
-Asset tracker: https://github.com/micpowl-dot/project-air-creative/blob/main/assets/asset-tracker.md
+You're up as soon as the logo clears (target May 9). Watch Slack.
 
 ---
 
 ## Camille Nettles — Designer
 
-Hey Camille! Here is what your runway looks like for Project AIR.
+You're owning badges and swag alongside the poster sprint.
 
-**Phase 2 — starts May 9 (once logo is approved):**
 - Badge and lanyard visual system (by May 14)
+- Ambassador posters ×17 with Lee (by May 22)
+- Presenter badge designs, all tiers (by May 22)
+- Tier 1 swag — sticker, notebook, enamel pin (by May 22)
+- Tier 3 packaging (by May 22)
 
-**Phase 3 — starts May 14:**
-- Ambassador posters ×17 (split with Lee, by May 22)
-- Presenter badge designs — all tiers (by May 22)
-- Tier 1 swag designs — sticker, notebook, enamel pin (by May 22)
-- Tier 3 packaging design (by May 22)
-
-Nothing starts until the logo and brand guidelines are locked (target May 9). Watch for Michael's sign-off in Slack.
-
-Repo: https://github.com/micpowl-dot/project-air-creative
-Asset tracker: https://github.com/micpowl-dot/project-air-creative/blob/main/assets/asset-tracker.md
+Same as Lee — you're live once the logo is approved. Sit tight until May 9.
 
 ---
 
-## Jeff Hampton — Copywriter
+## Jeff Hampton — Copy + AI
 
-Hey Jeff! Here is what we need from you on Project AIR.
+You're the words and the AI brain on this one.
 
-**Phase 2 — by May 14:**
-- Logo usage guide — rules for how the logo gets used across all assets
-- Badge back copy — WiFi password, venue map info, QR code labels
-- AI prompt card copy — the text that goes on the Tier 1 swag prompt cards (this one is fun, lean into it)
+- Logo usage guide (by May 14)
+- Badge back copy — WiFi, map, QR (by May 14)
+- AI prompt card copy — make this one sing, it's going to 835 people (by May 14)
+- Copy support for poster headlines and badge names as production ramps up
 
-**Ongoing:**
-- Copy support for poster headlines and badge names as Lee and Camille get into production
-- Any additional event copy as it comes up
-
-Your AI toolkit (ElevenLabs, Google Flow, Gemini) will be especially useful for the prompt card and any generative concepts. Bring ideas.
-
-Repo: https://github.com/micpowl-dot/project-air-creative
+Your toolkit is a superpower here. Bring ideas, not just copy.
 
 ---
 
-## Denise Denson — Traffic Manager
+## Denise Denson — Traffic
 
-Hey Denise! Here is what we need you to drive on Project AIR.
+You're keeping the train on the tracks. Nothing gets stuck if you're on it.
 
-**This week — URGENT:**
-- Get the full list of 17 ambassadors (names + titles) to Michael by May 14 — design cannot start posters without this
-- Start collecting headshots for all 17 ambassadors by May 14
-- Identify and confirm a print vendor by May 16
-- Identify and confirm a swag vendor by May 16
+- Ambassador list — 17 names and titles to Michael by May 14 (this blocks the whole poster sprint)
+- Headshots for all 17 ambassadors by May 14
+- Print vendor confirmed by May 16
+- Swag vendor confirmed by May 16
+- From May 27 on, you're trafficking final files to vendors and tracking everything to the finish line
 
-**Ongoing trafficking:**
-- Keep work moving between team members and stages
-- Phase 5 (starting May 27): traffic all final print files to vendors — posters, badges, Tier 1 swag
-- Track that Tier 2/3 swag is on-site at all venues by June 6
-
-You are the one keeping the pipeline clear. If anything is blocked or late, flag it in Slack immediately so we can adjust.
-
-Repo: https://github.com/micpowl-dot/project-air-creative
-Full game plan: https://github.com/micpowl-dot/project-air-creative/blob/main/NEXT_STEPS.md
+If something is blocked or slipping, you're the one calling it out so we can fix it fast.
 
 ---
 
-*Last updated: 2026-05-05*
+## The Order of Operations
+
+Logo and brand guidelines come first. Everything else depends on them.
+
+```
+Phase 1 — Brand Foundation   May 5–9
+Phase 2 — Visual Systems     May 9–14
+Phase 3 — Production Sprint  May 14–22
+Phase 4 — Polish + Animation May 22–27
+Phase 5 — Print Handoff      May 27–June 2
+Phase 6 — On-Site            June 2–6
+AI Day                        June 9 🎉
+```
+
+Full plan with dates and task IDs: https://github.com/micpowl-dot/project-air-creative/blob/main/NEXT_STEPS.md
+
+---
+
+*Let's make something worth showing up for.*
