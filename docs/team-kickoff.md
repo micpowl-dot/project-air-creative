@@ -8,6 +8,20 @@ Repo (our source of truth): https://github.com/micpowl-dot/project-air-creative
 
 ---
 
+## Denise Denson — Producer, Project Manager
+
+You're keeping the train on the tracks. Nothing gets stuck if you're on it.
+
+- Ambassador list — 17 names and titles to Michael by May 14 (this blocks the whole poster sprint)
+- Headshots for all 17 ambassadors by May 14
+- Print vendor confirmed by May 16
+- Swag vendor confirmed by May 16
+- From May 27 on, you're trafficking final files to vendors and tracking everything to the finish line
+
+If something is blocked or slipping, you're the one calling it out so we can fix it fast.
+
+---
+
 ## Mark Fredo — Executive Creative Director, Writer
 
 The creative vision lives with you. Two things we need from you to unblock everyone:
@@ -19,17 +33,30 @@ After that you're reviewing work at the end of each phase and making the final c
 
 ---
 
-## Michael Powell — Creative Director, AD
+## Jeff Hampton — Associate Creative Director, Copy + AI
 
-You're in the driver's seat on brand foundation and motion.
+You're the words and the AI brain on this one.
 
-- Logo concepts, 2-3 directions (by May 7)
-- Logo final, all formats (by May 9)
-- Brand guidelines — colors, type, direction (by May 9)
-- Executive posters x4 — Rohit, Matthew, Brian, Dan (by May 22)
-- Logo animation, 3-5 sec loop (by May 27)
+- Logo usage guide (by May 14)
+- Badge back copy — WiFi, map, QR (by May 14)
+- AI prompt card copy — make this one sing, it's going to 835 people (by May 14)
+- Copy support for poster headlines and badge names as production ramps up
 
-Once the logo is approved, Lee and Camille are off. The faster Phase 1 ships, the more runway the whole team has.
+Your toolkit is a superpower here. Bring ideas, not just copy.
+
+---
+
+## Camille Nettles — Associate Creative Director
+
+You're owning badges and swag alongside the poster sprint.
+
+- Badge and lanyard visual system (by May 14)
+- Ambassador posters ×17 with Lee (by May 22)
+- Presenter badge designs, all tiers (by May 22)
+- Tier 1 swag — sticker, notebook, enamel pin (by May 22)
+- Tier 3 packaging (by May 22)
+
+Same as Lee — you're live once the logo is approved. Sit tight until May 9.
 
 ---
 
@@ -48,44 +75,17 @@ You're up as soon as the logo clears (target May 9). Watch Slack.
 
 ---
 
-## Camille Nettles — Associate Creative Director
+## Michael Powell — Creative Director, AD
 
-You're owning badges and swag alongside the poster sprint.
+You're in the driver's seat on brand foundation and motion.
 
-- Badge and lanyard visual system (by May 14)
-- Ambassador posters ×17 with Lee (by May 22)
-- Presenter badge designs, all tiers (by May 22)
-- Tier 1 swag — sticker, notebook, enamel pin (by May 22)
-- Tier 3 packaging (by May 22)
+- Logo concepts, 2-3 directions (by May 7)
+- Logo final, all formats (by May 9)
+- Brand guidelines — colors, type, direction (by May 9)
+- Executive posters x4 — Rohit, Matthew, Brian, Dan (by May 22)
+- Logo animation, 3-5 sec loop (by May 27)
 
-Same as Lee — you're live once the logo is approved. Sit tight until May 9.
-
----
-
-## Jeff Hampton — Associate Creative Director, Copy + AI
-
-You're the words and the AI brain on this one.
-
-- Logo usage guide (by May 14)
-- Badge back copy — WiFi, map, QR (by May 14)
-- AI prompt card copy — make this one sing, it's going to 835 people (by May 14)
-- Copy support for poster headlines and badge names as production ramps up
-
-Your toolkit is a superpower here. Bring ideas, not just copy.
-
----
-
-## Denise Denson — Producer, Project Manager
-
-You're keeping the train on the tracks. Nothing gets stuck if you're on it.
-
-- Ambassador list — 17 names and titles to Michael by May 14 (this blocks the whole poster sprint)
-- Headshots for all 17 ambassadors by May 14
-- Print vendor confirmed by May 16
-- Swag vendor confirmed by May 16
-- From May 27 on, you're trafficking final files to vendors and tracking everything to the finish line
-
-If something is blocked or slipping, you're the one calling it out so we can fix it fast.
+Once the logo is approved, Lee and Camille are off. The faster Phase 1 ships, the more runway the whole team has.
 
 ---
 

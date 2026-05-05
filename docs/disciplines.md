@@ -26,9 +26,9 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Michael Powell | Lead | Adobe Creative Suite | TBD | Creative Director, AD |
-| Lee Payne | Strong | Adobe Creative Suite | TBD | Senior Graphic Designer |
 | Camille Nettles | Strong | Adobe Creative Suite | TBD | Associate Creative Director |
+| Lee Payne | Strong | Adobe Creative Suite | TBD | Senior Graphic Designer |
+| Michael Powell | Lead | Adobe Creative Suite | TBD | Creative Director, AD |
 
 ### 2. Motion Design & Animation
 
