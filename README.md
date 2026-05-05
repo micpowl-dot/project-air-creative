@@ -8,7 +8,7 @@
 
 | Resource | Link | What It Is |
 |----------|------|------------|
-| 🗺️ **Game Plan** | [**NEXT_STEPS.md**](NEXT_STEPS.md) | **Phased plan with owners, dates, and buffer — start here** |
+| 🗺️ **Game Plan** | [**_NEXT_STEPS.md**](_NEXT_STEPS.md) | **Phased plan with owners, dates, and buffer — start here** |
 | 🎯 Disciplines | [docs/disciplines.md](docs/disciplines.md) | Team roster — who can do what |
 | 📦 Asset Tracker | [assets/asset-tracker.md](assets/asset-tracker.md) | Master deliverable list with owners & deadlines |
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
@@ -91,7 +91,7 @@
 | 6 — Premium Swag | June 4 | June 6 | Tier 2/3 on-site |
 | — | — | **June 9** | **AI Day** |
 
-**→ Full phased plan with task assignments: [NEXT_STEPS.md](NEXT_STEPS.md)**
+**→ Full phased plan with task assignments: [_NEXT_STEPS.md](_NEXT_STEPS.md)**
 
 ## Working with Claude
 
@@ -103,4 +103,4 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 > *This conference is brought to you by AI. So is this repo.*
 
-*Last updated: 2026-05-05 — NEXT_STEPS.md added*
+*Last updated: 2026-05-05 — _NEXT_STEPS.md added*

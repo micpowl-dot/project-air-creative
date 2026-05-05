@@ -103,7 +103,7 @@ Phase 6 — On-Site            June 2–6
 AI Day                        June 9 🎉
 ```
 
-Full plan with dates and task IDs: https://github.com/micpowl-dot/project-air-creative/blob/main/NEXT_STEPS.md
+Full plan with dates and task IDs: https://github.com/micpowl-dot/project-air-creative/blob/main/_NEXT_STEPS.md
 
 ---
 
