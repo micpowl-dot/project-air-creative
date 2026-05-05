@@ -8,7 +8,7 @@ Repo (our source of truth): https://github.com/micpowl-dot/project-air-creative
 
 ---
 
-## Mark Fredo — Executive Creative Director
+## Mark Fredo — Executive Creative Director, Writer
 
 The creative vision lives with you. Two things we need from you to unblock everyone:
 
@@ -75,7 +75,7 @@ Your toolkit is a superpower here. Bring ideas, not just copy.
 
 ---
 
-## Denise Denson — Traffic Manager
+## Denise Denson — Producer, Project Manager
 
 You're keeping the train on the tracks. Nothing gets stuck if you're on it.
 

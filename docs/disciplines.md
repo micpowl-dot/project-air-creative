@@ -40,7 +40,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Mark Fredo | Lead | TBD | TBD | Executive Creative Director |
+| Mark Fredo | Lead | TBD | TBD | Executive Creative Director, Writer |
 | Jeff Hampton | Lead | Google Docs, Gemini | TBD | Associate Creative Director |
 
 ### 4. Presentation Design
@@ -84,7 +84,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Denise Denson | Lead | TBD | TBD | Traffic Manager — schedules work, moves files, coordinates vendors |
+| Denise Denson | Lead | TBD | TBD | Producer, Project Manager |
 
 ---
 
