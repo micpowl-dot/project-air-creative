@@ -7,34 +7,40 @@
 ---
 
 ## Meeting 1 — Brand Kickoff + Logo Ideation
-**Tuesday May 6 | 10:00–10:45am ET**
-**Attendees:** Mark Fredo, Michael Powell, Jeff Hampton
-**Format:** Working session — references on screen, decisions made in the room
+**Thursday May 8 | 2:00–3:00pm ET**
+*(Backup: Friday May 9 | 10:00–11:00am ET)*
+**Attendees:** Full team — Mark Fredo, Michael Powell, Jeff Hampton, Lee Payne, Camille Nettles, Denise Denson
+**Format:** Full team working session — references on screen, ideas in the room, direction decided before anyone leaves
 
 ### Purpose
-Align on the creative direction for the logo and brand before Michael builds anything. This meeting replaces the back-and-forth that happens when someone builds the wrong thing. 45 minutes now saves 3 days later.
+Get the whole team in the room for the creative foundation. Everyone sees the same references, hears the same brief, reacts to the same ideas. No one is working from a secondhand account of what the logo should feel like. The energy and ideas that come from having all six people in one room — even for an hour — sets the tone for everything that follows.
 
 ### Pre-work (do this before you show up)
 | Person | Pre-work |
 |--------|----------|
 | Michael | Bring 6-9 visual references — logos, event branding, color palettes that feel right. No concepts yet, just inspiration. |
-| Mark | Come with a gut instinct on the feeling you want. Think: what should someone feel when they see this logo for the first time? |
+| Mark | Come with a gut instinct on the feeling you want. What should someone feel the first time they see this logo? |
 | Jeff | Bring 3-5 words or short phrases that capture the brand voice. These inform the visual direction. |
+| Lee | Bring 2-3 references for how the logo might live in context — on a poster, a badge, a screen. |
+| Camille | Bring 2-3 references for how the logo could work on swag — pin, sticker, notebook cover. |
+| Denise | Bring the current ambassador headcount. How many names do we have confirmed? |
 
 ### Agenda
-1. Jeff reads his words aloud — do they land? (5 min)
-2. Michael walks through references — team reacts (15 min)
-3. Mark calls the direction: which references, which feeling, any hard nos (10 min)
-4. Agree on 2-3 things Michael will explore in concepts (10 min)
-5. Confirm: Michael delivers concepts by May 7, Mark reviews same day (5 min)
+1. Jeff reads his words aloud — does the room respond? (5 min)
+2. Michael walks through visual references — everyone reacts out loud (15 min)
+3. Lee and Camille share contextual references — how does this logo live in the world? (10 min)
+4. Mark calls the direction: which references, which feeling, what's a hard no (10 min)
+5. Group agrees on 2-3 things Michael will explore in concepts (10 min)
+6. Confirm: Michael delivers concepts by Mon May 11, Mark reviews same day (5 min)
+7. Denise: ambassador list update (5 min)
 
 ### Output
-One clear creative direction. Michael leaves knowing exactly what to build.
+One clear creative direction with the whole team aligned. Michael leaves knowing exactly what to build. Lee and Camille have early context before the full visual systems kickoff.
 
 ---
 
 ## Meeting 2 — Visual Systems Kickoff
-**Friday May 9 | 2:00–3:00pm ET**
+**Wednesday May 13 | 10:00–11:00am ET**
 **Attendees:** Full team
 **Format:** Reveal + direction-setting
 
@@ -56,7 +62,7 @@ Michael reveals the approved logo and brand guidelines. Lee and Camille get thei
 3. Mark responds to both — any redirects? (10 min)
 4. Lee shares poster references, team reacts (10 min)
 5. Camille shares badge/swag references, team reacts (10 min)
-6. Assign any open questions, confirm May 14 systems deadline (5 min)
+6. Assign any open questions, confirm May 19 systems deadline (5 min)
 
 ### Output
 Lee and Camille leave with clear direction to build the four visual systems. Jeff has feedback on his brief. Denise gives an ambassador headcount.
@@ -64,7 +70,7 @@ Lee and Camille leave with clear direction to build the four visual systems. Jef
 ---
 
 ## Meeting 3 — Swag + Prompt Card Brainstorm
-**Tuesday May 13 | 10:00–10:45am ET**
+**Monday May 18 | 10:00–10:45am ET**
 **Attendees:** Jeff Hampton, Camille Nettles, Michael Powell (Mark optional)
 **Format:** Generative brainstorm — ideas on the table, no bad answers
 
@@ -90,7 +96,7 @@ Jeff has a shortlist of approved prompts to write against. Camille has creative 
 ---
 
 ## Meeting 4 — Visual Systems Review
-**Thursday May 14 | 11:00am–12:00pm ET**
+**Tuesday May 20 | 11:00am–12:00pm ET**
 **Attendees:** Mark Fredo, Michael Powell, Lee Payne, Camille Nettles
 **Format:** Design review — work on screen, feedback in real time
 
@@ -118,7 +124,7 @@ All four systems approved or specific revisions assigned with a 24-hour turnarou
 ---
 
 ## Meeting 5 — Mid-Sprint Check-in
-**Tuesday May 19 | 10:00–10:30am ET**
+**Wednesday May 26 | 10:00–10:30am ET**
 **Attendees:** Full team
 **Format:** Quick status round-robin — 30 minutes max, no exceptions
 
@@ -141,7 +147,7 @@ Every blocker is visible. Decisions are made in the room, not in a chain of Slac
 ---
 
 ## Meeting 6 — Pre-Print Final Review
-**Tuesday May 26 | 2:00–3:00pm ET**
+**Friday May 29 | 2:00–3:00pm ET**
 **Attendees:** Mark Fredo, Michael Powell, Denise Denson
 **Format:** Final approval session — production stops until this is done
 
@@ -169,12 +175,12 @@ Mark's sign-off. Denise traffics files to vendors same day.
 
 | # | Meeting | Date | Time (ET) | Who |
 |---|---------|------|-----------|-----|
-| 1 | Brand Kickoff + Logo Ideation | Tue May 6 | 10:00–10:45am | Mark, Michael, Jeff |
-| 2 | Visual Systems Kickoff | Fri May 9 | 2:00–3:00pm | Full team |
-| 3 | Swag + Prompt Card Brainstorm | Tue May 13 | 10:00–10:45am | Jeff, Camille, Michael (Mark optional) |
-| 4 | Visual Systems Review | Thu May 14 | 11:00am–12:00pm | Mark, Michael, Lee, Camille |
-| 5 | Mid-Sprint Check-in | Tue May 19 | 10:00–10:30am | Full team |
-| 6 | Pre-Print Final Review | Tue May 26 | 2:00–3:00pm | Mark, Michael, Denise |
+| 1 | Brand Kickoff + Logo Ideation | Thu May 8 *(Fri May 9 backup)* | 2:00–3:00pm | **Full team** |
+| 2 | Visual Systems Kickoff | Wed May 13 | 10:00–11:00am | Full team |
+| 3 | Swag + Prompt Card Brainstorm | Mon May 18 | 10:00–10:45am | Jeff, Camille, Michael |
+| 4 | Visual Systems Review | Tue May 20 | 11:00am–12:00pm | Mark, Michael, Lee, Camille |
+| 5 | Mid-Sprint Check-in | Wed May 26 | 10:00–10:30am | Full team |
+| 6 | Pre-Print Final Review | Fri May 29 | 2:00–3:00pm | Mark, Michael, Denise |
 
 ---
 
