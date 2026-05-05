@@ -8,6 +8,7 @@
 
 | Resource | Link | What It Is |
 |----------|------|------------|
+| 🗺️ **Game Plan** | [**NEXT_STEPS.md**](NEXT_STEPS.md) | **Phased plan with owners, dates, and buffer — start here** |
 | 🎯 Disciplines | [docs/disciplines.md](docs/disciplines.md) | Team roster — who can do what |
 | 📦 Asset Tracker | [assets/asset-tracker.md](assets/asset-tracker.md) | Master deliverable list with owners & deadlines |
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
@@ -76,16 +77,19 @@
 
 ## Timeline
 
-| Milestone | Date | Deliverable |
-|-----------|------|-------------|
-| Logo (static) ready | Early May | D3 |
-| PPT template ready | Early May | D4 |
-| Logo (animated) ready | End of May | D3 |
-| Speaker posters ready | End of May | D1 |
-| Tier 1 swag staged | June 2 | D5 |
-| Lanyards & badges produced | June 2 | D2 |
-| Tier 2 & 3 swag on-site | June 6 | D5 |
-| **AI Day** | **June 9, 2026** | 🎉 |
+> Internal deadlines include buffer. Hard dates are when things must be on-site or in-hand.
+
+| Phase | Internal Deadline | Hard Deadline | What Ships |
+|-------|------------------|--------------|-----------|
+| 1 — Brand Foundation | May 9 | May 9 | Logo (static) + brand guidelines |
+| 2 — Templates & Systems | May 14 | — | PPT template, poster/badge/swag systems |
+| 3 — Production Sprint | May 22 | End of May | All posters, badges, swag designs |
+| 4 — Animation & Polish | May 27 | End of May | Animated logo, final reviews |
+| 5 — Print Handoff | May 27 | June 2 | Posters, badges, Tier 1 swag to vendor |
+| 6 — Premium Swag | June 4 | June 6 | Tier 2/3 on-site |
+| — | — | **June 9** | **AI Day** |
+
+**→ Full phased plan with task assignments: [NEXT_STEPS.md](NEXT_STEPS.md)**
 
 ## Working with Claude
 
@@ -97,4 +101,4 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 > *This conference is brought to you by AI. So is this repo.*
 
-*Last updated: 2026-05-05*
+*Last updated: 2026-05-05 — NEXT_STEPS.md added*
