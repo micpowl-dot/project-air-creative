@@ -26,22 +26,22 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Michael Powell | Lead | Adobe Creative Suite | TBD | Creative Director |
-| Lee Payne | Strong | Adobe Creative Suite | TBD | AI-assisted workflows |
-| Camille Nettles | Strong | Adobe Creative Suite | TBD | |
+| Michael Powell | Lead | Adobe Creative Suite | TBD | Creative Director, AD |
+| Lee Payne | Strong | Adobe Creative Suite | TBD | Senior Graphic Designer |
+| Camille Nettles | Strong | Adobe Creative Suite | TBD | Associate Creative Director |
 
 ### 2. Motion Design & Animation
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Michael Powell | Lead | After Effects, Adobe Creative Suite | TBD | Creative Director |
+| Michael Powell | Lead | After Effects, Adobe Creative Suite | TBD | Creative Director, AD |
 
 ### 3. Copywriting & Content Strategy
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
 | Mark Fredo | Lead | TBD | TBD | Executive Creative Director |
-| Jeff Hampton | Lead | Google Docs, Gemini | TBD | |
+| Jeff Hampton | Lead | Google Docs, Gemini | TBD | Associate Creative Director |
 
 ### 4. Presentation Design
 
@@ -71,8 +71,8 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Jeff Hampton | Lead | ElevenLabs, Google Flow, Gemini, Nanobanana | TBD | Primary AI resource |
-| Lee Payne | Support | Adobe Firefly / AI tools | TBD | |
+| Jeff Hampton | Lead | ElevenLabs, Google Flow, Gemini, Nanobanana | TBD | ACD — Primary AI resource |
+| Lee Payne | Support | Adobe Firefly / AI tools | TBD | Senior Graphic Designer |
 
 ### 9. Video & AV Production
 

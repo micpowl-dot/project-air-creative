@@ -8,7 +8,7 @@ Repo (our source of truth): https://github.com/micpowl-dot/project-air-creative
 
 ---
 
-## Mark Fredo — ECD
+## Mark Fredo — Executive Creative Director
 
 The creative vision lives with you. Two things we need from you to unblock everyone:
 
@@ -19,7 +19,7 @@ After that you're reviewing work at the end of each phase and making the final c
 
 ---
 
-## Michael Powell — Creative Director
+## Michael Powell — Creative Director, AD
 
 You're in the driver's seat on brand foundation and motion.
 
@@ -33,7 +33,7 @@ Once the logo is approved, Lee and Camille are off. The faster Phase 1 ships, th
 
 ---
 
-## Lee Payne — Designer
+## Lee Payne — Senior Graphic Designer
 
 You're building the frameworks everything else runs on, then executing at volume.
 
@@ -48,7 +48,7 @@ You're up as soon as the logo clears (target May 9). Watch Slack.
 
 ---
 
-## Camille Nettles — Designer
+## Camille Nettles — Associate Creative Director
 
 You're owning badges and swag alongside the poster sprint.
 
@@ -62,7 +62,7 @@ Same as Lee — you're live once the logo is approved. Sit tight until May 9.
 
 ---
 
-## Jeff Hampton — Copy + AI
+## Jeff Hampton — Associate Creative Director, Copy + AI
 
 You're the words and the AI brain on this one.
 
@@ -75,7 +75,7 @@ Your toolkit is a superpower here. Bring ideas, not just copy.
 
 ---
 
-## Denise Denson — Traffic
+## Denise Denson — Traffic Manager
 
 You're keeping the train on the tracks. Nothing gets stuck if you're on it.
 
