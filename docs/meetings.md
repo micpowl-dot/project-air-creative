@@ -40,8 +40,8 @@ One clear creative direction with the whole team aligned. Michael leaves knowing
 ---
 
 ## Meeting 2 — Visual Systems Kickoff
-**Wednesday May 13 | 10:00–11:00am ET**
-**Attendees:** Full team
+**Thursday May 14 | 10:00–11:00am ET**
+**Attendees:** Full team *(Denise Denson — optional, OOO)*
 **Format:** Reveal + direction-setting
 
 ### Purpose
@@ -71,7 +71,7 @@ Lee and Camille leave with clear direction to build the four visual systems. Jef
 
 ## Meeting 3 — Swag + Prompt Card Brainstorm
 **Monday May 18 | 10:00–10:45am ET**
-**Attendees:** Jeff Hampton, Camille Nettles, Michael Powell, Denise Denson (Mark optional)
+**Attendees:** Jeff Hampton, Camille Nettles, Michael Powell *(Denise Denson — optional, SOF Week; Mark optional)*
 **Format:** Generative brainstorm — ideas on the table, no bad answers
 
 ### Purpose
@@ -97,7 +97,7 @@ Jeff has a shortlist of approved prompts to write against. Camille has creative 
 
 ## Meeting 4 — Visual Systems Review
 **Tuesday May 20 | 11:00am–12:00pm ET**
-**Attendees:** Mark Fredo, Michael Powell, Lee Payne, Camille Nettles, Denise Denson
+**Attendees:** Mark Fredo, Michael Powell, Lee Payne, Camille Nettles *(Denise Denson — optional, SOF Week)*
 **Format:** Design review — work on screen, feedback in real time
 
 ### Purpose
@@ -176,12 +176,12 @@ Mark's sign-off. Denise traffics files to vendors same day.
 | # | Meeting | Date | Time (ET) | Who |
 |---|---------|------|-----------|-----|
 | 1 | Brand Kickoff + Logo Ideation | Thu May 8 *(Fri May 9 backup)* | 2:00–3:00pm | **Full team** |
-| 2 | Visual Systems Kickoff | Wed May 13 | 10:00–11:00am | Full team |
-| 3 | Swag + Prompt Card Brainstorm | Mon May 18 | 10:00–10:45am | Jeff, Camille, Michael, Denise |
-| 4 | Visual Systems Review | Tue May 20 | 11:00am–12:00pm | Mark, Michael, Lee, Camille, Denise |
+| 2 | Visual Systems Kickoff | Thu May 14 | 10:00–11:00am | Full team *(Denise optional — OOO)* |
+| 3 | Swag + Prompt Card Brainstorm | Mon May 18 | 10:00–10:45am | Jeff, Camille, Michael *(Denise optional — SOF Week)* |
+| 4 | Visual Systems Review | Tue May 20 | 11:00am–12:00pm | Mark, Michael, Lee, Camille *(Denise optional — SOF Week)* |
 | 5 | Mid-Sprint Check-in | Wed May 26 | 10:00–10:30am | Full team |
 | 6 | Pre-Print Final Review | Fri May 29 | 2:00–3:00pm | Mark, Michael, Denise |
 
 ---
 
-*Last updated: 2026-05-05*
+*Last updated: 2026-05-06*
