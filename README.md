@@ -12,6 +12,7 @@
 | 🎯 Disciplines | [docs/disciplines.md](docs/disciplines.md) | Team roster — who can do what |
 | 📦 Asset Tracker | [assets/asset-tracker.md](assets/asset-tracker.md) | Master deliverable list with owners & deadlines |
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
+| 🤝 Meetings | [docs/meetings.md](docs/meetings.md) | All 6 sessions — purpose, pre-work, agenda, output |
 | 🎨 Brand Guidelines | [docs/brand-guidelines.md](docs/brand-guidelines.md) | Colors, type, logo, visual identity |
 | ✍️ Style Guide | [docs/style-guide.md](docs/style-guide.md) | Voice, tone, writing conventions |
 | 📝 Content Strategy | [docs/content-strategy.md](docs/content-strategy.md) | Audience, channels, messaging |

@@ -40,6 +40,10 @@ Every internal deadline below is set **5 business days before** the hard externa
 
 Nothing downstream starts until this phase ships.
 
+> 🤝 **Meeting 1 — Brand Kickoff + Logo Ideation**
+> Tue May 6, 10:00–10:45am ET | Mark, Michael, Jeff
+> Align on creative direction before Michael builds anything. Full brief: [docs/meetings.md](docs/meetings.md)
+
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
 | Logo concepts (2-3 directions) | D3-01 | Michael Powell | May 7 | ⬜ |
@@ -55,6 +59,14 @@ Nothing downstream starts until this phase ships.
 **Window: May 9–16 | Unlocked by: Phase 1**
 
 Build the frameworks that all individual assets will be stamped from. Getting these right now means every poster, badge, and swag item is consistent and faster to produce.
+
+> 🤝 **Meeting 2 — Visual Systems Kickoff**
+> Fri May 9, 2:00–3:00pm ET | Full team
+> Logo reveal. Lee and Camille get creative direction for all four systems. Full brief: [docs/meetings.md](docs/meetings.md)
+
+> 🤝 **Meeting 3 — Swag + Prompt Card Brainstorm**
+> Tue May 13, 10:00–10:45am ET | Jeff, Camille, Michael (Mark optional)
+> Generate swag concepts and prompt card ideas together. Full brief: [docs/meetings.md](docs/meetings.md)
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
@@ -74,6 +86,14 @@ Build the frameworks that all individual assets will be stamped from. Getting th
 **Window: May 14–22 | Unlocked by: Phase 2**
 
 High-volume execution. Lee and Camille run parallel tracks. Jeff supplies copy to design as needed.
+
+> 🤝 **Meeting 4 — Visual Systems Review**
+> Thu May 14, 11:00am–12:00pm ET | Mark, Michael, Lee, Camille
+> All four systems reviewed and approved before production starts. Full brief: [docs/meetings.md](docs/meetings.md)
+
+> 🤝 **Meeting 5 — Mid-Sprint Check-in**
+> Tue May 19, 10:00–10:30am ET | Full team
+> Surface blockers before they become crises. Update the tracker before you show up. Full brief: [docs/meetings.md](docs/meetings.md)
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
@@ -105,6 +125,10 @@ Logo animation can start as soon as D3-02 is approved (Phase 1) — Michael shou
 **Window: May 27–June 2 | Hard deadline: June 2**
 
 Denise traffics files to vendors and tracks production. Mark approves all final files before anything goes to print.
+
+> 🤝 **Meeting 6 — Pre-Print Final Review**
+> Tue May 26, 2:00–3:00pm ET | Mark, Michael, Denise
+> Last eyes before vendor handoff. Files go out same day. Full brief: [docs/meetings.md](docs/meetings.md)
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
