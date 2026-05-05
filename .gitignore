@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.psd
+*.ai
+*.sketch
+*.mp4
+*.mov
+*.zip
