@@ -47,7 +47,7 @@ Nothing downstream starts until this phase ships.
 | Brand guidelines — colors, fonts, direction | — | Michael Powell | May 9 | ⬜ |
 | Positioning/messaging brief | — | Mark Fredo | May 9 | ⬜ |
 
-**Gate:** Mark Fredo and Denise Denson sign off before Phase 2 begins.
+**Gate:** Mark Fredo signs off before Phase 2 begins. Denise tracks and schedules the handoff.
 
 ---
 
@@ -104,7 +104,7 @@ Logo animation can start as soon as D3-02 is approved (Phase 1) — Michael shou
 ## Phase 5 — Print & Production Handoff
 **Window: May 27–June 2 | Hard deadline: June 2**
 
-Denise owns vendor coordination end-to-end from this point. Design files must be print-ready (bleed, CMYK, correct resolution) before handoff.
+Denise traffics files to vendors and tracks production. Mark approves all final files before anything goes to print.
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
@@ -142,11 +142,11 @@ Denise owns vendor coordination end-to-end from this point. Design files must be
 | Name | Role | Phases |
 |------|------|--------|
 | Michael Powell | Creative Director | 1, 3 (exec posters), 4 (animation) |
-| Mark Fredo | Executive Creative Director | 1 (positioning), 4 (final review) |
+| Mark Fredo | Executive Creative Director — Owner | 1 (positioning), all phase gates + final approvals |
 | Lee Payne | Designer | 2, 3 |
 | Camille Nettles | Designer | 2, 3 |
 | Jeff Hampton | Copywriter / AI | 2 (copy), supporting throughout |
-| Denise Denson | Producer / PM | All phases (coordination), 5, 6 (owns) |
+| Denise Denson | Traffic Manager | All phases — schedules work, moves files, coordinates vendors |
 
 ---
 

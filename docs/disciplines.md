@@ -84,7 +84,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| Denise Denson | Lead | TBD | TBD | Project Manager / Producer |
+| Denise Denson | Lead | TBD | TBD | Traffic Manager — schedules work, moves files, coordinates vendors |
 
 ---
 
