@@ -8,6 +8,7 @@
 
 | Resource | Link | What It Is |
 |----------|------|------------|
+| ❤️ **Design Brief** | [**docs/design-brief.md**](docs/design-brief.md) | **The heart of the project — written by the requestor. Every creative decision lives here.** |
 | 🗺️ **Game Plan** | [**_NEXT_STEPS.md**](_NEXT_STEPS.md) | **Phased plan with owners, dates, and buffer — start here** |
 | 🎯 Disciplines | [docs/disciplines.md](docs/disciplines.md) | Team roster — who can do what |
 | 📦 Asset Tracker | [assets/asset-tracker.md](assets/asset-tracker.md) | Master deliverable list with owners & deadlines |
