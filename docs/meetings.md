@@ -18,7 +18,7 @@ Get the whole team in the room for the creative foundation. Everyone sees the sa
 ### Pre-work (do this before you show up)
 | Person | Pre-work |
 |--------|----------|
-| Michael | Bring 6-9 visual references — logos, event branding, color palettes that feel right. No concepts yet, just inspiration. |
+| Michael | Bring 6-9 visual references — logos, event branding, color palettes that feel right. No concepts yet, just inspiration. [Logo Inspo Board already started →](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) |
 | Mark | Come with a gut instinct on the feeling you want. What should someone feel the first time they see this logo? |
 | Jeff | Bring 3-5 words or short phrases that capture the brand voice. These inform the visual direction. |
 | Lee | Bring 2-3 references for how the logo might live in context — on a poster, a badge, a screen. |

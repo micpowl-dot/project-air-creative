@@ -14,6 +14,7 @@
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
 | 🤝 Meetings | [docs/meetings.md](docs/meetings.md) | All 6 sessions — purpose, pre-work, agenda, output |
 | 🎨 Brand Guidelines | [docs/brand-guidelines.md](docs/brand-guidelines.md) | Colors, type, logo, visual identity |
+| 🔥 Logo Inspo Board | [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) | Visual references for logo direction |
 | ✍️ Style Guide | [docs/style-guide.md](docs/style-guide.md) | Voice, tone, writing conventions |
 | 📝 Content Strategy | [docs/content-strategy.md](docs/content-strategy.md) | Audience, channels, messaging |
 | 🤖 Working with Claude | [docs/claude-workflow.md](docs/claude-workflow.md) | How to use AI as a team member |
