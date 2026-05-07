@@ -24,6 +24,7 @@
 Start with AI for concept exploration, finish in Illustrator.
 
 1. **Adobe Firefly** — type the vibe ("festival energy, AI, weather, bold, warm") and generate texture and visual language ideas. Use it to find a direction fast, not to make the final logo.
+   → **Logo inspo board (shared):** [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link)
 2. **Midjourney or ChatGPT image gen** — broader concept mood boards. Drop the best ones in a slide and get Mark's direction by May 7 before building anything.
 3. **Adobe Illustrator** — build the actual logo here once direction is confirmed. Vector from day one.
 4. **Coolors.co** — drop your logo color in and it builds a full palette around it. Covers the brand guidelines color section in 10 minutes.
