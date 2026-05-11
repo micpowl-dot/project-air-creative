@@ -21,102 +21,92 @@ Until those two are locked, no posters, badges, swag, or templates should go int
 
 ---
 
+## Program Links
+
+| Resource | Link |
+|----------|------|
+| Brief / Tentative Timeline / Swag Tracker | [Google Sheets](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0) |
+
+---
+
 ## Buffer Rule
 
-Every internal deadline below is set **5 business days before** the hard external deadline. This is non-negotiable — print vendors and production timelines do not flex.
+Every internal deadline below is set with buffer before the hard external deadline. Print vendors do not flex.
 
 | Hard Deadline | Internal Deadline | Buffer |
 |---------------|------------------|--------|
-| Early May (PPT, logo static) | May 9 | Built into Phase 1 |
-| End of May (posters, animation) | May 22 | 7 days |
+| May 12 — Logo Final | May 12 | Same day |
+| May 12 — Style Guide | May 12 | Same day |
+| May 15 — Swag designs to print vendor | May 15 | Same day |
+| May 20 — PPT template | May 20 | Same day |
+| May 20 — Logo animation loop | May 20 | Same day |
+| **May 22 — Atlas print-ready cutoff** | **May 21 review** | 1 day — ⚠️ tight |
+| May 25 — Posters to print vendor *(program date)* | May 22 Atlas cutoff | ⚠️ Conflict — Atlas needs files May 22, not May 25 |
 | June 2 (badges, Tier 1 swag print) | May 27 | 4 business days |
 | June 6 (Tier 2/3 on-site) | June 2 | 2 business days |
+| June 7 — Drop ship to all offices | June 4 | 3 days |
 | **June 9 — AI Day** | June 6 | 3 days |
 
 ---
 
 ## Phase 1 — Brand Foundation
-**Window: May 5–9 | Owner: Michael Powell**
+**Window: May 5–12 | Owner: Michael Powell**
 
 Nothing downstream starts until this phase ships.
 
-> 🤝 **Meeting 1 — Brand Kickoff + Logo Ideation**
-> Thu May 8, 2:00–3:00pm ET (Fri May 9, 10am backup) | Full team
-> Align on creative direction before Michael builds anything. Full brief: [docs/meetings.md](docs/meetings.md)
-
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Logo concepts (2-3 directions) | D3-01 | Michael Powell | May 7 | ⬜ |
-| Logo final — static, all formats | D3-02 | Michael Powell | May 9 | ⬜ |
-| Brand guidelines — colors, fonts, direction | — | Michael Powell | May 9 | ⬜ |
-| Positioning/messaging brief | — | Mark Fredo | May 9 | ⬜ |
+| Logo concepts (2-3 directions) | D3-01 | Michael Powell | May 7 | ✅ |
+| Logo direction sign-off | — | Mark Fredo | May 6 | ✅ |
+| Logo final — static, all formats | D3-02 | Michael / Camille | **May 12** | ⬜ |
+| Style guide | — | Michael / Camille | **May 12** | ⬜ |
 
-**Gate:** Mark Fredo signs off before Phase 2 begins. Denise tracks and schedules the handoff.
+**Gate:** Logo and style guide delivered May 12. Unlocks Phase 2.
 
 ---
 
 ## Phase 2 — Templates & Visual Systems
-**Window: May 9–16 | Unlocked by: Phase 1**
-
-Build the frameworks that all individual assets will be stamped from. Getting these right now means every poster, badge, and swag item is consistent and faster to produce.
-
-> 🤝 **Meeting 2 — Visual Systems Kickoff**
-> Thu May 14, 10:00–11:00am ET | Full team
-> Logo reveal. Lee and Camille get creative direction for all four systems. Full brief: [docs/meetings.md](docs/meetings.md)
-
-> 🤝 **Meeting 3 — Swag + Prompt Card Brainstorm**
-> Mon May 18, 10:00–10:45am ET | Jeff, Camille, Michael
-> Generate swag concepts and prompt card ideas together. Full brief: [docs/meetings.md](docs/meetings.md)
+**Window: May 12–20 | Unlocked by: Phase 1**
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | May 14 | ⬜ |
-| Poster visual system — layout, type, color rules | D1-00 | Lee Payne | May 14 | ⬜ |
-| Badge/lanyard visual system | D2-00 | Camille Nettles | May 14 | ⬜ |
-| Swag visual system | D5-00 | Lee Payne | May 14 | ⬜ |
-| Logo usage guide | D3-04 | Jeff Hampton | May 14 | ⬜ |
-| Copy: badge back content (WiFi, map, QR) | D2-06 | Jeff Hampton | May 14 | ⬜ |
-| Copy: AI prompt card | D5-03 | Jeff Hampton | May 14 | ⬜ |
+| Maigh shares Ambassador list + intl employee numbers for swag | — | Maigh Houlihan | **May 12** | ⬜ |
+| Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ⬜ |
+| Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ⬜ |
+| Swag designs due to print vendors | D5-01–D5-09 | Michael / Camille | **May 15** | ⬜ |
+| Poster visual system — layout, type, color rules | D1-00 | Lee / Michael / Camille | **May 18** | ⬜ |
+| Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
+| Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
+| PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | **May 20** | ⬜ |
+| Badge/lanyard visual system | D2-00 | Camille Nettles | May 20 | ⬜ |
 
-**Gate:** Michael Powell reviews all systems before production sprint begins.
+**Gate:** Visual systems reviewed before poster production begins.
 
 ---
 
 ## Phase 3 — Production Sprint
-**Window: May 14–22 | Unlocked by: Phase 2**
-
-High-volume execution. Lee and Camille run parallel tracks. Jeff supplies copy to design as needed.
-
-> 🤝 **Meeting 4 — Visual Systems Review**
-> Tue May 20, 11:00am–12:00pm ET | Mark, Michael, Lee, Camille
-> All four systems reviewed and approved before production starts. Full brief: [docs/meetings.md](docs/meetings.md)
-
-> 🤝 **Meeting 5 — Mid-Sprint Check-in**
-> Wed May 26, 10:00–10:30am ET | Full team
-> Surface blockers before they become crises. Update the tracker before you show up. Full brief: [docs/meetings.md](docs/meetings.md)
+**Window: May 18–25 | Unlocked by: Phase 2**
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Ambassador posters ×17 | D1-01–D1-17 | Lee Payne + Camille Nettles | May 22 | ⬜ |
-| Executive posters ×4 (Rohit, Matthew, Brian, Dan) | D1-18–D1-21 | Michael Powell | May 22 | ⬜ |
-| Digital adaptations (social/screens) | D1-22 | Lee Payne | May 22 | ⬜ |
-| Presenter badge designs — all tiers | D2-01–D2-05 | Camille Nettles | May 22 | ⬜ |
-| Swag designs — Tier 1 (sticker, notebook, pin) | D5-01–D5-04 | Camille Nettles | May 22 | ⬜ |
-| Swag designs — Tier 2 (t-shirt/hoodie, tote) | D5-05–D5-06 | Lee Payne | May 22 | ⬜ |
-| Tier 2 + 3 sourcing | D5-07–D5-08 | Denise Denson | May 22 | ⬜ |
-| Tier 3 packaging design | D5-09 | Camille Nettles | May 22 | ⬜ |
+| Ambassador posters ×17 | D1-01–D1-17 | Lee Payne + Camille Nettles | **May 21** | ⬜ |
+| Executive posters ×4 | D1-18–D1-21 | Michael / Camille | **May 21** | ⬜ |
+| Presenter badge designs — all tiers | D2-01–D2-05 | Camille Nettles | May 21 | ⬜ |
+| Digital adaptations (social/screens) | D1-22 | Lee Payne | May 21 | ⬜ |
+| Review Ambassador + Executive posters | — | Maigh Houlihan | **May 21** | ⬜ |
+| ⚠️ Ambassador + Executive posters to print vendor | D1-23 | Michael / Camille / Denise | **May 22** *(Atlas cutoff)* | ⬜ |
+
+> **Note:** Program task list shows May 25 as vendor handoff date. Atlas confirmed May 22 as their print-ready cutoff due to Memorial Day. Files must be to Atlas by May 22.
 
 ---
 
-## Phase 4 — Animation & Final Polish
-**Window: May 22–27 | Unlocked by: Phase 3 approvals**
-
-Logo animation can start as soon as D3-02 is approved (Phase 1) — Michael should begin this in parallel with Phase 3 if bandwidth allows.
+## Phase 4 — Print Handoff & Final Polish
+**Window: May 26–June 2 | Unlocked by: Phase 3 approvals**
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Logo animation — 3-5 sec loop, MP4 + GIF | D3-03 | Michael Powell | May 27 | ⬜ |
-| Final poster review pass | D1 | Mark Fredo | May 27 | ⬜ |
+| Badge + lanyard print production | D2-07 | Denise Denson | May 27 | ⬜ |
+| Tier 1 swag production + staging | D5-11 | Denise Denson | May 27 | ⬜ |
 | Final PPT template review | D4 | Mark Fredo | May 27 | ⬜ |
 
 ---
@@ -144,20 +134,18 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
 | Tier 2/3 swag on-site at all venues | D5-12 | Denise Denson | June 4 | ⬜ |
+| Drop ship to all offices | — | Denise Denson | **June 7** | ⬜ |
 
 ---
 
 ## Open Questions
 
-> Decisions that need to be made before the relevant phase starts. Flag blockers here.
-
 | Question | Blocks | Owner | Due |
 |----------|--------|-------|-----|
-| Do we have speaker headshots for all 17 ambassadors? | Phase 3 | Denise Denson *(or delegate — Denise OOO/SOF through May 20)* | May 21 |
-| Who are the 17 ambassadors? Names needed for D1-01–D1-17 | Phase 3 | Denise Denson *(or delegate — Denise OOO/SOF through May 20)* | May 21 |
-| Print vendor selected? | Phase 5 | Denise Denson | May 16 |
-| Swag vendor selected? | Phase 5 | Denise Denson | May 16 |
-| Gemini/AI meeting notes set up for Google Meet? | Ongoing | Michael Powell | May 9 |
+| ⚠️ Poster vendor date conflict: Atlas says May 22, program list says May 25 — which is correct? | Phase 3 | Michael / Denise | May 12 |
+| Badges + lanyards vendor — Atlas can't do branded lanyards, need new vendor | Phase 4 | Denise / Michael | May 16 |
+| Swag vendor — not yet confirmed | Phase 5 | Denise | May 16 |
+| International employee numbers for swag — Maigh to provide | Phase 2 | Maigh Houlihan | May 12 |
 
 ---
 
@@ -174,4 +162,4 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 
 ---
 
-*Last updated: 2026-05-05*
+*Last updated: 2026-05-07*

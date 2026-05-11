@@ -10,6 +10,7 @@
 |----------|------|------------|
 | ❤️ **Design Brief** | [**docs/design-brief.md**](docs/design-brief.md) | **The heart of the project — written by the requestor. Every creative decision lives here.** |
 | 🗺️ **Game Plan** | [**_NEXT_STEPS.md**](_NEXT_STEPS.md) | **Phased plan with owners, dates, and buffer — start here** |
+| 📊 **Program Tracker** | [**Google Sheets — Brief / Timeline / Swag Tracker**](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0) | **Client-side master tracker — source of truth for dates and swag** |
 | 🎯 Disciplines | [docs/disciplines.md](docs/disciplines.md) | Team roster — who can do what |
 | 📦 Asset Tracker | [assets/asset-tracker.md](assets/asset-tracker.md) | Master deliverable list with owners & deadlines |
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
@@ -111,6 +112,7 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 | Date | What Changed | Where |
 |------|-------------|-------|
+| 2026-05-11 | Program task list synced — new dates, Maigh handling headshots (×21), Google Sheets link added | [_NEXT_STEPS.md](_NEXT_STEPS.md) |
 | 2026-05-11 | **⚠️ Atlas confirmed May 22 print deadline — not May 26. Poster review must move up.** | [docs/vendors.md](docs/vendors.md) |
 | 2026-05-11 | Atlas Print Solutions confirmed for posters + stickers. Badges/lanyards vendor still needed. | [docs/vendors.md](docs/vendors.md) |
 | 2026-05-11 | **Logo approved — all production files added to repo** | [assets/logo/](assets/logo/) |
