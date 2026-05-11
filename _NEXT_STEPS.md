@@ -70,7 +70,7 @@ Nothing downstream starts until this phase ships.
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Maigh shares Ambassador list + intl employee numbers for swag | — | Maigh Houlihan | **May 12** | ⬜ |
+| Ambassador list + intl employee numbers for swag | — | ⚠️ TBD — unassigned | **May 12** | ⬜ |
 | Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ⬜ |
 | Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ⬜ |
 | Swag designs due to print vendors | D5-01–D5-09 | Michael / Camille | **May 15** | ⬜ |
@@ -145,7 +145,7 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | ⚠️ Poster vendor date conflict: Atlas says May 22, program list says May 25 — which is correct? | Phase 3 | Michael / Denise | May 12 |
 | Badges + lanyards vendor — Atlas can't do branded lanyards, need new vendor | Phase 4 | Denise / Michael | May 16 |
 | Swag vendor — not yet confirmed | Phase 5 | Denise | May 16 |
-| International employee numbers for swag — Maigh to provide | Phase 2 | Maigh Houlihan | May 12 |
+| Ambassador list + international employee numbers for swag — who owns this? | Phase 2 | ⚠️ Unassigned | May 12 |
 
 ---
 
