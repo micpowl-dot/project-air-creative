@@ -5,6 +5,20 @@
 
 ---
 
+## Current Direction — Read This First
+
+> Last updated: 2026-05-07. Full detail: [decisions/DEC-001-creative-direction.md](../../decisions/DEC-001-creative-direction.md)
+
+**Look and feel is set.** Base the entire visual system on the logo presentation: `assets/templates/logo-presentation.pptx`. Near-black, cream, amber accent. Arc patterns. Bold type.
+
+**Illustration style: Spotify Wrapped geometric patterns.** Concentric circles, arc stripes, dot grids, bold stripe fields. These are backgrounds and texture elements — not decorative flourishes. See `docs/brand-guidelines.md` for the Figma reference link.
+
+**Color will expand — but not yet.** A vibrant festival palette (magentas, cyans, purples) is coming after logo is approved. Build your systems in the base four colors and leave room for it to land.
+
+**Fonts locked:** Century Gothic for headlines, IBM Plex Sans for body. Both are in the PPT template already.
+
+---
+
 ## My Execution Plan
 
 ### Task Overview

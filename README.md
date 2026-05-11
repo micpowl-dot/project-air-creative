@@ -104,6 +104,22 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 ---
 
+## What's New
+
+> Latest changes — most recent first. Update this section with every meaningful commit.
+
+| Date | What Changed | Where |
+|------|-------------|-------|
+| 2026-05-11 | **Logo approved — all production files added to repo** | [assets/logo/](assets/logo/) |
+| 2026-05-07 | Creative direction locked: Wrapped geometric patterns, expanded festival color direction, Century Gothic + IBM Plex Sans | [DEC-001](decisions/DEC-001-creative-direction.md) |
+| 2026-05-07 | Brand guidelines updated with base palette, type, illustration direction | [docs/brand-guidelines.md](docs/brand-guidelines.md) |
+| 2026-05-07 | Decision handoff process established | [decisions/PROCESS.md](decisions/PROCESS.md) |
+| 2026-05-07 | Lee and Camille notes updated with current direction | [team/lee-payne/](team/lee-payne/) · [team/camille-nettles/](team/camille-nettles/) |
+| 2026-05-07 | Timeline updated to match PDF — new hard dates | [_NEXT_STEPS.md](_NEXT_STEPS.md) · [docs/campaign-calendar.md](docs/campaign-calendar.md) |
+| 2026-05-07 | Logo presentation built and saved | [assets/templates/logo-presentation.pptx](assets/templates/logo-presentation.pptx) |
+
+---
+
 > *This conference is brought to you by AI. So is this repo.*
 
-*Last updated: 2026-05-05 — _NEXT_STEPS.md added*
+*Last updated: 2026-05-07*
