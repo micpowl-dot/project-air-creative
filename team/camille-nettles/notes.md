@@ -11,7 +11,7 @@
 
 **Look and feel is set.** Base the entire visual system on the logo presentation: `assets/templates/logo-presentation.pptx`. Near-black, cream, amber accent. Arc patterns. Bold type.
 
-**Illustration style: Spotify Wrapped geometric patterns.** Concentric circles, arc stripes, dot grids, bold stripe fields. These are backgrounds and texture elements — not decorative flourishes. See `docs/brand-guidelines.md` for the Figma reference link.
+**Illustration style: Spotify Wrapped geometric patterns.** Concentric circles, arc stripes, dot grids, bold stripe fields. These are backgrounds and texture elements — not decorative flourishes. Figma reference: https://www.figma.com/community/file/1580122793950964435
 
 **Color will expand — but not yet.** A vibrant festival palette (magentas, cyans, purples) is coming after logo is approved. Build your systems in the base four colors and leave room for it to land.
 

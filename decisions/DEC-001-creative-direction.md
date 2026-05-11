@@ -42,7 +42,7 @@ The primary illustration style for the event system is geometric patterns — th
 - Badges: use a simplified pattern as a lanyard or badge background element
 - Swag: stickers and pins can use a single pattern motif as the primary graphic
 
-**The Wrapped Figma is the reference.** Link is in `docs/brand-guidelines.md` under Visual References. If the link is not live yet, ask Michael.
+**The Wrapped Figma is the reference:** https://www.figma.com/community/file/1580122793950964435
 
 **What NOT to do:** gradient blobs, organic shapes, illustrated characters, anything that reads as "tech startup" or AI cliche (circuit boards, neural network nodes, glowing orbs).
 
