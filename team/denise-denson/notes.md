@@ -105,12 +105,15 @@ Tier 2/3 swag needs to be on-site at all venues by June 6.
 
 ## Vendors
 
-*Add confirmed vendor contacts here as they are locked in.*
+Full detail: [docs/vendors.md](../../docs/vendors.md)
 
 | Vendor | Type | Contact | Status |
 |--------|------|---------|--------|
-| | Large-format print | | ⬜ |
-| | Swag / merchandise | | ⬜ |
+| Atlas Print Solutions | Large-format posters + stickers | Lorena Salcedo — lorena@atlasprintsolutions.com / 917-863-3469 | ✅ Confirmed |
+| TBD | Badges + branded lanyards | — | ⬜ Urgent — needed this week |
+| TBD | Swag / merchandise | — | ⬜ Needed by May 16 |
+
+> ⚠️ **Atlas print-ready deadline is May 22, not May 26.** Memorial Day weekend. Internal review must happen before May 22.
 
 ---
 

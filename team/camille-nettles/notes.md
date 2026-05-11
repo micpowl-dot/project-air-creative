@@ -5,6 +5,21 @@
 
 ---
 
+## ⚠️ Action Items — Week of May 11 (Denise OOO)
+
+Denise is on PTO this week. You and Michael are primary contacts for Atlas Print Solutions.
+
+| Action | Detail | Due |
+|--------|--------|-----|
+| Send poster sizes to Lorena at Atlas | lorena@atlasprintsolutions.com / 917-863-3469 — she needs dimensions + quantity to issue a quote | ASAP |
+| Send sticker size to Lorena | Die-cut, laptop-worthy, 830 qty | ASAP |
+| Confirm delivery addresses | Brookhaven, NY, Andover — ask Michael about Seoul + Birmingham | ASAP |
+| Find badges + lanyards vendor | Atlas can't do branded lanyards — need a new vendor for both | This week |
+
+> **Print-ready files to Atlas due May 22** — not May 26. Memorial Day moves the deadline up. Full vendor info: [docs/vendors.md](../../docs/vendors.md)
+
+---
+
 ## Current Direction — Read This First
 
 > Last updated: 2026-05-07. Full detail: [decisions/DEC-001-creative-direction.md](../../decisions/DEC-001-creative-direction.md)
