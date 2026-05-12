@@ -21,6 +21,7 @@
 | ✍️ Style Guide | [docs/style-guide.md](docs/style-guide.md) | Voice, tone, writing conventions |
 | 📝 Content Strategy | [docs/content-strategy.md](docs/content-strategy.md) | Audience, channels, messaging |
 | 🤖 Working with Claude | [docs/claude-workflow.md](docs/claude-workflow.md) | How to use AI as a team member |
+| 🎨 Figma Setup | [docs/figma-setup.md](docs/figma-setup.md) | Connect Figma to Claude Code with read/write access |
 | 📅 Google Calendar Setup | [docs/google-calendar-setup.md](docs/google-calendar-setup.md) | How to create team calendar invites via Claude — reusable for any project |
 | 📁 Brief Template | [assets/templates/content-brief-template.md](assets/templates/content-brief-template.md) | Blank brief for new assets |
 | 📓 Decision Log | [decisions/](decisions/) | Key decisions and rationale |
