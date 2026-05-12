@@ -98,6 +98,7 @@ Full usage rules: [assets/logo/README.md](../assets/logo/README.md)
 |----------|------|-------|
 | Logo Inspo Board | [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) | Michael's visual references for logo direction — shared at Meeting 1 |
 | Spotify Wrapped Figma | [figma.com/community/file/1580122793950964435](https://www.figma.com/community/file/1580122793950964435) | Primary illustration reference — geometric pattern tiles, color blocking, type scale. Use for pattern system and color expansion direction. |
+| **Project AIR Component Library** | [figma.com/design/aA0XvBM7frH7uFqnUc2Xn1](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) | **Our Figma library — colors, type, logo, patterns, components. Subscribe to this in every working file.** |
 | Logo Presentation | `assets/templates/logo-presentation.pptx` | Established look and feel — base palette, arc pattern system, typography |
 
 ---

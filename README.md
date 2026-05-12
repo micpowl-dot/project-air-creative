@@ -16,6 +16,7 @@
 | 📅 Campaign Calendar | [docs/campaign-calendar.md](docs/campaign-calendar.md) | Week-by-week timeline |
 | 🤝 Meetings | [docs/meetings.md](docs/meetings.md) | All 6 sessions — purpose, pre-work, agenda, output |
 | 🎨 Brand Guidelines | [docs/brand-guidelines.md](docs/brand-guidelines.md) | Colors, type, logo, visual identity |
+| 🖼️ **Figma Component Library** | [**Open in Figma**](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) | **Subscribe to this in every working file** |
 | 🏭 Vendors | [docs/vendors.md](docs/vendors.md) | Confirmed vendors, contacts, scope, deadlines |
 | 🔥 Logo Inspo Board | [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) | Visual references for logo direction |
 | ✍️ Style Guide | [docs/style-guide.md](docs/style-guide.md) | Voice, tone, writing conventions |
@@ -113,6 +114,7 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 | Date | What Changed | Where |
 |------|-------------|-------|
+| 2026-05-12 | **Figma component library created** — colors, type, logo, patterns, components | [Open in Figma](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) |
 | 2026-05-11 | Program task list synced — new dates, Maigh handling headshots (×21), Google Sheets link added | [_NEXT_STEPS.md](_NEXT_STEPS.md) |
 | 2026-05-11 | **⚠️ Atlas confirmed May 22 print deadline — not May 26. Poster review must move up.** | [docs/vendors.md](docs/vendors.md) |
 | 2026-05-11 | Atlas Print Solutions confirmed for posters + stickers. Badges/lanyards vendor still needed. | [docs/vendors.md](docs/vendors.md) |
