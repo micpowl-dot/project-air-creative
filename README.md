@@ -18,6 +18,7 @@
 | 🎨 Brand Guidelines | [docs/brand-guidelines.md](docs/brand-guidelines.md) | Colors, type, logo, visual identity |
 | 🖼️ **Figma Component Library** | [**Open in Figma**](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) | **Subscribe to this in every working file** |
 | 🏭 Vendors | [docs/vendors.md](docs/vendors.md) | Confirmed vendors, contacts, scope, deadlines |
+| 🎁 Swag Overview | [docs/swag-overview.md](docs/swag-overview.md) | Canary catalog by tier — quantities and open decisions |
 | 🔥 Logo Inspo Board | [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) | Visual references for logo direction |
 | ✍️ Style Guide | [docs/style-guide.md](docs/style-guide.md) | Voice, tone, writing conventions |
 | 📝 Content Strategy | [docs/content-strategy.md](docs/content-strategy.md) | Audience, channels, messaging |
@@ -114,6 +115,8 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 | Date | What Changed | Where |
 |------|-------------|-------|
+| 2026-05-13 | **Canary swag catalog added** — full Tier 1/2/3 catalog PDF + overview doc with quantities and open decisions | [docs/swag-overview.md](docs/swag-overview.md) · [PDF](assets/vendors/canary-swag-catalog.pdf) |
+| 2026-05-13 | **Canary confirmed for lanyards + swag** — resolves Atlas lanyard gap; proposal received, awaiting order confirmation | [docs/vendors.md](docs/vendors.md) |
 | 2026-05-12 | **Figma component library created** — colors, type, logo, patterns, components | [Open in Figma](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) |
 | 2026-05-11 | Program task list synced — new dates, Maigh handling headshots (×21), Google Sheets link added | [_NEXT_STEPS.md](_NEXT_STEPS.md) |
 | 2026-05-11 | **⚠️ Atlas confirmed May 22 print deadline — not May 26. Poster review must move up.** | [docs/vendors.md](docs/vendors.md) |
@@ -130,4 +133,4 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 > *This conference is brought to you by AI. So is this repo.*
 
-*Last updated: 2026-05-07*
+*Last updated: 2026-05-13*

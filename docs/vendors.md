@@ -57,29 +57,39 @@ This conflicts with the current plan (May 26 vendor handoff). The reason is Memo
 
 ---
 
-## Badges + Lanyards Vendor — NEEDED
+## Canary LLC — PROPOSED (Lanyards + Swag + Badges)
 
-**Status: No vendor selected.** Atlas cannot do branded lanyards. Denise's decision (May 11): move both badges and lanyards to a separate vendor.
+**Status: Proposal received. Awaiting order confirmation from Denise.**
 
-| | |
-|--|--|
-| **Contact** | TBD |
-| **Scope** | Custom branded lanyard + double-sided badge, all tiers |
-| **Quantity** | ~830 badges, lanyard qty TBD |
-| **Due** | Vendor confirmed by May 16 *(now urgent — Denise OOO)* |
-
-**Whoever picks this up:** find a vendor that can do fully custom-printed lanyards (not clip-in inserts) and double-sided badge printing. Sticker Mule, Swag.com, or a dedicated badge vendor are starting points.
-
----
-
-## Swag Vendor — NEEDED
-
-**Status: No vendor selected.**
+Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves the Atlas lanyard gap. They are also the proposed vendor for all Tier 1/2/3 swag items.
 
 | | |
 |--|--|
-| **Scope** | Tier 1 items: notebooks, enamel pins, AI prompt cards (~830 each) / Tier 2–3: apparel, premium items |
-| **Due** | Vendor confirmed by May 16 *(now urgent — Denise OOO)* |
+| **Contact** | TBD — Denise to confirm rep |
+| **Website** | canarymarketing.com |
+| **Scope** | Branded lanyards, badge holders, notebooks, pins, pens, apparel, premium items (Tiers 1–3) |
+| **Lead time** | ~2 weeks per item |
+| **Catalog** | [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf) |
+| **Overview + quantities** | [`docs/swag-overview.md`](swag-overview.md) |
+
+### What They're Handling (Pending Confirmation)
+
+| Tier | Items | Qty | Design Due |
+|------|-------|-----|-----------|
+| Tier 1 | Branded lanyards (or lanyard+badge combo), notebooks/folios, pins, pens, stickers | 830 | **May 15** |
+| Tier 2 | Apparel, bottles/tumblers, tech accessories | ~25 | **May 15** |
+| Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
+
+### Open Action Items
+
+| Action | Owner | Due |
+|--------|-------|-----|
+| Confirm order with Canary rep | Denise / Michael | May 15 |
+| Choose Tier 1 items (which and how many) | Michael / Camille / Mark | ASAP |
+| Choose Tier 2 selections | Michael / Camille | ASAP |
+| Choose Tier 3 selections | Michael / Mark | ASAP |
+| Provide size breakdown for apparel (Tier 2) | Maigh / Denise | May 15 |
+| Confirm if posters + stickers stay with Atlas or split to Canary | Michael / Denise | ASAP |
 
 ---
 
