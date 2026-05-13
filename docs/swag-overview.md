@@ -99,6 +99,8 @@ Tier 3 applies regardless of which plan is chosen. These are prize/recognition i
 
 ## Lanyards + Badges — Deliverable 2 (Separate from Swag)
 
+**Decision: Lanyards for 25 presenters only. General attendees do not get lanyards.**
+
 Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-sublimated lanyards, which resolves the Atlas gap.
 
 | Badge Tier | Who | Qty | Canary Option | Unit Price | Total |
@@ -107,9 +109,7 @@ Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-su
 | Executive Speakers | Rohit, Matthew, Brian, Dan | 4 | Dye-sub + ID badge combo | $7.00 | $28 |
 | Ambassadors | 17 session leads | 17 | Dye-sub + ID badge combo | $7.00 | $119 |
 | Site Leads | Andover, Birmingham, Seoul | 3 | Dye-sub + ID badge combo | $7.00 | $21 |
-| **Total presenter lanyards** | | **25** | | | **~$172 + $150 setup** |
-
-> If general attendees also need a lanyard: 600 × $3.50 = $2,250 + $150 setup. Confirm scope with Maigh.
+| **Total** | | **25** | | | **~$172 + $150 setup** |
 
 ---
 
@@ -134,7 +134,8 @@ Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-su
 3. **Apparel sizing:** S/M/L/XL/2XL breakdown needed from Maigh/Denise for the 25 Tier 2 recipients.
 4. **Tier 3 mechanics:** Which engagement mechanics are running? How many winners per venue?
 5. **Sticker source:** Stay with Atlas or consolidate to Canary?
-6. **Lanyard scope for general attendees:** 600 lanyards or presenter-only?
+
+> ~~Lanyard scope~~ — **Resolved: 25 presenters only. General attendees do not get lanyards.**
 
 ---
 

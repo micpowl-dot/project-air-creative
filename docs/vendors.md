@@ -76,7 +76,8 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 
 | Tier | Items | Qty | Design Due |
 |------|-------|-----|-----------|
-| Tier 1 | Branded lanyards (or lanyard+badge combo), notebooks/folios, pins, pens, stickers | 600 | **May 15** |
+| D2 (Lanyards) | Branded dye-sub lanyards + ID badge combo — **25 presenters only** | 25 | **May 15** |
+| Tier 1 (if Plan B) | Notebooks, pins, pens, stickers | 600 | **May 15** |
 | Tier 2 | Apparel, bottles/tumblers, tech accessories | ~25 | **May 15** |
 | Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
 
