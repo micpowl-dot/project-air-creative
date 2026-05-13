@@ -31,7 +31,7 @@ This conflicts with the current plan (May 26 vendor handoff). The reason is Memo
 | Item | Quantity | Status |
 |------|----------|--------|
 | Ambassador & Executive posters — large format | ~21 per office, ~63 total | Confirmed in scope |
-| Project AIR sticker — die-cut, laptop-worthy | 830 | Confirmed in scope |
+| Project AIR sticker — die-cut, laptop-worthy | 600 (North American attendees) | Confirmed in scope |
 
 ### What They Are NOT Handling
 
@@ -76,7 +76,7 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 
 | Tier | Items | Qty | Design Due |
 |------|-------|-----|-----------|
-| Tier 1 | Branded lanyards (or lanyard+badge combo), notebooks/folios, pins, pens, stickers | 830 | **May 15** |
+| Tier 1 | Branded lanyards (or lanyard+badge combo), notebooks/folios, pins, pens, stickers | 600 | **May 15** |
 | Tier 2 | Apparel, bottles/tumblers, tech accessories | ~25 | **May 15** |
 | Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
 

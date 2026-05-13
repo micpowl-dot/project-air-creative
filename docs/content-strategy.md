@@ -8,7 +8,7 @@
 
 ## Target Audience
 
-~830 TWCo employees: meteorologists, sales, finance, HR, legal, engineering. Most have never sent an AI prompt.
+~600 North American TWCo employees (830 total including international): meteorologists, sales, finance, HR, legal, engineering. Most have never sent an AI prompt.
 
 ## Key Messages
 

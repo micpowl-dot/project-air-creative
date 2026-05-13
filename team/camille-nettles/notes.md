@@ -12,7 +12,7 @@ Denise is on PTO this week. You and Michael are primary contacts for Atlas Print
 | Action | Detail | Due |
 |--------|--------|-----|
 | Send poster sizes to Lorena at Atlas | lorena@atlasprintsolutions.com / 917-863-3469 — she needs dimensions + quantity to issue a quote | ASAP |
-| Send sticker size to Lorena | Die-cut, laptop-worthy, 830 qty | ASAP |
+| Send sticker size to Lorena | Die-cut, laptop-worthy, 600 qty (North American attendees) | ASAP |
 | Confirm delivery addresses | Brookhaven, NY, Andover — ask Michael about Seoul + Birmingham | ASAP |
 | Find badges + lanyards vendor | Atlas can't do branded lanyards — need a new vendor for both | This week |
 
@@ -89,7 +89,7 @@ You and Lee are splitting the 17 ambassador posters. Work from Lee's poster temp
 
 ### Phase 3 — Tier 1 Swag + Tier 3 Packaging (May 14–22)
 
-Four Tier 1 items going to 830 people each. These need to feel premium and intentional, not afterthought merch.
+Tier 1 items going to 600 North American attendees each. These need to feel premium and intentional, not afterthought merch.
 
 **Sticker (D5-01):**
 - Bold, simple, works at 2–3 inches. Die-cut shapes read better than rectangles.

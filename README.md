@@ -36,7 +36,7 @@
 **Event:** AI Day — June 9, 2026
 **Program:** Project AIR: AI in Reach
 **Client:** The Weather Company
-**Audience:** ~830 employees and contractors
+**Audience:** ~600 North American employees (830 total including international)
 **Venues:** Brookhaven HQ (Atlanta) + Andover, Birmingham UK, Seoul, New York
 **Vibe:** SXSW meets Coachella — festival energy, not corporate energy
 

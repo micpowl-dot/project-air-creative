@@ -124,7 +124,7 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 |------|----|-------|-------------|--------|
 | Large-format poster print — vendor handoff | D1-23 | Denise Denson | May 27 | ⬜ |
 | Badge + lanyard print production | D2-07 | Denise Denson | May 27 | ⬜ |
-| Tier 1 swag production + staging (×830) | D5-11 | Denise Denson | May 27 | ⬜ |
+| Tier 1 swag production + staging (×600 North American) | D5-11 | Denise Denson | May 27 | ⬜ |
 
 ---
 

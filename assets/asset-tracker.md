@@ -87,10 +87,10 @@
 | # | Asset | Tier | Owner | Deadline | Status | Notes |
 |---|-------|------|-------|----------|--------|-------|
 | D5-00 | Swag visual system | All | — | Mid May | ⬜ | |
-| D5-01 | Sticker design | Tier 1 ×830 | — | Mid May | ⬜ | |
-| D5-02 | Notebook design | Tier 1 ×830 | — | Mid May | ⬜ | |
-| D5-03 | AI prompt card | Tier 1 ×830 | — | Mid May | ⬜ | |
-| D5-04 | Enamel pin design | Tier 1 ×830 | — | Mid May | ⬜ | |
+| D5-01 | Sticker design | Tier 1 ×600 | — | Mid May | ⬜ | |
+| D5-02 | Notebook design | Tier 1 ×600 | — | Mid May | ⬜ | |
+| D5-03 | AI prompt card | Tier 1 ×600 | — | Mid May | ⬜ | |
+| D5-04 | Enamel pin design | Tier 1 ×600 | — | Mid May | ⬜ | |
 | D5-05 | T-shirt/hoodie | Tier 2 ~25 | — | Mid May | ⬜ | |
 | D5-06 | Tote bag design | Tier 2 ~25 | — | Mid May | ⬜ | |
 | D5-07 | Tier 2 sourcing | Tier 2 ~25 | — | Mid May | ⬜ | |
