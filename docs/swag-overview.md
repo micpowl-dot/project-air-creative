@@ -1,104 +1,130 @@
 # Swag Overview — Project AIR
 
 > Source: Canary LLC proposal — full catalog at [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf)
-> Contact: canarymarketing.com
-> Lead time: ~2 weeks per item. **Designs must be approved and submitted before May 15.**
+> Brief: [`docs/design-brief.md`](design-brief.md) — Deliverable 5, Tiers 1–3
+> All quantities are sourced directly from the brief. Canary lead time: ~2 weeks. Design deadline: **May 15.**
 
 ---
 
-## What We Need to Decide
+## Quantities — Straight from the Brief
 
-Before this goes to Camille and the vendor for final order, the team needs to answer:
-
-1. **Which Tier 1 items are we ordering?** (we may not do all of them — see notes below)
-2. **Final head count confirmed at 830?** International locations add complexity for sizing/shipping.
-3. **Tier 2 quantities:** How many per office? Who gets what? Need a distribution list.
-4. **Tier 3:** Is this one per venue, or is it a raffle/prize draw? Need a decision from Mark/Michael.
-5. **Lanyard decision:** Full branded dye-sub ($3.50) or lanyard + badge holder combo ($7.00)?
-6. **Apparel sizing:** Tier 2 hoodies and tees need a size breakdown before order can be placed.
+| Tier | Who | Count | Source |
+|------|-----|-------|--------|
+| Tier 1 | All attendees | **830** | "approximately 830 employees and contractors" |
+| Tier 2 | Presenters, Ambassadors, site leads | **25** | Program Lead (1) + Exec Speakers (4) + Ambassadors (17) + Site Leads (3) |
+| Tier 3 | Above and beyond — Bingo winners, AI Helped Me wall, standout engagement | **TBD** | Event-driven; plan for **10–20** (2 per venue is a safe floor) |
 
 ---
 
-## Tier 1 — Event Items (830 units, all attendees)
+## Lanyards + Badges — Deliverable 2 (Separate from Swag)
 
-All setup fees are $150 per item, one-time.
+The brief scopes lanyards and badges as Deliverable 2, distinct from the swag tiers. The brief specifies four badge tiers with distinct designs:
 
-| Item | Unit Price | Est. Total (830 units) | Notes |
-|------|-----------|----------------------|-------|
-| Ambassador & Executive Posters 24×36 | $25.00 | ~$1,725 (63 units) | Atlas is handling these — NOT Canary |
-| Branded Lanyard — dye-sublimated | $3.50 | $3,055 + $150 setup | **Canary CAN do this — Atlas cannot. This is the lanyard solution.** |
-| Lanyard + ID Badge Holder combo | $7.00 | $5,960 + $150 setup | Replaces separate lanyard + badge if we want an integrated unit |
-| 3/4" Nylon Lanyard (budget option) | $1.50 | $1,395 + $150 setup | Plain style, lower cost — not recommended for this event |
-| Project AIR Sticker — 2"×2" die-cut | $2.00 | $1,810 + $150 setup | Atlas is handling these — confirm if we want Canary as backup |
-| Branded Notebook — pocket-sized | $12.00 | $10,110 + $150 setup | Good Tier 1 gift, practical |
-| Cardstock Folio | $7.00 | $5,960 + $150 setup | Higher-end feel, useful for sessions |
-| Custom Printed Pin | $5.00 | $4,300 + $150 setup | Collectible/wearable — fits the festival vibe |
-| Jotter Pen — gel | $1.70 | $1,561 + $150 setup | Utility item — pair with notebook or folio |
+| Badge Tier | Who | Quantity |
+|-----------|-----|---------|
+| Program Lead | Maigh Houlihan | 1 |
+| Executive Speakers | Rohit, Matthew, Brian, Dan | 4 |
+| Ambassadors | 17 internal session leads | 17 |
+| Site Leads | Andover, Birmingham UK, Seoul | 3 |
+| **Total D2 (special badges)** | | **25** |
 
-**Tier 1 priorities to confirm:**
-- Lanyard type: full branded dye-sub ($3.50) OR combo with badge holder ($7.00) OR budget nylon ($1.50)
-- Are we doing notebooks? Folios? Or both? Probably pick one.
-- Pin is optional but on-brand for festival energy.
-- Posters and stickers are already with Atlas — don't double-order.
+**Open question:** Do all 830 attendees get a general lanyard, or only the 25 presenters? The brief says "general participant badges" are a thing (Ambassador badges must look different from them), but D2 as scoped is only the 25 presenter-tier badges. **Confirm with Maigh or Mark before ordering.**
+
+**If all 830 get lanyards:** Order 830 dye-sub lanyards from Canary.
+**If only presenters:** Order 25 premium lanyards from Canary with two different designs (presenter vs. executive).
 
 ---
 
-## Tier 2 — Office/Ambassador Items (~25 units, delivered to offices)
+## Tier 1 — All 830 Attendees
 
-All setup fees are $150 per item, one-time.
+Items from the brief, mapped to Canary catalog.
 
-| Item | Unit Price | Est. Total (25 units) | Notes |
-|------|-----------|---------------------|-------|
-| Relax Hoodie | $50.00 | $1,400 + $150 setup | Need size breakdown |
-| Classic Tee | $27.00 | $825 + $150 setup | Need size breakdown |
-| LARQ Bottle 25oz | $69.00 | $1,875 + $150 setup | Premium — fits Tier 2 |
-| Fellow Carter Tumbler 20oz | $58.00 | $1,600 + $150 setup | Premium — strong option |
-| Ocean Bottle 34oz | $56.00 | $1,550 + $150 setup | Eco angle |
-| PopSocket MagSafe PowerPack | $53.00 | $1,475 + $150 setup | Tech-adjacent — good fit |
-| iGo Charger 3,000mAh | $27.00 | $825 + $150 setup | Budget power bank option |
-| iGo Plus 5,000mAh | $40.00 | $1,150 + $150 setup | Better power bank option |
-| Shoulder Tote | $22.00 | $700 + $150 setup | Light bag option |
-| Cotton Canvas Jumbo Tote | $17.00 | $575 + $150 setup | Budget bag |
-| Canvas Heavy Jacket | $100.00 | $2,650 + $150 setup | High-end apparel |
-| Canvas Heavy Vest | $100.00 | $2,650 + $150 setup | High-end apparel |
+| Brief Item | Canary Item | Unit Price | Total (830) | Notes |
+|-----------|-------------|-----------|-------------|-------|
+| Project AIR sticker, die-cut | Canary: Project AIR Sticker 2"×2" die-cut | $2.00 | $1,810 + $150 setup | Atlas may also handle — confirm split or consolidate |
+| Branded notebook, pocket-sized | Canary: Branded Notebook | $12.00 | $10,110 + $150 setup | Strong Tier 1 item — practical, brandable |
+| AI prompt card (laminated, 5 prompts) | **NOT IN CANARY CATALOG** | — | — | Needs separate sourcing — Moo, Sticker Mule, or local print |
+| Custom enamel pin | Canary: Custom Printed Pin | $5.00 | $4,300 + $150 setup | Fits festival identity — wearable brand impression |
+| Branded pen or stylus | Canary: Jotter Pen (gel) | $1.70 | $1,561 + $150 setup | Pairs with notebook |
 
-**Tier 2 priorities to confirm:**
-- Outerwear (jacket or vest) is the premium signal — but $100/unit × 25 is $2,800 total. Is that in budget?
-- Bottles/tumblers are safest choice — no sizing, universally useful.
-- PowerPack is creative-director-appropriate and tech-forward without being cliche.
-- Pick 2-3 items max for Tier 2 — we don't need to order everything.
+**Tier 1 estimated total** (all 5 items, 830 units): ~$18,000 + setup fees
+**If trimmed to notebook + pin + pen only:** ~$16,000 + setup fees
+
+> The brief says "ideas for items" — this is not a fixed list. Confirm with Mark/Maigh which items to actually order.
 
 ---
 
-## Tier 3 — Special Giveaways (1-2 units, prizes or VIP)
+## Tier 2 — 25 Presenters, Ambassadors, Site Leads
 
-All setup fees are $150 per item, one-time.
+Items from the brief, mapped to Canary catalog.
 
-| Item | Unit Price | Notes |
-|------|-----------|-------|
-| Queen Blanket Chenilla Classic | $281.50 | Luxury/premium |
-| TheraFace Depuffing Wand | $225.50 | Wellness angle |
-| Rains Backpack | $140.00 | Premium bag |
-| Loop Earplugs | $120.00 | Fits the festival vibe — standout item |
-| Sonos Roam 2 Speaker | $285.75 | Tech — speaker for the speaker |
+| Brief Item | Canary Item | Unit Price | Total (25) | Notes |
+|-----------|-------------|-----------|------------|-------|
+| Custom t-shirt or hoodie | Canary: Relax Hoodie ($50) or Classic Tee ($27) | $27–$50 | $825–$1,400 + $150 setup | **Need size breakdown before order** — S/M/L/XL/2XL split |
+| Premium water bottle or tumbler | Canary: Fellow Carter Tumbler 20oz | $58.00 | $1,600 + $150 setup | Best option — premium feel, widely recognized brand |
+| | Canary: LARQ Bottle 25oz | $69.00 | $1,875 + $150 setup | Self-cleaning, higher-end — pick one bottle |
+| Branded wireless charging pad | **NOT IN CANARY CATALOG** | — | — | Canary has a MagSafe PowerPack ($53) — different item. Charging pad needs separate sourcing. |
+| Custom tote bag | Canary: Shoulder Tote | $22.00 | $700 + $150 setup | Festival-style, lighter |
+| | Canary: Cotton Canvas Jumbo Tote | $17.00 | $575 + $150 setup | Bigger, more utilitarian |
 
-**Tier 3 priorities to confirm:**
-- Is this a raffle/prize at the event, or a VIP gift for specific people?
-- How many total units? 1 per venue (×5), or 1 total per item?
-- Loop Earplugs are unexpectedly on-brand for a festival-themed event.
-- Sonos speaker is a strong "wow" moment for a winner or keynote speaker gift.
+**Recommended Tier 2 package:** Hoodie + tumbler + tote = ~$3,825 + setup for 25 units
+
+> Tier 2 items can also include a Tier 1 package. Brief says: "Tier 2 items can include a Tier 1 item as part of the package."
 
 ---
 
-## Lead Times and Order Deadlines
+## Tier 3 — Above and Beyond (Event-Driven, Plan for 10–20)
 
-| Tier | Quantity | Design Due | Order Due | In-Hand By |
-|------|----------|-----------|-----------|-----------|
-| Tier 1 | 830 | **May 15** | May 15 | June 2 |
-| Tier 2 | ~25 | May 15 | May 15 | June 6 |
-| Tier 3 | 1-5 | May 15 | May 15 | June 6 |
+Items from the brief, mapped to Canary catalog.
 
-All estimates based on ~2-week Canary lead time. Earlier is better.
+| Brief Item | Canary Item | Unit Price | Notes |
+|-----------|-------------|-----------|-------|
+| Noise-cancelling earbuds or headphones | **NOT IN CANARY CATALOG** | — | Loop Earplugs ($120) are ear protection, not earbuds. Source earbuds separately — Sony, Jabra, Apple. |
+| Premium backpack or messenger bag | Canary: Rains Backpack | $140.00 | Strong option — clean, premium brand |
+| High-end portable speaker | Canary: Sonos Roam 2 | $285.75 | Standout prize item |
+| Custom jacket or vest (limited edition) | Canary: Canvas Heavy Jacket | $100.00 | Premium outerwear |
+| | Canary: Canvas Heavy Vest | $100.00 | Alternative to jacket |
+| Choice via vendor portal | — | — | Canary may offer a portal option — confirm with rep |
+
+**Tier 3 visibility matters.** Brief says: "These should feel exclusive... visible at the event so other participants see them and want one. The social proof mechanic matters as much as the item itself."
+
+**Planning quantity:** 10–20 units total. Confirm how many engagement mechanics are running (Bingo, AI Helped Me wall, etc.) and how many winners each produces.
+
+---
+
+## Gaps — Items in the Brief Not Covered by Canary
+
+| Item | Tier | Notes |
+|------|------|-------|
+| AI prompt card (laminated) | Tier 1 | Core item from the brief — needs a print vendor. Moo.com, Sticker Mule, or Atlas. Small format, laminated, double-sided. |
+| Wireless charging pad (branded) | Tier 2 | Not in Canary catalog. Canary has a power bank but not a charging pad. Source separately or swap for MagSafe PowerPack ($53). |
+| Noise-cancelling earbuds | Tier 3 | Canary doesn't carry. Loop Earplugs are not earbuds. Source via BestBuy@Work, Jabra, or a swag vendor that carries tech accessories. |
+
+---
+
+## Cost Summary (Estimates)
+
+| Tier | Qty | Recommended Package | Est. Total |
+|------|-----|---------------------|-----------|
+| Tier 1 | 830 | Notebook + pin + pen + sticker | ~$18,000 |
+| Tier 2 | 25 | Hoodie + tumbler + tote | ~$3,825 |
+| Tier 3 | 15 est. | Speaker + backpack (×2 ea., 5 venues) | ~$6,400 |
+| Lanyards (if all 830) | 830 | Dye-sub branded lanyard | ~$3,055 |
+| Lanyards (if 25 only) | 25 | Premium presenter lanyard | ~$238 |
+| **All-in estimate** | | | **~$31,000–$32,000** |
+
+> Setup fees (~$150 per item, per design) add approximately $1,500–$2,500 depending on how many distinct SKUs are ordered.
+
+---
+
+## Open Decisions Needed Before May 15
+
+1. **Lanyard scope:** All 830 attendees or 25 presenters only?
+2. **Tier 1 final list:** Notebook + pin + pen = confirmed? Prompt card still needs a source.
+3. **Tier 2 items:** Hoodie or tee? Which bottle? Tote style?
+4. **Apparel sizing:** Need S/M/L/XL/2XL breakdown from Maigh/Denise for 25 people.
+5. **Tier 3 mechanics:** How many winners per venue? Which prizes per mechanism?
+6. **Sticker source:** Stay with Atlas or consolidate everything to Canary?
 
 ---
 
@@ -108,8 +134,8 @@ All estimates based on ~2-week Canary lead time. Earlier is better.
 |--|--|
 | **Vendor** | Canary LLC |
 | **Website** | canarymarketing.com |
-| **Primary contact** | TBD — Denise to confirm |
-| **Note** | Full catalog PDF is in the repo at `assets/vendors/canary-swag-catalog.pdf` |
+| **Primary contact** | TBD — Denise to confirm rep |
+| **Full catalog** | [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf) |
 
 ---
 
