@@ -107,7 +107,6 @@ const TASKS = [
   {id:"D3-01", d:"D3", name:"Logo concepts",        owner:["Michael Powell"], due:"2026-05-07", status:"complete"},
   {id:"D3-02", d:"D3", name:"Logo final (static)",  owner:["Michael Powell","Camille Nettles"], due:"2026-05-12", status:"complete", note:"Files in assets/logo/"},
   {id:"D3-03", d:"D3", name:"Logo animation",       owner:["Michael Powell"], due:"2026-05-20", status:"in_progress", note:"3-5 sec loop"},
-  {id:"D3-04", d:"D3", name:"Logo usage guide",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-12", status:"not_started"},
 
   // D4 PPT (12)
   {id:"D4-01", d:"D4", name:"Template design (all layouts)", owner:["Lee Payne"], due:"2026-05-20", status:"not_started", note:"URGENT"},
@@ -254,7 +253,7 @@ function renderHeader(){
           <span style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9CA3AF">${LIVE?"Live · n8n aggregator":"Static · waiting on aggregator"}</span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Mission Control</h1>
-        <p style="font-size:13px;color:#9CA3AF;margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 61 tasks</p>
+        <p style="font-size:13px;color:#9CA3AF;margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 60 tasks</p>
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
           ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"#1F2937"};border:1px solid ${LIVE?"#065F46":"#374151"};font-size:10px;color:${LIVE?"#A7F3D0":"#6B7280"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"#4B5563"}"></span>${s}</span>`).join("")}
         </div>
@@ -294,29 +293,31 @@ function renderGantt(){
       <span style="font-size:11px;color:#6B7280">Design (purple) · Production (amber) · Today (red)</span>
     </div>
     <div style="background:#0D1117;border:1px solid #1F2937;border-radius:12px;padding:16px 20px">
-      ${DELIVERABLES.map(d => {
-        const dStart = pct(dateMS(d.designStart));
-        const dEnd = pct(dateMS(d.designEnd));
-        const dWidth = dEnd - dStart;
-        const pStart = d.productionStart ? pct(dateMS(d.productionStart)) : null;
-        const pEnd = d.productionEnd ? pct(dateMS(d.productionEnd)) : null;
-        return `
-        <div class="gantt-row">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:10px;font-weight:800;color:#6B7280;letter-spacing:.06em">${d.id}</span>
-            <span style="font-size:11px;color:#D1D5DB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</span>
-          </div>
-          <div style="position:relative;height:18px">
-            <div style="position:absolute;top:6px;left:0;right:0;height:6px;background:#111827;border-radius:3px"></div>
-            <div title="Design ${fmtDate(d.designStart)}–${fmtDate(d.designEnd)}" style="position:absolute;top:4px;height:10px;left:${dStart}%;width:${dWidth}%;background:linear-gradient(90deg,#6D28D9,#8B5CF6);border-radius:3px;box-shadow:0 0 0 1px #4C1D95"></div>
-            ${pStart !== null ? `<div title="Production ${fmtDate(d.productionStart)}–${fmtDate(d.productionEnd)}" style="position:absolute;top:4px;height:10px;left:${pStart}%;width:${pEnd-pStart}%;background:linear-gradient(90deg,#B45309,#F59E0B);border-radius:3px;box-shadow:0 0 0 1px #78350F"></div>`:""}
-          </div>
-        </div>`;
-      }).join("")}
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:14px;margin-top:10px;border-top:1px solid #1F2937;padding-top:14px;position:relative">
+      <div style="position:relative">
+        ${DELIVERABLES.map(d => {
+          const dStart = pct(dateMS(d.designStart));
+          const dEnd = pct(dateMS(d.designEnd));
+          const dWidth = dEnd - dStart;
+          const pStart = d.productionStart ? pct(dateMS(d.productionStart)) : null;
+          const pEnd = d.productionEnd ? pct(dateMS(d.productionEnd)) : null;
+          return `
+          <div class="gantt-row">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:10px;font-weight:800;color:#6B7280;letter-spacing:.06em">${d.id}</span>
+              <span style="font-size:11px;color:#D1D5DB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</span>
+            </div>
+            <div style="position:relative;height:18px">
+              <div style="position:absolute;top:6px;left:0;right:0;height:6px;background:#111827;border-radius:3px"></div>
+              <div title="Design ${fmtDate(d.designStart)}–${fmtDate(d.designEnd)}" style="position:absolute;top:4px;height:10px;left:${dStart}%;width:${dWidth}%;background:linear-gradient(90deg,#6D28D9,#8B5CF6);border-radius:3px;box-shadow:0 0 0 1px #4C1D95"></div>
+              ${pStart !== null ? `<div title="Production ${fmtDate(d.productionStart)}–${fmtDate(d.productionEnd)}" style="position:absolute;top:4px;height:10px;left:${pStart}%;width:${pEnd-pStart}%;background:linear-gradient(90deg,#B45309,#F59E0B);border-radius:3px;box-shadow:0 0 0 1px #78350F"></div>`:""}
+            </div>
+          </div>`;
+        }).join("")}
+        <div style="position:absolute;top:0;bottom:0;left:calc(214px + (100% - 214px) * ${todayPct} / 100);width:2px;background:#EF4444;box-shadow:0 0 6px rgba(239,68,68,.7);pointer-events:none;z-index:5"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:14px;margin-top:10px;border-top:1px solid #1F2937;padding-top:14px">
         <div></div>
         <div style="position:relative;height:22px">
-          <div style="position:absolute;top:-14px;bottom:-4px;left:${todayPct}%;width:2px;background:#EF4444;box-shadow:0 0 6px #EF4444"></div>
           ${labelTicks.map(t => `<span style="position:absolute;top:0;left:${pct(dateMS(t.d))}%;transform:translateX(-50%);font-size:10px;color:#6B7280">${t.l}</span>`).join("")}
           <span style="position:absolute;left:${todayPct}%;transform:translateX(-50%);top:-2px;font-size:9px;font-weight:800;color:#EF4444;background:#030712;padding:1px 6px;border-radius:4px;border:1px solid #7F1D1D;white-space:nowrap">TODAY · ${TODAY.toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span>
         </div>

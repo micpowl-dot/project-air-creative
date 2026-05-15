@@ -60,10 +60,11 @@
 
 | # | Asset | Format | Owner | Deadline | Status | Notes |
 |---|-------|--------|-------|----------|--------|-------|
-| D3-01 | Logo concepts | Static | — | Early May | ⬜ | |
-| D3-02 | Logo final (static) | All formats | — | Early May | ⬜ | **URGENT** |
-| D3-03 | Logo animation | 3–5 sec loop | — | End of May | ⬜ | |
-| D3-04 | Logo usage guide | Rules | — | Mid May | ⬜ | |
+| D3-01 | Logo concepts | Static | Michael Powell | May 7 | ✅ | Approved |
+| D3-02 | Logo final (static) | All formats | Michael Powell / Camille | May 12 | ✅ | Files in `assets/logo/` |
+| D3-03 | Logo animation | 3–5 sec loop | Michael Powell | May 20 | 🟡 | In progress |
+
+> **Logo usage rules live in the Brand Guide** (`docs/brand-guidelines.md` / `docs/style-guide.md`), not as a standalone D3 task.
 
 ## D4 — PowerPoint Template
 
@@ -106,10 +107,10 @@
 |-------------|-------|---|---|---|---|
 | D1 Posters | 24 | 0 | 0 | 24 | 0 |
 | D2 Badges | 8 | 0 | 0 | 8 | 0 |
-| D3 Logo | 4 | 0 | 0 | 4 | 0 |
+| D3 Logo | 3 | 2 | 1 | 0 | 0 |
 | D4 PPT | 12 | 0 | 0 | 12 | 0 |
 | D5 Swag | 13 | 0 | 0 | 13 | 0 |
-| **Total** | **61** | **0** | **0** | **61** | **0** |
+| **Total** | **60** | **2** | **1** | **57** | **0** |
 
 ## How to Claim a Task
 
