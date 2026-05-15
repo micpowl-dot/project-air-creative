@@ -407,12 +407,13 @@ function renderAttention(){
         const bg = late<=0 ? "#0D1117" : late<=2 ? "#2A0A0A" : late<=5 ? "#4A0F0F" : late<=10 ? "#6E1212" : "#8F1A1A";
         const border = late<=0 ? "#F59E0B" : late<=2 ? "#B91C1C" : late<=5 ? "#DC2626" : late<=10 ? "#EF4444" : "#FB7185";
         return `
-        <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:${bg};border-radius:7px;border-left:4px solid ${border};cursor:pointer${late>10?";animation:lateBlink 2.4s ease-in-out infinite":""}" title="Jump to ${t.id}">
+        <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 12px;background:${bg};border-radius:7px;border-left:4px solid ${border};cursor:pointer${late>10?";animation:lateBlink 2.4s ease-in-out infinite":""}" title="Jump to ${t.id}">
           <div style="min-width:0;flex:1">
             <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.04em">${t.id}</div>
             <div style="font-size:12px;color:${od?"#FECACA":"#F3F4F6"};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
           </div>
-          <div style="text-align:right;padding-left:10px">
+          <div style="flex-shrink:0">${stack(t.owner, 20)}</div>
+          <div style="text-align:right;flex-shrink:0">
             <div style="font-size:11px;font-weight:700;color:${od?"#FCA5A5":"#FDE68A"};${od?"text-decoration:line-through":""}">${fmtDate(t.due)}</div>
             ${od ? `<div style="font-size:8px;font-weight:800;color:#EF4444;letter-spacing:.08em">+${late}d LATE</div>` : ""}
           </div>
