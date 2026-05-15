@@ -7,24 +7,83 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
+:root{
+  --bg:#030712;
+  --surface-1:#0D1117;
+  --surface-2:#111827;
+  --surface-3:#1F2937;
+  --surface-4:#374151;
+  --text-1:#F9FAFB;
+  --text-2:#F3F4F6;
+  --text-3:#D1D5DB;
+  --text-4:#9CA3AF;
+  --text-5:#6B7280;
+  --text-6:#4B5563;
+  --code-bg:#1F2937;
+  --amber-bg:#422006;
+  --amber-bd:#78350F;
+  --amber-fg:#FDE68A;
+  --purple-bg:#1E1B4B;
+  --purple-bd:#312E81;
+  --purple-fg:#C4B5FD;
+  --red-soft-bg:#1A0606;
+  --red-bd:#7F1D1D;
+  --red-strong:#EF4444;
+  --red-fg:#FCA5A5;
+  --bar-design:linear-gradient(90deg,#6D28D9,#8B5CF6);
+  --bar-prod:linear-gradient(90deg,#B45309,#F59E0B);
+  --shadow-card:none;
+}
+:root.light{
+  --bg:#FDFDFC;
+  --surface-1:#FFFFFF;
+  --surface-2:#F4F5F7;
+  --surface-3:#D1D5DB;
+  --surface-4:#9CA3AF;
+  --text-1:#0F172A;
+  --text-2:#1E293B;
+  --text-3:#334155;
+  --text-4:#475569;
+  --text-5:#64748B;
+  --text-6:#94A3B8;
+  --code-bg:#E5E7EB;
+  --amber-bg:#FEF3C7;
+  --amber-bd:#FCD34D;
+  --amber-fg:#92400E;
+  --purple-bg:#EDE9FE;
+  --purple-bd:#C4B5FD;
+  --purple-fg:#5B21B6;
+  --red-soft-bg:#FEF2F2;
+  --red-bd:#FCA5A5;
+  --red-strong:#DC2626;
+  --red-fg:#B91C1C;
+  --bar-design:linear-gradient(90deg,#C4B5FD,#A78BFA);
+  --bar-prod:linear-gradient(90deg,#FDE68A,#FBBF24);
+  --shadow-card:0 1px 2px rgba(15,23,42,.04),0 0 0 1px rgba(15,23,42,.04);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#030712;color:#F9FAFB;font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh}
+html,body{background:var(--bg);color:var(--text-1);font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;transition:background .2s ease,color .2s ease}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer}
 .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+:root.light [style*="background:var(--surface-1);border:1px solid var(--surface-3)"],
+:root.light [style*="background:var(--surface-2);border:1px solid var(--surface-3)"],
+:root.light details,
+:root.light .stat-clickable{box-shadow:0 1px 3px rgba(15,23,42,.07),0 0 0 1px rgba(15,23,42,.04)}
+:root.light details{border-color:var(--surface-3)!important}
 .pulse{animation:pulse 2s infinite}
 .stat-clickable{cursor:pointer;transition:border-color .15s ease,background .15s ease}
-.stat-clickable:hover{border-color:#4B5563!important;background:#111827!important}
+.stat-clickable:hover{border-color:var(--text-6)!important;background:var(--surface-2)!important}
 .row-grid{display:grid;grid-template-columns:minmax(220px,1.5fr) 2.4fr 1.1fr 1fr;gap:14px;align-items:center}
-.gantt-row{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #111827}
+.gantt-row{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid var(--surface-2)}
 .gantt-row:last-child{border-bottom:0}
 details>summary{list-style:none;cursor:pointer}
 details>summary::-webkit-details-marker{display:none}
 .task-row{display:grid;grid-template-columns:28px 56px 1.6fr 1.1fr 0.85fr 0.65fr;gap:10px;padding:8px 12px;border-radius:6px;align-items:center;font-size:12px}
-.task-row:hover{background:#0D1117}
-.task-row.done{color:#4B5563}
+.task-row:hover{background:var(--surface-1)}
+.task-row.done{color:var(--text-6)}
 .task-row.done .task-name{text-decoration:line-through}
 .late-1{background:#2A0A0A!important;border-left:3px solid #B91C1C}
 .late-2{background:#4A0F0F!important;border-left:3px solid #DC2626;color:#FECACA}
@@ -36,11 +95,19 @@ details>summary::-webkit-details-marker{display:none}
 .task-row.late-3:hover{background:#7E1A1A!important}
 .task-row.late-4:hover{background:#9F2424!important}
 @keyframes lateBlink{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}50%{box-shadow:0 0 12px 0 rgba(239,68,68,.45)}}
-.tbox{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid #4B5563;border-radius:4px;background:#0D1117;transition:all .12s ease;position:relative}
-.tbox:hover{border-color:#9CA3AF;background:#1F2937}
+:root.light .late-1{background:#FEE2E2!important;color:var(--red-bd)}
+:root.light .late-2{background:#FECACA!important;color:var(--red-bd)}
+:root.light .late-3{background:#FCA5A5!important;color:var(--red-bd)}
+:root.light .late-4{background:#F87171!important;color:#450A0A}
+:root.light .late-1:hover{background:#FECACA!important}
+:root.light .late-2:hover{background:#FCA5A5!important}
+:root.light .late-3:hover{background:#F87171!important}
+:root.light .late-4:hover{background:#EF4444!important}
+.tbox{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid var(--text-6);border-radius:4px;background:var(--surface-1);transition:all .12s ease;position:relative}
+.tbox:hover{border-color:var(--text-4);background:var(--surface-3)}
 .tbox.checked{background:#10B981;border-color:#10B981}
-.tbox.checked::after{content:"";position:absolute;top:2px;left:5px;width:4px;height:8px;border:solid #030712;border-width:0 2px 2px 0;transform:rotate(45deg)}
-.tbox.override::before{content:"";position:absolute;top:-3px;right:-3px;width:6px;height:6px;border-radius:50%;background:#F59E0B;border:1px solid #030712}
+.tbox.checked::after{content:"";position:absolute;top:2px;left:5px;width:4px;height:8px;border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tbox.override::before{content:"";position:absolute;top:-3px;right:-3px;width:6px;height:6px;border-radius:50%;background:#F59E0B;border:1px solid var(--bg)}
 @media (max-width:900px){
   .row-grid{grid-template-columns:1fr;gap:6px}
   .gantt-row{grid-template-columns:1fr;gap:4px}
@@ -56,6 +123,7 @@ details>summary::-webkit-details-marker{display:none}
 const EVENT_DATE = new Date("2026-06-09T09:00:00-04:00");
 let TODAY = new Date();
 let LAST_RENDER = new Date();
+let NEXT_REFRESH = new Date(Date.now() + 60000);
 
 const TEAM = [
   {n:"Michael Powell",   r:"CD / Art & Design",    i:"MP", c:"#E85D3A"},
@@ -63,7 +131,7 @@ const TEAM = [
   {n:"Lee Payne",        r:"Senior Designer",      i:"LP", c:"#10B981"},
   {n:"Camille Nettles",  r:"ACD / Art & Design",   i:"CN", c:"#8B5CF6"},
   {n:"Denise Denson",    r:"Producer / PM",        i:"DD", c:"#3B82F6"},
-  {n:"Jeffrey Hampton",  r:"ACD / Writer",         i:"JH", c:"#6B7280", dim:true},
+  {n:"Jeffrey Hampton",  r:"ACD / Writer",         i:"JH", c:"var(--text-5)", dim:true},
 ];
 
 const DELIVERABLES = [
@@ -157,12 +225,12 @@ const TASKS = [
 ];
 
 const STATUS_META = {
-  not_started: {label:"Not Started", bg:"#1F2937", fg:"#9CA3AF"},
-  in_progress: {label:"In Progress", bg:"#4C1D95", fg:"#C4B5FD"},
-  in_review:   {label:"In Review",   bg:"#713F12", fg:"#FDE68A"},
+  not_started: {label:"Not Started", bg:"var(--surface-3)", fg:"var(--text-4)"},
+  in_progress: {label:"In Progress", bg:"var(--purple-bd)", fg:"var(--purple-fg)"},
+  in_review:   {label:"In Review",   bg:"#713F12", fg:"var(--amber-fg)"},
   approved:    {label:"Approved",    bg:"#1E3A5F", fg:"#93C5FD"},
   complete:    {label:"Complete",    bg:"#065F46", fg:"#A7F3D0"},
-  blocked:     {label:"Blocked",     bg:"#7F1D1D", fg:"#FCA5A5"},
+  blocked:     {label:"Blocked",     bg:"var(--red-bd)", fg:"#FCA5A5"},
 };
 
 // ---------- STATE ----------
@@ -176,6 +244,22 @@ try { OVERRIDES = JSON.parse(localStorage.getItem(OVR_KEY) || "{}"); } catch(e) 
 function saveOverrides(){
   try { localStorage.setItem(OVR_KEY, JSON.stringify(OVERRIDES)); } catch(e) {}
 }
+// ---------- THEME ----------
+const THEME_KEY = "projectAirTheme_v1";
+function initTheme(){
+  try {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "light") document.documentElement.classList.add("light");
+  } catch(e) {}
+}
+window.toggleTheme = function(){
+  const root = document.documentElement;
+  const isLight = root.classList.toggle("light");
+  try { localStorage.setItem(THEME_KEY, isLight ? "light" : "dark"); } catch(e) {}
+  render();
+};
+initTheme();
+
 window.toggleTask = function(id){
   const t = TASK_STATE.find(x => x.id === id);
   if (!t) return;
@@ -223,23 +307,23 @@ window.openTaskFilter = function(filter){
   const list = matches.length ? matches.map(t => {
     const late = daysLate(t.due, t.status);
     return `
-    <div onclick="closeTaskFilter();jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:#0D1117;border-radius:7px;border-left:3px solid ${STATUS_META[t.status]?.fg||'#4B5563'};cursor:pointer;margin-bottom:6px">
+    <div onclick="closeTaskFilter();jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:var(--surface-1);border-radius:7px;border-left:3px solid ${STATUS_META[t.status]?.fg||'var(--text-6)'};cursor:pointer;margin-bottom:6px">
       <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
-        <span style="font-size:10px;font-weight:800;color:#9CA3AF;padding:2px 6px;background:#1F2937;border-radius:3px">${t.id}</span>
-        <span style="font-size:12px;color:#F3F4F6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</span>
+        <span style="font-size:10px;font-weight:800;color:var(--text-4);padding:2px 6px;background:var(--surface-3);border-radius:3px">${t.id}</span>
+        <span style="font-size:12px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</span>
       </div>
       ${stack(t.owner, 18)}
-      <span style="font-size:11px;color:#9CA3AF;flex-shrink:0">${fmtDate(t.due)}${late?` <span style="color:#FCA5A5;font-weight:700">+${late}d</span>`:""}</span>
+      <span style="font-size:11px;color:var(--text-4);flex-shrink:0">${fmtDate(t.due)}${late?` <span style="color:#FCA5A5;font-weight:700">+${late}d</span>`:""}</span>
       ${statusPill(t.status)}
     </div>`;
-  }).join("") : `<div style="font-size:13px;color:#6B7280;text-align:center;padding:24px">${f.empty}</div>`;
+  }).join("") : `<div style="font-size:13px;color:var(--text-5);text-align:center;padding:24px">${f.empty}</div>`;
 
   const html = `
     <div id="task-filter-backdrop" onclick="if(event.target.id==='task-filter-backdrop')closeTaskFilter()" style="position:fixed;inset:0;background:rgba(3,7,18,.78);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:80px 24px 24px;overflow-y:auto;animation:fadeIn .14s ease">
-      <div style="background:#111827;border:1px solid #1F2937;border-radius:12px;max-width:760px;width:100%;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+      <div style="background:var(--surface-2);border:1px solid var(--surface-3);border-radius:12px;max-width:760px;width:100%;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.6)">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-          <h3 style="font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F3F4F6">${f.label} · ${matches.length}</h3>
-          <button onclick="closeTaskFilter()" style="font-size:18px;color:#9CA3AF;padding:4px 10px;border-radius:6px" title="Close (Esc)"><i class="ti ti-x"></i></button>
+          <h3 style="font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2)">${f.label} · ${matches.length}</h3>
+          <button onclick="closeTaskFilter()" style="font-size:18px;color:var(--text-4);padding:4px 10px;border-radius:6px" title="Close (Esc)"><i class="ti ti-x"></i></button>
         </div>
         ${list}
       </div>
@@ -297,7 +381,7 @@ const avatar = (name, size=22) => {
   return `<span title="${t.n}${t.dim?' (paternity leave)':''}" style="display:inline-flex;width:${size}px;height:${size}px;border-radius:50%;background:${t.c};color:#fff;align-items:center;justify-content:center;font-size:${Math.round(size*.38)}px;font-weight:700;opacity:${op}">${t.i}</span>`;
 };
 const stack = (names, size=22) => {
-  if (!names || !names.length) return `<span style="font-size:11px;color:#4B5563">—</span>`;
+  if (!names || !names.length) return `<span style="font-size:11px;color:var(--text-6)">—</span>`;
   const arr = Array.isArray(names) ? names : [names];
   return `<span style="display:inline-flex">${arr.map((n,i) =>
     `<span style="margin-left:${i?-6:0}px">${avatar(n,size)}</span>`).join("")}</span>`;
@@ -342,6 +426,7 @@ async function fetchLive(){
   } catch(e) {
     LIVE = null;
   }
+  NEXT_REFRESH = new Date(Date.now() + 60000);
   render();
 }
 function applyOverlay(){
@@ -377,34 +462,37 @@ function renderHeader(){
     return `
       <div style="position:relative;width:128px;height:128px;flex-shrink:0">
         <svg width="128" height="128" viewBox="0 0 128 128">
-          <circle cx="64" cy="64" r="${r}" fill="none" stroke="#1F2937" stroke-width="7"/>
+          <circle cx="64" cy="64" r="${r}" fill="none" stroke="var(--surface-3)" stroke-width="7"/>
           <circle cx="64" cy="64" r="${r}" fill="none" stroke="${color}" stroke-width="7" stroke-dasharray="${ci}" stroke-dashoffset="${offset}" stroke-linecap="round" transform="rotate(-90 64 64)"/>
         </svg>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <span style="font-size:34px;font-weight:800;color:#F9FAFB;line-height:1">${value}</span>
-          <span style="font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em;margin-top:3px;text-align:center;line-height:1.2">${label}</span>
+          <span style="font-size:34px;font-weight:800;color:var(--text-1);line-height:1">${value}</span>
+          <span style="font-size:9px;color:var(--text-4);text-transform:uppercase;letter-spacing:.1em;margin-top:3px;text-align:center;line-height:1.2">${label}</span>
         </div>
       </div>`;
   };
   return `
-  <div style="border-bottom:1px solid #1F2937;background:linear-gradient(180deg,#0D1117,#030712);padding:22px 0">
+  <div style="border-bottom:1px solid var(--surface-3);background:linear-gradient(180deg,var(--surface-1),var(--bg));padding:22px 0">
     <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
           <span class="pulse" style="width:8px;height:8px;border-radius:50%;background:${liveDot};box-shadow:0 0 10px ${liveDot}"></span>
-          <span style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9CA3AF">${LIVE?"Live · n8n aggregator":"Static · waiting on aggregator"}</span>
-          <span style="font-size:10px;color:#4B5563;letter-spacing:.04em">· auto-refreshes every 60s · last <span id="last-refresh">just now</span></span>
+          <span style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text-4)">${LIVE?"Live · n8n aggregator":"Static · waiting on aggregator"}</span>
+          <span style="font-size:10px;color:var(--text-6);letter-spacing:.04em">· next refresh in <span id="refresh-countdown" style="color:var(--text-4);font-weight:700">60s</span></span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Dashboard</h1>
-        <p style="font-size:13px;color:#9CA3AF;margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 60 tasks</p>
+        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 60 tasks</p>
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
-          ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"#1F2937"};border:1px solid ${LIVE?"#065F46":"#374151"};font-size:10px;color:${LIVE?"#A7F3D0":"#6B7280"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"#4B5563"}"></span>${s}</span>`).join("")}
+          ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"var(--surface-3)"};border:1px solid ${LIVE?"#065F46":"var(--surface-4)"};font-size:10px;color:${LIVE?"#A7F3D0":"var(--text-5)"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"var(--text-6)"}"></span>${s}</span>`).join("")}
         </div>
-        <div style="font-size:11px;color:#6B7280;margin-top:10px">
-          Data: <code style="color:#9CA3AF">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s · <a href="https://github.com/micpowl-dot/project-air-creative" style="color:#9CA3AF;text-decoration:underline">repo</a>
+        <div style="font-size:11px;color:var(--text-5);margin-top:10px">
+          Data: <code style="color:var(--text-4)">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s · <a href="https://github.com/micpowl-dot/project-air-creative" style="color:var(--text-4);text-decoration:underline">repo</a>
         </div>
       </div>
-      <div style="display:flex;gap:14px;flex-shrink:0">
+      <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+        <button onclick="toggleTheme()" title="Toggle light/dark mode" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--surface-2);border:1px solid var(--surface-3);color:var(--text-3);font-size:20px;transition:background .2s ease,color .2s ease">
+          <i class="ti ${document.documentElement.classList.contains('light') ? 'ti-moon' : 'ti-sun'}"></i>
+        </button>
         ${ring(days,  "Days<br>left",     "#2DD4BF", 60)}
         ${ring(wdays, "Working<br>days",  "#38BDF8", 45)}
       </div>
@@ -429,10 +517,10 @@ function renderGantt(){
   return `
   <section style="margin-top:24px">
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px;flex-wrap:wrap">
-      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D1D5DB"><i class="ti ti-timeline-event"></i> Timeline</h2>
-      <span style="font-size:11px;color:#6B7280">Design (purple) · Production (amber) · Today (red)</span>
+      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)"><i class="ti ti-timeline-event"></i> Timeline</h2>
+      <span style="font-size:11px;color:var(--text-5)">Design (purple) · Production (amber) · Today (red)</span>
     </div>
-    <div style="background:#0D1117;border:1px solid #1F2937;border-radius:12px;padding:16px 20px">
+    <div style="background:var(--surface-1);border:1px solid var(--surface-3);border-radius:12px;padding:16px 20px">
       <div style="position:relative">
         ${DELIVERABLES.map(d => {
           const dStart = pct(dateMS(d.designStart));
@@ -443,23 +531,23 @@ function renderGantt(){
           return `
           <div class="gantt-row">
             <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="jumpToTask('${d.id}')" title="Jump to ${d.id} tasks">
-              <span style="font-size:10px;font-weight:800;color:#9CA3AF;letter-spacing:.06em;padding:2px 5px;background:#1F2937;border-radius:3px">${d.id}</span>
-              <span style="font-size:11px;color:#D1D5DB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</span>
+              <span style="font-size:10px;font-weight:800;color:var(--text-4);letter-spacing:.06em;padding:2px 5px;background:var(--surface-3);border-radius:3px">${d.id}</span>
+              <span style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</span>
             </div>
             <div style="position:relative;height:18px">
-              <div style="position:absolute;top:6px;left:0;right:0;height:6px;background:#111827;border-radius:3px"></div>
-              <div title="Design ${fmtDate(d.designStart)}–${fmtDate(d.designEnd)}" style="position:absolute;top:4px;height:10px;left:${dStart}%;width:${dWidth}%;background:linear-gradient(90deg,#6D28D9,#8B5CF6);border-radius:3px;box-shadow:0 0 0 1px #4C1D95"></div>
-              ${pStart !== null ? `<div title="Production ${fmtDate(d.productionStart)}–${fmtDate(d.productionEnd)}" style="position:absolute;top:4px;height:10px;left:${pStart}%;width:${pEnd-pStart}%;background:linear-gradient(90deg,#B45309,#F59E0B);border-radius:3px;box-shadow:0 0 0 1px #78350F"></div>`:""}
+              <div style="position:absolute;top:6px;left:0;right:0;height:6px;background:var(--surface-2);border-radius:3px"></div>
+              <div title="Design ${fmtDate(d.designStart)}–${fmtDate(d.designEnd)}" style="position:absolute;top:4px;height:10px;left:${dStart}%;width:${dWidth}%;background:var(--bar-design);border-radius:3px;box-shadow:0 0 0 1px var(--purple-bd)"></div>
+              ${pStart !== null ? `<div title="Production ${fmtDate(d.productionStart)}–${fmtDate(d.productionEnd)}" style="position:absolute;top:4px;height:10px;left:${pStart}%;width:${pEnd-pStart}%;background:var(--bar-prod);border-radius:3px;box-shadow:0 0 0 1px var(--amber-bd)"></div>`:""}
             </div>
           </div>`;
         }).join("")}
         <div style="position:absolute;top:0;bottom:0;left:calc(214px + (100% - 214px) * ${todayPct} / 100);width:1px;background:rgba(239,68,68,.85);pointer-events:none;z-index:5"></div>
       </div>
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:14px;margin-top:10px;border-top:1px solid #1F2937;padding-top:14px">
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:14px;margin-top:10px;border-top:1px solid var(--surface-3);padding-top:14px">
         <div></div>
         <div style="position:relative;height:22px">
-          ${labelTicks.map(t => `<span style="position:absolute;top:0;left:${pct(dateMS(t.d))}%;transform:translateX(-50%);font-size:10px;color:#6B7280">${t.l}</span>`).join("")}
-          <span style="position:absolute;left:${todayPct}%;transform:translateX(-50%);top:-2px;font-size:9px;font-weight:800;color:#EF4444;background:#030712;padding:1px 6px;border-radius:4px;border:1px solid #7F1D1D;white-space:nowrap">TODAY · ${TODAY.toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span>
+          ${labelTicks.map(t => `<span style="position:absolute;top:0;left:${pct(dateMS(t.d))}%;transform:translateX(-50%);font-size:10px;color:var(--text-5)">${t.l}</span>`).join("")}
+          <span style="position:absolute;left:${todayPct}%;transform:translateX(-50%);top:-2px;font-size:9px;font-weight:800;color:#EF4444;background:var(--bg);padding:1px 6px;border-radius:4px;border:1px solid var(--red-bd);white-space:nowrap">TODAY · ${TODAY.toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span>
         </div>
       </div>
     </div>
@@ -473,21 +561,21 @@ function renderAttention(){
   return `
   <section style="margin-top:24px">
     <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#FCA5A5;margin-bottom:10px"><i class="ti ti-alert-triangle"></i> Needs attention now · ${items.length} item${items.length===1?"":"s"}${overdueCount?` · ${overdueCount} overdue`:""}</h2>
-    <div style="background:linear-gradient(135deg,#1A0606,#0D1117);border:1px solid #7F1D1D;border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
+    <div style="background:linear-gradient(135deg,var(--red-soft-bg),var(--surface-1));border:1px solid var(--red-bd);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
       ${items.slice(0,12).map(t => {
         const od = isOverdue(t.due,t.status);
         const late = daysLate(t.due,t.status);
-        const bg = late<=0 ? "#0D1117" : late<=2 ? "#2A0A0A" : late<=5 ? "#4A0F0F" : late<=10 ? "#6E1212" : "#8F1A1A";
+        const bg = late<=0 ? "var(--surface-1)" : late<=2 ? "#2A0A0A" : late<=5 ? "#4A0F0F" : late<=10 ? "#6E1212" : "#8F1A1A";
         const border = late<=0 ? "#F59E0B" : late<=2 ? "#B91C1C" : late<=5 ? "#DC2626" : late<=10 ? "#EF4444" : "#FB7185";
         return `
         <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 12px;background:${bg};border-radius:7px;border-left:4px solid ${border};cursor:pointer${late>10?";animation:lateBlink 2.4s ease-in-out infinite":""}" title="Jump to ${t.id}">
           <div style="min-width:0;flex:1">
-            <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.04em">${t.id}</div>
-            <div style="font-size:12px;color:${od?"#FECACA":"#F3F4F6"};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
+            <div style="font-size:11px;font-weight:700;color:var(--text-4);letter-spacing:.04em">${t.id}</div>
+            <div style="font-size:12px;color:${od?"#FECACA":"var(--text-2)"};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
           </div>
           <div style="flex-shrink:0">${stack(t.owner, 20)}</div>
           <div style="text-align:right;flex-shrink:0">
-            <div style="font-size:11px;font-weight:700;color:${od?"#FCA5A5":"#FDE68A"};${od?"text-decoration:line-through":""}">${fmtDate(t.due)}</div>
+            <div style="font-size:11px;font-weight:700;color:${od?"#FCA5A5":"var(--amber-fg)"};${od?"text-decoration:line-through":""}">${fmtDate(t.due)}</div>
             ${od ? `<div style="font-size:8px;font-weight:800;color:#EF4444;letter-spacing:.08em">+${late}d LATE</div>` : ""}
           </div>
         </div>`;
@@ -501,7 +589,7 @@ function renderStats(){
   const signals = LIVE?.signals_processed ?? 0;
   const lastUpdated = LIVE?.last_updated ? new Date(LIVE.last_updated).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}) : "—";
   const tiles = [
-    {l:"Total tasks", v:`${s.total - s.done} <span style="font-size:18px;color:#9CA3AF;font-weight:600">of ${s.total}</span>`, s:`${s.done} complete · ${s.inProgress} active`, click:"complete", hint:"Click to see completed"},
+    {l:"Total tasks", v:`${s.total - s.done} <span style="font-size:18px;color:var(--text-4);font-weight:600">of ${s.total}</span>`, s:`${s.done} complete · ${s.inProgress} active`, click:"complete", hint:"Click to see completed"},
     {l:"Activity",    v:signals, s:`${signals?"updates":"no updates"} · last ${lastUpdated}`},
     {l:"Blockers",    v:s.blocked, s:s.blocked?"attention":"clear", alert:s.blocked>0, click:s.blocked?"blocked":null, hint:s.blocked?"Click to see blockers":null},
     {l:"Overdue",     v:s.overdue, s:"deadlines past", alert:s.overdue>0, click:s.overdue?"overdue":null, hint:s.overdue?"Click to see overdue":null},
@@ -509,10 +597,10 @@ function renderStats(){
   return `
   <section style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
     ${tiles.map(t => `
-      <div ${t.click?`class="stat-clickable" onclick="openTaskFilter('${t.click}')" title="${t.hint||""}"`:""} style="background:#0D1117;border:1px solid ${t.alert?"#7F1D1D":"#1F2937"};border-radius:10px;padding:14px 16px;position:relative">
-        <div style="font-size:9px;font-weight:700;color:#6B7280;letter-spacing:.12em;text-transform:uppercase">${t.l}${t.click?` <i class="ti ti-chevron-right" style="font-size:10px;color:#4B5563;vertical-align:middle"></i>`:""}</div>
-        <div style="font-size:28px;font-weight:800;color:${t.alert?"#FCA5A5":"#F9FAFB"};margin-top:2px;line-height:1">${t.v}</div>
-        <div style="font-size:10px;color:#6B7280;margin-top:4px">${t.s}</div>
+      <div ${t.click?`class="stat-clickable" onclick="openTaskFilter('${t.click}')" title="${t.hint||""}"`:""} style="background:var(--surface-1);border:1px solid ${t.alert?"var(--red-bd)":"var(--surface-3)"};border-radius:10px;padding:14px 16px;position:relative">
+        <div style="font-size:9px;font-weight:700;color:var(--text-5);letter-spacing:.12em;text-transform:uppercase">${t.l}${t.click?` <i class="ti ti-chevron-right" style="font-size:10px;color:var(--text-6);vertical-align:middle"></i>`:""}</div>
+        <div style="font-size:28px;font-weight:800;color:${t.alert?"#FCA5A5":"var(--text-1)"};margin-top:2px;line-height:1">${t.v}</div>
+        <div style="font-size:10px;color:var(--text-5);margin-top:4px">${t.s}</div>
       </div>`).join("")}
   </section>`;
 }
@@ -522,10 +610,10 @@ function renderDeliverableRow(d){
   const designOverdue = TODAY.getTime() > dateMS(d.designEnd) && sum.done < sum.total;
   const prodOverdue = d.productionEnd && TODAY.getTime() > dateMS(d.productionEnd);
   const owners = [...new Set(sum.tasks.flatMap(t => t.owner || []))];
-  const barColor = sum.pct === 100 ? "#10B981" : sum.pct > 50 ? "#3B82F6" : sum.pct > 0 ? "#8B5CF6" : "#374151";
+  const barColor = sum.pct === 100 ? "#10B981" : sum.pct > 50 ? "#3B82F6" : sum.pct > 0 ? "#8B5CF6" : "var(--surface-4)";
   const maxLate = Math.max(0, ...sum.tasks.map(t => daysLate(t.due, t.status)));
-  const dBg = maxLate<=0 ? "#0D1117" : maxLate<=2 ? "#180A0A" : maxLate<=5 ? "#2A0F0F" : maxLate<=10 ? "#3D1212" : "#5B1616";
-  const dBorder = maxLate<=0 ? "#1F2937" : maxLate<=2 ? "#7F1D1D" : maxLate<=5 ? "#991B1B" : maxLate<=10 ? "#B91C1C" : "#DC2626";
+  const dBg = maxLate<=0 ? "var(--surface-1)" : maxLate<=2 ? "#180A0A" : maxLate<=5 ? "#2A0F0F" : maxLate<=10 ? "#3D1212" : "#5B1616";
+  const dBorder = maxLate<=0 ? "var(--surface-3)" : maxLate<=2 ? "var(--red-bd)" : maxLate<=5 ? "#991B1B" : maxLate<=10 ? "#B91C1C" : "#DC2626";
   const dLeftBorder = maxLate<=0 ? "" : `;border-left:4px solid ${maxLate<=2?"#B91C1C":maxLate<=5?"#DC2626":maxLate<=10?"#EF4444":"#FB7185"}`;
 
   return `
@@ -533,37 +621,37 @@ function renderDeliverableRow(d){
     <summary style="padding:14px 18px">
       <div class="row-grid">
         <div style="display:flex;align-items:center;gap:10px">
-          <i class="ti ${d.icon}" style="font-size:20px;color:#9CA3AF"></i>
+          <i class="ti ${d.icon}" style="font-size:20px;color:var(--text-4)"></i>
           <div>
-            <div style="font-size:10px;font-weight:700;color:#6B7280;letter-spacing:.1em">${d.id}</div>
-            <div style="font-size:14px;font-weight:700;color:#F9FAFB">${d.name}</div>
+            <div style="font-size:10px;font-weight:700;color:var(--text-5);letter-spacing:.1em">${d.id}</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-1)">${d.name}</div>
           </div>
         </div>
         <div>
           <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-            <span style="font-size:11px;color:#9CA3AF">${Math.round(sum.pct)}% · ${sum.done}/${sum.total}</span>
-            <span style="font-size:10px;color:#6B7280">${sum.inProgress} in flight${sum.overdue?` · <span style="color:#FCA5A5">${sum.overdue} overdue</span>`:""}</span>
+            <span style="font-size:11px;color:var(--text-4)">${Math.round(sum.pct)}% · ${sum.done}/${sum.total}</span>
+            <span style="font-size:10px;color:var(--text-5)">${sum.inProgress} in flight${sum.overdue?` · <span style="color:#FCA5A5">${sum.overdue} overdue</span>`:""}</span>
           </div>
-          <div style="height:6px;background:#1F2937;border-radius:3px;overflow:hidden">
+          <div style="height:6px;background:var(--surface-3);border-radius:3px;overflow:hidden">
             <div style="height:100%;width:${sum.pct}%;background:${barColor};border-radius:3px"></div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:4px">
-          <span style="display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:${designOverdue?"#2A0808":"#1E1B4B"};border:1px solid ${designOverdue?"#7F1D1D":"#312E81"};border-radius:5px;font-size:10px;color:${designOverdue?"#FCA5A5":"#C4B5FD"};${designOverdue?"text-decoration:line-through":""}">
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:${designOverdue?"#2A0808":"var(--purple-bg)"};border:1px solid ${designOverdue?"var(--red-bd)":"var(--purple-bd)"};border-radius:5px;font-size:10px;color:${designOverdue?"#FCA5A5":"var(--purple-fg)"};${designOverdue?"text-decoration:line-through":""}">
             <span style="opacity:.7">Design</span> ${fmtDate(d.designEnd)}${designOverdue?' <span style="color:#EF4444;font-weight:800;text-decoration:none">OD</span>':""}
           </span>
-          ${d.productionEnd ? `<span style="display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:${prodOverdue?"#2A0808":"#422006"};border:1px solid ${prodOverdue?"#7F1D1D":"#78350F"};border-radius:5px;font-size:10px;color:${prodOverdue?"#FCA5A5":"#FDE68A"}">
+          ${d.productionEnd ? `<span style="display:inline-flex;align-items:center;gap:6px;padding:3px 8px;background:${prodOverdue?"#2A0808":"var(--amber-bg)"};border:1px solid ${prodOverdue?"var(--red-bd)":"var(--amber-bd)"};border-radius:5px;font-size:10px;color:${prodOverdue?"#FCA5A5":"var(--amber-fg)"}">
             <span style="opacity:.7">Ship</span> ${fmtDate(d.productionEnd)}
-          </span>` : `<span style="font-size:10px;color:#374151;padding-left:2px">Digital only</span>`}
+          </span>` : `<span style="font-size:10px;color:var(--surface-4);padding-left:2px">Digital only</span>`}
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
           ${stack(owners, 24)}
-          ${d.vendor ? `<span style="font-size:10px;color:#6B7280">${d.vendor}</span>` : ""}
+          ${d.vendor ? `<span style="font-size:10px;color:var(--text-5)">${d.vendor}</span>` : ""}
         </div>
       </div>
     </summary>
-    <div style="padding:4px 18px 14px;border-top:1px solid #111827">
-      <div class="task-row" style="font-size:9px;font-weight:700;color:#6B7280;letter-spacing:.08em;text-transform:uppercase;background:none">
+    <div style="padding:4px 18px 14px;border-top:1px solid var(--surface-2)">
+      <div class="task-row" style="font-size:9px;font-weight:700;color:var(--text-5);letter-spacing:.08em;text-transform:uppercase;background:none">
         <div></div><div>ID</div><div>Task</div><div>Owner</div><div>Due</div><div>Status</div>
       </div>
       ${sum.tasks.map(t => {
@@ -580,13 +668,13 @@ function renderDeliverableRow(d){
                   onclick="if(event.shiftKey){clearOverride('${t.id}',event)}else{toggleTask('${t.id}')}"
                   oncontextmenu="event.preventDefault();clearOverride('${t.id}',event)"></span>
           </div>
-          <div style="font-size:10px;font-weight:700;color:#6B7280;letter-spacing:.04em">${t.id}</div>
+          <div style="font-size:10px;font-weight:700;color:var(--text-5);letter-spacing:.04em">${t.id}</div>
           <div>
-            <div class="task-name" style="color:${done?"#4B5563":"#E5E7EB"}">${t.name}</div>
-            ${t.note ? `<div style="font-size:10px;color:#6B7280;margin-top:2px">${t.note}</div>` : ""}
+            <div class="task-name" style="color:${done?"var(--text-6)":"#E5E7EB"}">${t.name}</div>
+            ${t.note ? `<div style="font-size:10px;color:var(--text-5);margin-top:2px">${t.note}</div>` : ""}
           </div>
           <div>${stack(t.owner, 20)}</div>
-          <div style="font-size:11px;color:${od?"#FCA5A5":done?"#4B5563":"#D1D5DB"};${od?"text-decoration:line-through":""}">
+          <div style="font-size:11px;color:${od?"#FCA5A5":done?"var(--text-6)":"var(--text-3)"};${od?"text-decoration:line-through":""}">
             ${fmtDate(t.due)}${od?` <span style="font-size:9px;font-weight:800;color:#EF4444;text-decoration:none">+${late}d</span>`:""}
           </div>
           <div>${statusPill(t.status)}</div>
@@ -601,8 +689,8 @@ function renderDeliverables(){
   return `
   <section style="margin-top:24px">
     <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px;flex-wrap:wrap">
-      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D1D5DB"><i class="ti ti-stack-2"></i> Deliverables · sorted by design deadline</h2>
-      <span style="font-size:11px;color:#6B7280">Click any row to expand all tasks</span>
+      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)"><i class="ti ti-stack-2"></i> Deliverables · sorted by design deadline</h2>
+      <span style="font-size:11px;color:var(--text-5)">Click any row to expand all tasks</span>
     </div>
     ${sorted.map(renderDeliverableRow).join("")}
   </section>`;
@@ -623,13 +711,13 @@ function renderTeamAndBlockers(){
   <section style="margin-top:24px;display:grid;grid-template-columns:1fr 1.5fr;gap:14px">
     <div>
       <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#FCA5A5;margin-bottom:10px"><i class="ti ti-octagon-off"></i> Blockers</h2>
-      <div style="background:#0D1117;border:1px solid #1F2937;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px">
-        ${blockerLines.length ? blockerLines.map(b => `<div style="padding:8px 12px;background:#1A0606;border-radius:6px;border-left:3px solid #EF4444;font-size:12px;color:#FCA5A5">${b}</div>`).join("") : `<div style="font-size:12px;color:#4B5563;padding:8px 12px;text-align:center">No blockers</div>`}
+      <div style="background:var(--surface-1);border:1px solid var(--surface-3);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px">
+        ${blockerLines.length ? blockerLines.map(b => `<div style="padding:8px 12px;background:var(--red-soft-bg);border-radius:6px;border-left:3px solid #EF4444;font-size:12px;color:#FCA5A5">${b}</div>`).join("") : `<div style="font-size:12px;color:var(--text-6);padding:8px 12px;text-align:center">No blockers</div>`}
       </div>
     </div>
     <div>
-      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D1D5DB;margin-bottom:10px"><i class="ti ti-users"></i> Team</h2>
-      <div style="background:#0D1117;border:1px solid #1F2937;border-radius:10px;padding:6px">
+      <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px"><i class="ti ti-users"></i> Team</h2>
+      <div style="background:var(--surface-1);border:1px solid var(--surface-3);border-radius:10px;padding:6px">
         ${TEAM.map(t => {
           const l = load(t.n);
           const isWriter = t.n === "Mark Fredo" || t.n === "Jeffrey Hampton";
@@ -638,14 +726,14 @@ function renderTeamAndBlockers(){
           <div style="display:grid;grid-template-columns:auto 1.4fr 1fr auto;gap:12px;align-items:center;padding:8px 10px;border-radius:6px;opacity:${op}">
             ${avatar(t.n, 32)}
             <div>
-              <div style="font-size:13px;font-weight:600;color:#F3F4F6">${t.n}${t.dim?" <span style='font-size:10px;color:#F59E0B;font-weight:700'>· LEAVE</span>":""}</div>
-              <div style="font-size:10px;color:#6B7280">${t.r}</div>
+              <div style="font-size:13px;font-weight:600;color:var(--text-2)">${t.n}${t.dim?" <span style='font-size:10px;color:#F59E0B;font-weight:700'>· LEAVE</span>":""}</div>
+              <div style="font-size:10px;color:var(--text-5)">${t.r}</div>
             </div>
-            <div style="font-size:11px;color:#9CA3AF">
-              ${isWriter || !l.total ? `<span style="color:#374151">— no assignments</span>` : l.deliverables.map(id => `<span onclick="jumpToTask('${id}')" title="Jump to ${id}" style="display:inline-block;cursor:pointer;color:#D1D5DB;padding:2px 6px;margin-right:4px;background:#1F2937;border-radius:3px;font-weight:700;font-size:10px;letter-spacing:.06em">${id}</span>`).join("")}
+            <div style="font-size:11px;color:var(--text-4)">
+              ${isWriter || !l.total ? `<span style="color:var(--surface-4)">— no assignments</span>` : l.deliverables.map(id => `<span onclick="jumpToTask('${id}')" title="Jump to ${id}" style="display:inline-block;cursor:pointer;color:var(--text-3);padding:2px 6px;margin-right:4px;background:var(--surface-3);border-radius:3px;font-weight:700;font-size:10px;letter-spacing:.06em">${id}</span>`).join("")}
             </div>
             <div style="text-align:right">
-              ${l.total ? `<div style="font-size:12px;font-weight:700;color:#F9FAFB">${l.done}/${l.total}</div><div style="font-size:9px;color:${l.overdue?"#FCA5A5":"#6B7280"}">${l.overdue?l.overdue+" overdue":"on track"}</div>` : `<span style="font-size:10px;color:#374151">—</span>`}
+              ${l.total ? `<div style="font-size:12px;font-weight:700;color:var(--text-1)">${l.done}/${l.total}</div><div style="font-size:9px;color:${l.overdue?"#FCA5A5":"var(--text-5)"}">${l.overdue?l.overdue+" overdue":"on track"}</div>` : `<span style="font-size:10px;color:var(--surface-4)">—</span>`}
             </div>
           </div>`;
         }).join("")}
@@ -656,10 +744,10 @@ function renderTeamAndBlockers(){
 
 function renderFooter(){
   return `
-  <footer style="margin-top:32px;padding:18px 0 24px;border-top:1px solid #1F2937;text-align:center">
-    <div style="font-size:11px;color:#4B5563">
-      Data: <code style="color:#6B7280">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s ·
-      <a href="https://github.com/micpowl-dot/project-air-creative" style="color:#6B7280;text-decoration:underline">repo</a>
+  <footer style="margin-top:32px;padding:18px 0 24px;border-top:1px solid var(--surface-3);text-align:center">
+    <div style="font-size:11px;color:var(--text-6)">
+      Data: <code style="color:var(--text-5)">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s ·
+      <a href="https://github.com/micpowl-dot/project-air-creative" style="color:var(--text-5);text-decoration:underline">repo</a>
     </div>
   </footer>`;
 }
@@ -681,18 +769,17 @@ function render(){
 }
 
 function tickRefreshLabel(){
-  const el = document.getElementById("last-refresh");
+  const el = document.getElementById("refresh-countdown");
   if (!el) return;
-  const secs = Math.floor((new Date() - LAST_RENDER) / 1000);
-  if (secs < 5) el.textContent = "just now";
-  else if (secs < 60) el.textContent = secs + "s ago";
-  else el.textContent = Math.floor(secs/60) + "m " + (secs%60) + "s ago";
+  const secs = Math.max(0, Math.ceil((NEXT_REFRESH - new Date()) / 1000));
+  el.textContent = secs + "s";
+  el.style.color = secs <= 5 ? "#34D399" : "var(--text-4)";
 }
 
 render();
 fetchLive();
 setInterval(fetchLive, 60000);
-setInterval(tickRefreshLabel, 5000);
+setInterval(tickRefreshLabel, 1000);
 </script>
 </body>
 </html>
