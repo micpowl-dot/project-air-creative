@@ -595,9 +595,9 @@ function render(){
   $("app").innerHTML = `
     ${renderHeader()}
     <main class="wrap" style="padding:8px 0 24px">
+      ${renderStats()}
       ${renderGantt()}
       ${renderAttention()}
-      ${renderStats()}
       ${renderDeliverables()}
       ${renderTeamAndBlockers()}
       ${renderFooter()}
