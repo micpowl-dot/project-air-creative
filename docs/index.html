@@ -19,16 +19,21 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .gantt-row:last-child{border-bottom:0}
 details>summary{list-style:none;cursor:pointer}
 details>summary::-webkit-details-marker{display:none}
-.task-row{display:grid;grid-template-columns:60px 1.6fr 1.2fr 0.9fr 0.7fr;gap:12px;padding:8px 12px;border-radius:6px;align-items:center;font-size:12px}
+.task-row{display:grid;grid-template-columns:28px 56px 1.6fr 1.1fr 0.85fr 0.65fr;gap:10px;padding:8px 12px;border-radius:6px;align-items:center;font-size:12px}
 .task-row:hover{background:#0D1117}
 .task-row.done{color:#4B5563}
 .task-row.done .task-name{text-decoration:line-through}
 .task-row.overdue{background:#1A0606}
+.tbox{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid #4B5563;border-radius:4px;background:#0D1117;transition:all .12s ease;position:relative}
+.tbox:hover{border-color:#9CA3AF;background:#1F2937}
+.tbox.checked{background:#10B981;border-color:#10B981}
+.tbox.checked::after{content:"";position:absolute;top:2px;left:5px;width:4px;height:8px;border:solid #030712;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tbox.override::before{content:"";position:absolute;top:-3px;right:-3px;width:6px;height:6px;border-radius:50%;background:#F59E0B;border:1px solid #030712}
 @media (max-width:900px){
   .row-grid{grid-template-columns:1fr;gap:6px}
   .gantt-row{grid-template-columns:1fr;gap:4px}
-  .task-row{grid-template-columns:50px 1fr;gap:6px}
-  .task-row > *:nth-child(n+3){grid-column:2/3}
+  .task-row{grid-template-columns:28px 50px 1fr;gap:6px}
+  .task-row > *:nth-child(n+4){grid-column:3/4}
 }
 </style>
 </head>
@@ -151,6 +156,46 @@ const STATUS_META = {
 let LIVE = null;
 let TASK_STATE = TASKS.map(t => ({...t, owner: [...(t.owner||[])]}));
 
+// Manual overrides — wins over seed + live. Persisted in localStorage.
+const OVR_KEY = "projectAirOverrides_v1";
+let OVERRIDES = {};
+try { OVERRIDES = JSON.parse(localStorage.getItem(OVR_KEY) || "{}"); } catch(e) { OVERRIDES = {}; }
+function saveOverrides(){
+  try { localStorage.setItem(OVR_KEY, JSON.stringify(OVERRIDES)); } catch(e) {}
+}
+window.toggleTask = function(id){
+  const t = TASK_STATE.find(x => x.id === id);
+  if (!t) return;
+  const isDone = t.status === "complete" || t.status === "approved";
+  OVERRIDES[id] = isDone ? "not_started" : "complete";
+  saveOverrides();
+  applyOverlay();
+  render();
+};
+window.clearOverride = function(id, ev){
+  if (ev) ev.stopPropagation();
+  delete OVERRIDES[id];
+  saveOverrides();
+  applyOverlay();
+  render();
+};
+window.jumpToTask = function(deliverable, taskId){
+  const det = document.getElementById('d-' + deliverable);
+  if (!det) return;
+  det.open = true;
+  requestAnimationFrame(() => {
+    const target = taskId ? document.getElementById('task-' + taskId) : det;
+    if (!target) return;
+    target.scrollIntoView({behavior:'smooth', block:'center'});
+    if (taskId){
+      target.style.transition = 'background .25s';
+      const prev = target.style.background;
+      target.style.background = '#1E3A5F';
+      setTimeout(() => { target.style.background = prev; }, 1200);
+    }
+  });
+};
+
 // ---------- HELPERS ----------
 const $ = s => document.getElementById(s);
 const fmtDate = iso => {
@@ -222,18 +267,23 @@ async function fetchLive(){
 }
 function applyOverlay(){
   TASK_STATE = TASKS.map(t => ({...t, owner: [...(t.owner||[])]}));
-  if (!LIVE || !LIVE.task_updates) return;
   const byId = Object.fromEntries(TASK_STATE.map(t => [t.id, t]));
-  LIVE.task_updates.forEach(u => {
-    const id = u.task_id || u.id;
-    if (id && byId[id]){
-      if (u.new_status) byId[id].status = u.new_status;
-      if (u.owner) byId[id].owner = Array.isArray(u.owner) ? u.owner : [u.owner];
-      if (u.due) byId[id].due = u.due;
-      if (u.note) byId[id].note = u.note;
-    }
+  if (LIVE && LIVE.task_updates){
+    LIVE.task_updates.forEach(u => {
+      const id = u.task_id || u.id;
+      if (id && byId[id]){
+        if (u.new_status) byId[id].status = u.new_status;
+        if (u.owner) byId[id].owner = Array.isArray(u.owner) ? u.owner : [u.owner];
+        if (u.due) byId[id].due = u.due;
+        if (u.note) byId[id].note = u.note;
+      }
+    });
+  }
+  Object.entries(OVERRIDES).forEach(([id, status]) => {
+    if (byId[id]) byId[id].status = status;
   });
 }
+applyOverlay();
 
 // ---------- RENDERERS ----------
 function renderHeader(){
@@ -302,8 +352,8 @@ function renderGantt(){
           const pEnd = d.productionEnd ? pct(dateMS(d.productionEnd)) : null;
           return `
           <div class="gantt-row">
-            <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:10px;font-weight:800;color:#6B7280;letter-spacing:.06em">${d.id}</span>
+            <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="jumpToTask('${d.id}')" title="Jump to ${d.id} tasks">
+              <span style="font-size:10px;font-weight:800;color:#9CA3AF;letter-spacing:.06em;padding:2px 5px;background:#1F2937;border-radius:3px">${d.id}</span>
               <span style="font-size:11px;color:#D1D5DB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</span>
             </div>
             <div style="position:relative;height:18px">
@@ -337,7 +387,7 @@ function renderAttention(){
       ${items.slice(0,12).map(t => {
         const od = isOverdue(t.due,t.status);
         return `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:${od?"#2A0808":"#0D1117"};border-radius:7px;border-left:3px solid ${od?"#EF4444":"#F59E0B"}">
+        <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:${od?"#2A0808":"#0D1117"};border-radius:7px;border-left:3px solid ${od?"#EF4444":"#F59E0B"};cursor:pointer" title="Jump to ${t.id}">
           <div style="min-width:0;flex:1">
             <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.04em">${t.id}</div>
             <div style="font-size:12px;color:${od?"#FECACA":"#F3F4F6"};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
@@ -382,7 +432,7 @@ function renderDeliverableRow(d){
   const barColor = sum.pct === 100 ? "#10B981" : sum.pct > 50 ? "#3B82F6" : sum.pct > 0 ? "#8B5CF6" : "#374151";
 
   return `
-  <details style="background:#0D1117;border:1px solid #1F2937;border-radius:10px;margin-bottom:8px">
+  <details id="d-${d.id}" style="background:#0D1117;border:1px solid #1F2937;border-radius:10px;margin-bottom:8px;scroll-margin-top:20px">
     <summary style="padding:14px 18px">
       <div class="row-grid">
         <div style="display:flex;align-items:center;gap:10px">
@@ -417,13 +467,21 @@ function renderDeliverableRow(d){
     </summary>
     <div style="padding:4px 18px 14px;border-top:1px solid #111827">
       <div class="task-row" style="font-size:9px;font-weight:700;color:#6B7280;letter-spacing:.08em;text-transform:uppercase;background:none">
-        <div>ID</div><div>Task</div><div>Owner</div><div>Due</div><div>Status</div>
+        <div></div><div>ID</div><div>Task</div><div>Owner</div><div>Due</div><div>Status</div>
       </div>
       ${sum.tasks.map(t => {
         const od = isOverdue(t.due, t.status);
         const done = t.status === "complete" || t.status === "approved";
+        const hasOverride = OVERRIDES[t.id] !== undefined;
+        const cbTitle = (done?"Uncheck to mark not started":"Check to mark complete") + (hasOverride?" · manually overridden (right-click or shift-click to clear)":"");
         return `
-        <div class="task-row ${done?"done":""} ${od?"overdue":""}">
+        <div id="task-${t.id}" class="task-row ${done?"done":""} ${od?"overdue":""}" style="scroll-margin-top:30px">
+          <div>
+            <span class="tbox ${done?"checked":""} ${hasOverride?"override":""}"
+                  title="${cbTitle}"
+                  onclick="if(event.shiftKey){clearOverride('${t.id}',event)}else{toggleTask('${t.id}')}"
+                  oncontextmenu="event.preventDefault();clearOverride('${t.id}',event)"></span>
+          </div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;letter-spacing:.04em">${t.id}</div>
           <div>
             <div class="task-name" style="color:${done?"#4B5563":"#E5E7EB"}">${t.name}</div>
