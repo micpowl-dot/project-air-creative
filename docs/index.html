@@ -265,6 +265,19 @@ const fmtDate = iso => {
 };
 const dateMS = iso => new Date(iso.length===10 ? iso+"T23:59:59" : iso).getTime();
 const daysLeft = () => Math.max(0, Math.ceil((EVENT_DATE - TODAY) / 86400000));
+const US_HOLIDAYS = new Set(["2026-05-25"]); // Memorial Day
+const workingDaysLeft = () => {
+  let n = 0;
+  const cur = new Date(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate());
+  cur.setDate(cur.getDate() + 1); // exclude today
+  while (cur <= EVENT_DATE) {
+    const dow = cur.getDay();
+    const iso = cur.toISOString().slice(0,10);
+    if (dow !== 0 && dow !== 6 && !US_HOLIDAYS.has(iso)) n++;
+    cur.setDate(cur.getDate() + 1);
+  }
+  return n;
+};
 const isOverdue = (iso, status) => {
   if (!iso) return false;
   if (status === "complete" || status === "approved") return false;
@@ -353,12 +366,25 @@ applyOverlay();
 // ---------- RENDERERS ----------
 function renderHeader(){
   const days = daysLeft();
-  const ringColor = "#2DD4BF";
-  const r = 54, ci = 2*Math.PI*r;
-  const progress = 1 - Math.min(1, days / 60);
-  const offset = ci * (1 - progress);
+  const wdays = workingDaysLeft();
   const liveDot = LIVE ? "#34D399" : "#F59E0B";
   const sources = ["Slack","Drive","GitHub","Figma","PPTX"];
+  const ring = (value, label, color, maxScale) => {
+    const r = 54, ci = 2*Math.PI*r;
+    const progress = 1 - Math.min(1, value / maxScale);
+    const offset = ci * (1 - progress);
+    return `
+      <div style="position:relative;width:128px;height:128px;flex-shrink:0">
+        <svg width="128" height="128" viewBox="0 0 128 128">
+          <circle cx="64" cy="64" r="${r}" fill="none" stroke="#1F2937" stroke-width="7"/>
+          <circle cx="64" cy="64" r="${r}" fill="none" stroke="${color}" stroke-width="7" stroke-dasharray="${ci}" stroke-dashoffset="${offset}" stroke-linecap="round" transform="rotate(-90 64 64)"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <span style="font-size:34px;font-weight:800;color:#F9FAFB;line-height:1">${value}</span>
+          <span style="font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em;margin-top:3px;text-align:center;line-height:1.2">${label}</span>
+        </div>
+      </div>`;
+  };
   return `
   <div style="border-bottom:1px solid #1F2937;background:linear-gradient(180deg,#0D1117,#030712);padding:22px 0">
     <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
@@ -376,15 +402,9 @@ function renderHeader(){
           Data: <code style="color:#9CA3AF">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s · <a href="https://github.com/micpowl-dot/project-air-creative" style="color:#9CA3AF;text-decoration:underline">repo</a>
         </div>
       </div>
-      <div style="position:relative;width:128px;height:128px;flex-shrink:0">
-        <svg width="128" height="128" viewBox="0 0 128 128">
-          <circle cx="64" cy="64" r="${r}" fill="none" stroke="#1F2937" stroke-width="7"/>
-          <circle cx="64" cy="64" r="${r}" fill="none" stroke="${ringColor}" stroke-width="7" stroke-dasharray="${ci}" stroke-dashoffset="${offset}" stroke-linecap="round" transform="rotate(-90 64 64)"/>
-        </svg>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <span style="font-size:34px;font-weight:800;color:${ringColor};line-height:1">${days}</span>
-          <span style="font-size:10px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.1em;margin-top:2px">days left</span>
-        </div>
+      <div style="display:flex;gap:14px;flex-shrink:0">
+        ${ring(days,  "Days<br>left",     "#2DD4BF", 60)}
+        ${ring(wdays, "Working<br>days",  "#38BDF8", 45)}
       </div>
     </div>
   </div>`;
