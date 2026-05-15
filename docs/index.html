@@ -427,7 +427,7 @@ function renderStats(){
   const signals = LIVE?.signals_processed ?? 0;
   const lastUpdated = LIVE?.last_updated ? new Date(LIVE.last_updated).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}) : "—";
   const tiles = [
-    {l:"Total tasks", v:s.total, s:`${s.done} complete · ${s.inProgress} active`},
+    {l:"Total tasks", v:`${s.total - s.done} <span style="font-size:18px;color:#9CA3AF;font-weight:600">of ${s.total}</span>`, s:`${s.done} complete · ${s.inProgress} active`},
     {l:"Days left",   v:daysLeft(), s:"until AI Day"},
     {l:"Signals",     v:signals, s:`last ${lastUpdated}`},
     {l:"Blockers",    v:s.blocked, s:s.blocked?"attention":"clear", alert:s.blocked>0},
