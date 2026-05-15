@@ -23,7 +23,16 @@ details>summary::-webkit-details-marker{display:none}
 .task-row:hover{background:#0D1117}
 .task-row.done{color:#4B5563}
 .task-row.done .task-name{text-decoration:line-through}
-.task-row.overdue{background:#1A0606}
+.late-1{background:#2A0A0A!important;border-left:3px solid #B91C1C}
+.late-2{background:#4A0F0F!important;border-left:3px solid #DC2626;color:#FECACA}
+.late-3{background:#6E1212!important;border-left:3px solid #EF4444;color:#FEE2E2}
+.late-4{background:#8F1A1A!important;border-left:3px solid #FB7185;color:#FFF1F2;animation:lateBlink 2.4s ease-in-out infinite}
+.task-row.late-1,.task-row.late-2,.task-row.late-3,.task-row.late-4{padding-left:9px}
+.task-row.late-1:hover{background:#3A1414!important}
+.task-row.late-2:hover{background:#5A1818!important}
+.task-row.late-3:hover{background:#7E1A1A!important}
+.task-row.late-4:hover{background:#9F2424!important}
+@keyframes lateBlink{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0)}50%{box-shadow:0 0 12px 0 rgba(239,68,68,.45)}}
 .tbox{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:1.5px solid #4B5563;border-radius:4px;background:#0D1117;transition:all .12s ease;position:relative}
 .tbox:hover{border-color:#9CA3AF;background:#1F2937}
 .tbox.checked{background:#10B981;border-color:#10B981}
@@ -210,6 +219,11 @@ const isOverdue = (iso, status) => {
   if (status === "complete" || status === "approved") return false;
   return TODAY.getTime() > dateMS(iso);
 };
+const daysLate = (iso, status) => {
+  if (!isOverdue(iso, status)) return 0;
+  return Math.max(0, Math.floor((TODAY.getTime() - dateMS(iso)) / 86400000));
+};
+const lateClass = days => days<=0 ? "" : days<=2 ? "late-1" : days<=5 ? "late-2" : days<=10 ? "late-3" : "late-4";
 const member = n => TEAM.find(t => t.n === n);
 const avatar = (name, size=22) => {
   const t = member(name);
@@ -389,15 +403,18 @@ function renderAttention(){
     <div style="background:linear-gradient(135deg,#1A0606,#0D1117);border:1px solid #7F1D1D;border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px">
       ${items.slice(0,12).map(t => {
         const od = isOverdue(t.due,t.status);
+        const late = daysLate(t.due,t.status);
+        const bg = late<=0 ? "#0D1117" : late<=2 ? "#2A0A0A" : late<=5 ? "#4A0F0F" : late<=10 ? "#6E1212" : "#8F1A1A";
+        const border = late<=0 ? "#F59E0B" : late<=2 ? "#B91C1C" : late<=5 ? "#DC2626" : late<=10 ? "#EF4444" : "#FB7185";
         return `
-        <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:${od?"#2A0808":"#0D1117"};border-radius:7px;border-left:3px solid ${od?"#EF4444":"#F59E0B"};cursor:pointer" title="Jump to ${t.id}">
+        <div onclick="jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:${bg};border-radius:7px;border-left:4px solid ${border};cursor:pointer${late>10?";animation:lateBlink 2.4s ease-in-out infinite":""}" title="Jump to ${t.id}">
           <div style="min-width:0;flex:1">
             <div style="font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:.04em">${t.id}</div>
             <div style="font-size:12px;color:${od?"#FECACA":"#F3F4F6"};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
           </div>
           <div style="text-align:right;padding-left:10px">
             <div style="font-size:11px;font-weight:700;color:${od?"#FCA5A5":"#FDE68A"};${od?"text-decoration:line-through":""}">${fmtDate(t.due)}</div>
-            ${od ? `<div style="font-size:8px;font-weight:800;color:#EF4444;letter-spacing:.08em">OVERDUE</div>` : ""}
+            ${od ? `<div style="font-size:8px;font-weight:800;color:#EF4444;letter-spacing:.08em">+${late}d LATE</div>` : ""}
           </div>
         </div>`;
       }).join("")}
@@ -433,9 +450,13 @@ function renderDeliverableRow(d){
   const prodOverdue = d.productionEnd && TODAY.getTime() > dateMS(d.productionEnd);
   const owners = [...new Set(sum.tasks.flatMap(t => t.owner || []))];
   const barColor = sum.pct === 100 ? "#10B981" : sum.pct > 50 ? "#3B82F6" : sum.pct > 0 ? "#8B5CF6" : "#374151";
+  const maxLate = Math.max(0, ...sum.tasks.map(t => daysLate(t.due, t.status)));
+  const dBg = maxLate<=0 ? "#0D1117" : maxLate<=2 ? "#180A0A" : maxLate<=5 ? "#2A0F0F" : maxLate<=10 ? "#3D1212" : "#5B1616";
+  const dBorder = maxLate<=0 ? "#1F2937" : maxLate<=2 ? "#7F1D1D" : maxLate<=5 ? "#991B1B" : maxLate<=10 ? "#B91C1C" : "#DC2626";
+  const dLeftBorder = maxLate<=0 ? "" : `;border-left:4px solid ${maxLate<=2?"#B91C1C":maxLate<=5?"#DC2626":maxLate<=10?"#EF4444":"#FB7185"}`;
 
   return `
-  <details id="d-${d.id}" style="background:#0D1117;border:1px solid #1F2937;border-radius:10px;margin-bottom:8px;scroll-margin-top:20px">
+  <details id="d-${d.id}" style="background:${dBg};border:1px solid ${dBorder};border-radius:10px;margin-bottom:8px;scroll-margin-top:20px${dLeftBorder}">
     <summary style="padding:14px 18px">
       <div class="row-grid">
         <div style="display:flex;align-items:center;gap:10px">
@@ -474,11 +495,12 @@ function renderDeliverableRow(d){
       </div>
       ${sum.tasks.map(t => {
         const od = isOverdue(t.due, t.status);
+        const late = daysLate(t.due, t.status);
         const done = t.status === "complete" || t.status === "approved";
         const hasOverride = OVERRIDES[t.id] !== undefined;
         const cbTitle = (done?"Uncheck to mark not started":"Check to mark complete") + (hasOverride?" · manually overridden (right-click or shift-click to clear)":"");
         return `
-        <div id="task-${t.id}" class="task-row ${done?"done":""} ${od?"overdue":""}" style="scroll-margin-top:30px">
+        <div id="task-${t.id}" class="task-row ${done?"done":""} ${lateClass(late)}" style="scroll-margin-top:30px">
           <div>
             <span class="tbox ${done?"checked":""} ${hasOverride?"override":""}"
                   title="${cbTitle}"
@@ -492,7 +514,7 @@ function renderDeliverableRow(d){
           </div>
           <div>${stack(t.owner, 20)}</div>
           <div style="font-size:11px;color:${od?"#FCA5A5":done?"#4B5563":"#D1D5DB"};${od?"text-decoration:line-through":""}">
-            ${fmtDate(t.due)}${od?' <span style="font-size:9px;font-weight:800;color:#EF4444;text-decoration:none">OD</span>':""}
+            ${fmtDate(t.due)}${od?` <span style="font-size:9px;font-weight:800;color:#EF4444;text-decoration:none">+${late}d</span>`:""}
           </div>
           <div>${statusPill(t.status)}</div>
         </div>`;
