@@ -13,7 +13,10 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer}
 .wrap{max-width:1320px;margin:0 auto;padding:0 28px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .pulse{animation:pulse 2s infinite}
+.stat-clickable{cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.stat-clickable:hover{border-color:#4B5563!important;background:#111827!important}
 .row-grid{display:grid;grid-template-columns:minmax(220px,1.5fr) 2.4fr 1.1fr 1fr;gap:14px;align-items:center}
 .gantt-row{display:grid;grid-template-columns:200px 1fr;gap:14px;align-items:center;padding:9px 0;border-bottom:1px solid #111827}
 .gantt-row:last-child{border-bottom:0}
@@ -204,6 +207,54 @@ window.jumpToTask = function(deliverable, taskId){
     }
   });
 };
+
+window.openTaskFilter = function(filter){
+  const filters = {
+    complete:   {label:"Completed tasks",   match: t => t.status==="complete" || t.status==="approved",  empty:"No tasks completed yet."},
+    overdue:    {label:"Overdue tasks",     match: t => isOverdue(t.due, t.status),                       empty:"Nothing overdue."},
+    inprogress: {label:"In-flight tasks",   match: t => t.status==="in_progress" || t.status==="in_review", empty:"Nothing in flight."},
+    blocked:    {label:"Blocked tasks",     match: t => t.status==="blocked",                              empty:"No blockers."},
+  };
+  const f = filters[filter] || filters.complete;
+  const matches = TASK_STATE.filter(f.match)
+    .sort((a,b) => (DELIVERABLES.findIndex(d=>d.id===a.d) - DELIVERABLES.findIndex(d=>d.id===b.d)) || a.id.localeCompare(b.id));
+
+  const list = matches.length ? matches.map(t => {
+    const late = daysLate(t.due, t.status);
+    return `
+    <div onclick="closeTaskFilter();jumpToTask('${t.d}','${t.id}')" style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;background:#0D1117;border-radius:7px;border-left:3px solid ${STATUS_META[t.status]?.fg||'#4B5563'};cursor:pointer;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
+        <span style="font-size:10px;font-weight:800;color:#9CA3AF;padding:2px 6px;background:#1F2937;border-radius:3px">${t.id}</span>
+        <span style="font-size:12px;color:#F3F4F6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</span>
+      </div>
+      ${stack(t.owner, 18)}
+      <span style="font-size:11px;color:#9CA3AF;flex-shrink:0">${fmtDate(t.due)}${late?` <span style="color:#FCA5A5;font-weight:700">+${late}d</span>`:""}</span>
+      ${statusPill(t.status)}
+    </div>`;
+  }).join("") : `<div style="font-size:13px;color:#6B7280;text-align:center;padding:24px">${f.empty}</div>`;
+
+  const html = `
+    <div id="task-filter-backdrop" onclick="if(event.target.id==='task-filter-backdrop')closeTaskFilter()" style="position:fixed;inset:0;background:rgba(3,7,18,.78);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:80px 24px 24px;overflow-y:auto;animation:fadeIn .14s ease">
+      <div style="background:#111827;border:1px solid #1F2937;border-radius:12px;max-width:760px;width:100%;padding:18px 20px;box-shadow:0 20px 60px rgba(0,0,0,.6)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <h3 style="font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#F3F4F6">${f.label} · ${matches.length}</h3>
+          <button onclick="closeTaskFilter()" style="font-size:18px;color:#9CA3AF;padding:4px 10px;border-radius:6px" title="Close (Esc)"><i class="ti ti-x"></i></button>
+        </div>
+        ${list}
+      </div>
+    </div>`;
+
+  const wrap = document.createElement("div");
+  wrap.innerHTML = html;
+  document.body.appendChild(wrap.firstElementChild);
+  document.addEventListener("keydown", escClose);
+};
+window.closeTaskFilter = function(){
+  const el = document.getElementById("task-filter-backdrop");
+  if (el) el.remove();
+  document.removeEventListener("keydown", escClose);
+};
+function escClose(e){ if (e.key === "Escape") window.closeTaskFilter(); }
 
 // ---------- HELPERS ----------
 const $ = s => document.getElementById(s);
@@ -428,16 +479,16 @@ function renderStats(){
   const signals = LIVE?.signals_processed ?? 0;
   const lastUpdated = LIVE?.last_updated ? new Date(LIVE.last_updated).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}) : "—";
   const tiles = [
-    {l:"Total tasks", v:`${s.total - s.done} <span style="font-size:18px;color:#9CA3AF;font-weight:600">of ${s.total}</span>`, s:`${s.done} complete · ${s.inProgress} active`},
+    {l:"Total tasks", v:`${s.total - s.done} <span style="font-size:18px;color:#9CA3AF;font-weight:600">of ${s.total}</span>`, s:`${s.done} complete · ${s.inProgress} active`, click:"complete", hint:"Click to see completed"},
     {l:"Activity",    v:signals, s:`${signals?"updates":"no updates"} · last ${lastUpdated}`},
-    {l:"Blockers",    v:s.blocked, s:s.blocked?"attention":"clear", alert:s.blocked>0},
-    {l:"Overdue",     v:s.overdue, s:"deadlines past", alert:s.overdue>0},
+    {l:"Blockers",    v:s.blocked, s:s.blocked?"attention":"clear", alert:s.blocked>0, click:s.blocked?"blocked":null, hint:s.blocked?"Click to see blockers":null},
+    {l:"Overdue",     v:s.overdue, s:"deadlines past", alert:s.overdue>0, click:s.overdue?"overdue":null, hint:s.overdue?"Click to see overdue":null},
   ];
   return `
   <section style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px">
     ${tiles.map(t => `
-      <div style="background:#0D1117;border:1px solid ${t.alert?"#7F1D1D":"#1F2937"};border-radius:10px;padding:14px 16px">
-        <div style="font-size:9px;font-weight:700;color:#6B7280;letter-spacing:.12em;text-transform:uppercase">${t.l}</div>
+      <div ${t.click?`class="stat-clickable" onclick="openTaskFilter('${t.click}')" title="${t.hint||""}"`:""} style="background:#0D1117;border:1px solid ${t.alert?"#7F1D1D":"#1F2937"};border-radius:10px;padding:14px 16px;position:relative">
+        <div style="font-size:9px;font-weight:700;color:#6B7280;letter-spacing:.12em;text-transform:uppercase">${t.l}${t.click?` <i class="ti ti-chevron-right" style="font-size:10px;color:#4B5563;vertical-align:middle"></i>`:""}</div>
         <div style="font-size:28px;font-weight:800;color:${t.alert?"#FCA5A5":"#F9FAFB"};margin-top:2px;line-height:1">${t.v}</div>
         <div style="font-size:10px;color:#6B7280;margin-top:4px">${t.s}</div>
       </div>`).join("")}
