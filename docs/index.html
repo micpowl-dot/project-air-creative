@@ -307,6 +307,9 @@ function renderHeader(){
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
           ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"#1F2937"};border:1px solid ${LIVE?"#065F46":"#374151"};font-size:10px;color:${LIVE?"#A7F3D0":"#6B7280"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"#4B5563"}"></span>${s}</span>`).join("")}
         </div>
+        <div style="font-size:11px;color:#6B7280;margin-top:10px">
+          Data: <code style="color:#9CA3AF">assets/asset-tracker.md</code> seed + n8n aggregator overlay every 60s · <a href="https://github.com/micpowl-dot/project-air-creative" style="color:#9CA3AF;text-decoration:underline">repo</a>
+        </div>
       </div>
       <div style="position:relative;width:128px;height:128px;flex-shrink:0">
         <svg width="128" height="128" viewBox="0 0 128 128">
