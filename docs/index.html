@@ -54,7 +54,8 @@ details>summary::-webkit-details-marker{display:none}
 <script>
 // ---------- DATA ----------
 const EVENT_DATE = new Date("2026-06-09T09:00:00-04:00");
-const TODAY = new Date();
+let TODAY = new Date();
+let LAST_RENDER = new Date();
 
 const TEAM = [
   {n:"Michael Powell",   r:"CD / Art & Design",    i:"MP", c:"#E85D3A"},
@@ -389,9 +390,10 @@ function renderHeader(){
   <div style="border-bottom:1px solid #1F2937;background:linear-gradient(180deg,#0D1117,#030712);padding:22px 0">
     <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
       <div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
           <span class="pulse" style="width:8px;height:8px;border-radius:50%;background:${liveDot};box-shadow:0 0 10px ${liveDot}"></span>
           <span style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9CA3AF">${LIVE?"Live · n8n aggregator":"Static · waiting on aggregator"}</span>
+          <span style="font-size:10px;color:#4B5563;letter-spacing:.04em">· auto-refreshes every 60s · last <span id="last-refresh">just now</span></span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Dashboard</h1>
         <p style="font-size:13px;color:#9CA3AF;margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 60 tasks</p>
@@ -663,6 +665,8 @@ function renderFooter(){
 }
 
 function render(){
+  TODAY = new Date();
+  LAST_RENDER = new Date();
   $("app").innerHTML = `
     ${renderHeader()}
     <main class="wrap" style="padding:8px 0 24px">
@@ -676,9 +680,19 @@ function render(){
   `;
 }
 
+function tickRefreshLabel(){
+  const el = document.getElementById("last-refresh");
+  if (!el) return;
+  const secs = Math.floor((new Date() - LAST_RENDER) / 1000);
+  if (secs < 5) el.textContent = "just now";
+  else if (secs < 60) el.textContent = secs + "s ago";
+  else el.textContent = Math.floor(secs/60) + "m " + (secs%60) + "s ago";
+}
+
 render();
 fetchLive();
 setInterval(fetchLive, 60000);
+setInterval(tickRefreshLabel, 5000);
 </script>
 </body>
 </html>
