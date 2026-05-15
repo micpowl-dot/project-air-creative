@@ -288,7 +288,7 @@ applyOverlay();
 // ---------- RENDERERS ----------
 function renderHeader(){
   const days = daysLeft();
-  const ringColor = days <= 14 ? "#EF4444" : days <= 28 ? "#F59E0B" : "#10B981";
+  const ringColor = "#2DD4BF";
   const r = 54, ci = 2*Math.PI*r;
   const progress = 1 - Math.min(1, days / 60);
   const offset = ci * (1 - progress);
