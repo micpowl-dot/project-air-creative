@@ -39,6 +39,8 @@
 |------|------|-----|------|
 | Mon May 18 | Poster visual system | Lee / Michael / Camille | Deliverable |
 | Mon May 18 | Prompt card copy + design | Michael / Camille | Deliverable |
+| Tue May 19 | 🤝 **Meeting 3.5 — Headshot Best Practices** (30 min) | Michael, Lee, Camille *(Maigh — last 10 min)* | Working session |
+| **Wed May 20** | **Headshot Best Practices doc → Maigh** | Michael | **Deliverable** |
 | **Wed May 20** | **⚠️ All Canary files due** — badges + lanyards (×600), notebook, prompt card, pin, pen, t-shirt/hoodie, tote, water bottle, charging pad, Tier 3 items | Michael / Camille | **Hard deadline (Canary cutoff)** |
 | Wed May 20 | Logo animation loop | Michael | Deliverable |
 | Wed May 20 | PPT template — all layouts | Lee | Deliverable |
@@ -75,6 +77,7 @@
 | 1 | Brand Kickoff + Logo Ideation | Thu May 8 | 2:00–3:00pm | Full team |
 | 2 | Visual Systems Kickoff | TBD | TBD | Full team |
 | 3 | Swag + Prompt Card Brainstorm | Mon May 18 | 10:00–10:45am | Jeff, Camille, Michael |
+| 3.5 | **Headshot Best Practices** | Tue May 19 | TBD (30 min) | Michael, Lee, Camille *(Maigh — last 10 min)* |
 | 4 | Visual Systems Review | TBD | TBD | Mark, Michael, Lee, Camille |
 | 5 | Mid-Sprint Check-in | TBD | TBD | Full team |
 

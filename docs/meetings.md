@@ -95,6 +95,32 @@ Jeff has a shortlist of approved prompts to write against. Camille has creative 
 
 ---
 
+## Meeting 3.5 — Headshot Best Practices Working Session
+**Tuesday May 19 | 30 min — time TBD**
+**Attendees:** Michael Powell, Lee Payne, Camille Nettles *(Maigh Houlihan — invite for last 10 min)*
+**Format:** Quick working session — output is a one-page spec sheet
+
+### Purpose
+Headshots are blocking 21 of the 24 posters (D1) and are already 5 days late from Maigh. Before more come in, the team needs to agree on what "usable" looks like — resolution, framing, format, file naming, background, lighting — so Maigh can brief subjects and we stop receiving photos we can't use. Output goes to Maigh same day. **Hard deadline: Wednesday May 20** so Meeting 4 (Visual Systems Review) can reference the spec.
+
+### Pre-work
+| Person | Pre-work |
+|--------|----------|
+| Michael | Review any headshots already received. Flag the common failure modes (low-res, weird crop, busy background, etc.). |
+| Lee | Pull 2-3 reference examples of "good" headshots that would work in the poster system. Define minimum pixel dimensions for the layout. |
+| Camille | Define the badge crop variant — same source headshot needs to work in poster, badge, and digital. Note the smallest size it needs to look good at. |
+
+### Agenda
+1. Walk through current pain points — what's not working (5 min)
+2. Lock the specs: resolution, aspect ratio, file format, naming (10 min)
+3. Lock the visual brief: framing, lighting, background, expression guidance (10 min)
+4. Maigh joins — Michael walks her through the spec and how to brief subjects (5 min)
+
+### Output
+**Wednesday May 20 deliverable:** One-page "Headshot Best Practices" doc — half spec sheet, half subject-facing brief. Lives at `docs/headshot-best-practices.md` and is forwarded to Maigh. Anything received after this doc is sent must conform.
+
+---
+
 ## Meeting 4 — Visual Systems Review
 **Tuesday May 20 | 11:00am–12:00pm ET**
 **Attendees:** Mark Fredo, Michael Powell, Lee Payne, Camille Nettles *(Denise Denson — optional, SOF Week)*
@@ -178,10 +204,11 @@ Mark's sign-off. Denise traffics files to vendors same day.
 | 1 | Brand Kickoff + Logo Ideation | Thu May 8 *(Fri May 9 backup)* | 2:00–3:00pm | **Full team** |
 | 2 | Visual Systems Kickoff | Thu May 14 | 10:00–11:00am | Full team *(Denise optional — OOO)* |
 | 3 | Swag + Prompt Card Brainstorm | Mon May 18 | 10:00–10:45am | Jeff, Camille, Michael *(Denise optional — SOF Week)* |
+| 3.5 | **Headshot Best Practices** | Tue May 19 | TBD (30 min) | Michael, Lee, Camille *(Maigh — last 10 min)* |
 | 4 | Visual Systems Review | Tue May 20 | 11:00am–12:00pm | Mark, Michael, Lee, Camille *(Denise optional — SOF Week)* |
 | 5 | Mid-Sprint Check-in | Wed May 26 | 10:00–10:30am | Full team |
 | 6 | Pre-Print Final Review | Fri May 29 | 2:00–3:00pm | Mark, Michael, Denise |
 
 ---
 
-*Last updated: 2026-05-06*
+*Last updated: 2026-05-18*
