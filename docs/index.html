@@ -593,15 +593,53 @@ function renderAttention(){
   </section>`;
 }
 
-function renderMaighRequests(){
-  const items = [
-    {label:"Ambassador list + international employee numbers", due:"2026-05-12", note:"Needed for swag headcount and shipping splits"},
-    {label:"Ambassador + Executive headshots (×21)", due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)"},
-    {label:"Apparel size breakdown for Tier 2 (~25 people)", due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Canary order"},
-    {label:"Approval: Program Lead badge (1 of 1)", due:"2026-05-20", note:"D2-01 — Canary files due same day"},
-    {label:"Approval: Ambassador + Executive posters", due:"2026-05-21", note:"Pre-Atlas review (Atlas cutoff May 22)"},
-  ];
+const MAIGH_ITEMS = [
+  {id:"MAIGH-01", label:"Ambassador list + international employee numbers", due:"2026-05-12", note:"Needed for swag headcount and shipping splits"},
+  {id:"MAIGH-02", label:"Ambassador + Executive headshots (×21)", due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)"},
+  {id:"MAIGH-03", label:"Apparel size breakdown for Tier 2 (~25 people)", due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Canary order"},
+  {id:"MAIGH-04", label:"Approval: Program Lead badge (1 of 1)", due:"2026-05-20", note:"D2-01 — Canary files due same day"},
+  {id:"MAIGH-05", label:"Approval: Ambassador + Executive posters", due:"2026-05-21", note:"Pre-Atlas review (Atlas cutoff May 22)"},
+];
 
+const PROGRAM_SHEET_URL = "https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0";
+
+window.toggleMaigh = function(id){
+  const isDone = OVERRIDES[id] === "complete";
+  if (isDone) {
+    delete OVERRIDES[id];
+  } else {
+    OVERRIDES[id] = "complete";
+  }
+  saveOverrides();
+  render();
+  if (!isDone) showSheetPrompt(id);
+};
+
+window.showSheetPrompt = function(id){
+  const existing = document.getElementById("sheet-prompt-toast");
+  if (existing) existing.remove();
+  const item = MAIGH_ITEMS.find(x => x.id === id);
+  if (!item) return;
+  const toast = document.createElement("div");
+  toast.id = "sheet-prompt-toast";
+  toast.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:200;background:var(--surface-2);border:1px solid var(--amber-bd);border-radius:10px;padding:14px 16px;box-shadow:0 16px 40px rgba(0,0,0,.5);max-width:360px;animation:fadeIn .2s ease";
+  toast.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:10px">
+      <i class="ti ti-circle-check-filled" style="color:#34D399;font-size:22px;flex-shrink:0;margin-top:1px"></i>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;color:var(--text-1);margin-bottom:3px">Checked: ${item.label}</div>
+        <div style="font-size:11px;color:var(--text-4);line-height:1.4;margin-bottom:10px">Now update the program sheet so the ecosystem tracker picks it up.</div>
+        <div style="display:flex;gap:6px">
+          <a href="${PROGRAM_SHEET_URL}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--bg);background:var(--amber-fg);padding:6px 11px;border-radius:6px;text-decoration:none"><i class="ti ti-external-link"></i> Open program sheet</a>
+          <button onclick="document.getElementById('sheet-prompt-toast').remove()" style="font-size:11px;color:var(--text-5);padding:6px 11px;border-radius:6px;background:var(--surface-3)">Dismiss</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(toast);
+  setTimeout(() => { if (document.getElementById("sheet-prompt-toast") === toast) toast.remove(); }, 12000);
+};
+
+function renderMaighRequests(){
   const dayMs = 86400000;
   const statusFor = item => {
     const dueMS = dateMS(item.due);
@@ -615,26 +653,33 @@ function renderMaighRequests(){
     return {label:`DUE ${fmtDate(item.due)} · ${daysOut}d`, color:"var(--amber-fg)", bg:"var(--amber-bg)", border:"var(--amber-bd)"};
   };
 
-  const overdueCount = items.filter(i => TODAY.getTime() > dateMS(i.due)).length;
+  const isDone = id => OVERRIDES[id] === "complete";
+  const doneCount = MAIGH_ITEMS.filter(i => isDone(i.id)).length;
+  const overdueCount = MAIGH_ITEMS.filter(i => !isDone(i.id) && TODAY.getTime() > dateMS(i.due)).length;
 
   return `
   <section style="margin-top:24px">
-    <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-fg);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+    <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-fg);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
       <i class="ti ti-mail-forward"></i>
       <span>Awaiting from Maigh Houlihan · Program Lead</span>
-      <span style="font-size:10px;color:var(--text-5);font-weight:600;letter-spacing:.04em;text-transform:none">${items.length} requests${overdueCount?` · ${overdueCount} overdue`:""}</span>
+      <span style="font-size:10px;color:var(--text-5);font-weight:600;letter-spacing:.04em;text-transform:none">${doneCount}/${MAIGH_ITEMS.length} received${overdueCount?` · ${overdueCount} overdue`:""}</span>
+      <a href="${PROGRAM_SHEET_URL}" target="_blank" rel="noopener" title="Open program sheet" style="margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--text-4);text-transform:none;letter-spacing:.02em;padding:3px 8px;border:1px solid var(--surface-3);border-radius:5px"><i class="ti ti-external-link"></i> Program sheet</a>
     </h2>
     <div style="background:linear-gradient(135deg,var(--amber-bg),var(--surface-1));border:1px solid var(--amber-bd);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px">
-      ${items.map(item => {
+      ${MAIGH_ITEMS.map(item => {
+        const done = isDone(item.id);
         const st = statusFor(item);
+        const rowBg = done ? "var(--surface-1)" : st.bg;
+        const rowBorder = done ? "#10B981" : st.border;
         return `
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 12px;background:${st.bg};border-radius:7px;border-left:4px solid ${st.border}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 12px;background:${rowBg};border-radius:7px;border-left:4px solid ${rowBorder};opacity:${done?0.65:1}">
+          <span class="tbox ${done?"checked":""}" title="${done?"Uncheck":"Mark received and prompt sheet update"}" onclick="toggleMaigh('${item.id}')" style="margin-top:2px;flex-shrink:0"></span>
           <div style="min-width:0;flex:1">
-            <div style="font-size:12px;color:var(--text-2);font-weight:600;line-height:1.35">${item.label}</div>
+            <div style="font-size:12px;color:var(--text-2);font-weight:600;line-height:1.35;${done?"text-decoration:line-through":""}">${item.label}</div>
             ${item.note ? `<div style="font-size:10px;color:var(--text-5);margin-top:3px;line-height:1.4">${item.note}</div>` : ""}
           </div>
           <div style="text-align:right;flex-shrink:0">
-            <div style="font-size:9px;font-weight:800;color:${st.color};letter-spacing:.06em;white-space:nowrap">${st.label}</div>
+            <div style="font-size:9px;font-weight:800;color:${done?"#34D399":st.color};letter-spacing:.06em;white-space:nowrap">${done?"RECEIVED":st.label}</div>
           </div>
         </div>`;
       }).join("")}
