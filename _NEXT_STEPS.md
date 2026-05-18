@@ -73,7 +73,8 @@ Nothing downstream starts until this phase ships.
 | Ambassador list + intl employee numbers for swag | — | ⚠️ TBD — unassigned | **May 12** | ⬜ |
 | Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ⬜ |
 | Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ⬜ |
-| Swag designs due to print vendors | D5-01–D5-09 | Michael / Camille | **May 15** | ⬜ |
+| Swag designs to Canary (Tier 1/2/3 non-sticker) | D5-02–D5-07, D5-13–D5-21 | Michael / Camille | **May 20** | ⬜ |
+| Sticker design to Atlas | D5-01 | Michael / Camille | **May 22** | ⬜ |
 | Poster visual system — layout, type, color rules | D1-00 | Lee / Michael / Camille | **May 18** | ⬜ |
 | Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
 | Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
@@ -143,9 +144,16 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Question | Blocks | Owner | Due |
 |----------|--------|-------|-----|
 | ⚠️ Poster vendor date conflict: Atlas says May 22, program list says May 25 — which is correct? | Phase 3 | Michael / Denise | May 12 |
-| Badges + lanyards vendor — Atlas can't do branded lanyards, need new vendor | Phase 4 | Denise / Michael | May 16 |
-| Swag vendor — not yet confirmed | Phase 5 | Denise | May 16 |
 | Ambassador list + international employee numbers for swag — who owns this? | Phase 2 | ⚠️ Unassigned | May 12 |
+| ⚠️ Badge/lanyard quantity: program sheet now specifies **600** branded badges + lanyards (all NA attendees), not 25 presenter-only. Confirm scope and budget. | Phase 2 | Michael / Denise / Mark | ASAP |
+| NY + Andover office delivery addresses still TBD on the program sheet | Phase 5 | Denise | May 22 |
+
+### Resolved
+
+| Question | Resolution | Date |
+|----------|------------|------|
+| ~~Badges + lanyards vendor~~ | **Canary** — confirmed via program sheet. Branded, double-sided, custom-print. | 2026-05-18 |
+| ~~Swag vendor~~ | **Canary** for Tier 1/2/3 non-sticker items; **Atlas** for stickers + posters. Backups: Danger Press (clothing), FedEx Kinkos (notebooks). | 2026-05-18 |
 
 ---
 

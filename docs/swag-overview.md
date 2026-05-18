@@ -1,141 +1,99 @@
 # Swag Overview — Project AIR
 
-> Source: Canary LLC proposal — full catalog at [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf)
-> Brief: [`docs/design-brief.md`](design-brief.md) — Deliverable 5
-> **Working headcount: 600 North American employees.** (The original brief says 830 total including international; swag is North America only.)
-> Canary lead time: ~2 weeks. Design deadline: **May 15.**
+> Source of truth: [program sheet](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0). Canary catalog: [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf). Brief: [`docs/design-brief.md`](design-brief.md) — Deliverable 5.
+> **Working headcount: 600 North American attendees** (Brookhaven + NY + Andover). Total company is 830; swag is North America only.
+> **Print files due:** Canary items **May 20** · Atlas items (sticker + posters) **May 22**.
 
 ---
 
-## Headcount
+## Plan: Full Distribution (Locked by Program Sheet)
 
-| Group | Count | Notes |
-|-------|-------|-------|
-| North American attendees (Tier 1 eligible) | **600** | Brookhaven HQ (Atlanta) + New York only |
-| Presenters, Ambassadors, Site Leads (Tier 2) | **25** | Program Lead (1) + Exec Speakers (4) + Ambassadors (17) + Site Leads (3) |
-| Above and beyond (Tier 3) | **TBD** | Event-driven; plan for 10–20 |
+Every NA attendee gets Tier 1. ~25 presenters/leads also receive Tier 2 on top. Tier 3 prizes are 1–2 units, distributed via event mechanics.
 
----
-
-## Plan A — Tier 2 Only (Recommended Starting Point)
-
-**Scope:** 25 presenters, Ambassadors, and site leads only. No general distribution.
-**Total est. cost:** ~$5,000–$6,500 depending on item selection.
-
-This is the focused recognition option. Everyone who built and ran the day walks away with a meaningful package. No inventory risk, no sizing complexity beyond 25 people.
-
-### Plan A — Recommended Package
-
-| Item | Canary Option | Unit Price | Total (25) | Notes |
-|------|--------------|-----------|------------|-------|
-| Hoodie | Relax Hoodie | $50.00 | $1,400 + $150 setup | **Need S/M/L/XL/2XL split for 25 people** |
-| Tumbler | Fellow Carter Tumbler 20oz | $58.00 | $1,600 + $150 setup | Pick one bottle — Fellow is the strongest brand |
-| Tote | Shoulder Tote | $22.00 | $700 + $150 setup | Functional, festival-feel |
-| **Plan A Total** | | | **~$3,700 + ~$450 setup** | |
-
-**Optional add-ons for Plan A:**
-
-| Item | Unit Price | Total (25) | Notes |
-|------|-----------|------------|-------|
-| Classic Tee (instead of hoodie) | $27.00 | $825 + $150 setup | Lower cost; hoodie has more perceived value |
-| LARQ Bottle 25oz (instead of Fellow) | $69.00 | $1,875 + $150 setup | Self-cleaning, premium spec |
-| Ocean Bottle 34oz | $56.00 | $1,550 + $150 setup | Eco angle |
-| PowerPack MagSafe | $53.00 | $1,475 + $150 setup | Tech-adjacent, practical |
+| Tier | Who | Qty per item |
+|------|-----|--------------|
+| Tier 1 | All NA attendees | 600 |
+| Tier 2 | Presenters, ambassadors, site leads | ~25 |
+| Tier 3 | Prize/giveaway recipients | 1–2 per item |
 
 ---
 
-## Plan B — Tier 1 + Tier 2 (Full Distribution)
+## Tier 1 — Mandatory (600 each)
 
-**Scope:** 600 general attendees get Tier 1 items + the 25 presenters get Tier 2 items on top.
-**Total est. cost:** ~$16,000–$20,000 depending on Tier 1 item selection.
+| Item | Vendor | Files Due | Notes |
+|------|--------|-----------|-------|
+| Ambassador & Executive posters (large-format) | Atlas | **May 22** | ~21 designs × 3 offices = 63 prints |
+| Project AIR sticker (die-cut, laptop-worthy) | Atlas | **May 22** | Backup: Danger Press |
+| AI prompt card (laminated, 5 universal prompts) | Canary | **May 20** | |
+| Branded notebook (pocket-sized) | Canary | **May 20** | Backup: FedEx Kinkos |
+| Custom enamel pin | Canary | **May 20** | |
+| Badges + lanyard (branded, double-sided custom print) | Canary | **May 20** | ⚠️ 600 — confirm scope/budget |
+| Branded pen or stylus | Canary | **May 20** | |
 
-This is the full festival-merch option. Everyone leaves with something branded. Higher cost and complexity, but reinforces the SXSW-meets-Coachella feel throughout the day.
-
-### Plan B — Tier 1 (600 attendees)
-
-| Brief Item | Canary Option | Unit Price | Total (600) | Notes |
-|-----------|--------------|-----------|-------------|-------|
-| Branded notebook | Branded Notebook | $12.00 | $7,350 + $150 setup | Strong option — practical, keeps brand in sight for months |
-| Custom enamel pin | Custom Printed Pin | $5.00 | $3,150 + $150 setup | Wearable; fits festival identity |
-| Gel pen | Jotter Pen (gel) | $1.70 | $1,170 + $150 setup | Pairs with notebook; low cost |
-| Die-cut sticker | Project AIR Sticker 2"×2" | $2.00 | $1,350 + $150 setup | Check if Atlas handles this — avoid double-ordering |
-| AI prompt card (laminated) | **NOT IN CANARY** | — | — | Source separately: Moo, Sticker Mule, or local print |
-| **Tier 1 Total (notebook + pin + pen + sticker)** | | | **~$13,000 + ~$600 setup** | |
-
-### Plan B — Tier 2 (25 presenters, same as Plan A)
-
-Same package as Plan A above. Tier 2 recipients also receive all Tier 1 items.
-
-| Plan B Combined Total | ~$17,000–$20,000 | Depends on Tier 1 item selection and whether prompt card is added |
-|-----------------------|-----------------|------------------------------------------------------------------|
+> ⚠️ **Badges + lanyards scope:** Sheet specifies 600 (all NA attendees). Previous project assumption was 25 presenter-only. Confirm with Mark/Denise before design lock.
 
 ---
 
-## Tier 3 — Above and Beyond (Both Plans)
+## Tier 2 — Office Delivery (~25 each)
 
-Tier 3 applies regardless of which plan is chosen. These are prize/recognition items distributed during the event.
+Sized for presenters, ambassadors, site leads. Limited-run, "AI Day team" feel.
 
-| Brief Item | Canary Option | Unit Price | Planning Qty | Est. Total |
-|-----------|--------------|-----------|-------------|-----------|
-| Premium backpack | Rains Backpack | $140.00 | 5 | $850 + $150 setup |
-| High-end speaker | Sonos Roam 2 | $285.75 | 5 | $1,579 + $150 setup |
-| Custom jacket | Canvas Heavy Jacket | $100.00 | 5 | $650 + $150 setup |
-| Custom vest | Canvas Heavy Vest | $100.00 | 5 | $650 + $150 setup |
-| Noise-cancelling earbuds | **NOT IN CANARY** | — | 5 | Source separately — Sony, Jabra |
-
-> **Quantity is TBD until engagement mechanics are confirmed.** Suggest 1 prize per venue (×5) as a floor, or 1 per mechanic (Bingo, AI Helped Me wall, etc.).
+| Item | Vendor | Files Due | Canary SKU (catalog) | Unit | Total (25) |
+|------|--------|-----------|---------------------|------|------------|
+| Custom t-shirt or hoodie (event-year branded) | Canary | **May 20** | Relax Hoodie / Classic Tee | $50 / $27 | $1,400 / $825 + $150 setup |
+| Premium water bottle / tumbler | Canary | **May 20** | Fellow Carter 20oz / LARQ 25oz / Ocean 34oz | $58 / $69 / $56 | $1,600 / $1,875 / $1,550 + $150 setup |
+| Wireless charging pad | Canary | **May 20** | PowerPack MagSafe | $53 | $1,475 + $150 setup |
+| Custom tote bag (canvas, festival-style) | Canary | **May 20** | Shoulder Tote | $22 | $700 + $150 setup |
 
 ---
 
-## Items in the Brief NOT Covered by Canary
+## Tier 3 — Premium Giveaways (1–2 each)
 
-| Item | Tier | What to Do |
-|------|------|-----------|
-| AI prompt card (laminated, 5 prompts) | Tier 1 | Moo.com or Sticker Mule — small format, laminated, double-sided |
-| Wireless charging pad | Tier 2 (optional) | Source separately or swap for Canary MagSafe PowerPack ($53) |
-| Noise-cancelling earbuds/headphones | Tier 3 | BestBuy@Work, Jabra B2B, or swag vendor with tech catalog |
+Above-and-beyond prize tier. Distributed via event mechanics (Bingo, "AI Helped Me" wall, etc.).
 
----
+| Item | Vendor | Files Due | Approx. Unit Cost | Notes |
+|------|--------|-----------|-------------------|-------|
+| Pocket AI | **Self-purchase** | May 20 | ~$130 | Sourced direct |
+| Cotopaxi Hip Bag | **Self-purchase** | May 20 | $40–70 | Branding optional |
+| Noise-cancelling earbuds or headphones | Canary | **May 20** | TBD per catalog | |
+| Premium backpack or messenger bag | Canary | **May 20** | $140 (Rains Backpack) | |
+| High-end portable speaker | Canary | **May 20** | $285 (Sonos Roam 2) | |
+| Custom jacket | Canary | **May 20** | $100 (Canvas Heavy Jacket) | |
+| Custom vest | Canary | **May 20** | $100 (Canvas Heavy Vest) | |
 
-## Lanyards + Badges — Deliverable 2 (Separate from Swag)
-
-**Decision: Lanyards for 25 presenters only. General attendees do not get lanyards.**
-
-Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-sublimated lanyards, which resolves the Atlas gap.
-
-| Badge Tier | Who | Qty | Canary Option | Unit Price | Total |
-|-----------|-----|-----|--------------|-----------|-------|
-| Program Lead | Maigh Houlihan | 1 | Dye-sub branded lanyard | $3.50 | ~$4 |
-| Executive Speakers | Rohit, Matthew, Brian, Dan | 4 | Dye-sub + ID badge combo | $7.00 | $28 |
-| Ambassadors | 17 session leads | 17 | Dye-sub + ID badge combo | $7.00 | $119 |
-| Site Leads | Andover, Birmingham, Seoul | 3 | Dye-sub + ID badge combo | $7.00 | $21 |
-| **Total** | | **25** | | | **~$172 + $150 setup** |
+> Final Tier 3 quantities (1 or 2 of each) depend on engagement mechanics. Suggest 1 per venue (×3 NA offices) as a floor.
 
 ---
 
-## Side-by-Side Summary
+## Vendor Split
 
-| | Plan A (Tier 2 Only) | Plan B (Tier 1 + Tier 2) |
-|--|---------------------|------------------------|
-| Who gets swag | 25 presenters only | 600 attendees + 25 presenters |
-| Tier 1 items | None | Notebook + pin + pen + sticker |
-| Tier 2 items | Hoodie + tumbler + tote | Same + Tier 1 package |
-| Tier 3 | TBD prizes (both plans) | TBD prizes (both plans) |
-| Est. total (ex. Tier 3) | ~$4,200 | ~$17,000–$20,000 |
-| Complexity | Low — 25 people, 3 items | High — size runs, inventory, distribution |
-| Decision needed | Apparel sizing for 25 | Apparel sizing + item confirmation |
+| Vendor | Handles | Files Due |
+|--------|---------|-----------|
+| **Atlas Print Solutions** | Posters (large-format), die-cut sticker | **May 22** |
+| **Canary LLC** | Badges + lanyards, all Tier 1 print, all Tier 2 apparel + tech, all non-self-purchase Tier 3 | **May 20** |
+| **Self-purchase** | Pocket AI, Cotopaxi Hip Bag | by **May 20** |
+| **Danger Press** | Backup to Canary for clothing | — |
+| **FedEx Kinkos** | Backup to Atlas for notebooks | — |
+
+Full vendor detail in [`docs/vendors.md`](vendors.md).
 
 ---
 
-## Open Decisions Before May 15
+## Open Decisions Before May 20
 
-1. **Plan A or Plan B?** Tier 2 only, or Tier 1 general distribution for 600?
-2. **Tier 1 items:** Notebook + pin + pen confirmed? Prompt card still needs its own source.
-3. **Apparel sizing:** S/M/L/XL/2XL breakdown needed from Maigh/Denise for the 25 Tier 2 recipients.
-4. **Tier 3 mechanics:** Which engagement mechanics are running? How many winners per venue?
-5. **Sticker source:** Stay with Atlas or consolidate to Canary?
+1. **Confirm 600-qty badge + lanyard scope and budget.** Previous assumption was 25 presenter-only. This is the highest-impact open item.
+2. **Apparel sizing breakdown** for Tier 2 (~25 recipients) — S/M/L/XL/2XL. Owner: Maigh / Denise.
+3. **Final Tier 2 selections** — which t-shirt vs. hoodie, which bottle, etc.
+4. **Final Tier 3 selections + quantities** — tied to engagement mechanics.
+5. **NY + Andover delivery addresses** — still TBD on the program sheet. Atlas needs them to ship.
 
-> ~~Lanyard scope~~ — **Resolved: 25 presenters only. General attendees do not get lanyards.**
+### Resolved by program sheet
+
+- ~~Lanyard vendor~~ — Canary (branded, double-sided, custom print)
+- ~~General swag vendor~~ — Canary for everything except posters/sticker (Atlas)
+- ~~Sticker source~~ — Atlas (Danger Press backup)
+- ~~Prompt card source~~ — Canary
+- ~~Earbuds/charging pad source~~ — Canary
 
 ---
 
@@ -150,4 +108,4 @@ Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-su
 
 ---
 
-*Last updated: 2026-05-13*
+*Last updated: 2026-05-18 — synced with program sheet*

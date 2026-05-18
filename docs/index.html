@@ -139,17 +139,17 @@ const DELIVERABLES = [
     designStart:"2026-05-05", designEnd:"2026-05-20",
     productionStart:null, productionEnd:null, vendor:null },
   { id:"D5", name:"Swag & Merchandise", icon:"ti-gift",
-    designStart:"2026-05-08", designEnd:"2026-05-15",
-    productionStart:"2026-05-15", productionEnd:"2026-06-06", vendor:"Canary / ATLAS" },
+    designStart:"2026-05-08", designEnd:"2026-05-22",
+    productionStart:"2026-05-20", productionEnd:"2026-06-06", vendor:"Canary / ATLAS" },
   { id:"D1", name:"Speaker Spotlight Posters", icon:"ti-photo",
     designStart:"2026-05-12", designEnd:"2026-05-21",
     productionStart:"2026-05-22", productionEnd:"2026-06-07", vendor:"ATLAS" },
   { id:"D4", name:"PowerPoint Template", icon:"ti-presentation",
     designStart:"2026-05-12", designEnd:"2026-05-20",
     productionStart:null, productionEnd:null, vendor:null },
-  { id:"D2", name:"Lanyards & Presenter Badges", icon:"ti-id-badge-2",
-    designStart:"2026-05-13", designEnd:"2026-05-21",
-    productionStart:"2026-05-22", productionEnd:"2026-06-02", vendor:"Canary" },
+  { id:"D2", name:"Badges & Lanyards (×600 all attendees)", icon:"ti-id-badge-2",
+    designStart:"2026-05-13", designEnd:"2026-05-20",
+    productionStart:"2026-05-20", productionEnd:"2026-06-02", vendor:"Canary" },
 ];
 
 const TASKS = [
@@ -180,14 +180,14 @@ const TASKS = [
   {id:"D1-23", d:"D1", name:"Print production handoff", owner:["Denise Denson"],     due:"2026-05-22", status:"not_started", note:"Atlas cutoff"},
 
   // D2 Badges & Lanyards (8)
-  {id:"D2-00", d:"D2", name:"Badge & lanyard visual system",  owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
-  {id:"D2-01", d:"D2", name:"Program Lead badge (Maigh)",     owner:["Camille Nettles"], due:"2026-05-21", status:"not_started", note:"1 of 1"},
-  {id:"D2-02", d:"D2", name:"Executive Speaker badges (x4)",  owner:["Camille Nettles"], due:"2026-05-21", status:"not_started"},
-  {id:"D2-03", d:"D2", name:"Ambassador badges (x17)",        owner:["Camille Nettles"], due:"2026-05-21", status:"not_started"},
-  {id:"D2-04", d:"D2", name:"Site Lead badges (x3)",          owner:["Camille Nettles"], due:"2026-05-21", status:"not_started"},
-  {id:"D2-05", d:"D2", name:"Lanyard design (custom print)",  owner:["Camille Nettles"], due:"2026-05-21", status:"not_started"},
-  {id:"D2-06", d:"D2", name:"Badge back content",             owner:["Camille Nettles"], due:"2026-05-21", status:"not_started", note:"WiFi, map, session QR"},
-  {id:"D2-07", d:"D2", name:"Print production",               owner:["Denise Denson"],   due:"2026-05-27", status:"not_started", note:"Ship by Jun 2"},
+  {id:"D2-00", d:"D2", name:"Badge & lanyard visual system",  owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Canary"},
+  {id:"D2-01", d:"D2", name:"Program Lead badge (Maigh)",     owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"1 of 1"},
+  {id:"D2-02", d:"D2", name:"Executive Speaker badges (x4)",  owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
+  {id:"D2-03", d:"D2", name:"Ambassador badges (x17)",        owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
+  {id:"D2-04", d:"D2", name:"Site Lead badges (x3)",          owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
+  {id:"D2-05", d:"D2", name:"Lanyard design (x600, double-sided)", owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"All NA attendees - scope flag"},
+  {id:"D2-06", d:"D2", name:"Badge back content",             owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"WiFi, map, session QR"},
+  {id:"D2-07", d:"D2", name:"Print production",               owner:["Denise Denson"],   due:"2026-06-02", status:"not_started", note:"Canary - files due May 20"},
 
   // D3 Logo (4)
   {id:"D3-01", d:"D3", name:"Logo concepts",        owner:["Michael Powell"], due:"2026-05-07", status:"complete"},
@@ -208,20 +208,29 @@ const TASKS = [
   {id:"D4-11", d:"D4", name:".potx template file",           owner:["Lee Payne"], due:"2026-05-20", status:"not_started"},
   {id:"D4-12", d:"D4", name:".pptx example deck",            owner:["Lee Payne"], due:"2026-05-20", status:"not_started"},
 
-  // D5 Swag (13)
-  {id:"D5-00", d:"D5", name:"Swag visual system",        owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started"},
-  {id:"D5-01", d:"D5", name:"Sticker design (x600)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started", note:"Tier 1"},
-  {id:"D5-02", d:"D5", name:"Notebook design (x600)",    owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started", note:"Tier 1"},
-  {id:"D5-03", d:"D5", name:"AI prompt card (x600)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-18", status:"not_started", note:"Tier 1, copy + design"},
-  {id:"D5-04", d:"D5", name:"Enamel pin design (x600)",  owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started", note:"Tier 1"},
-  {id:"D5-05", d:"D5", name:"T-shirt / hoodie (~25)",    owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started", note:"Tier 2"},
-  {id:"D5-06", d:"D5", name:"Tote bag design (~25)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-15", status:"not_started", note:"Tier 2"},
-  {id:"D5-07", d:"D5", name:"Tier 2 sourcing",           owner:["Camille Nettles"], due:"2026-05-15", status:"not_started"},
-  {id:"D5-08", d:"D5", name:"Tier 3 sourcing",           owner:["Camille Nettles"], due:"2026-05-15", status:"not_started"},
-  {id:"D5-09", d:"D5", name:"Tier 3 packaging",          owner:["Camille Nettles"], due:"2026-05-21", status:"not_started"},
+  // D5 Swag (22)
+  {id:"D5-00", d:"D5", name:"Swag visual system",        owner:["Michael Powell","Camille Nettles"], due:"2026-05-18", status:"not_started"},
+  {id:"D5-01", d:"D5", name:"Sticker design (x600)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Tier 1 - Atlas (Danger Press backup)"},
+  {id:"D5-02", d:"D5", name:"Notebook design (x600)",    owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 1 - Canary (FedEx Kinkos backup)"},
+  {id:"D5-03", d:"D5", name:"AI prompt card (x600)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 1 - Canary, copy + design"},
+  {id:"D5-04", d:"D5", name:"Enamel pin design (x600)",  owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 1 - Canary"},
+  {id:"D5-05", d:"D5", name:"T-shirt / hoodie (~25)",    owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 2 - Canary"},
+  {id:"D5-06", d:"D5", name:"Tote bag design (~25)",     owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 2 - Canary"},
+  {id:"D5-07", d:"D5", name:"Tier 2 sourcing",           owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
+  {id:"D5-08", d:"D5", name:"Tier 3 sourcing",           owner:["Camille Nettles"], due:"2026-05-20", status:"not_started"},
+  {id:"D5-09", d:"D5", name:"Tier 3 packaging",          owner:["Camille Nettles"], due:"2026-05-22", status:"not_started"},
   {id:"D5-10", d:"D5", name:"Vendor coordination",       owner:["Denise Denson"], due:"2026-06-02", status:"not_started", note:"Ongoing"},
   {id:"D5-11", d:"D5", name:"Tier 1 staging (x600 NA)",  owner:["Denise Denson"], due:"2026-05-27", status:"not_started", note:"Ship by Jun 2"},
   {id:"D5-12", d:"D5", name:"Tier 2/3 on-site",          owner:["Denise Denson"], due:"2026-06-04", status:"not_started", note:"Hard date Jun 6"},
+  {id:"D5-13", d:"D5", name:"Branded pen / stylus (x600)", owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 1 - Canary"},
+  {id:"D5-14", d:"D5", name:"Water bottle / tumbler (~25)", owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 2 - Canary"},
+  {id:"D5-15", d:"D5", name:"Wireless charging pad (~25)", owner:["Michael Powell","Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 2 - Canary"},
+  {id:"D5-16", d:"D5", name:"Pocket AI (x1-2)",          owner:["Michael Powell"], due:"2026-05-20", status:"not_started", note:"Tier 3 - self-purchase ~$130"},
+  {id:"D5-17", d:"D5", name:"Cotopaxi Hip Bag (x1-2)",   owner:["Michael Powell"], due:"2026-05-20", status:"not_started", note:"Tier 3 - self-purchase $40-70"},
+  {id:"D5-18", d:"D5", name:"Noise-cancelling earbuds (x1-2)", owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 3 - Canary"},
+  {id:"D5-19", d:"D5", name:"Premium backpack / messenger (x1-2)", owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 3 - Canary"},
+  {id:"D5-20", d:"D5", name:"Portable speaker (x1-2)",   owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 3 - Canary"},
+  {id:"D5-21", d:"D5", name:"Custom jacket / vest (x1-2)", owner:["Camille Nettles"], due:"2026-05-20", status:"not_started", note:"Tier 3 - Canary, limited edition"},
 ];
 
 const STATUS_META = {
@@ -481,7 +490,7 @@ function renderHeader(){
           <span style="font-size:10px;color:var(--text-6);letter-spacing:.04em">· next refresh in <span id="refresh-countdown" style="color:var(--text-4);font-weight:700">60s</span></span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Dashboard</h1>
-        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 60 tasks</p>
+        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 69 tasks</p>
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
           ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"var(--surface-3)"};border:1px solid ${LIVE?"#065F46":"var(--surface-4)"};font-size:10px;color:${LIVE?"#A7F3D0":"var(--text-5)"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"var(--text-6)"}"></span>${s}</span>`).join("")}
         </div>
@@ -508,7 +517,7 @@ function renderGantt(){
   const todayPct = pct(TODAY.getTime());
   const labelTicks = [
     {d:"2026-05-08",l:"May 8"},
-    {d:"2026-05-15",l:"May 15"},
+    {d:"2026-05-20",l:"May 20"},
     {d:"2026-05-22",l:"May 22"},
     {d:"2026-05-29",l:"May 29"},
     {d:"2026-06-05",l:"Jun 5"},

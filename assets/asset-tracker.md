@@ -41,20 +41,22 @@
 | D1-20 | Executive poster | Brian O'Neil, SVP | — | End of May | ⬜ | Playful treatment |
 | D1-21 | Executive poster | Dan Marguiles, CIO | — | End of May | ⬜ | |
 | D1-22 | Digital adaptations | Social / screens | — | End of May | ⬜ | |
-| D1-23 | Print production | Large-format | — | June 2 | ⬜ | Vendor coordination |
+| D1-23 | Print files to Atlas | Large-format, ~21/office × 3 = 63 | — | **May 22** | ⬜ | Atlas print-ready cutoff (Memorial Day) |
 
 ## D2 — Lanyards & Presenter Badges
 
-| # | Asset | Tier | Owner | Deadline | Status | Notes |
-|---|-------|------|-------|----------|--------|-------|
-| D2-00 | Badge/lanyard system | All tiers | — | Mid May | ⬜ | |
-| D2-01 | Program Lead badge | Maigh Houlihan | — | End of May | ⬜ | One of a kind |
-| D2-02 | Executive badges | ×4 | — | End of May | ⬜ | |
-| D2-03 | Ambassador badges | ×17 | — | End of May | ⬜ | |
-| D2-04 | Site Lead badges | ×3 | — | End of May | ⬜ | |
-| D2-05 | Lanyard design | Custom print | — | End of May | ⬜ | |
-| D2-06 | Badge back content | WiFi, map, QR | — | End of May | ⬜ | |
-| D2-07 | Print production | All produced | — | June 2 | ⬜ | |
+> ⚠️ **Scope change per program sheet (2026-05-18):** Sheet specifies **600 branded badges + lanyards** (double-sided, custom-printed, not blank-with-insert), not 25 presenter-only. All NA attendees get one. Vendor: **Canary**. Design files due **May 20**.
+
+| # | Asset | Tier / Qty | Vendor | Owner | Deadline | Status | Notes |
+|---|-------|------------|--------|-------|----------|--------|-------|
+| D2-00 | Badge/lanyard system | All tiers | Canary | — | Mid May | ⬜ | |
+| D2-01 | Program Lead badge | Maigh Houlihan ×1 | Canary | — | May 20 | ⬜ | One of a kind |
+| D2-02 | Executive badges | ×4 | Canary | — | May 20 | ⬜ | |
+| D2-03 | Ambassador badges | ×17 | Canary | — | May 20 | ⬜ | |
+| D2-04 | Site Lead badges | ×3 | Canary | — | May 20 | ⬜ | |
+| D2-05 | Lanyard design (all attendees) | ×600, double-sided | Canary | — | **May 20** | ⬜ | Custom print, not blank-with-insert |
+| D2-06 | Badge back content | WiFi, map, QR | Canary | — | May 20 | ⬜ | |
+| D2-07 | Print production | All produced | Canary | — | June 2 | ⬜ | Files to Canary by May 20 |
 
 ## D3 — Project AIR Logo (Animated)
 
@@ -85,21 +87,32 @@
 
 ## D5 — Swag & Premium Items
 
-| # | Asset | Tier | Owner | Deadline | Status | Notes |
-|---|-------|------|-------|----------|--------|-------|
-| D5-00 | Swag visual system | All | — | Mid May | ⬜ | |
-| D5-01 | Sticker design | Tier 1 ×600 | — | Mid May | ⬜ | |
-| D5-02 | Notebook design | Tier 1 ×600 | — | Mid May | ⬜ | |
-| D5-03 | AI prompt card | Tier 1 ×600 | — | Mid May | ⬜ | |
-| D5-04 | Enamel pin design | Tier 1 ×600 | — | Mid May | ⬜ | |
-| D5-05 | T-shirt/hoodie | Tier 2 ~25 | — | Mid May | ⬜ | |
-| D5-06 | Tote bag design | Tier 2 ~25 | — | Mid May | ⬜ | |
-| D5-07 | Tier 2 sourcing | Tier 2 ~25 | — | Mid May | ⬜ | |
-| D5-08 | Tier 3 sourcing | Tier 3 | — | Mid May | ⬜ | |
-| D5-09 | Tier 3 packaging | Tier 3 | — | End of May | ⬜ | |
-| D5-10 | Vendor coordination | All | — | Ongoing | ⬜ | |
-| D5-11 | Tier 1 staging | All Tier 1 | — | June 2 | ⬜ | |
-| D5-12 | Tier 2/3 on-site | Premium | — | June 6 | ⬜ | |
+> Quantities, dates, and vendors below match the program sheet (last synced 2026-05-18). Canary print files due **May 20**; Atlas sticker files due **May 22**.
+
+| # | Asset | Tier / Qty | Vendor | Owner | Deadline | Status | Notes |
+|---|-------|------------|--------|-------|----------|--------|-------|
+| D5-00 | Swag visual system | All | — | — | Mid May | ⬜ | |
+| D5-01 | Sticker design (die-cut, laptop-worthy) | Tier 1 ×600 | Atlas | — | **May 22** | ⬜ | Backup: Danger Press |
+| D5-02 | Notebook design (pocket-sized) | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | Backup: FedEx Kinkos |
+| D5-03 | AI prompt card (laminated, 5 prompts) | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | |
+| D5-04 | Enamel pin design | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | |
+| D5-05 | T-shirt or hoodie (AI Day branded, limited run) | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
+| D5-06 | Tote bag (canvas, festival-style) | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
+| D5-07 | Tier 2 sourcing | Tier 2 ×25 | Canary | — | Mid May | ⬜ | |
+| D5-08 | Tier 3 sourcing | Tier 3 | Mixed | — | Mid May | ⬜ | See D5-16…D5-21 |
+| D5-09 | Tier 3 packaging | Tier 3 | — | — | End of May | ⬜ | |
+| D5-10 | Vendor coordination | All | — | — | Ongoing | ⬜ | |
+| D5-11 | Tier 1 staging | All Tier 1 ×600 NA | — | — | June 2 | ⬜ | |
+| D5-12 | Tier 2/3 on-site | Premium | — | — | June 6 | ⬜ | |
+| D5-13 | Branded pen or stylus | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | |
+| D5-14 | Premium water bottle / tumbler | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
+| D5-15 | Wireless charging pad | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
+| D5-16 | Pocket AI | Tier 3 ×1–2 | Self-purchase | — | **May 20** | ⬜ | ~$130/unit |
+| D5-17 | Cotopaxi Hip Bag | Tier 3 ×1–2 | Self-purchase | — | **May 20** | ⬜ | $40–70; branding optional |
+| D5-18 | Noise-cancelling earbuds/headphones | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | |
+| D5-19 | Premium backpack or messenger bag | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | |
+| D5-20 | High-end portable speaker | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | |
+| D5-21 | Custom jacket or vest (event-year branded) | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | Limited edition |
 
 ## Summary
 
@@ -109,8 +122,8 @@
 | D2 Badges | 8 | 0 | 0 | 8 | 0 |
 | D3 Logo | 3 | 2 | 1 | 0 | 0 |
 | D4 PPT | 12 | 0 | 0 | 12 | 0 |
-| D5 Swag | 13 | 0 | 0 | 13 | 0 |
-| **Total** | **60** | **2** | **1** | **57** | **0** |
+| D5 Swag | 22 | 0 | 0 | 22 | 0 |
+| **Total** | **69** | **2** | **1** | **66** | **0** |
 
 ## How to Claim a Task
 

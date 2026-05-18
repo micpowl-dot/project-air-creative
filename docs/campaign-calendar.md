@@ -1,6 +1,6 @@
 # 📅 Campaign Calendar
 
-> Meetings are marked 🤝. Synced with program tracker as of May 11, 2026.
+> Meetings are marked 🤝. Synced with program tracker as of May 18, 2026.
 > Full meeting briefs: [meetings.md](meetings.md) | Program tracker: [Google Sheets](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0)
 
 ---
@@ -23,14 +23,13 @@
 
 | Date | What | Who | Type |
 |------|------|-----|------|
-| Mon May 11 | Swag vendors confirmed | Denise | Milestone |
+| Mon May 11 | Swag vendors confirmed (Canary + Atlas, per program sheet) | Denise | ✅ Done |
 | Mon May 11 | Request swag options from vendors | Denise | Milestone |
 | Tue May 12 | **Logo Final — all formats** | Michael / Camille | **Deliverable** |
 | Tue May 12 | **Style Guide** | Michael / Camille | **Deliverable** |
 | Tue May 12 | Ambassador list + intl employee numbers for swag | ⚠️ TBD — unassigned | **BLOCKER** |
 | Wed May 13 | Ambassador + Executive headshots ×21 shared with creative | Maigh | **BLOCKER** |
 | Wed May 13 | Swag product recommendation selects + mocks | Camille | Deliverable |
-| Fri May 15 | **Swag designs due to print vendors** | Michael / Camille | **Hard deadline** |
 
 ---
 
@@ -40,10 +39,11 @@
 |------|------|-----|------|
 | Mon May 18 | Poster visual system | Lee / Michael / Camille | Deliverable |
 | Mon May 18 | Prompt card copy + design | Michael / Camille | Deliverable |
+| **Wed May 20** | **⚠️ All Canary files due** — badges + lanyards (×600), notebook, prompt card, pin, pen, t-shirt/hoodie, tote, water bottle, charging pad, Tier 3 items | Michael / Camille | **Hard deadline (Canary cutoff)** |
 | Wed May 20 | Logo animation loop | Michael | Deliverable |
 | Wed May 20 | PPT template — all layouts | Lee | Deliverable |
 | Thu May 21 | Review Ambassador + Executive posters | Maigh | Gate |
-| **Fri May 22** | **⚠️ Posters to Atlas — print-ready files** | Michael / Camille / Denise | **Hard deadline (Atlas cutoff — Memorial Day)** |
+| **Fri May 22** | **⚠️ Posters + sticker to Atlas — print-ready files** | Michael / Camille / Denise | **Hard deadline (Atlas cutoff — Memorial Day)** |
 
 ---
 
@@ -51,8 +51,8 @@
 
 | Date | What | Who | Type |
 |------|------|-----|------|
-| Mon May 26 | Badges + lanyards to vendor | Denise | Hard deadline |
-| Mon May 26 | Tier 1 swag production begins | Denise | Milestone |
+| Mon May 26 | Canary production in flight (badges + lanyards + Tier 1/2/3) | Canary | Milestone |
+| Mon May 26 | Atlas production in flight (posters + sticker) | Atlas | Milestone |
 
 ---
 
@@ -80,4 +80,4 @@
 
 ---
 
-*Last updated: 2026-05-11*
+*Last updated: 2026-05-18 — synced with program sheet*

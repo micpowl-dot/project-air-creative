@@ -57,40 +57,48 @@ This conflicts with the current plan (May 26 vendor handoff). The reason is Memo
 
 ---
 
-## Canary LLC — PROPOSED (Lanyards + Swag + Badges)
+## Canary LLC — CONFIRMED (Lanyards + Swag + Badges)
 
-**Status: Proposal received. Awaiting order confirmation from Denise.**
+**Status: Confirmed via program sheet 2026-05-18. Order details still need rep confirmation from Denise.**
 
-Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves the Atlas lanyard gap. They are also the proposed vendor for all Tier 1/2/3 swag items.
+Canary handles fully custom branded lanyards (dye-sublimated, double-sided) and all Tier 1/2/3 swag items except stickers (Atlas) and self-purchased Tier 3 items (Pocket AI, Cotopaxi).
 
 | | |
 |--|--|
 | **Contact** | TBD — Denise to confirm rep |
 | **Website** | canarymarketing.com |
-| **Scope** | Branded lanyards, badge holders, notebooks, pins, pens, apparel, premium items (Tiers 1–3) |
+| **Scope** | Branded lanyards + badges, notebooks, pins, pens, apparel, tech accessories, premium giveaways |
 | **Lead time** | ~2 weeks per item |
+| **Print files due** | **May 20** (all Canary items) |
 | **Catalog** | [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf) |
 | **Overview + quantities** | [`docs/swag-overview.md`](swag-overview.md) |
 
-### What They're Handling (Pending Confirmation)
+### What They're Handling
 
 | Tier | Items | Qty | Design Due |
 |------|-------|-----|-----------|
-| D2 (Lanyards) | Branded dye-sub lanyards + ID badge combo — **25 presenters only** | 25 | **May 15** |
-| Tier 1 (if Plan B) | Notebooks, pins, pens, stickers | 600 | **May 15** |
-| Tier 2 | Apparel, bottles/tumblers, tech accessories | ~25 | **May 15** |
-| Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
+| D2 (Badges + Lanyards) | Branded badges + double-sided custom-print lanyards, all NA attendees | **600** ⚠️ scope change from 25 | **May 20** |
+| Tier 1 | AI prompt card, notebook, enamel pin, pen/stylus | 600 each | **May 20** |
+| Tier 2 | T-shirt/hoodie, tote, water bottle/tumbler, wireless charging pad | ~25 each | **May 20** |
+| Tier 3 | Noise-cancelling earbuds, premium backpack, portable speaker, custom jacket/vest | 1–2 each | **May 20** |
+
+> Tier 3 **self-purchase** (not Canary): Pocket AI (~$130/unit), Cotopaxi Hip Bag ($40–70).
 
 ### Open Action Items
 
 | Action | Owner | Due |
 |--------|-------|-----|
-| Confirm order with Canary rep | Denise / Michael | May 15 |
-| Choose Tier 1 items (which and how many) | Michael / Camille / Mark | ASAP |
-| Choose Tier 2 selections | Michael / Camille | ASAP |
-| Choose Tier 3 selections | Michael / Mark | ASAP |
-| Provide size breakdown for apparel (Tier 2) | Maigh / Denise | May 15 |
-| Confirm if posters + stickers stay with Atlas or split to Canary | Michael / Denise | ASAP |
+| Confirm order with Canary rep | Denise / Michael | ASAP |
+| Confirm 600-qty badge + lanyard scope and budget | Michael / Mark / Denise | ASAP |
+| Choose Tier 1 final SKUs | Michael / Camille / Mark | ASAP |
+| Choose Tier 2 final SKUs | Michael / Camille | ASAP |
+| Choose Tier 3 final SKUs | Michael / Mark | ASAP |
+| Provide size breakdown for apparel (Tier 2) | Maigh / Denise | May 18 |
+
+### Backups
+
+- **Danger Press** — backup to Canary for clothing
+- **FedEx Kinkos** — backup to Atlas for notebooks
 
 ---
 
@@ -100,4 +108,4 @@ Denise is on PTO this week (May 11). She is monitoring but Michael and Camille a
 
 ---
 
-*Last updated: 2026-05-11*
+*Last updated: 2026-05-18 — synced with program sheet*
