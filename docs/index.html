@@ -110,6 +110,9 @@ details>summary::-webkit-details-marker{display:none}
 .tbox.override::before{content:"";position:absolute;top:-3px;right:-3px;width:6px;height:6px;border-radius:50%;background:#F59E0B;border:1px solid var(--bg)}
 .chevron-indicator{display:inline-flex;transition:transform .2s ease;color:var(--text-4)}
 details[open] > summary .chevron-indicator{transform:rotate(90deg)}
+.maigh-input{background:var(--surface-2);border:1px solid var(--surface-3);color:var(--text-2);padding:3px 7px;border-radius:4px;font-size:11px;width:64px;font-family:inherit;transition:border-color .15s ease}
+.maigh-input:focus{outline:none;border-color:#F59E0B;background:var(--surface-1)}
+.maigh-input.has-value{border-color:#10B981;background:var(--surface-1)}
 @media (max-width:900px){
   .row-grid{grid-template-columns:1fr;gap:6px}
   .gantt-row{grid-template-columns:1fr;gap:4px}
@@ -513,7 +516,7 @@ function renderHeader(){
           <span style="font-size:10px;color:var(--text-6);letter-spacing:.04em">· next refresh in <span id="refresh-countdown" style="color:var(--text-4);font-weight:700">60s</span></span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Dashboard</h1>
-        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ~600 NA attendees · 5 deliverables · 69 tasks</p>
+        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ${maighValue("MAIGH-01","na_total") || "~600"} NA attendees${maighValue("MAIGH-01","intl_total") ? ` · ${maighValue("MAIGH-01","intl_total")} intl` : ""} · 5 deliverables · 69 tasks</p>
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
           ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"var(--surface-3)"};border:1px solid ${LIVE?"#065F46":"var(--surface-4)"};font-size:10px;color:${LIVE?"#A7F3D0":"var(--text-5)"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"var(--text-6)"}"></span>${s}</span>`).join("")}
         </div>
@@ -617,14 +620,75 @@ function renderAttention(){
 }
 
 const MAIGH_ITEMS = [
-  {id:"MAIGH-01", label:"Ambassador list + international employee numbers", due:"2026-05-12", note:"Needed for swag headcount and shipping splits"},
-  {id:"MAIGH-02", label:"Ambassador + Executive headshots (×21)", due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)"},
-  {id:"MAIGH-03", label:"Apparel size breakdown for Tier 2 (~25 people)", due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Canary order"},
-  {id:"MAIGH-04", label:"Approval: Program Lead badge (1 of 1)", due:"2026-05-20", note:"D2-01 — Canary files due same day"},
-  {id:"MAIGH-05", label:"Approval: Ambassador + Executive posters", due:"2026-05-21", note:"Pre-Atlas review (Atlas cutoff May 22)"},
+  {
+    id:"MAIGH-01", label:"Ambassador list + international employee numbers",
+    due:"2026-05-12", note:"Needed for swag headcount and shipping splits",
+    inputs: [
+      {key:"na_total", label:"NA attendees", placeholder:"600", width:74},
+      {key:"intl_total", label:"Intl employees", placeholder:"230", width:74},
+    ],
+  },
+  {
+    id:"MAIGH-02", label:"Ambassador + Executive headshots (×21)",
+    due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)",
+    inputs: [
+      {key:"received", label:"Received of 21", placeholder:"0", width:50},
+    ],
+  },
+  {
+    id:"MAIGH-03", label:"Apparel size breakdown for Tier 2 (~25 people)",
+    due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Canary order",
+    inputs: [
+      {key:"s", label:"S", placeholder:"#", width:40},
+      {key:"m", label:"M", placeholder:"#", width:40},
+      {key:"l", label:"L", placeholder:"#", width:40},
+      {key:"xl", label:"XL", placeholder:"#", width:40},
+      {key:"xxl", label:"2XL", placeholder:"#", width:40},
+    ],
+  },
+  {
+    id:"MAIGH-04", label:"Approval: Program Lead badge (1 of 1)",
+    due:"2026-05-20", note:"D2-01 — Canary files due same day",
+    inputs: [],
+  },
+  {
+    id:"MAIGH-05", label:"Approval: Ambassador + Executive posters",
+    due:"2026-05-21", note:"Pre-Atlas review (Atlas cutoff May 22)",
+    inputs: [],
+  },
 ];
 
 const PROGRAM_SHEET_URL = "https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0";
+
+const MAIGH_DATA_KEY = "projectAirMaighData_v1";
+let MAIGH_DATA = {};
+try { MAIGH_DATA = JSON.parse(localStorage.getItem(MAIGH_DATA_KEY) || "{}"); } catch(e) { MAIGH_DATA = {}; }
+function saveMaighData(){
+  try { localStorage.setItem(MAIGH_DATA_KEY, JSON.stringify(MAIGH_DATA)); } catch(e) {}
+}
+window.updateMaighData = function(id, key, value){
+  if (!MAIGH_DATA[id]) MAIGH_DATA[id] = {};
+  if (value === "" || value == null) {
+    delete MAIGH_DATA[id][key];
+    if (Object.keys(MAIGH_DATA[id]).length === 0) delete MAIGH_DATA[id];
+  } else {
+    MAIGH_DATA[id][key] = value;
+  }
+  saveMaighData();
+  render();
+};
+function maighValue(id, key){
+  return MAIGH_DATA[id] && MAIGH_DATA[id][key] != null ? String(MAIGH_DATA[id][key]) : "";
+}
+function maighSizeSummary(){
+  const d = MAIGH_DATA["MAIGH-03"] || {};
+  const parts = [];
+  ["s","m","l","xl","xxl"].forEach(k => {
+    const v = d[k];
+    if (v) parts.push(`${v}${k==="xxl"?"2XL":k.toUpperCase()}`);
+  });
+  return parts.length ? parts.join(" · ") : "";
+}
 
 window.toggleMaigh = function(id){
   const isDone = OVERRIDES[id] === "complete";
@@ -698,12 +762,21 @@ function renderMaighRequests(){
           const st = statusFor(item);
           const rowBg = done ? "var(--surface-2)" : st.bg;
           const rowBorder = done ? "#10B981" : st.border;
+          const inputs = (item.inputs || []).map(input => {
+            const val = maighValue(item.id, input.key);
+            return `
+              <label style="display:inline-flex;flex-direction:column;gap:2px;font-size:9px;color:var(--text-5);letter-spacing:.04em">
+                <span style="text-transform:uppercase;font-weight:700">${input.label}</span>
+                <input type="text" inputmode="numeric" class="maigh-input ${val?"has-value":""}" value="${val}" placeholder="${input.placeholder}" style="width:${input.width||60}px" onchange="updateMaighData('${item.id}','${input.key}',this.value.trim())">
+              </label>`;
+          }).join("");
           return `
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 12px;background:${rowBg};border-radius:7px;border-left:4px solid ${rowBorder};opacity:${done?0.6:1}">
             <span class="tbox ${done?"checked":""}" title="${done?"Uncheck":"Mark received and prompt sheet update"}" onclick="toggleMaigh('${item.id}')" style="margin-top:2px;flex-shrink:0"></span>
             <div style="min-width:0;flex:1">
               <div style="font-size:12px;color:var(--text-2);font-weight:600;line-height:1.35;${done?"text-decoration:line-through":""}">${item.label}</div>
               ${item.note ? `<div style="font-size:10px;color:var(--text-5);margin-top:3px;line-height:1.4">${item.note}</div>` : ""}
+              ${inputs ? `<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">${inputs}</div>` : ""}
             </div>
             <div style="text-align:right;flex-shrink:0">
               <div style="font-size:9px;font-weight:800;color:${done?"#10B981":st.color};letter-spacing:.06em;white-space:nowrap">${done?"RECEIVED":st.label}</div>
@@ -791,6 +864,14 @@ function renderDeliverableRow(d){
         const done = t.status === "complete" || t.status === "approved";
         const hasOverride = OVERRIDES[t.id] !== undefined;
         const cbTitle = (done?"Uncheck to mark not started":"Check to mark complete") + (hasOverride?" · manually overridden (right-click or shift-click to clear)":"");
+        let displayNote = t.note || "";
+        if ((t.id === "D5-05" || t.id === "D5-06") && maighSizeSummary()) {
+          displayNote = (displayNote ? displayNote + " · " : "") + `Sizes: ${maighSizeSummary()}`;
+        }
+        if (t.id === "D1-22" || (t.d === "D1" && t.id !== "D1-00" && t.id !== "D1-23")) {
+          const received = maighValue("MAIGH-02","received");
+          if (received) displayNote = (displayNote ? displayNote + " · " : "") + `${received}/21 headshots received`;
+        }
         return `
         <div id="task-${t.id}" class="task-row ${done?"done":""} ${lateClass(late)}" style="scroll-margin-top:30px">
           <div>
@@ -802,7 +883,7 @@ function renderDeliverableRow(d){
           <div style="font-size:10px;font-weight:700;color:var(--text-5);letter-spacing:.04em">${t.id}</div>
           <div>
             <div class="task-name" style="color:${done?"var(--text-6)":"#E5E7EB"}">${t.name}</div>
-            ${t.note ? `<div style="font-size:10px;color:var(--text-5);margin-top:2px">${t.note}</div>` : ""}
+            ${displayNote ? `<div style="font-size:10px;color:var(--text-5);margin-top:2px">${displayNote}</div>` : ""}
           </div>
           <div>${stack(t.owner, 20)}</div>
           <div style="font-size:11px;color:${od?"#FCA5A5":done?"var(--text-6)":"var(--text-3)"};${od?"text-decoration:line-through":""}">
