@@ -593,6 +593,55 @@ function renderAttention(){
   </section>`;
 }
 
+function renderMaighRequests(){
+  const items = [
+    {label:"Ambassador list + international employee numbers", due:"2026-05-12", note:"Needed for swag headcount and shipping splits"},
+    {label:"Ambassador + Executive headshots (×21)", due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)"},
+    {label:"Apparel size breakdown for Tier 2 (~25 people)", due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Canary order"},
+    {label:"Approval: Program Lead badge (1 of 1)", due:"2026-05-20", note:"D2-01 — Canary files due same day"},
+    {label:"Approval: Ambassador + Executive posters", due:"2026-05-21", note:"Pre-Atlas review (Atlas cutoff May 22)"},
+  ];
+
+  const dayMs = 86400000;
+  const statusFor = item => {
+    const dueMS = dateMS(item.due);
+    const today = TODAY.getTime();
+    if (today > dueMS) {
+      const late = Math.floor((today - dueMS) / dayMs);
+      return {label:`+${late}d LATE`, color:"#FCA5A5", bg:"#2A0A0A", border:"#B91C1C"};
+    }
+    if (dueMS - today < dayMs) return {label:"DUE TODAY", color:"#FDE68A", bg:"#422006", border:"#78350F"};
+    const daysOut = Math.ceil((dueMS - today) / dayMs);
+    return {label:`DUE ${fmtDate(item.due)} · ${daysOut}d`, color:"var(--amber-fg)", bg:"var(--amber-bg)", border:"var(--amber-bd)"};
+  };
+
+  const overdueCount = items.filter(i => TODAY.getTime() > dateMS(i.due)).length;
+
+  return `
+  <section style="margin-top:24px">
+    <h2 style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-fg);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+      <i class="ti ti-mail-forward"></i>
+      <span>Awaiting from Maigh Houlihan · Program Lead</span>
+      <span style="font-size:10px;color:var(--text-5);font-weight:600;letter-spacing:.04em;text-transform:none">${items.length} requests${overdueCount?` · ${overdueCount} overdue`:""}</span>
+    </h2>
+    <div style="background:linear-gradient(135deg,var(--amber-bg),var(--surface-1));border:1px solid var(--amber-bd);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px">
+      ${items.map(item => {
+        const st = statusFor(item);
+        return `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 12px;background:${st.bg};border-radius:7px;border-left:4px solid ${st.border}">
+          <div style="min-width:0;flex:1">
+            <div style="font-size:12px;color:var(--text-2);font-weight:600;line-height:1.35">${item.label}</div>
+            ${item.note ? `<div style="font-size:10px;color:var(--text-5);margin-top:3px;line-height:1.4">${item.note}</div>` : ""}
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-size:9px;font-weight:800;color:${st.color};letter-spacing:.06em;white-space:nowrap">${st.label}</div>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>
+  </section>`;
+}
+
 function renderStats(){
   const s = summarize();
   const signals = LIVE?.signals_processed ?? 0;
@@ -768,6 +817,7 @@ function render(){
     ${renderHeader()}
     <main class="wrap" style="padding:8px 0 24px">
       ${renderStats()}
+      ${renderMaighRequests()}
       ${renderGantt()}
       ${renderAttention()}
       ${renderDeliverables()}
