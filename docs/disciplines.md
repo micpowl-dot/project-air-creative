@@ -47,7 +47,7 @@
 
 | Name | Proficiency | Tools | Availability (hrs/wk) | Notes |
 |------|-------------|-------|-----------------------|-------|
-| | | | | |
+| Lee Payne | Strong | PowerPoint, Keynote | TBD | Senior Graphic Designer |
 
 ### 5. Print Production & Physical Fabrication
 
