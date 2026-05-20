@@ -42,7 +42,7 @@ Every internal deadline below is set with buffer before the hard external deadli
 | May 20 — Logo animation loop | May 20 | Same day |
 | **May 22 — Atlas print-ready cutoff** | **May 21 review** | 1 day — ⚠️ tight |
 | May 25 — Posters to print vendor *(program date)* | May 22 Atlas cutoff | ⚠️ Conflict — Atlas needs files May 22, not May 25 |
-| June 2 (badges, Tier 1 swag print) | May 27 | 4 business days |
+| June 2 (hats, wristbands, Tier 1 swag print) | May 27 | 4 business days |
 | June 6 (Tier 2/3 on-site) | June 2 | 2 business days |
 | June 7 — Drop ship to all offices | June 4 | 3 days |
 | **June 9 — AI Day** | June 6 | 3 days |
@@ -53,14 +53,14 @@ Every internal deadline below is set with buffer before the hard external deadli
 
 Use these when reverse-scheduling order dates from June 9.
 
-| Item | Vendor | Turnaround | Notes |
-|------|--------|-----------|-------|
-| Projector | Michael Powell | — | Michael bringing in personally |
-| Stickers | Sticker Mule | 4 days | |
-| Wristbands | Wristband.com | 8–10 days | |
-| Posters | Atlas | — | Design due Fri May 22 for Atlas turnaround |
-| Balloons | Amazon | 3 days | |
-| Hats | Printful | 7–9 days | |
+| Item | Vendor | Turnaround | Who Gets It | Notes |
+|------|--------|-----------|------------|-------|
+| Projector | Michael Powell | — | Event decor | Michael bringing in personally |
+| Stickers | Sticker Mule | 4 days | All attendees (×600) | |
+| Wristbands | Wristband.com | 8–10 days | All attendees (×600) | Entry/ID at security badge-in |
+| Posters | Atlas | — | Event decor | Design due Fri May 22 |
+| Balloons | Amazon | 3 days | Event decor | |
+| Hats | Printful | 7–9 days | Speakers only (~25) | Speaker identifier/gift |
 
 ---
 
@@ -90,8 +90,8 @@ Nothing downstream starts until this phase ships.
 | Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ✅ *(sent to Maigh May 15)* |
 | Camille sends swag pricing + item recommendations to Maigh for review | — | Camille Nettles | **May 15** | ✅ |
 | Maigh reviews swag recommendations + confirms Tier 1 / 2 / 3 selections | — | Maigh Houlihan | **Mon May 18** | ⬜ |
-| Hat designs to Printful (7–9 day turnaround) | D5-02 | Michael / Camille | **May 29** | ⬜ |
-| Wristband designs to Wristband.com (8–10 day turnaround) | D5-03 | Michael / Camille | **May 29** | ⬜ |
+| Hat designs to Printful — speakers only (~25) — 7–9 day turnaround | D5-02 | Michael / Camille | **May 29** | ⬜ |
+| Wristband designs to Wristband.com — all attendees (×600) — 8–10 day turnaround | D5-03 | Michael / Camille | **May 29** | ⬜ |
 | Balloon order to Amazon (3 day turnaround) | D5-04 | Michael / Camille | **June 5** | ⬜ |
 | Sticker designs to Sticker Mule (4 day turnaround) | D5-01 | Michael / Camille | **June 4** | ⬜ |
 | Poster designs to Atlas (design due Fri May 22) | D5-05 | Michael / Camille | **May 22** | ⬜ |
@@ -99,7 +99,7 @@ Nothing downstream starts until this phase ships.
 | Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
 | Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
 | PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | **May 20** | ⬜ |
-| Badge/lanyard visual system | D2-00 | Camille Nettles | May 20 | ⬜ |
+| Badge visual system | D2-00 | Camille Nettles | May 20 | ⬜ |
 
 **Gate:** Visual systems reviewed before poster production begins.
 
@@ -126,7 +126,7 @@ Nothing downstream starts until this phase ships.
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Badge + lanyard print production | D2-07 | Denise Denson | May 27 | ⬜ |
+| Badge print production | D2-07 | Denise Denson | May 27 | ⬜ |
 | Tier 1 swag production + staging | D5-11 | Denise Denson | May 27 | ⬜ |
 | Final PPT template review | D4 | Mark Fredo | May 27 | ⬜ |
 
@@ -144,7 +144,7 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
 | Large-format poster print — vendor handoff | D1-23 | Denise Denson | May 27 | ⬜ |
-| Badge + lanyard print production | D2-07 | Denise Denson | May 27 | ⬜ |
+| Badge print production | D2-07 | Denise Denson | May 27 | ⬜ |
 | Tier 1 swag production + staging (×600 North American) | D5-11 | Denise Denson | May 27 | ⬜ |
 
 ---
@@ -164,11 +164,7 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Question | Blocks | Owner | Due |
 |----------|--------|-------|-----|
 | ⚠️ Poster vendor date conflict: Atlas says May 22, program list says May 25 — which is correct? | Phase 3 | Michael / Denise | May 12 |
-| Badges + lanyards vendor — Canary proposed; awaiting updated pricing (badge size options, individualization, design-count cost delta) | Phase 4 | Lilli / Canary | **Mon May 18** |
-| Swag vendor — Canary proposed; awaiting revised Tier 1 (qty 600) + Tier 2 (lighter tee, hats) pricing | Phase 5 | Lilli / Canary | **Mon May 18** |
 | Ambassador list + international employee numbers for swag — who owns this? | Phase 2 | ⚠️ Unassigned | May 12 |
-<<<<<<< HEAD
-=======
 | NY + Andover office delivery addresses still TBD on the program sheet | Phase 5 | Denise | May 22 |
 | Brian to approve schedule, tracks, and nominated speakers — gates the Tue May 19 working session and Wed May 20 headshot guide rails send | Headshot collection, D1 posters | Brian (via Maigh) | May 18 (today) |
 | Quotes from Printful, Wristband.com, Sticker Mule, Atlas, Amazon — confirm pricing | Phase 2 budget, scope cuts if any | Denise | ASAP |
@@ -181,9 +177,9 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 
 | Question | Resolution | Date |
 |----------|------------|------|
-| ~~Badges + lanyards vendor~~ | **TBD** — Canary removed. Replacement vendor needed for badges/lanyards. | 2026-05-20 |
-| ~~Swag vendor~~ | **Printful** (hats, 7–9 days), **Wristband.com** (wristbands, 8–10 days), **Sticker Mule** (stickers, 4 days), **Amazon** (balloons, 3 days), **Atlas** (posters). Projector — Michael brings in. | 2026-05-20 |
-| ~~Badge/lanyard quantity: 600 vs. 25?~~ | **~25 only** — generalized color-tiered press-pass style badges for presenters and ambassadors. Individual attendee badges eliminated (logistics, expense, hierarchy concerns). Attendees get inexpensive souvenirs instead (stickers, notebooks, screen cleaning cloths). | 2026-05-18 |
+| ~~Lanyards~~ | **Removed.** Replaced by hats (speakers, ~25, Printful) and wristbands (all attendees ×600, Wristband.com). | 2026-05-20 |
+| ~~Swag vendor~~ | **Printful** (hats for speakers, 7–9 days), **Wristband.com** (wristbands for attendees, 8–10 days), **Sticker Mule** (stickers, 4 days), **Amazon** (balloons, 3 days), **Atlas** (posters). Projector — Michael brings in. | 2026-05-20 |
+| ~~Badge quantity: 600 vs. 25?~~ | **~25 only** — generalized color-tiered press-pass style badges for presenters and ambassadors. Individual attendee badges eliminated. Attendees get wristbands (entry/ID) + stickers/souvenirs. | 2026-05-20 |
 | ~~Individual speaker posters: foam core or digital?~~ | **Digital only** — used in Slack, on "the drop" lineup page, and for speakers' external promotion (LinkedIn, etc.). Printed wayfinding posters are generalized, not per-speaker, and not foam core. | 2026-05-18 |
 
 ---
