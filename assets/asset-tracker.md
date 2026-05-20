@@ -43,20 +43,13 @@
 | D1-22 | Digital adaptations | Social / screens | — | End of May | ⬜ | |
 | D1-23 | Print files to Atlas | Large-format, ~21/office × 3 = 63 | — | **May 22** | ⬜ | Atlas print-ready cutoff (Memorial Day) |
 
-## D2 — Lanyards & Presenter Badges
+## D2 — Hats & Wristbands
 
-> ⚠️ **Scope change per program sheet (2026-05-18):** Sheet specifies **600 branded badges + lanyards** (double-sided, custom-printed, not blank-with-insert), not 25 presenter-only. All NA attendees get one. Vendor: **Canary**. Design files due **May 20**.
-
-| # | Asset | Tier / Qty | Vendor | Owner | Deadline | Status | Notes |
-|---|-------|------------|--------|-------|----------|--------|-------|
-| D2-00 | Badge/lanyard system | All tiers | Canary | — | Mid May | ⬜ | |
-| D2-01 | Program Lead badge | Maigh Houlihan ×1 | Canary | — | May 20 | ⬜ | One of a kind |
-| D2-02 | Executive badges | ×4 | Canary | — | May 20 | ⬜ | |
-| D2-03 | Ambassador badges | ×17 | Canary | — | May 20 | ⬜ | |
-| D2-04 | Site Lead badges | ×3 | Canary | — | May 20 | ⬜ | |
-| D2-05 | Lanyard design (all attendees) | ×600, double-sided | Canary | — | **May 20** | ⬜ | Custom print, not blank-with-insert |
-| D2-06 | Badge back content | WiFi, map, QR | Canary | — | May 20 | ⬜ | |
-| D2-07 | Print production | All produced | Canary | — | June 2 | ⬜ | Files to Canary by May 20 |
+| # | Asset | Qty | Vendor | Owner | Deadline | Status | Notes |
+|---|-------|-----|--------|-------|----------|--------|-------|
+| D2-01 | Hat design (speaker identifier) | ~25 | Printful | Michael / Camille | **May 29** | ⬜ | 7–9 day turnaround |
+| D2-02 | Wristband design (all attendees) | ×600 | Wristband.com | Michael / Camille | **May 29** | ⬜ | 8–10 day turnaround |
+| D2-03 | Print production | Both items | Printful + Wristband.com | Denise | **May 29** | ⬜ | Files due May 29 for June 9 delivery |
 
 ## D3 — Project AIR Logo (Animated)
 

@@ -57,17 +57,17 @@ This conflicts with the current plan (May 26 vendor handoff). The reason is Memo
 
 ---
 
-## Canary LLC — PROPOSED (Lanyards + Swag + Badges)
+## Canary LLC — PROPOSED (Swag Only)
 
 **Status: Revisions sent to Canary on May 15 (Camille → Lilli). Updated pricing expected back by Mon May 18.**
 
-Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves the Atlas lanyard gap. They are also the proposed vendor for all Tier 1/2/3 swag items.
+Canary is the proposed vendor for Tier 1/2/3 swag items. Lanyards and badges are removed from scope.
 
 | | |
 |--|--|
 | **Contact** | Lilli (Canary rep) — full name + email TBC |
 | **Website** | canarymarketing.com |
-| **Scope** | Branded lanyards, badge holders, notebooks, pins, pens, apparel, premium items (Tiers 1–3) |
+| **Scope** | Notebooks, pins, pens, totes, bottles, premium items (Tiers 1–3) — no lanyards or badges |
 | **Lead time** | ~2 weeks per item |
 | **Catalog** | [`assets/vendors/canary-swag-catalog.pdf`](../assets/vendors/canary-swag-catalog.pdf) |
 | **Overview + quantities** | [`docs/swag-overview.md`](swag-overview.md) |
@@ -75,26 +75,17 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 ### Revisions Sent to Lilli — May 15
 
 **Tier 1 (qty now 600, not 830) — re-quote requested for:**
-- Stickers, pens, enamel pin, notebook
+- Notebooks, pens, enamel pin
 - Asked: mini / pocket-size notebook option (Field Notes style)?
 - Asked: pricing on printed screen-cleaning cloths as a possible Tier 1 add-on?
-
-**Badges & Lanyards — scope narrowed to 25 (print ~30 for buffer):**
-- Asked: 3×5 or 3×4 badge size option (4×6 is too large)?
-- Asked: individualization for all 25 (name / role per badge)?
-- Asked: cost delta between 3 badge designs (exec / ambassador / site lead) vs. 25 fully bespoke designs?
-
-**Tier 2 — apparel + new item:**
-- Asked: hat options + pricing (embroidered; structured and unstructured for comparison)
 
 ### What They're Handling (Pending Confirmation)
 
 | Tier | Items | Qty | Design Due |
 |------|-------|-----|-----------|
-| D2 (Lanyards + Badges) | Branded dye-sub lanyards + ID badge combo — **25 presenters only, ~30 printed** | ~30 | **May 15** |
-| Tier 1 | Notebooks, pins, pens, stickers (+ possibly screen-cleaning cloths) | 600 | **May 15** |
-| Tier 2 | Apparel (hats), bottles / tumblers, tech accessories | ~25 | **May 15** |
-| Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
+| Tier 1 | Notebooks, pins, pens (+ possibly screen-cleaning cloths) | 600 | **May 15** |
+| Tier 2 | Bottles / tumblers, totes, tech accessories | ~25 | **May 15** |
+| Tier 3 | Premium giveaways | 1-5 | **May 15** |
 
 ### Open Action Items
 

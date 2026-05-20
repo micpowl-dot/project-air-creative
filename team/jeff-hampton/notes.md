@@ -1,7 +1,7 @@
 # Jeff Hampton — Notes & Resources
 
 **Role:** Associate Creative Director, Copy + AI
-**Deliverables:** Logo usage guide (D3-04), badge back copy (D2-06), AI prompt card copy (D5-03), copy support throughout production
+**Deliverables:** Logo usage guide (D3-04), AI prompt card copy (D5-03), copy support throughout production
 
 ---
 
@@ -12,9 +12,8 @@
 | Task | ID | Due | Status |
 |------|----|-----|--------|
 | Logo usage guide | D3-04 | May 14 | ⬜ |
-| Badge back copy — WiFi, map, QR labels | D2-06 | May 14 | ⬜ |
 | AI prompt card copy | D5-03 | May 14 | ⬜ |
-| Copy support — poster headlines, badge names | Ongoing | May 22 | ⬜ |
+| Copy support — poster headlines | Ongoing | May 22 | ⬜ |
 
 ---
 
@@ -36,21 +35,6 @@ This document tells the whole team and any future contributors how to use the Pr
 
 ---
 
-### Task 2 — Badge Back Copy (by May 14)
-
-The back of every badge needs four things: WiFi credentials, a venue map or directions, QR code labels, and any other day-of logistics. This is utility copy — clear, scannable, zero ambiguity.
-
-**How to approach it:**
-
-1. **Get the info from Denise** — she has the WiFi passwords, venue layouts, and any QR codes. You cannot write this without the raw data.
-2. **Write for someone in a hurry** — badge backs get read while standing in a hallway. Short labels, clear hierarchy, nothing clever.
-3. **Coordinate with Camille** on space — she is designing the badge layout and will tell you how many characters fit per field. Write to her constraints, not the other way around.
-4. Deliver as a simple Google Doc with each field clearly labeled: WiFi Name, WiFi Password, Map Label, QR 1 Label, QR 2 Label, etc.
-
-**Recommended tools:**
-
-- **Google Docs** — simple copy delivery for Camille to pull from
-- **Figma** (view only) — ask Camille to share the badge layout so you can see exactly how much space you have
 
 ---
 

@@ -1,7 +1,7 @@
 # Camille Nettles — Notes & Resources
 
 **Role:** Associate Creative Director
-**Deliverables:** Badge/lanyard system (D2-00), ambassador posters ×17 with Lee, presenter badge designs (D2-01–D2-05), Tier 1 swag designs, Tier 3 packaging
+**Deliverables:** Hat design (D2-01), wristband design (D2-02), ambassador posters ×17 with Lee, Tier 1 swag designs, Tier 3 packaging
 
 ---
 
@@ -14,7 +14,7 @@ Denise is on PTO this week. You and Michael are primary contacts for Atlas Print
 | Send poster sizes to Lorena at Atlas | lorena@atlasprintsolutions.com / 917-863-3469 — she needs dimensions + quantity to issue a quote | ASAP |
 | Send sticker size to Lorena | Die-cut, laptop-worthy, 600 qty (North American attendees) | ASAP |
 | Confirm delivery addresses | Brookhaven, NY, Andover — ask Michael about Seoul + Birmingham | ASAP |
-| Find badges + lanyards vendor | Atlas can't do branded lanyards — need a new vendor for both | This week |
+| Confirm hat specs with Printful | Embroidery specs, color limits, file format | ASAP |
 
 > **Print-ready files to Atlas due May 22** — not May 26. Memorial Day moves the deadline up. Full vendor info: [docs/vendors.md](../../docs/vendors.md)
 
@@ -40,9 +40,9 @@ Denise is on PTO this week. You and Michael are primary contacts for Atlas Print
 
 | Task | ID | Due | Status |
 |------|----|-----|--------|
-| Badge + lanyard visual system | D2-00 | May 14 | ⬜ |
+| Hat design (speaker identifier) | D2-01 | May 29 | ⬜ |
+| Wristband design (all attendees) | D2-02 | May 29 | ⬜ |
 | Ambassador posters ×17 (with Lee) | D1-01–D1-17 | May 22 | ⬜ |
-| Presenter badge designs — all tiers | D2-01–D2-05 | May 22 | ⬜ |
 | Tier 1 swag — sticker, notebook, enamel pin | D5-01–D5-04 | May 22 | ⬜ |
 | Tier 3 packaging design | D5-09 | May 22 | ⬜ |
 
@@ -50,22 +50,21 @@ Denise is on PTO this week. You and Michael are primary contacts for Atlas Print
 
 ---
 
-### Phase 2 — Badge + Lanyard System (May 9–14)
+### Phase 2 — Hats + Wristbands (due May 29)
 
-Badges are small but high-touch — every speaker and executive will be wearing one all day. The system needs to work across five tiers: Program Lead (Maigh Houlihan), Executives ×4, Ambassadors ×17, Site Leads ×3.
+Two items, two audiences. Both need to tie to the AI Day visual identity.
 
-**How to approach it:**
+**Hats (~25 speakers) — Printful:**
+- Embroidered preferred. Get specs from Printful (stitch count limits, color limits, file format) before finalizing artwork.
+- Design should work as a standalone branded item — logo or campaign wordmark, clean and confident.
 
-1. **Establish the badge hierarchy first** — each tier should feel distinct but clearly part of the same system. Think about how color, type size, or a visual element signals the difference between an ambassador and an executive.
-2. **Design front and back** — front is identity (name, title, tier), back is utility (WiFi, venue map, QR code). Jeff Hampton is writing the back copy — coordinate with him on space constraints.
-3. **Lanyard design** — custom print, needs to complement but not compete with the badge. A simple repeating pattern or wordmark works well.
-4. **Check vendor specs early** — badge size (standard is 3.5" × 4"), bleed, color mode, whether they print double-sided. Get this from Denise before you finalize layouts.
+**Wristbands (×600 attendees) — Wristband.com:**
+- Festival wristband energy. This is the first physical touchpoint of the day — handed out at security badge-in.
+- Custom print, not a blank band. Project AIR mark or wordmark at minimum.
+- Check Wristband.com's print specs for max colors and artwork dimensions.
 
 **Recommended tools:**
-
-- **Adobe Illustrator** — badge and lanyard layout. One master file with artboards for each tier.
-- **Adobe Firefly** — texture and pattern exploration for lanyard design
-- **Canva** (optional) — useful for quick badge mockups if you want to test hierarchy before committing in Illustrator
+- **Adobe Illustrator** — both assets. Simple, vector-clean artwork reproduces best on embroidery and wristband print.
 
 ---
 

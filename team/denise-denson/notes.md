@@ -17,7 +17,8 @@
 | Swag vendor confirmed | May 16 | ⬜ |
 | Tier 2 + 3 sourcing | May 22 | ⬜ |
 | Traffic print files to vendor | May 27 | ⬜ |
-| Traffic badge/lanyard files to vendor | May 27 | ⬜ |
+| Traffic hat files to Printful | May 29 | ⬜ |
+| Traffic wristband files to Wristband.com | May 29 | ⬜ |
 | Tier 1 swag staged | May 27 | ⬜ |
 | Tier 2/3 swag on-site | June 4 | ⬜ |
 
@@ -110,7 +111,8 @@ Full detail: [docs/vendors.md](../../docs/vendors.md)
 | Vendor | Type | Contact | Status |
 |--------|------|---------|--------|
 | Atlas Print Solutions | Large-format posters + stickers | Lorena Salcedo — lorena@atlasprintsolutions.com / 917-863-3469 | ✅ Confirmed |
-| TBD | Badges + branded lanyards | — | ⬜ Urgent — needed this week |
+| Printful | Hats (speakers ×25) | 7–9 days | ⬜ Design due May 29 |
+| Wristband.com | Wristbands (attendees ×600) | 8–10 days | ⬜ Design due May 29 |
 | TBD | Swag / merchandise | — | ⬜ Needed by May 16 |
 
 > ⚠️ **Atlas print-ready deadline is May 22, not May 26.** Memorial Day weekend. Internal review must happen before May 22.

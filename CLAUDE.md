@@ -9,7 +9,7 @@
 **Project AIR: AI in Reach** — the company-wide AI adoption effort for The Weather Company.
 **AI Day:** June 9, 2026. ~600 North American employees (830 total). Brookhaven HQ (Atlanta) + Andover, Birmingham UK, Seoul, New York.
 **Vibe:** SXSW meets Coachella. Festival energy. Not a tech conference.
-**Five deliverables:** Speaker posters, lanyards/badges, logo (animated), PPT template, swag.
+**Five deliverables:** Speaker posters, hats (speakers) + wristbands (attendees), logo (animated), PPT template, swag.
 
 ---
 

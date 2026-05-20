@@ -101,23 +101,14 @@ Tier 3 applies regardless of which plan is chosen. These are prize/recognition i
 
 ---
 
-## Lanyards + Badges — Deliverable 2 (Separate from Swag)
+## Hats + Wristbands — Deliverable 2
 
-**Decision: Lanyards for 25 presenters only. General attendees do not get lanyards.**
-**Print qty: ~30** (25 + buffer for extras).
+Lanyards and badges removed. Replaced by hats (speakers) and wristbands (attendees).
 
-Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-sublimated lanyards, which resolves the Atlas gap.
-
-> **Pending Lilli (due May 18):** confirm 3×5 or 3×4 badge-size option (4×6 is too large), individualization for all 25 (name/role per badge), and cost delta between 3 designs (exec / ambassador / site lead) vs. 25 fully bespoke designs.
-
-| Badge Tier | Who | Qty | Canary Option | Unit Price | Total |
-|-----------|-----|-----|--------------|-----------|-------|
-| Program Lead | Maigh Houlihan | 1 | Dye-sub branded lanyard | $3.50 | ~$4 |
-| Executive Speakers | Rohit, Matthew, Brian, Dan | 4 | Dye-sub + ID badge combo | $7.00 | $28 |
-| Ambassadors | 17 session leads | 17 | Dye-sub + ID badge combo | $7.00 | $119 |
-| Site Leads | Andover, Birmingham, Seoul | 3 | Dye-sub + ID badge combo | $7.00 | $21 |
-| Buffer (extras) | — | ~5 | Same as above | $7.00 | ~$35 |
-| **Total** | | **~30** | | | **~$207 + $150 setup** (pricing pending re-quote at smaller size) |
+| Item | Who | Qty | Vendor | Turnaround | Design Due |
+|------|-----|-----|--------|-----------|-----------|
+| Hat (embroidered) | Speakers — execs, ambassadors, site leads | ~25 | Printful | 7–9 days | **May 29** |
+| Wristband (custom print) | All attendees | ×600 | Wristband.com | 8–10 days | **May 29** |
 
 ---
 

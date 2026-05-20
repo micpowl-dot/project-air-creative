@@ -69,27 +69,25 @@ Think music festival artist cards. Bold type, unexpected crops, saturated color.
 
 ---
 
-## Deliverable 2 — Lanyards and Presenter Badges
+## Deliverable 2 — Hats and Wristbands
 
-Physical lanyards and badges for AI Day presenters, Ambassadors, and program leads. These are the wearable identity of the event.
+Physical wearables for AI Day. Two items, two audiences.
 
-### Tiers
+### Hats — Speakers (~25)
 
-- Program Lead: Maigh Houlihan (distinct design, one of a kind)
-- Executive Speakers: Rohit, Matthew, Brian, Dan (4)
-- Ambassadors: 17 internal session leads (distinct from general participant badges)
-- Site Leads: Andover, Birmingham, Seoul (3)
+Branded hat for the ~25 people presenting, facilitating, or leading sessions. Speaker identifier and post-event keepsake. Vendor: Printful (7–9 day turnaround).
 
-### Design Requirements
+- Should feel like a meaningful step up — something speakers are proud to wear, not a generic promo item
+- Embroidered preferred over screen print
+- Ties visually to the AI Day identity: logo, color, and/or campaign wordmark
 
-- Lanyard: branded, custom print. Not a blank lanyard with a clip-on insert.
-- Badge: name, role, and a visual element that ties to the festival identity.
-- Ambassador badges should be visibly different from general participant badges. These people are the face of the event and need to be findable in a crowd.
-- Dual-sided badge recommended: front is the participant-facing design, back can include the wifi password, the Hallway Track map, or the session grid QR code.
+### Wristbands — All Attendees (×600)
 
-### Creative Direction
+Distributed at security badge-in so attendees arrive on the 21st floor already in the vibe. Vendor: Wristband.com (8–10 day turnaround).
 
-Festival wristband energy, translated to a lanyard. The kind of thing people keep on their desk after the event because it looks good, not because they forgot to throw it away.
+- Festival wristband energy — this is the first physical touchpoint of the day
+- Custom print, not a plain colored band
+- Branded with Project AIR mark or wordmark
 
 ---
 

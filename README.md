@@ -45,7 +45,7 @@
 | # | Deliverable | Deadline | Tasks |
 |---|-------------|----------|-------|
 | D1 | Speaker Spotlight Posters | End of May | 24 |
-| D2 | Lanyards & Presenter Badges | June 2 | 8 |
+| D2 | Hats (speakers) & Wristbands (attendees) | June 2 | 2 |
 | D3 | Project AIR Logo (Animated) | Static: Early May / Animated: End of May | 4 |
 | D4 | PowerPoint Template | Early May | 12 |
 | D5 | Swag & Premium Items | Tier 1: June 2 / Tier 2-3: June 6 | 13 |

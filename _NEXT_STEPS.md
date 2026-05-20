@@ -17,7 +17,7 @@ Logo (static) ──────────────────────
 Brand Guidelines (colors, fonts, voice) ─┘
 ```
 
-Until those two are locked, no posters, badges, swag, or templates should go into production. This is Phase 1 and it is the only true blocker.
+Until those two are locked, no posters, swag, or templates should go into production. This is Phase 1 and it is the only true blocker.
 
 ---
 
@@ -99,7 +99,7 @@ Nothing downstream starts until this phase ships.
 | Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
 | Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
 | PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | **May 20** | ⬜ |
-| Badge visual system | D2-00 | Camille Nettles | May 20 | ⬜ |
+
 
 **Gate:** Visual systems reviewed before poster production begins.
 
@@ -112,7 +112,7 @@ Nothing downstream starts until this phase ships.
 |------|----|-------|-------------|--------|
 | Ambassador posters ×17 | D1-01–D1-17 | Lee Payne + Camille Nettles | **May 21** | ⬜ |
 | Executive posters ×4 | D1-18–D1-21 | Michael / Camille | **May 21** | ⬜ |
-| Presenter badge designs — all tiers | D2-01–D2-05 | Camille Nettles | May 21 | ⬜ |
+
 | Digital adaptations (social/screens) | D1-22 | Lee Payne | May 21 | ⬜ |
 | Review Ambassador + Executive posters | — | Maigh Houlihan | **May 21** | ⬜ |
 | ⚠️ Ambassador + Executive posters to print vendor | D1-23 | Michael / Camille / Denise | **May 22** *(Atlas cutoff)* | ⬜ |
@@ -126,7 +126,7 @@ Nothing downstream starts until this phase ships.
 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
-| Badge print production | D2-07 | Denise Denson | May 27 | ⬜ |
+| Hat + wristband print production | D2-01 | Denise Denson | May 27 | ⬜ |
 | Tier 1 swag production + staging | D5-11 | Denise Denson | May 27 | ⬜ |
 | Final PPT template review | D4 | Mark Fredo | May 27 | ⬜ |
 
@@ -144,7 +144,7 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
 | Large-format poster print — vendor handoff | D1-23 | Denise Denson | May 27 | ⬜ |
-| Badge print production | D2-07 | Denise Denson | May 27 | ⬜ |
+| Hat + wristband print production | D2-01 | Denise Denson | May 27 | ⬜ |
 | Tier 1 swag production + staging (×600 North American) | D5-11 | Denise Denson | May 27 | ⬜ |
 
 ---
