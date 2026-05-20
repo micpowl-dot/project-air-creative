@@ -49,6 +49,21 @@ Every internal deadline below is set with buffer before the hard external deadli
 
 ---
 
+## Swag Vendor Turnaround Times
+
+Use these when reverse-scheduling order dates from June 9.
+
+| Item | Vendor | Turnaround | Notes |
+|------|--------|-----------|-------|
+| Projector | Michael Powell | — | Michael bringing in personally |
+| Stickers | Sticker Mule | 4 days | |
+| Wristbands | Wristband.com | 8–10 days | |
+| Posters | Atlas | — | Design due Fri May 22 for Atlas turnaround |
+| Balloons | Amazon | 3 days | |
+| Hats | Printful | 7–9 days | |
+
+---
+
 ## Phase 1 — Brand Foundation
 **Window: May 5–12 | Owner: Michael Powell**
 
@@ -73,11 +88,13 @@ Nothing downstream starts until this phase ships.
 | Ambassador list + intl employee numbers for swag | — | ⚠️ TBD — unassigned | **May 12** | ⬜ |
 | Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ⬜ |
 | Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ✅ *(sent to Maigh May 15)* |
-| Camille sends revisions + pricing questions to Canary (Lilli) | — | Camille Nettles | **May 15** | ✅ |
 | Camille sends swag pricing + item recommendations to Maigh for review | — | Camille Nettles | **May 15** | ✅ |
 | Maigh reviews swag recommendations + confirms Tier 1 / 2 / 3 selections | — | Maigh Houlihan | **Mon May 18** | ⬜ |
-| Updated Canary pricing back (Tier 1 @ 600, Tier 2 alts + hats, badge sizes, screen cloths) | — | Lilli / Canary | **Mon May 18** | ⬜ |
-| Swag designs due to print vendors | D5-01–D5-09 | Michael / Camille | **May 15** | ⬜ |
+| Hat designs to Printful (7–9 day turnaround) | D5-02 | Michael / Camille | **May 29** | ⬜ |
+| Wristband designs to Wristband.com (8–10 day turnaround) | D5-03 | Michael / Camille | **May 29** | ⬜ |
+| Balloon order to Amazon (3 day turnaround) | D5-04 | Michael / Camille | **June 5** | ⬜ |
+| Sticker designs to Sticker Mule (4 day turnaround) | D5-01 | Michael / Camille | **June 4** | ⬜ |
+| Poster designs to Atlas (design due Fri May 22) | D5-05 | Michael / Camille | **May 22** | ⬜ |
 | Poster visual system — layout, type, color rules | D1-00 | Lee / Michael / Camille | **May 18** | ⬜ |
 | Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
 | Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
@@ -150,6 +167,53 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 | Badges + lanyards vendor — Canary proposed; awaiting updated pricing (badge size options, individualization, design-count cost delta) | Phase 4 | Lilli / Canary | **Mon May 18** |
 | Swag vendor — Canary proposed; awaiting revised Tier 1 (qty 600) + Tier 2 (lighter tee, hats) pricing | Phase 5 | Lilli / Canary | **Mon May 18** |
 | Ambassador list + international employee numbers for swag — who owns this? | Phase 2 | ⚠️ Unassigned | May 12 |
+<<<<<<< HEAD
+=======
+| NY + Andover office delivery addresses still TBD on the program sheet | Phase 5 | Denise | May 22 |
+| Brian to approve schedule, tracks, and nominated speakers — gates the Tue May 19 working session and Wed May 20 headshot guide rails send | Headshot collection, D1 posters | Brian (via Maigh) | May 18 (today) |
+| Quotes from Printful, Wristband.com, Sticker Mule, Atlas, Amazon — confirm pricing | Phase 2 budget, scope cuts if any | Denise | ASAP |
+| Wednesday May 20 vendor asset deadline: which specific assets, which vendor? | Phase 2/3 | Camille / Denise | May 19 |
+| Short-throw projector availability for elevator vestibule and stairwell immersion | Event experience | Maigh (checking with Brian Matthew) | This week |
+| Poster count by location (Andover, NY, Atlanta) — needs room list confirmed | Phase 3 print quantity | Maigh → Camille | This week |
+| Alcohol vs. mocktails for end-of-day reception — security/insurance complications flagged | Event logistics | Maigh / Denise | TBD |
+
+### Resolved
+
+| Question | Resolution | Date |
+|----------|------------|------|
+| ~~Badges + lanyards vendor~~ | **TBD** — Canary removed. Replacement vendor needed for badges/lanyards. | 2026-05-20 |
+| ~~Swag vendor~~ | **Printful** (hats, 7–9 days), **Wristband.com** (wristbands, 8–10 days), **Sticker Mule** (stickers, 4 days), **Amazon** (balloons, 3 days), **Atlas** (posters). Projector — Michael brings in. | 2026-05-20 |
+| ~~Badge/lanyard quantity: 600 vs. 25?~~ | **~25 only** — generalized color-tiered press-pass style badges for presenters and ambassadors. Individual attendee badges eliminated (logistics, expense, hierarchy concerns). Attendees get inexpensive souvenirs instead (stickers, notebooks, screen cleaning cloths). | 2026-05-18 |
+| ~~Individual speaker posters: foam core or digital?~~ | **Digital only** — used in Slack, on "the drop" lineup page, and for speakers' external promotion (LinkedIn, etc.). Printed wayfinding posters are generalized, not per-speaker, and not foam core. | 2026-05-18 |
+
+---
+
+## Action Items from May 18 AI Day Logistics Meeting
+
+Items below come from the [May 18 meeting notes](docs/meeting-notes-2026-05-18.md). These sit alongside the asset-production phases above and are tracked here so they don't get lost.
+
+| Owner | Action | Due |
+|-------|--------|-----|
+| Michael / Lee / Camille | Lock the headshot best practices spec (working session — see Meeting 3.5 in [meetings.md](docs/meetings.md)) | **Tue May 19** |
+| Maigh | Send headshot "guide rails" (no plaid, no cropping, file naming) to people leaders and nominees | **Wed May 20** (pending Brian's schedule approval) |
+| Maigh | Confirm rooms used are on the calendar invite so Camille can size poster counts | This week |
+| Maigh | Check short-throw projector availability with Brian Matthew | This week |
+| Michael + Camille | Resurface existing headshot guidance doc, create Drive folder for submissions | This week |
+| Michael | Own the interactive AI Song workflow (Eleven Labs API, end-of-day playback) | TBD |
+| Michael | Continue building the "Created with AI" dashboard | Ongoing |
+| Denise | Confirm quotes from Printful, Wristband.com, Sticker Mule, Atlas, Amazon | ASAP |
+| Pending | Corrected quotes for speaker denotation items (T-shirts, hats) | TBD |
+
+### Event Experience Items In Flight
+
+These live outside the print/asset track but the team committed to them on May 18. Surfacing here so they're not invisible:
+
+- **AI Photo Booth** (Lee's idea) — attendees take a photo, AI converts to illustrated headshot for Slack profiles. Doubles as a headshot collection mechanism. Camera setup TBD (DSLR vs. Denise's DJI Osmo Pocket). QR + Canva self-service flow.
+- **AI Song interactive** — QR/Slack Mad Libs input → Eleven Labs-generated song played at end of day. Michael owns.
+- **Maigh's digital "AI helped me to ..." card** — submissions display on screens and feed Rohit's high-end prize giveaways.
+- **Immersive decor** — short-throw projectors in elevator vestibule and stairwell (with a 10ft x 6ft print graphic as elevator contingency), wristbands at security badge-in, streamers/balloons, music whenever a session is not running.
+- **End-of-day reception** — leaning mocktails plus King of Pops in the downstairs outdoor green space for a group photo opportunity. Designed cupcakes and cookies (suns, clouds) over signature cocktails for scalability across locations.
+>>>>>>> 8bd6098 (Switch swag vendor from Canary to item-specific vendors)
 
 ---
 
@@ -166,4 +230,8 @@ Denise traffics files to vendors and tracks production. Mark approves all final 
 
 ---
 
+<<<<<<< HEAD
 *Last updated: 2026-05-15*
+=======
+*Last updated: 2026-05-18*
+>>>>>>> 8bd6098 (Switch swag vendor from Canary to item-specific vendors)
