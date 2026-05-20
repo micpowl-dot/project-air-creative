@@ -96,7 +96,7 @@
 | D5-02 | Notebook design (pocket-sized) | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | Backup: FedEx Kinkos |
 | D5-03 | AI prompt card (laminated, 5 prompts) | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | |
 | D5-04 | Enamel pin design | Tier 1 ×600 | Canary | — | **May 20** | ⬜ | |
-| D5-05 | T-shirt or hoodie (AI Day branded, limited run) | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
+| D5-05 | Hat (AI Day branded, speaker identifier) | Tier 2 ×25 | Printful | — | **May 29** | ⬜ | 7–9 day turnaround |
 | D5-06 | Tote bag (canvas, festival-style) | Tier 2 ×25 | Canary | — | **May 20** | ⬜ | |
 | D5-07 | Tier 2 sourcing | Tier 2 ×25 | Canary | — | Mid May | ⬜ | |
 | D5-08 | Tier 3 sourcing | Tier 3 | Mixed | — | Mid May | ⬜ | See D5-16…D5-21 |

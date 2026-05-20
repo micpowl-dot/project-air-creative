@@ -178,7 +178,7 @@ Ideas for items that are useful, branded, and low enough cost to distribute to ~
 
 Items for the ~25 people who presented, facilitated, or led sessions. Should feel like a meaningful step up from Tier 1:
 
-- Custom t-shirt or hoodie (AI Day branded, limited run)
+- Hat (AI Day branded, limited run — speaker identifier)
 - Premium water bottle or tumbler
 - Branded wireless charging pad
 - Custom tote bag (canvas, festival-style)

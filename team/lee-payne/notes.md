@@ -30,7 +30,7 @@
 | Swag visual system | D5-00 | May 14 | ⬜ |
 | Ambassador posters ×17 (with Camille) | D1-01–D1-17 | May 22 | ⬜ |
 | Digital adaptations — social + screens | D1-22 | May 22 | ⬜ |
-| Tier 2 swag — t-shirt, tote | D5-05–D5-06 | May 22 | ⬜ |
+| Tier 2 swag — tote | D5-06 | May 22 | ⬜ |
 
 **Waiting on:** Logo and brand guidelines from Michael (target May 9). Use the time before May 9 to explore layout structures and type hierarchy without locking anything to the brand yet.
 
@@ -87,7 +87,7 @@ Run these in parallel with the poster sprint. They use the same visual system so
 - Venue screens: confirm screen resolution with Denise for each location
 - Build as artboards in Illustrator off your poster master file — fast to produce
 
-**Tier 2 swag — t-shirt, tote (D5-05–D5-06):**
+**Tier 2 swag — tote (D5-06):**
 - Check vendor specs before designing — print area dimensions, color limitations, file format
 - Keep designs simple and bold — swag artwork that works at small scale and in one or two colors prints cleanest
 - Confirm with Mark before sending to Denise for vendor submission

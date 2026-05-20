@@ -85,7 +85,6 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 - Asked: cost delta between 3 badge designs (exec / ambassador / site lead) vs. 25 fully bespoke designs?
 
 **Tier 2 — apparel + new item:**
-- Asked: lower-cost tee alternative to the Classic Tee (which reads premium / heavyweight)
 - Asked: hat options + pricing (embroidered; structured and unstructured for comparison)
 
 ### What They're Handling (Pending Confirmation)
@@ -94,7 +93,7 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 |------|-------|-----|-----------|
 | D2 (Lanyards + Badges) | Branded dye-sub lanyards + ID badge combo — **25 presenters only, ~30 printed** | ~30 | **May 15** |
 | Tier 1 | Notebooks, pins, pens, stickers (+ possibly screen-cleaning cloths) | 600 | **May 15** |
-| Tier 2 | Apparel (incl. lighter-weight tee + hats), bottles / tumblers, tech accessories | ~25 | **May 15** |
+| Tier 2 | Apparel (hats), bottles / tumblers, tech accessories | ~25 | **May 15** |
 | Tier 3 | Premium giveaways (speaker, earplugs, backpack, etc.) | 1-5 | **May 15** |
 
 ### Open Action Items
@@ -104,7 +103,7 @@ Canary CAN do fully custom branded lanyards (dye-sublimated) — this resolves t
 | Receive updated pricing from Lilli (Tier 1 @ 600, Tier 2 alts + hats, badge sizes, screen cloths) | Lilli / Canary | **Mon May 18** |
 | Confirm Lilli's full contact info (email, phone) | Camille | ASAP |
 | Choose Tier 1 items (which and how many) | Michael / Camille / Mark | After May 18 quote |
-| Choose Tier 2 selections (tee weight, hat style) | Michael / Camille | After May 18 quote |
+| Choose Tier 2 selections (hat style) | Michael / Camille | After May 18 quote |
 | Choose Tier 3 selections | Michael / Mark | ASAP |
 | Provide size breakdown for apparel (Tier 2) | Maigh / Denise | May 15 |
 | Decide badges: 3 designs vs. 25 bespoke (pending cost data) | Michael / Camille | After May 18 quote |

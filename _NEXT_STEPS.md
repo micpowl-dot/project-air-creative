@@ -198,7 +198,7 @@ Items below come from the [May 18 meeting notes](docs/meeting-notes-2026-05-18.m
 | Michael | Own the interactive AI Song workflow (Eleven Labs API, end-of-day playback) | TBD |
 | Michael | Continue building the "Created with AI" dashboard | Ongoing |
 | Denise | Confirm quotes from Printful, Wristband.com, Sticker Mule, Atlas, Amazon | ASAP |
-| Pending | Corrected quotes for speaker denotation items (T-shirts, hats) | TBD |
+| Pending | Corrected quotes for speaker denotation items (hats) | TBD |
 
 ### Event Experience Items In Flight
 

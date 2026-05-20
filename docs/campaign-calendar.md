@@ -41,7 +41,7 @@
 | Mon May 18 | Prompt card copy + design | Michael / Camille | Deliverable |
 | Tue May 19 | 🤝 **Meeting 3.5 — Headshot Best Practices** (30 min) | Michael, Lee, Camille *(Maigh — last 10 min)* | Working session |
 | **Wed May 20** | **Headshot Best Practices doc → Maigh** | Michael | **Deliverable** |
-| **Wed May 20** | **⚠️ All Canary files due** — badges + lanyards (×600), notebook, prompt card, pin, pen, t-shirt/hoodie, tote, water bottle, charging pad, Tier 3 items | Michael / Camille | **Hard deadline (Canary cutoff)** |
+| **Wed May 20** | **⚠️ All Canary files due** — badges (×25), notebook, prompt card, pin, pen, tote, water bottle, charging pad, Tier 3 items | Michael / Camille | **Hard deadline (Canary cutoff)** |
 | Wed May 20 | Logo animation loop | Michael | Deliverable |
 | Wed May 20 | PPT template — all layouts | Lee | Deliverable |
 | Thu May 21 | Review Ambassador + Executive posters | Maigh | Gate |

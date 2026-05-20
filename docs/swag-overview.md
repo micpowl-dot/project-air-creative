@@ -30,7 +30,7 @@ This is the focused recognition option. Everyone who built and ran the day walks
 
 | Item | Canary Option | Unit Price | Total (25) | Notes |
 |------|--------------|-----------|------------|-------|
-| Hoodie | Relax Hoodie | $50.00 | $1,400 + $150 setup | **Need S/M/L/XL/2XL split for 25 people** |
+| Hat | Embroidered structured or unstructured (TBC) | TBC | TBC | Quote pending from Printful |
 | Tumbler | Fellow Carter Tumbler 20oz | $58.00 | $1,600 + $150 setup | Pick one bottle — Fellow is the strongest brand |
 | Tote | Shoulder Tote | $22.00 | $700 + $150 setup | Functional, festival-feel |
 | **Plan A Total** | | | **~$3,700 + ~$450 setup** | |
@@ -39,8 +39,6 @@ This is the focused recognition option. Everyone who built and ran the day walks
 
 | Item | Unit Price | Total (25) | Notes |
 |------|-----------|------------|-------|
-| Classic Tee (instead of hoodie) | $27.00 | $825 + $150 setup | Reads premium / heavyweight — **lighter-weight tee alternative requested from Lilli (May 15, due May 18)** |
-| Hat (embroidered) | TBC | TBC | **Added to consideration set May 15 — Lilli to quote structured + unstructured options** |
 | LARQ Bottle 25oz (instead of Fellow) | $69.00 | $1,875 + $150 setup | Self-cleaning, premium spec |
 | Ocean Bottle 34oz | $56.00 | $1,550 + $150 setup | Eco angle |
 | PowerPack MagSafe | $53.00 | $1,475 + $150 setup | Tech-adjacent, practical |
@@ -129,7 +127,7 @@ Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-su
 |--|---------------------|------------------------|
 | Who gets swag | 25 presenters only | 600 attendees + 25 presenters |
 | Tier 1 items | None | Notebook + pin + pen + sticker (+ possibly screen cloth) |
-| Tier 2 items | Hoodie + tumbler + tote (tee + hat options pending) | Same + Tier 1 package |
+| Tier 2 items | Hat + tumbler + tote | Same + Tier 1 package |
 | Tier 3 | TBD prizes (both plans) | TBD prizes (both plans) |
 | Est. total (ex. Tier 3) | ~$4,200 | ~$17,000–$20,000 |
 | Complexity | Low — 25 people, 3 items | High — size runs, inventory, distribution |
@@ -143,7 +141,7 @@ Lanyards are scoped as Deliverable 2, not swag. Canary can handle branded dye-su
 
 1. **Plan A or Plan B?** Tier 2 only, or Tier 1 general distribution for 600?
 2. **Tier 1 items:** Notebook + pin + pen confirmed? Pocket-notebook + screen-cloth pricing back from Lilli May 18. Prompt card still needs its own source.
-3. **Tier 2 apparel:** Tee weight + hat style choices once Lilli's revised quote lands.
+3. **Tier 2 apparel:** Hat style choice once Printful quote lands.
 4. **Apparel sizing:** S/M/L/XL/2XL breakdown needed from Maigh/Denise for the 25 Tier 2 recipients.
 5. **Tier 3 mechanics:** Which engagement mechanics are running? How many winners per venue?
 6. **Sticker source:** Stay with Atlas or consolidate to Canary?

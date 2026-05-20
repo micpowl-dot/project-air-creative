@@ -58,14 +58,14 @@ You need two vendors locked: large-format print and swag/merchandise.
 **How to approach it — Swag vendor:**
 
 1. Tier 1 (×600 North American attendees): stickers, notebooks, enamel pins, AI prompt cards — need a vendor with volume capability
-2. Tier 2 (~25): t-shirts/hoodies, tote bags — could be same vendor or separate
+2. Tier 2 (~25): hats (Printful), tote bags — separate vendors
 3. Key questions: minimum order quantities, production lead times, can they do custom enamel pins, what are the artwork specs
 4. Build in at least 10 business days for production + shipping from order date
 
 **Recommended tools:**
 
 - **Sticker Mule** — reliable for stickers and enamel pins at volume, fast turnaround
-- **CustomInk or Printful** — t-shirts and totes
+- **Printful** — hats
 - **4imprint or Cimpress** — full swag packages if you want one vendor for everything
 - **Printingforless.com or Moo** — premium large-format and event print
 
