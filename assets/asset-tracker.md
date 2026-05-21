@@ -18,7 +18,7 @@
 
 | # | Asset | Subject | Owner | Deadline | Status | Notes |
 |---|-------|---------|-------|----------|--------|-------|
-| D1-00 | Poster visual system | Design system | — | Mid May | ⬜ | Color, type, layout rules |
+| D1-00 | Poster visual system | Design system | Camille | Mid May | 🟡 | Slot-based system in Figma — see [progress/](../progress/) for state |
 | D1-01 | Ambassador poster 1 | TBD | — | End of May | ⬜ | |
 | D1-02 | Ambassador poster 2 | TBD | — | End of May | ⬜ | |
 | D1-03 | Ambassador poster 3 | TBD | — | End of May | ⬜ | |
