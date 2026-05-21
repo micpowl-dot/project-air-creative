@@ -65,18 +65,18 @@
 
 | # | Asset | Description | Owner | Deadline | Status | Notes |
 |---|-------|-------------|-------|----------|--------|-------|
-| D4-01 | Template design | All layouts | — | Early May | ⬜ | **URGENT** |
-| D4-02 | Title slide | Event branding | — | Early May | ⬜ | |
-| D4-03 | Section divider | Full-bleed | — | Early May | ⬜ | |
-| D4-04 | Content: text-heavy | Strategy | — | Early May | ⬜ | |
-| D4-05 | Content: image + text | Demos | — | Early May | ⬜ | |
-| D4-06 | Content: two-column | Comparison | — | Early May | ⬜ | |
-| D4-07 | Quote slide | Large type | — | Early May | ⬜ | |
-| D4-08 | Blank + frame | Live demos | — | Early May | ⬜ | |
-| D4-09 | Closing slide | CTA, QR | — | Early May | ⬜ | |
-| D4-10 | How-to-use slide | Guide | — | Early May | ⬜ | |
-| D4-11 | .potx file | Template | — | Early May | ⬜ | |
-| D4-12 | .pptx file | Example deck | — | Early May | ⬜ | |
+| D4-01 | Template design | All layouts | Lee Payne | Early May | ✅ | Shipped as R1B 2026-05-21 |
+| D4-02 | Title slide | Event branding | Lee Payne | Early May | ✅ | |
+| D4-03 | Section divider | Full-bleed | Lee Payne | Early May | ✅ | |
+| D4-04 | Content: text-heavy | Strategy | Lee Payne | Early May | ✅ | |
+| D4-05 | Content: image + text | Demos | Lee Payne | Early May | ✅ | |
+| D4-06 | Content: two-column | Comparison | Lee Payne | Early May | ✅ | |
+| D4-07 | Quote slide | Large type | Lee Payne | Early May | ✅ | |
+| D4-08 | Blank + frame | Live demos | Lee Payne | Early May | ✅ | |
+| D4-09 | Closing slide | CTA, QR | Lee Payne | Early May | ✅ | |
+| D4-10 | How-to-use slide | Guide | Lee Payne | Early May | ✅ | |
+| D4-11 | .potx file | Template | Lee Payne | Early May | ✅ | `AIDAY-PPT-Template-R1B.potx` |
+| D4-12 | .pptx file | Example deck | Lee Payne | Early May | ✅ | `AIDAY-PPT-Template-R1B.pptx` (+ PDF export) |
 
 ## D5 — Swag & Premium Items
 
@@ -114,9 +114,9 @@
 | D1 Posters | 24 | 0 | 0 | 24 | 0 |
 | D2 Badges | 8 | 0 | 0 | 8 | 0 |
 | D3 Logo | 3 | 2 | 1 | 0 | 0 |
-| D4 PPT | 12 | 0 | 0 | 12 | 0 |
+| D4 PPT | 12 | 12 | 0 | 0 | 0 |
 | D5 Swag | 22 | 0 | 0 | 22 | 0 |
-| **Total** | **69** | **2** | **1** | **66** | **0** |
+| **Total** | **69** | **14** | **1** | **54** | **0** |
 
 ## How to Claim a Task
 

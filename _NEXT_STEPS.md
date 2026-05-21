@@ -98,7 +98,7 @@ Nothing downstream starts until this phase ships.
 | Poster visual system — layout, type, color rules | D1-00 | Lee / Michael / Camille | **May 18** | ⬜ |
 | Prompt card copy + design | D5-03 | Michael / Camille | **May 18** | ⬜ |
 | Logo animation loop | D3-03 | Michael Powell | **May 20** | ⬜ |
-| PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | **May 20** | ⬜ |
+| PPT template — all slide layouts | D4-01–D4-12 | Lee Payne | **May 20** | ✅ *(R1B shipped May 21 — `AIDAY-PPT-Template-R1B.pptx`)* |
 
 
 **Gate:** Visual systems reviewed before poster production begins.
@@ -128,7 +128,7 @@ Nothing downstream starts until this phase ships.
 |------|----|-------|-------------|--------|
 | Hat + wristband print production | D2-01 | Denise Denson | May 27 | ⬜ |
 | Tier 1 swag production + staging | D5-11 | Denise Denson | May 27 | ⬜ |
-| Final PPT template review | D4 | Mark Fredo | May 27 | ⬜ |
+| Final PPT template review | D4 | Mark Fredo | May 27 | ⬜ *(R1B ready for review)* |
 
 ---
 
