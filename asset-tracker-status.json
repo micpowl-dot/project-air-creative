@@ -1,51 +1,89 @@
 {
-  "last_updated": "2026-05-25T03:45:57.191Z",
+  "last_updated": "2026-05-25T10:45:57.259Z",
   "update_source": "n8n-aggregator-v1",
   "signals_processed": 0,
   "task_updates": [
     {
-      "deliverable": "D3",
-      "task_id": "D3-001",
-      "task_name": "Initial Logo & Visual System Development",
+      "deliverable": "D1",
+      "task_id": null,
+      "task_name": "Initialize poster design concepts",
       "previous_status": null,
       "new_status": "not_started",
       "confidence": "medium",
       "source_signals": [],
-      "assigned_to": "Lee Payne",
-      "slack_id": "U06EVE9DC3W",
-      "notes": "No signals detected - baseline task assignment for visual system lead"
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - project appears to be in initial phase"
     },
     {
-      "deliverable": "D1",
-      "task_id": "D1-001",
-      "task_name": "Signage Requirements Planning",
+      "deliverable": "D2",
+      "task_id": null,
+      "task_name": "Badge design and lanyard specifications",
       "previous_status": null,
       "new_status": "not_started",
       "confidence": "medium",
       "source_signals": [],
-      "assigned_to": "Michael Powell",
-      "slack_id": "U06EQ2E7J6R",
-      "notes": "No activity signals - project lead should initiate planning"
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - awaiting project kickoff"
+    },
+    {
+      "deliverable": "D3",
+      "task_id": null,
+      "task_name": "Logo development and visual system foundation",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - requires initial strategy session"
+    },
+    {
+      "deliverable": "D4",
+      "task_id": null,
+      "task_name": "Presentation template framework",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - pending requirements gathering"
+    },
+    {
+      "deliverable": "D5",
+      "task_id": null,
+      "task_name": "Swag merchandise planning",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - needs vendor research and budget approval"
     }
   ],
   "blockers_detected": [
-    "No team activity detected across all deliverables",
-    "Missing visual system foundation for dependent tasks"
+    "No project activity detected across all deliverables",
+    "Missing project initialization and team assignments",
+    "14 days remaining until event with no visible progress"
   ],
   "upcoming_deadlines": [
-    "Project kickoff appears overdue - 15 days until event with no recorded progress"
+    "Project AIR AI Day event on June 9, 2026 (14 days away)",
+    "Critical need for immediate project kickoff and task assignments"
   ],
   "hot_items": [
     {
-      "description": "Critical project startup delay - no deliverable progress with only 15 days remaining",
-      "owner": "Michael Powell",
-      "slack_id": "U06EQ2E7J6R",
+      "description": "Project appears stalled - urgent need for team mobilization and task assignment",
+      "owner": "Project Lead",
+      "slack_id": null,
       "urgency": "critical"
     },
     {
-      "description": "Visual system development needs immediate attention to unblock dependent deliverables",
-      "owner": "Lee Payne",
-      "slack_id": "U06EVE9DC3W",
+      "description": "With 14 days to event and 600 attendees, all deliverables need immediate attention",
+      "owner": "All Team Members",
+      "slack_id": null,
       "urgency": "critical"
     }
   ]
