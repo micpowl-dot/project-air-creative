@@ -1,89 +1,41 @@
 {
-  "last_updated": "2026-05-25T10:45:57.259Z",
+  "last_updated": "2026-05-25T18:15:57.180Z",
   "update_source": "n8n-aggregator-v1",
   "signals_processed": 0,
   "task_updates": [
     {
       "deliverable": "D1",
       "task_id": null,
-      "task_name": "Initialize poster design concepts",
+      "task_name": "Project status check - no activity signals detected",
       "previous_status": null,
       "new_status": "not_started",
-      "confidence": "medium",
+      "confidence": "low",
       "source_signals": [],
       "assigned_to": null,
       "slack_id": null,
-      "notes": "No activity signals detected - project appears to be in initial phase"
-    },
-    {
-      "deliverable": "D2",
-      "task_id": null,
-      "task_name": "Badge design and lanyard specifications",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "medium",
-      "source_signals": [],
-      "assigned_to": null,
-      "slack_id": null,
-      "notes": "No activity signals detected - awaiting project kickoff"
-    },
-    {
-      "deliverable": "D3",
-      "task_id": null,
-      "task_name": "Logo development and visual system foundation",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "medium",
-      "source_signals": [],
-      "assigned_to": null,
-      "slack_id": null,
-      "notes": "No activity signals detected - requires initial strategy session"
-    },
-    {
-      "deliverable": "D4",
-      "task_id": null,
-      "task_name": "Presentation template framework",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "medium",
-      "source_signals": [],
-      "assigned_to": null,
-      "slack_id": null,
-      "notes": "No activity signals detected - pending requirements gathering"
-    },
-    {
-      "deliverable": "D5",
-      "task_id": null,
-      "task_name": "Swag merchandise planning",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "medium",
-      "source_signals": [],
-      "assigned_to": null,
-      "slack_id": null,
-      "notes": "No activity signals detected - needs vendor research and budget approval"
+      "notes": "No signals from any sources - project may need status verification"
     }
   ],
   "blockers_detected": [
-    "No project activity detected across all deliverables",
-    "Missing project initialization and team assignments",
-    "14 days remaining until event with no visible progress"
+    "No activity signals detected across all monitoring sources",
+    "Project status unclear - 15 days until event (June 9, 2026)",
+    "Team communication channels may need verification"
   ],
   "upcoming_deadlines": [
-    "Project AIR AI Day event on June 9, 2026 (14 days away)",
-    "Critical need for immediate project kickoff and task assignments"
+    "AI Day event in 15 days (June 9, 2026) - all deliverables needed",
+    "Critical window for 600-attendee event preparation"
   ],
   "hot_items": [
     {
-      "description": "Project appears stalled - urgent need for team mobilization and task assignment",
-      "owner": "Project Lead",
-      "slack_id": null,
+      "description": "Zero activity signals detected with only 15 days until major event - urgent status check needed",
+      "owner": "Michael Powell",
+      "slack_id": "U06EQ2E7J6R",
       "urgency": "critical"
     },
     {
-      "description": "With 14 days to event and 600 attendees, all deliverables need immediate attention",
-      "owner": "All Team Members",
-      "slack_id": null,
+      "description": "All deliverables (D1-D5) require immediate attention for 600-person event",
+      "owner": "Mark Fredo",
+      "slack_id": "U06EVDTA27N",
       "urgency": "critical"
     }
   ]
