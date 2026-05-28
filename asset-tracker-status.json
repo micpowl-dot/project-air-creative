@@ -1,41 +1,57 @@
 {
-  "last_updated": "2026-05-27T16:15:57.173Z",
-  "update_source": "n8n-aggregator-v1",
-  "signals_processed": 0,
+  "last_updated": "2026-05-28T00:00:00.000Z",
+  "update_source": "manual-update-camille",
+  "signals_processed": 3,
   "task_updates": [
     {
-      "deliverable": "D1",
-      "task_id": null,
-      "task_name": "Project status check - no recent activity signals detected",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "low",
-      "source_signals": [],
-      "assigned_to": null,
+      "deliverable": "D5",
+      "task_id": "D5-01",
+      "task_name": "Sticker design (×600)",
+      "previous_status": "not_started",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-28"],
+      "assigned_to": "Camille Nettles",
       "slack_id": null,
-      "notes": "No activity signals received for any deliverables. Project may be in planning phase or activity occurring outside monitored channels."
+      "notes": "Design finalized and sent to Sticker Mule for print."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-02",
+      "task_name": "Wristband design (×600)",
+      "previous_status": "not_started",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-28"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "Design finalized and sent to vendor (Wristband.com / Imprint.com) for print."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-05",
+      "task_name": "Hat design (×31)",
+      "previous_status": "not_started",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-28"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "Design finalized and sent to Printful for print."
     }
   ],
-  "blockers_detected": [
-    "No activity signals detected across all monitored sources",
-    "Potential communication gap - team activity may be occurring in unmonitored channels"
-  ],
+  "blockers_detected": [],
   "upcoming_deadlines": [
-    "Event date June 9, 2026 - 13 days remaining",
-    "All deliverables require immediate attention given proximity to event"
+    "Event date June 9, 2026 - 12 days remaining",
+    "Tier 1 staging (D5-09) due May 27 - confirm receipt of printed stickers + wristbands",
+    "Hat size breakdown (MAIGH-03) still needed to finalize Printful order quantities"
   ],
   "hot_items": [
     {
-      "description": "Complete silence across all project channels with event only 13 days away",
-      "owner": "Michael Powell",
-      "slack_id": "U06EQ2E7J6R",
-      "urgency": "critical"
-    },
-    {
-      "description": "Need immediate status update on all 5 deliverables for 600-person event",
-      "owner": "Mark Fredo",
+      "description": "Stickers, wristbands, and hats now in production at vendors — track delivery against Jun 2 ship-by and Jun 6 on-site dates",
+      "owner": "Denise Denson",
       "slack_id": "U06EVDTA27N",
-      "urgency": "critical"
+      "urgency": "high"
     }
   ]
 }
