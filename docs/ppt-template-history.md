@@ -11,7 +11,7 @@
 | PowerPoint deck | `assets/templates/AIDAY-PPT-Template-R1C.pptx` | Edit directly, save as new file per session |
 | PowerPoint template | `assets/templates/AIDAY-PPT-Template-R1C.potx` | Open as template (creates fresh copy) |
 | PDF export | `assets/templates/AIDAY-PPT-Template-R1C.pdf` | Reference / view-only |
-| Google Slides | _TODO: paste link from Lee_ | Live-editable team copy |
+| Google Slides | [Open in Slides](https://docs.google.com/presentation/d/1V882MEREe4vpXvjiSu1Idw6VDSMNUZEI/edit?usp=sharing) | Live-editable team copy (broken images already manually re-linked) |
 
 ---
 
