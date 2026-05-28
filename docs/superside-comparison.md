@@ -109,6 +109,165 @@ Superside runs a Creative Workshop session to load brand context before any prod
 
 ---
 
+## AIR Skills Inventory: What We Have Already Built
+
+These are not concepts. They are live, documented systems built during Project AIR. Each one maps directly to a service we are offering.
+
+---
+
+### 1. Brand Brain (GitHub + Figma + Claude + n8n)
+
+**What it is:** The full brand knowledge system for Project AIR, built across four connected tools.
+
+| Layer | Tool | What it holds |
+|---|---|---|
+| Brand hub | GitHub repo | Guidelines, decision log, asset tracker, team briefs, style guide, all in markdown |
+| Visual library | Figma component library | Logo variants, palette system, type system, slot components, pattern tiles |
+| AI context | Claude project | Brand voice, deliverable specs, anti-patterns, team roles, loaded at session start via raw GitHub URLs |
+| Live data | n8n + asset-tracker-status.json | Task status, blockers, deadlines, signals from Slack/Drive/GitHub/Figma, written every 15 minutes |
+
+**What it proves:** A brand can be fully loaded into an AI system from open tools, no proprietary platform required. Every creative decision made during AIR is logged, searchable, and feedable into the next session automatically.
+
+**Service it supports:** Brand Brain Setup, Brand system setup
+
+---
+
+### 2. Three Live n8n Automation Workflows
+
+**What they are:** Three production automation workflows running on n8n, all tested and active.
+
+| Workflow | Trigger | What it does |
+|---|---|---|
+| Multi-Source Aggregator | Every 15 minutes | Pulls signals from Slack, Google Drive, GitHub, Figma, and PPTX files. Writes consolidated status to `asset-tracker-status.json` in the repo. |
+| Twice-Daily Status Report | 10 AM and 3 PM daily | Reads the JSON, posts a Slack summary to `#project-air-tracker` with overdue items, this-week deadlines, and blockers. Tags relevant team members. |
+| Auto-Tracker | Every git push to main | Parses commit messages with `[tracker]` prefix and auto-updates task status in the asset tracker. No manual re-entry. |
+
+**What it proves:** A creative project can self-report. Stakeholders stay informed without anyone writing a status update by hand. This is directly transferable to any partner company running a campaign or event.
+
+**Service it supports:** AI automation workflow setup, Real-time project dashboards
+
+---
+
+### 3. Modular Poster System (Slot/Variant/Palette Architecture)
+
+**What it is:** A scalable poster generation system where every poster is built from the same 11 fixed composition zones, each filled with a swappable variant, all colored from a 5-role palette.
+
+| Component | What it does |
+|---|---|
+| 11 composition slots | Fixed zones: background, top graphic, date, ring badge, portrait, title block, host line, squiggle, pattern block, brand lockup, text accent rule |
+| Slot variants | Each slot has multiple swappable options (concentric-6, concentric-9, concentric-12, diamond-grid, dot-grid, wave, and more) |
+| 5-role palette | Every color reference is a role (dominant, accent-primary, anchor-dark, anchor-light, accent-secondary), not a hex value. Swap the palette, the whole poster re-skins. |
+| manifest.json | Machine-readable index of all slots, variants, and palettes. n8n reads it to enumerate building blocks and compose posters programmatically. |
+| Reference compositions | Finished poster specs stored as JSON. Input a portrait and a session title, output a print-ready poster. |
+
+**What it proves:** A 21-poster campaign (17 ambassadors plus 4 executives, across 3 venues) can be generated from a single template system with no per-poster layout work. Palette swaps re-skin every poster in one step. This works for any company running events, product launches, or campaigns with repeating asset formats.
+
+**Service it supports:** Modular design system for scalable asset production, Event and campaign creative production, Apps as a Service (Poster Generator)
+
+---
+
+### 4. Mission Control Dashboard
+
+**What it is:** A live project tracking dashboard hosted on GitHub Pages, feeding from n8n data every 60 seconds.
+
+**Features:**
+- Gantt timeline showing design phase and production phase per deliverable against a real calendar
+- Needs attention now strip: overdue items and items due within 7 days, red-tinted
+- Stats row: total tasks, days to event, signals processed, blockers, overdue count
+- Deliverables table ordered by design deadline with progress bars, owner avatars, and vendor
+- Expandable rows showing all 61 individual tasks
+- Dark theme, DM Sans, auto-refreshes without a page reload
+
+**Tech:** Single self-contained HTML file, no build step, no framework. Vanilla JS fetching `asset-tracker-status.json` from GitHub. Deploys anywhere.
+
+**What it proves:** A creative team can have a real-time, executive-readable project dashboard for zero additional infrastructure cost. A partner company stakeholder can open a URL and see live project status without asking anyone.
+
+**Service it supports:** Real-time project dashboards, AI automation workflow setup
+
+---
+
+### 5. Programmatic PowerPoint Generator
+
+**What it is:** A Node.js script (`build-logo-presentation.js`) that generates a fully produced PowerPoint presentation from a design spec, with no manual work in Keynote or PowerPoint.
+
+**What it generates:**
+- Title slide with brand typography and vertical tagline treatment
+- Concept slides with light and dark panel layouts for logo mockups
+- Concentric arc SVGs generated programmatically (8 rings, accent color on ring 3)
+- Hand-drawn scribble overlays (bezier curves, 30% opacity)
+- Next steps slide with numbered list in brand amber
+- Outputs a `.pptx` file with embedded fonts and images
+
+**What it proves:** A presentation can be regenerated from a design spec in seconds. Brand updates propagate automatically. This is the foundation of the PPT Distiller App as a Service tool.
+
+**Service it supports:** PowerPoint template design, Apps as a Service (PPT Distiller)
+
+---
+
+### 6. Figma Component Library
+
+**What it is:** A published Figma team library that every working file subscribes to. Built during AIR as the visual source of truth.
+
+**Contents:**
+- Logo in all four variants (color/black-R, color/white-R, all-black, all-white)
+- Color system as Figma variables mapped to palette roles, not hex values
+- Typography styles (Century Gothic display, IBM Plex Sans body)
+- Pattern tile components (concentric arcs, dot grids, stripe fields, diamond grids)
+- All 11 poster slot components as component-sets, enumerable by n8n
+- Icon library
+
+**What it proves:** A design system can be version-controlled like code. Swapping a palette is a mode change, not a redesign. Any designer on the team pulls from the same library and stays on brand automatically.
+
+**Service it supports:** Brand system setup, Modular design system for scalable asset production, Training and handoff for embedded team members
+
+---
+
+### 7. Claude as Active Team Member
+
+**What it is:** A documented workflow and a working Claude project for using Claude as a named, context-loaded team member throughout production, not just a chat tool.
+
+**How it works:**
+- At session start, paste raw GitHub URLs for the current task context (disciplines, asset tracker, style guide)
+- Claude reads the latest version from the repo and works from it
+- Used throughout AIR for: resourcing decisions, creative direction, poster copy, vendor emails, RFQ drafts, status summaries, quality checks against the style guide, and decision support
+
+**What it proves:** A small team can operate above its weight class when Claude has the brand context loaded. The quality of output is consistent because the brief is always in the conversation. This is directly teachable to an embedded team member at a partner company.
+
+**Service it supports:** All services. This is the workflow layer on top of every other system.
+
+---
+
+### 8. Brand Intake Agent (Apps as a Service, live now)
+
+**What it is:** A Claude-powered chat app that collects a full creative brief from a partner company team member before the first meeting. Single HTML file, deployed to Vercel.
+
+**How it works:**
+- Partner company team member opens the URL and chats with the agent
+- Agent asks one question at a time across 10 topic areas: company, project type, deliverables, audience, tone, timeline, scale, tooling, budget signal, and success definition
+- When it has enough, it generates a structured Creative Brief block
+- Team member clicks Copy Brief and pastes it into email or Slack before the meeting
+
+**What it proves:** The blank-slate first meeting is preventable. We can walk into every engagement already knowing what the partner needs, what tools they have, and what success looks like to them.
+
+**Service it supports:** Brand intake agents, Apps as a Service
+
+---
+
+### Skills to Services Map
+
+| AIR System | Service Offering |
+|---|---|
+| Brand Brain (GitHub + Figma + Claude + n8n) | Brand Brain Setup |
+| Three n8n workflows | AI automation workflow setup |
+| Poster system + manifest.json | Modular design system, Poster Generator app |
+| Mission Control dashboard | Real-time project dashboards |
+| PPT generator script | PowerPoint template design, PPT Distiller app |
+| Figma component library | Brand system setup, Modular design system |
+| Claude workflow | Training and handoff, all production services |
+| Brand Intake Agent | Brand intake agents, Apps as a Service |
+
+---
+
 ## The Project AIR Proof Point
 
 Project AIR is the working prototype of everything in this document. What would have cost $150K to $200K at a traditional agency was produced by a team of six people with AI, using exactly the tools and model described above: a GitHub-based Brand Brain, a Figma component library with slot-and-variant architecture, n8n automation workflows, a Claude project loaded with brand context, a manifest-driven poster generation system, a live Mission Control dashboard, and a programmatic PowerPoint generator. The system did not just produce assets. It left behind a running operation. That is the model.
