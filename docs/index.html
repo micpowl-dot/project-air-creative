@@ -846,7 +846,10 @@ function renderDeliverableRow(d){
         const hasOverride = OVERRIDES[t.id] !== undefined;
         const cbTitle = (done?"Uncheck to mark not started":"Check to mark complete") + (hasOverride?" · manually overridden (right-click or shift-click to clear)":"");
         let displayNote = t.note || "";
-        if (t.id === "D1-22" || (t.d === "D1" && t.id !== "D1-00" && t.id !== "D1-23")) {
+        // Only show headshot-progress subtext on the 21 Digital Spotlights (D1-D01..D1-D21).
+        // Template (D1-D00), deploy (D1-D22), share (D1-D23), and the entire Print track (D1-P*)
+        // do not depend on individual headshots.
+        if (t.id.startsWith("D1-D") && t.id !== "D1-D00" && t.id !== "D1-D22" && t.id !== "D1-D23") {
           const received = maighValue("MAIGH-02","received");
           if (received) displayNote = (displayNote ? displayNote + " · " : "") + `${received}/21 headshots received`;
         }
