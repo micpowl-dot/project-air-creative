@@ -1,56 +1,87 @@
 {
-  "last_updated": "2026-05-28T00:00:00.000Z",
-  "update_source": "manual-update-camille",
-  "signals_processed": 3,
+  "last_updated": "2026-05-29T13:30:57.127Z",
+  "update_source": "n8n-aggregator-v1",
+  "signals_processed": 0,
   "task_updates": [
     {
-      "deliverable": "D5",
-      "task_id": "D5-01",
-      "task_name": "Sticker design (×600)",
-      "previous_status": "not_started",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-28"],
-      "assigned_to": "Camille Nettles",
+      "deliverable": "D1",
+      "task_id": null,
+      "task_name": "Main event entrance signage",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
       "slack_id": null,
-      "notes": "Design finalized and sent to Sticker Mule for print."
+      "notes": "No activity signals detected - baseline task status"
+    },
+    {
+      "deliverable": "D2",
+      "task_id": null,
+      "task_name": "Attendee badge design template",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - baseline task status"
+    },
+    {
+      "deliverable": "D3",
+      "task_id": null,
+      "task_name": "Project AIR primary logo design",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - baseline task status"
+    },
+    {
+      "deliverable": "D4",
+      "task_id": null,
+      "task_name": "Keynote presentation template",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
+      "slack_id": null,
+      "notes": "No activity signals detected - baseline task status"
     },
     {
       "deliverable": "D5",
-      "task_id": "D5-02",
-      "task_name": "Wristband design (×600)",
-      "previous_status": "not_started",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-28"],
-      "assigned_to": "Camille Nettles",
+      "task_id": null,
+      "task_name": "AI Day branded merchandise selection",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "medium",
+      "source_signals": [],
+      "assigned_to": null,
       "slack_id": null,
-      "notes": "Design finalized and sent to vendor (Wristband.com / Imprint.com) for print."
-    },
-    {
-      "deliverable": "D5",
-      "task_id": "D5-05",
-      "task_name": "Hat design (×31)",
-      "previous_status": "not_started",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-28"],
-      "assigned_to": "Camille Nettles",
-      "slack_id": null,
-      "notes": "Design finalized and sent to Printful for print."
+      "notes": "No activity signals detected - baseline task status"
     }
   ],
-  "blockers_detected": [],
+  "blockers_detected": [
+    "No team activity signals available for analysis",
+    "Unable to determine current task assignments or progress"
+  ],
   "upcoming_deadlines": [
-    "Event date June 9, 2026 - 12 days remaining",
-    "Tier 1 staging (D5-09) due May 27 - confirm receipt of printed stickers + wristbands",
-    "Hat size breakdown (MAIGH-03) still needed to finalize Printful order quantities"
+    "AI Day event in 11 days - critical timeline approaching"
   ],
   "hot_items": [
     {
-      "description": "Stickers, wristbands, and hats now in production at vendors — track delivery against Jun 2 ship-by and Jun 6 on-site dates",
-      "owner": "Denise Denson",
-      "slack_id": "U06EVDTA27N",
+      "description": "Project AIR visual identity system needs immediate attention",
+      "owner": "Lee Payne",
+      "slack_id": "U06EVE9DC3W",
+      "urgency": "critical"
+    },
+    {
+      "description": "600-attendee event logistics requiring urgent coordination",
+      "owner": "Michael Powell",
+      "slack_id": "U06EQ2E7J6R",
       "urgency": "high"
     }
   ]
