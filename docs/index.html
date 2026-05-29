@@ -225,21 +225,21 @@ const TASKS = [
   {id:"D5-00", d:"D5", name:"Swag visual system",                   owner:["Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Layout, type, color rules for all swag items"},
 
   // Tier 1 — all attendees & event day items
-  {id:"D5-01", d:"D5", name:"Sticker design (×600)",                owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 1 - Sticker Mule · Design finalized, sent to vendor for print"},
-  {id:"D5-02", d:"D5", name:"Wristband design (×600)",              owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 1 - Wristband.com or Imprint.com · Design finalized, sent to vendor for print"},
+  {id:"D5-01", d:"D5", name:"Sticker design (×600)",                owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 1 - Sticker Mule · In production · Delivery Jun 3–5 to all 3 offices"},
+  {id:"D5-02", d:"D5", name:"Wristband design (×600)",              owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 1 - Wristband.com · In production · Delivery Jun 3–5 to all 3 offices"},
   {id:"D5-03", d:"D5", name:"Poster design (×35)",                  owner:["Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Tier 1 / event day - Atlas or FedEx"},
-  {id:"D5-04", d:"D5", name:"Balloons & Decor order list",          owner:["Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Tier 1 / event day - Amazon, no design needed"},
+  {id:"D5-04", d:"D5", name:"Balloons & Decor order list",          owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 1 / event day - Amazon · Balloons & streamers finalized · Hope Lovejoy to place order · Cake ordered"},
 
   // Tier 2 — speakers (qty 31)
-  {id:"D5-05", d:"D5", name:"Hat design (×31)",                     owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 2 - Printful · Design finalized, sent to vendor for print"},
+  {id:"D5-05", d:"D5", name:"Hat design (×31)",                     owner:["Camille Nettles"], due:"2026-05-22", status:"complete", note:"Tier 2 - Printful · One size fits all · In production · Delivery Jun 3–5 to all 3 offices"},
 
   // Tier 3 — Giveaways
   {id:"D5-06", d:"D5", name:"Pocket AI sourcing (×3–5)",            owner:["Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Tier 3 - no design needed"},
   {id:"D5-07", d:"D5", name:"Giftcard design",                      owner:["Camille Nettles"], due:"2026-05-22", status:"not_started", note:"Tier 3 - print in office"},
 
   // Production / Coordination
-  {id:"D5-08", d:"D5", name:"Vendor coordination",                  owner:["Denise Denson"], due:"2026-06-02", status:"not_started", note:"Ongoing - all vendors"},
-  {id:"D5-09", d:"D5", name:"Tier 1 staging (×600 NA)",             owner:["Denise Denson"], due:"2026-05-27", status:"not_started", note:"Ship by Jun 2"},
+  {id:"D5-08", d:"D5", name:"Vendor coordination",                  owner:["Denise Denson"], due:"2026-06-02", status:"in_progress", note:"Ongoing - stickers, wristbands, hats delivering Jun 3–5"},
+  {id:"D5-09", d:"D5", name:"Tier 1 staging (×600 NA)",             owner:["Denise Denson"], due:"2026-05-27", status:"not_started", note:"Tier 1 items delivering direct to 3 offices Jun 3–5"},
   {id:"D5-10", d:"D5", name:"Tier 2/3 on-site",                     owner:["Denise Denson"], due:"2026-06-04", status:"not_started", note:"Hard date Jun 6"},
 ];
 
@@ -617,17 +617,6 @@ const MAIGH_ITEMS = [
     due:"2026-05-13", note:"Blocks D1 poster design (Lee + Camille)",
     inputs: [
       {key:"received", label:"Received of 21", placeholder:"0", width:50},
-    ],
-  },
-  {
-    id:"MAIGH-03", label:"Hat size breakdown for Tier 2 (×31 speakers)",
-    due:"2026-05-18", note:"S/M/L/XL/2XL split — needed before Printful order",
-    inputs: [
-      {key:"s", label:"S", placeholder:"#", width:40},
-      {key:"m", label:"M", placeholder:"#", width:40},
-      {key:"l", label:"L", placeholder:"#", width:40},
-      {key:"xl", label:"XL", placeholder:"#", width:40},
-      {key:"xxl", label:"2XL", placeholder:"#", width:40},
     ],
   },
   {

@@ -1,42 +1,87 @@
 {
-  "last_updated": "2026-05-29T15:15:57.129Z",
-  "update_source": "n8n-aggregator-v1",
-  "signals_processed": 0,
+  "last_updated": "2026-05-29T16:00:00.000Z",
+  "update_source": "manual-update-camille",
+  "signals_processed": 5,
   "task_updates": [
     {
-      "deliverable": "D1",
-      "task_id": null,
-      "task_name": "Initial project kickoff and requirements gathering",
-      "previous_status": null,
-      "new_status": "not_started",
-      "confidence": "low",
-      "source_signals": [],
-      "assigned_to": null,
+      "deliverable": "D5",
+      "task_id": "D5-01",
+      "task_name": "Sticker design (×600)",
+      "previous_status": "complete",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
       "slack_id": null,
-      "notes": "No activity signals detected. Project appears to be in initial planning phase with 11 days until event."
+      "notes": "In production at Sticker Mule. Delivery scheduled Jun 3–5 to all 3 offices."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-02",
+      "task_name": "Wristband design (×600)",
+      "previous_status": "complete",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "Vendor confirmed as wristband.com (not Imprint.com). In production. Delivery scheduled Jun 3–5 to all 3 offices."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-05",
+      "task_name": "Hat design (×31)",
+      "previous_status": "complete",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "One size fits all — MAIGH-03 (hat size breakdown) no longer needed. In production at Printful. Delivery scheduled Jun 3–5 to all 3 offices."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-04",
+      "task_name": "Balloons & Decor order list",
+      "previous_status": "not_started",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "Balloons & streamers finalized — Hope Lovejoy to place Amazon order. Cake has been ordered."
+    },
+    {
+      "deliverable": "D5",
+      "task_id": "D5-08",
+      "task_name": "Vendor coordination",
+      "previous_status": "not_started",
+      "new_status": "in_progress",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Denise Denson",
+      "slack_id": null,
+      "notes": "Active: tracking sticker, wristband, and hat deliveries Jun 3–5."
     }
   ],
-  "blockers_detected": [
-    "No activity signals detected across any monitoring sources",
-    "Event is 11 days away with no visible progress on deliverables",
-    "Team communication channels may not be properly configured for monitoring"
-  ],
+  "blockers_detected": [],
   "upcoming_deadlines": [
     "Event date: June 9, 2026 (11 days remaining)",
-    "Critical milestone: All deliverables must be production-ready by June 6-7 for 600-person event"
+    "Stickers / wristbands / hats delivery window Jun 3–5 to all 3 offices",
+    "Hope Lovejoy to place Amazon order for balloons & streamers"
   ],
   "hot_items": [
     {
-      "description": "Urgent need to establish project communication and begin deliverable planning",
-      "owner": "Michael Powell",
-      "slack_id": "U06EQ2E7J6R",
-      "urgency": "critical"
+      "description": "Confirm delivery of stickers, wristbands, and hats to all 3 offices Jun 3–5; flag any vendor slippage immediately",
+      "owner": "Denise Denson",
+      "slack_id": "U06EVDTA27N",
+      "urgency": "high"
     },
     {
-      "description": "Logo and visual system foundation required before other deliverables can proceed",
-      "owner": "Lee Payne",
-      "slack_id": "U06EVE9DC3W",
-      "urgency": "critical"
+      "description": "Hope Lovejoy to place Amazon order for balloons & streamers (list finalized)",
+      "owner": "Hope Lovejoy",
+      "slack_id": null,
+      "urgency": "medium"
     }
   ]
 }
