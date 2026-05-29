@@ -1,117 +1,46 @@
 {
-  "last_updated": "2026-05-29T17:30:00.000Z",
+  "last_updated": "2026-05-29T18:00:00.000Z",
   "update_source": "manual-update-camille",
-  "signals_processed": 7,
+  "signals_processed": 1,
   "task_updates": [
     {
-      "deliverable": "D1",
-      "task_id": "D1-D00",
-      "task_name": "Digital spotlight template (16:9 + 1:1)",
-      "previous_status": "not_started",
+      "deliverable": "D2",
+      "task_id": null,
+      "task_name": "Deliverable split: D1 → D1 (print) + D2 (digital)",
+      "previous_status": null,
       "new_status": "not_started",
       "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Camille Nettles",
+      "source_signals": ["Camille Nettles restructure 2026-05-29"],
+      "assigned_to": null,
       "slack_id": null,
-      "notes": "Owner consolidated to Camille (was Lee + Camille + Michael). Template gates all 21 spotlight designs."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D18",
-      "task_name": "Executive: Rohit Agarwal, CEO",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Camille Nettles, Lee Payne",
-      "slack_id": null,
-      "notes": "Owner: Camille + Lee (was Michael + Camille)."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D19",
-      "task_name": "Executive: Matthew Drooker, CTO",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Camille Nettles, Lee Payne",
-      "slack_id": null,
-      "notes": "Owner: Camille + Lee (was Michael + Camille)."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D20",
-      "task_name": "Executive: Brian O'Neil, SVP",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Camille Nettles, Lee Payne",
-      "slack_id": null,
-      "notes": "Owner: Camille + Lee (was Michael + Camille)."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D21",
-      "task_name": "Executive: Dan Marguiles, CIO",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Camille Nettles, Lee Payne",
-      "slack_id": null,
-      "notes": "Owner: Camille + Lee (was Michael + Camille)."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D22",
-      "task_name": "Deploy to office TVs",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Denise Denson, Maigh",
-      "slack_id": null,
-      "notes": "Owner: Denise + Maigh (was Lee). Renamed from 'Deploy to office TVs / WorkVivo'."
-    },
-    {
-      "deliverable": "D1",
-      "task_id": "D1-D23",
-      "task_name": "Share LinkedIn images with speakers",
-      "previous_status": "not_started",
-      "new_status": "not_started",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles owner reassignment 2026-05-29"],
-      "assigned_to": "Denise Denson, Maigh",
-      "slack_id": null,
-      "notes": "Renamed from 'Publish to LinkedIn' — speakers self-publish using 1:1 images. Owner: Denise + Maigh (was Lee)."
+      "notes": "Digital Speaker Spotlights promoted from a sub-track of D1 to their own deliverable (D2). D1 is now exclusively AI Day printed posters. Task IDs renamed: D1-P00..P08 → D1-00..D1-08; D1-D00..D1-D23 → D2-00..D2-23."
     }
   ],
   "blockers_detected": [],
   "upcoming_deadlines": [
     "Event date: June 9, 2026 (11 days remaining)",
-    "Mon Jun 1 — Hope prints 45 AI Day posters at Atlanta office",
-    "Tue Jun 2 — Camille trims posters; MAIGH-05 digital spotlight approval due",
-    "Wed Jun 3 — Hope overnights posters to NY + Andover; 21 digital spotlight designs due",
+    "Today (Thu May 29) — D2-00 digital spotlight template due (Camille)",
+    "Mon Jun 1 — Hope prints 45 AI Day posters at Atlanta office (D1-06)",
+    "Tue Jun 2 — Camille trims posters (D1-07); MAIGH-05 digital spotlight approval due",
+    "Wed Jun 3 — Hope overnights posters to NY + Andover (D1-08); 21 D2 spotlight designs due",
     "Thu Jun 4 — Tier 2/3 swag on-site",
-    "Fri Jun 5 — Digital spotlights deployed to TVs (Denise/Maigh) + LinkedIn images shared with speakers"
+    "Fri Jun 5 — D2-22 deploy to TVs + D2-23 share LinkedIn images (Denise + Maigh)"
   ],
   "hot_items": [
     {
-      "description": "D1-D00 digital spotlight template now owned by Camille — gates all 21 spotlight designs due Jun 3",
+      "description": "D2-00 digital spotlight template (Camille) gates all 21 spotlight designs due Jun 3",
       "owner": "Camille Nettles",
       "slack_id": null,
       "urgency": "high"
     },
     {
-      "description": "Executive spotlight reassignment: Camille + Lee now own all 4 (Rohit, Matthew, Brian, Dan)",
-      "owner": "Camille Nettles",
+      "description": "D1 print track ready to run Mon–Wed (designs complete, Hope prints Mon, Camille trims Tue, Hope ships Wed)",
+      "owner": "Hope Lovejoy",
       "slack_id": null,
       "urgency": "medium"
     },
     {
-      "description": "Deploy + speaker share moved to Denise + Maigh — coordinate TV slots and speaker outreach for Jun 5",
+      "description": "Confirm sticker/wristband/hat deliveries land Jun 3–5 at all 3 offices",
       "owner": "Denise Denson",
       "slack_id": "U06EVDTA27N",
       "urgency": "medium"

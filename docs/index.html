@@ -168,53 +168,54 @@ const DELIVERABLES = [
   { id:"D5", name:"Swag & Merch", icon:"gift",
     designStart:"2026-05-08", designEnd:"2026-05-22",
     productionStart:"2026-05-20", productionEnd:"2026-06-06", vendor:"Sticker Mule · Wristband.com · Printful · Amazon" },
-  { id:"D1", name:"AI Day Posters & Speaker Spotlights", icon:"photo",
-    designStart:"2026-05-12", designEnd:"2026-06-05",
+  { id:"D1", name:"AI Day Posters", icon:"photo",
+    designStart:"2026-05-12", designEnd:"2026-05-29",
     productionStart:"2026-06-01", productionEnd:"2026-06-03", vendor:"In-house · Atlanta office" },
+  { id:"D2", name:"Digital Speaker Spotlights", icon:"idBadge",
+    designStart:"2026-05-29", designEnd:"2026-06-03",
+    productionStart:"2026-06-04", productionEnd:"2026-06-05", vendor:"In-house · TVs + LinkedIn" },
   { id:"D4", name:"PowerPoint Template", icon:"presentation",
     designStart:"2026-05-12", designEnd:"2026-05-20",
     productionStart:null, productionEnd:null, vendor:null },
 ];
 
 const TASKS = [
-  // D1 AI Day Posters & Speaker Spotlights — split into Print track (in-house, Jun 1–3) and Digital track (16:9 + 1:1)
+  // D1 AI Day Posters (9) — in-house print at Atlanta, Jun 1–3
+  {id:"D1-00", d:"D1", name:"AI Day poster visual system",       owner:["Lee Payne","Camille Nettles","Michael Powell"], due:"2026-05-22", status:"complete", note:"Layout, type, color rules — event info only (AI Day, date, AIR)"},
+  {id:"D1-01", d:"D1", name:"AI Day poster design 1",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
+  {id:"D1-02", d:"D1", name:"AI Day poster design 2",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
+  {id:"D1-03", d:"D1", name:"AI Day poster design 3",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
+  {id:"D1-04", d:"D1", name:"AI Day poster design 4",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
+  {id:"D1-05", d:"D1", name:"AI Day poster design 5",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
+  {id:"D1-06", d:"D1", name:"Print AI Day posters (×45) — Atlanta office", owner:["Camille Nettles"], due:"2026-06-01", status:"not_started", note:"Hope Lovejoy prints in office Mon · 5 designs × 3 per office × 3 offices"},
+  {id:"D1-07", d:"D1", name:"Trim posters in office",            owner:["Camille Nettles"], due:"2026-06-02", status:"not_started", note:"Camille trims Tue"},
+  {id:"D1-08", d:"D1", name:"Pack & overnight to NY + Andover",  owner:["Denise Denson"], due:"2026-06-03", status:"not_started", note:"Hope packs & ships Wed overnight"},
 
-  // Print track — AI Day posters (5 designs × 3 per office × 3 offices = 45 prints), in-house at Atlanta
-  {id:"D1-P00", d:"D1", name:"AI Day poster visual system",       owner:["Lee Payne","Camille Nettles","Michael Powell"], due:"2026-05-22", status:"complete", note:"Layout, type, color rules — event info only (AI Day, date, AIR)"},
-  {id:"D1-P01", d:"D1", name:"AI Day poster design 1",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
-  {id:"D1-P02", d:"D1", name:"AI Day poster design 2",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
-  {id:"D1-P03", d:"D1", name:"AI Day poster design 3",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
-  {id:"D1-P04", d:"D1", name:"AI Day poster design 4",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
-  {id:"D1-P05", d:"D1", name:"AI Day poster design 5",            owner:["Camille Nettles"], due:"2026-05-29", status:"complete"},
-  {id:"D1-P06", d:"D1", name:"Print AI Day posters (×45) — Atlanta office", owner:["Camille Nettles"], due:"2026-06-01", status:"not_started", note:"Hope Lovejoy prints in office Mon · 5 designs × 3 per office × 3 offices"},
-  {id:"D1-P07", d:"D1", name:"Trim posters in office",            owner:["Camille Nettles"], due:"2026-06-02", status:"not_started", note:"Camille trims Tue"},
-  {id:"D1-P08", d:"D1", name:"Pack & overnight to NY + Andover",  owner:["Denise Denson"], due:"2026-06-03", status:"not_started", note:"Hope packs & ships Wed overnight"},
-
-  // Digital track — Speaker Spotlights (17 ambassadors + 4 executives = 21), 16:9 for TVs + 1:1 for LinkedIn
-  {id:"D1-D00", d:"D1", name:"Digital spotlight template (16:9 + 1:1)", owner:["Camille Nettles"], due:"2026-05-29", status:"not_started", note:"16:9 for office TVs · 1:1 for LinkedIn · headshot + name + title/AI Ambassador"},
-  {id:"D1-D01", d:"D1", name:"Ambassador spotlight 1",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D02", d:"D1", name:"Ambassador spotlight 2",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D03", d:"D1", name:"Ambassador spotlight 3",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D04", d:"D1", name:"Ambassador spotlight 4",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D05", d:"D1", name:"Ambassador spotlight 5",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D06", d:"D1", name:"Ambassador spotlight 6",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D07", d:"D1", name:"Ambassador spotlight 7",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D08", d:"D1", name:"Ambassador spotlight 8",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D09", d:"D1", name:"Ambassador spotlight 9",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D10", d:"D1", name:"Ambassador spotlight 10",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D11", d:"D1", name:"Ambassador spotlight 11",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D12", d:"D1", name:"Ambassador spotlight 12",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D13", d:"D1", name:"Ambassador spotlight 13",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D14", d:"D1", name:"Ambassador spotlight 14",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D15", d:"D1", name:"Ambassador spotlight 15",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D16", d:"D1", name:"Ambassador spotlight 16",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D17", d:"D1", name:"Ambassador spotlight 17",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D18", d:"D1", name:"Executive: Rohit Agarwal, CEO",     owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D19", d:"D1", name:"Executive: Matthew Drooker, CTO",   owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D20", d:"D1", name:"Executive: Brian O'Neil, SVP",      owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started", note:"Playful — Jeopardy host"},
-  {id:"D1-D21", d:"D1", name:"Executive: Dan Marguiles, CIO",     owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
-  {id:"D1-D22", d:"D1", name:"Deploy to office TVs",              owner:["Denise Denson","Maigh"], due:"2026-06-05", status:"not_started", note:"16:9 versions on office screens"},
-  {id:"D1-D23", d:"D1", name:"Share LinkedIn images with speakers", owner:["Denise Denson","Maigh"], due:"2026-06-05", status:"not_started", note:"1:1 versions sent to speakers to self-publish"},
+  // D2 Digital Speaker Spotlights (24) — 17 ambassadors + 4 executives, 16:9 for TVs + 1:1 for LinkedIn
+  {id:"D2-00", d:"D2", name:"Digital spotlight template (16:9 + 1:1)", owner:["Camille Nettles"], due:"2026-05-29", status:"not_started", note:"16:9 for office TVs · 1:1 for LinkedIn · headshot + name + title/AI Ambassador"},
+  {id:"D2-01", d:"D2", name:"Ambassador spotlight 1",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-02", d:"D2", name:"Ambassador spotlight 2",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-03", d:"D2", name:"Ambassador spotlight 3",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-04", d:"D2", name:"Ambassador spotlight 4",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-05", d:"D2", name:"Ambassador spotlight 5",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-06", d:"D2", name:"Ambassador spotlight 6",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-07", d:"D2", name:"Ambassador spotlight 7",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-08", d:"D2", name:"Ambassador spotlight 8",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-09", d:"D2", name:"Ambassador spotlight 9",            owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-10", d:"D2", name:"Ambassador spotlight 10",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-11", d:"D2", name:"Ambassador spotlight 11",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-12", d:"D2", name:"Ambassador spotlight 12",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-13", d:"D2", name:"Ambassador spotlight 13",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-14", d:"D2", name:"Ambassador spotlight 14",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-15", d:"D2", name:"Ambassador spotlight 15",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-16", d:"D2", name:"Ambassador spotlight 16",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-17", d:"D2", name:"Ambassador spotlight 17",           owner:["Lee Payne","Camille Nettles"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-18", d:"D2", name:"Executive: Rohit Agarwal, CEO",     owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-19", d:"D2", name:"Executive: Matthew Drooker, CTO",   owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-20", d:"D2", name:"Executive: Brian O'Neil, SVP",      owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started", note:"Playful — Jeopardy host"},
+  {id:"D2-21", d:"D2", name:"Executive: Dan Marguiles, CIO",     owner:["Camille Nettles","Lee Payne"], due:"2026-06-03", status:"not_started"},
+  {id:"D2-22", d:"D2", name:"Deploy to office TVs",              owner:["Denise Denson","Maigh"], due:"2026-06-05", status:"not_started", note:"16:9 versions on office screens"},
+  {id:"D2-23", d:"D2", name:"Share LinkedIn images with speakers", owner:["Denise Denson","Maigh"], due:"2026-06-05", status:"not_started", note:"1:1 versions sent to speakers to self-publish"},
 
   // D3 Logo (4)
   {id:"D3-01", d:"D3", name:"Logo concepts",        owner:["Michael Powell"], due:"2026-05-07", status:"complete"},
@@ -513,7 +514,7 @@ function renderHeader(){
           <span style="font-size:10px;color:var(--text-6);letter-spacing:.04em">· next refresh in <span id="refresh-countdown" style="color:var(--text-4);font-weight:700">60s</span></span>
         </div>
         <h1 style="font-size:30px;font-weight:800;letter-spacing:-.01em">Project AIR · Dashboard</h1>
-        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ${maighValue("MAIGH-01","na_total") || "~600"} NA attendees${maighValue("MAIGH-01","intl_total") ? ` · ${maighValue("MAIGH-01","intl_total")} intl` : ""} · 4 deliverables · 58 tasks</p>
+        <p style="font-size:13px;color:var(--text-4);margin-top:4px">The Weather Company · AI Day · June 9, 2026 · ${maighValue("MAIGH-01","na_total") || "~600"} NA attendees${maighValue("MAIGH-01","intl_total") ? ` · ${maighValue("MAIGH-01","intl_total")} intl` : ""} · 5 deliverables · 58 tasks</p>
         <div style="display:flex;gap:6px;margin-top:12px;flex-wrap:wrap">
           ${sources.map(s => `<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;background:${LIVE?"#064E3B":"var(--surface-3)"};border:1px solid ${LIVE?"#065F46":"var(--surface-4)"};font-size:10px;color:${LIVE?"#A7F3D0":"var(--text-5)"}"><span style="width:5px;height:5px;border-radius:50%;background:${LIVE?"#34D399":"var(--text-6)"}"></span>${s}</span>`).join("")}
         </div>
@@ -846,10 +847,9 @@ function renderDeliverableRow(d){
         const hasOverride = OVERRIDES[t.id] !== undefined;
         const cbTitle = (done?"Uncheck to mark not started":"Check to mark complete") + (hasOverride?" · manually overridden (right-click or shift-click to clear)":"");
         let displayNote = t.note || "";
-        // Only show headshot-progress subtext on the 21 Digital Spotlights (D1-D01..D1-D21).
-        // Template (D1-D00), deploy (D1-D22), share (D1-D23), and the entire Print track (D1-P*)
-        // do not depend on individual headshots.
-        if (t.id.startsWith("D1-D") && t.id !== "D1-D00" && t.id !== "D1-D22" && t.id !== "D1-D23") {
+        // Only show headshot-progress subtext on the 21 Digital Spotlights (D2-01..D2-21).
+        // Template (D2-00), deploy (D2-22), and share (D2-23) do not depend on individual headshots.
+        if (t.d === "D2" && t.id !== "D2-00" && t.id !== "D2-22" && t.id !== "D2-23") {
           const received = maighValue("MAIGH-02","received");
           if (received) displayNote = (displayNote ? displayNote + " · " : "") + `${received}/21 headshots received`;
         }
