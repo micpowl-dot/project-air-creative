@@ -1,86 +1,131 @@
 {
-  "last_updated": "2026-05-29T16:00:00.000Z",
+  "last_updated": "2026-05-29T17:00:00.000Z",
   "update_source": "manual-update-camille",
-  "signals_processed": 5,
+  "signals_processed": 8,
   "task_updates": [
     {
-      "deliverable": "D5",
-      "task_id": "D5-01",
-      "task_name": "Sticker design (×600)",
-      "previous_status": "complete",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-29"],
-      "assigned_to": "Camille Nettles",
-      "slack_id": null,
-      "notes": "In production at Sticker Mule. Delivery scheduled Jun 3–5 to all 3 offices."
-    },
-    {
-      "deliverable": "D5",
-      "task_id": "D5-02",
-      "task_name": "Wristband design (×600)",
-      "previous_status": "complete",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-29"],
-      "assigned_to": "Camille Nettles",
-      "slack_id": null,
-      "notes": "Vendor confirmed as wristband.com (not Imprint.com). In production. Delivery scheduled Jun 3–5 to all 3 offices."
-    },
-    {
-      "deliverable": "D5",
-      "task_id": "D5-05",
-      "task_name": "Hat design (×31)",
-      "previous_status": "complete",
-      "new_status": "complete",
-      "confidence": "high",
-      "source_signals": ["Camille Nettles status update 2026-05-29"],
-      "assigned_to": "Camille Nettles",
-      "slack_id": null,
-      "notes": "One size fits all — MAIGH-03 (hat size breakdown) no longer needed. In production at Printful. Delivery scheduled Jun 3–5 to all 3 offices."
-    },
-    {
-      "deliverable": "D5",
-      "task_id": "D5-04",
-      "task_name": "Balloons & Decor order list",
+      "deliverable": "D1",
+      "task_id": "D1-P00",
+      "task_name": "AI Day poster visual system",
       "previous_status": "not_started",
       "new_status": "complete",
       "confidence": "high",
       "source_signals": ["Camille Nettles status update 2026-05-29"],
       "assigned_to": "Camille Nettles",
       "slack_id": null,
-      "notes": "Balloons & streamers finalized — Hope Lovejoy to place Amazon order. Cake has been ordered."
+      "notes": "Pivot: printed speaker spotlight posters cancelled. Replaced with AI Day posters (event info only) — 5 designs."
+    },
+    {
+      "deliverable": "D1",
+      "task_id": "D1-P01",
+      "task_name": "AI Day poster designs 1–5",
+      "previous_status": "not_started",
+      "new_status": "complete",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "All 5 AI Day poster designs finalized."
+    },
+    {
+      "deliverable": "D1",
+      "task_id": "D1-P06",
+      "task_name": "Print AI Day posters (×45) — Atlanta office",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Hope Lovejoy",
+      "slack_id": null,
+      "notes": "Hope prints in-house at Atlanta on Mon Jun 1. 5 designs × 3 per office × 3 offices = 45 prints."
+    },
+    {
+      "deliverable": "D1",
+      "task_id": "D1-P07",
+      "task_name": "Trim posters in office",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Camille Nettles",
+      "slack_id": null,
+      "notes": "Camille trims posters in Atlanta office Tue Jun 2."
+    },
+    {
+      "deliverable": "D1",
+      "task_id": "D1-P08",
+      "task_name": "Pack & overnight to NY + Andover",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Hope Lovejoy",
+      "slack_id": null,
+      "notes": "Hope packs and overnights to NY + Andover Wed Jun 3."
+    },
+    {
+      "deliverable": "D1",
+      "task_id": "D1-D00",
+      "task_name": "Digital spotlight template (16:9 + 1:1)",
+      "previous_status": null,
+      "new_status": "not_started",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Lee Payne",
+      "slack_id": null,
+      "notes": "Digital speaker spotlights replace printed speaker posters. 16:9 for office TVs, 1:1 for LinkedIn. Headshot + name + title or AI Ambassador."
     },
     {
       "deliverable": "D5",
-      "task_id": "D5-08",
-      "task_name": "Vendor coordination",
+      "task_id": "D5-03",
+      "task_name": "Poster design (×35)",
       "previous_status": "not_started",
-      "new_status": "in_progress",
+      "new_status": "removed",
       "confidence": "high",
       "source_signals": ["Camille Nettles status update 2026-05-29"],
-      "assigned_to": "Denise Denson",
+      "assigned_to": "Camille Nettles",
       "slack_id": null,
-      "notes": "Active: tracking sticker, wristband, and hat deliveries Jun 3–5."
+      "notes": "Removed — absorbed into D1 AI Day poster print track. Atlas/FedEx no longer vendors."
+    },
+    {
+      "deliverable": "MAIGH",
+      "task_id": "MAIGH-05",
+      "task_name": "Approval: Digital Speaker Spotlights",
+      "previous_status": "not_started",
+      "new_status": "not_started",
+      "confidence": "high",
+      "source_signals": ["Camille Nettles status update 2026-05-29"],
+      "assigned_to": "Maigh",
+      "slack_id": null,
+      "notes": "Rescoped from poster approval to digital spotlight approval. New due Jun 2 (pre-deploy)."
     }
   ],
   "blockers_detected": [],
   "upcoming_deadlines": [
     "Event date: June 9, 2026 (11 days remaining)",
-    "Stickers / wristbands / hats delivery window Jun 3–5 to all 3 offices",
-    "Hope Lovejoy to place Amazon order for balloons & streamers"
+    "Mon Jun 1 — Hope prints 45 AI Day posters at Atlanta office",
+    "Tue Jun 2 — Camille trims posters; MAIGH-05 digital spotlight approval due",
+    "Wed Jun 3 — Hope overnights posters to NY + Andover; digital spotlight designs due (×21)",
+    "Thu Jun 4 — Tier 2/3 swag on-site",
+    "Fri Jun 5 — Digital spotlights deployed to TVs + LinkedIn; Tier 1 swag delivery window closes"
   ],
   "hot_items": [
     {
-      "description": "Confirm delivery of stickers, wristbands, and hats to all 3 offices Jun 3–5; flag any vendor slippage immediately",
-      "owner": "Denise Denson",
-      "slack_id": "U06EVDTA27N",
+      "description": "D1 restructure: printed speaker posters cancelled → AI Day posters (in-house, 45 prints, Jun 1–3) + Digital Spotlights (21 × 16:9 and 1:1). Atlas/FedEx removed as vendors.",
+      "owner": "Camille Nettles",
+      "slack_id": null,
       "urgency": "high"
     },
     {
-      "description": "Hope Lovejoy to place Amazon order for balloons & streamers (list finalized)",
-      "owner": "Hope Lovejoy",
-      "slack_id": null,
+      "description": "Digital Speaker Spotlight template (D1-D00) not started — blocks all 21 spotlight designs due Jun 3",
+      "owner": "Lee Payne",
+      "slack_id": "U06EVE9DC3W",
+      "urgency": "high"
+    },
+    {
+      "description": "Confirm sticker/wristband/hat deliveries land Jun 3–5 at all 3 offices",
+      "owner": "Denise Denson",
+      "slack_id": "U06EVDTA27N",
       "urgency": "medium"
     }
   ]
