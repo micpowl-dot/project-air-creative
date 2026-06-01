@@ -17,6 +17,7 @@
 | 🤝 Meetings | [docs/meetings.md](docs/meetings.md) | All 6 sessions — purpose, pre-work, agenda, output |
 | 🎨 Brand Guidelines | [docs/brand-guidelines.md](docs/brand-guidelines.md) | Colors, type, logo, visual identity |
 | 🖼️ **Figma Component Library** | [**Open in Figma**](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) | **Subscribe to this in every working file** |
+| 🪧 **Poster System (Figma)** | [**Open in Figma**](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR) | **Camille's slot-based poster system: composition slots + swappable variants + palettes. Source poster reference: [Untitled file](https://www.figma.com/design/dlIEOdbrJRmxYf6137QX4a/Untitled?node-id=1-11)** |
 | 🏭 Vendors | [docs/vendors.md](docs/vendors.md) | Confirmed vendors, contacts, scope, deadlines |
 | 🎁 Swag Overview | [docs/swag-overview.md](docs/swag-overview.md) | Canary catalog by tier — quantities and open decisions |
 | 🔥 Logo Inspo Board | [Adobe Firefly Board](https://firefly.adobe.com/boards/id/urn:aaid:sc:VA6C2:98f9d776-597f-44cf-81b6-d7e0b47e23ac?invite=true&accept=true&referrer_app=boards-web&referrer_location=board-canvas&referrer_app_action=copy-link) | Visual references for logo direction |
@@ -115,6 +116,7 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 | Date | What Changed | Where |
 |------|-------------|-------|
+| 2026-06-01 | **Poster System Figma surfaced and linked.** Camille's slot-based poster system is now in Quick Links. The link had been stranded on the `progress-2026-05-20-checkpoint` and `update-d1-00-visual-system-started` branches and never reached `main`, so it was not discoverable. Now it is. | [Open in Figma](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR) |
 | 2026-05-13 | **Canary swag catalog added** — full Tier 1/2/3 catalog PDF + overview doc with quantities and open decisions | [docs/swag-overview.md](docs/swag-overview.md) · [PDF](assets/vendors/canary-swag-catalog.pdf) |
 | 2026-05-13 | **Canary confirmed for lanyards + swag** — resolves Atlas lanyard gap; proposal received, awaiting order confirmation | [docs/vendors.md](docs/vendors.md) |
 | 2026-05-12 | **Figma component library created** — colors, type, logo, patterns, components | [Open in Figma](https://www.figma.com/design/aA0XvBM7frH7uFqnUc2Xn1) |
@@ -133,4 +135,4 @@ Paste any raw GitHub file URL into a Claude conversation for instant project con
 
 > *This conference is brought to you by AI. So is this repo.*
 
-*Last updated: 2026-05-13*
+*Last updated: 2026-06-01*
