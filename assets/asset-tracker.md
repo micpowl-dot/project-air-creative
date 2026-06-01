@@ -107,6 +107,18 @@
 | D5-20 | High-end portable speaker | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | |
 | D5-21 | Custom jacket or vest (event-year branded) | Tier 3 ×1–2 | Canary | — | **May 20** | ⬜ | Limited edition |
 
+## D6 — "AI Helped Me..." Live Experience
+
+> Interactive attendee experience requested by Maigh Houlihan. Full brief: `docs/brief-ai-helped-me.md`. Test-ready by **June 6**, live **June 9**.
+
+| # | Asset | Description | Owner | Deadline | Status | Notes |
+|---|-------|-------------|-------|----------|--------|-------|
+| D6-01 | Photo station + QR intake | QR drops image into shared Drive folder | — | **June 6** | ⬜ | Becca on board |
+| D6-02 | Image processing workflow | Pick up upload, apply branded frame, write to output folder | — | **June 6** | ⬜ | Frame design TBD; design-team owned |
+| D6-03 | HTML waterfall display page | Pulls output folder, real-time build, TV-optimized | — | **June 6** | ⬜ | Primary build item |
+| D6-04 | Email delivery logic | Notify uploader with link or attached image | — | **June 6** | ⬜ | Personal follow-up |
+| D6-05 | Slack story integration | Feature short stories in foreground (~20s) over falling images | — | **June 6** | ⬜ | Char limit TBD |
+
 ## Summary
 
 | Deliverable | Total | ✅ | 🟡 | ⬜ | 🔴 |
@@ -116,7 +128,8 @@
 | D3 Logo | 3 | 2 | 1 | 0 | 0 |
 | D4 PPT | 12 | 12 | 0 | 0 | 0 |
 | D5 Swag | 22 | 0 | 0 | 22 | 0 |
-| **Total** | **69** | **14** | **1** | **54** | **0** |
+| D6 AI Helped Me | 5 | 0 | 0 | 5 | 0 |
+| **Total** | **74** | **14** | **1** | **59** | **0** |
 
 ## How to Claim a Task
 
