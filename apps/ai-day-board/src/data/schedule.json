@@ -2,7 +2,7 @@
   "title": "AI Day (US) — June 9, 2026",
   "date": "2026-06-09",
   "sourceUrl": "https://thedrop.weather.com/pages/1jp62gi1i768q7m567/AiDayUsJune9th2026/1jp62mt88cuvqkhh7b",
-  "lastSynced": "2026-06-02T00:00:00.000Z",
+  "lastSynced": "2026-06-02T23:06:41.000Z",
   "tracks": [
     { "id": "explore", "name": "EXPLORE", "subtitle": "Strategy + Culture" },
     { "id": "apply", "name": "APPLY", "subtitle": "Technical + Hands-On" },
@@ -105,7 +105,7 @@
           "track": "explore",
           "title": "Lightning Demos",
           "description": "Three teams, ten minutes each, real AI work already happening across TWCo.",
-          "instructors": ["Sahana Subbanna", "Eric Peterson", "James Baker"],
+          "instructors": ["Sahana Subbanna", "Erik Petersen", "James Baker"],
           "rooms": { "brookhaven": "Zephyr", "andover": "Sirocco", "newYork": "Polar Vortex", "remote": true }
         },
         {
@@ -153,7 +153,7 @@
           "track": "build",
           "title": "From Dabbling to Doing (Repeat)",
           "description": "Morning's most broadly relevant session, repeated for afternoon attendees.",
-          "instructors": ["Kate Collins"],
+          "instructors": ["Tyler Steben"],
           "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true },
           "isRepeat": true
         }
@@ -181,7 +181,7 @@
           "track": "build",
           "title": "AI for the Non-Coder (Repeat)",
           "description": "Repeat of morning guided hands-on.",
-          "instructors": ["Lauriana Gaudet", "Sam Gates"],
+          "instructors": ["Lauriana Gaudet", "Samantha Gates"],
           "rooms": { "brookhaven": "2045", "andover": "Typhoon", "newYork": "Supercell", "remote": true },
           "isRepeat": true
         }

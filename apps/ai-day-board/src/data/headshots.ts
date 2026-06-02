@@ -12,9 +12,7 @@
  * Only needed where the chart name doesn't slugify to the headshot filename
  * (from the Project Air elements/Headshots set). */
 export const HEADSHOT_OVERRIDES: Record<string, string> = {
-  // Spelling mismatch: chart says "Eric Peterson", art is "Erik Petersen".
-  "Eric Peterson": "erik-petersen",
-  // Nickname: chart says "Sam Gates", art is "Samantha Gates".
+  // Nickname: chart says "Sam Gates" (10:00 session), art is "Samantha Gates".
   "Sam Gates": "samantha-gates",
   // Spelling mismatch: chart says "Michelle Kilroy", art is "Michelle Killroy".
   "Michelle Kilroy": "michelle-killroy",
@@ -24,7 +22,7 @@ export const HEADSHOT_OVERRIDES: Record<string, string> = {
  * People in the chart with no headshot in the Headshots set yet.
  * They render as a branded initials placeholder until art is added.
  */
-export const HEADSHOT_MISSING: string[] = ["Kate Collins"];
+export const HEADSHOT_MISSING: string[] = [];
 
 /** Lowercase, strip accents/punctuation, collapse to a hyphen slug. */
 export function slugify(name: string): string {
