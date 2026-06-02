@@ -1,0 +1,234 @@
+{
+  "title": "AI Day (US) — June 9, 2026",
+  "date": "2026-06-09",
+  "sourceUrl": "https://thedrop.weather.com/pages/1jp62gi1i768q7m567/AiDayUsJune9th2026/1jp62mt88cuvqkhh7b",
+  "lastSynced": "2026-06-02T00:00:00.000Z",
+  "tracks": [
+    { "id": "explore", "name": "EXPLORE", "subtitle": "Strategy + Culture" },
+    { "id": "apply", "name": "APPLY", "subtitle": "Technical + Hands-On" },
+    { "id": "build", "name": "BUILD", "subtitle": "Ops + Real Work" }
+  ],
+  "slots": [
+    {
+      "time": "9:00",
+      "kind": "full",
+      "title": "Opening Remarks",
+      "people": ["Rohit Agarwal", "Brian O'Neil"],
+      "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true }
+    },
+    {
+      "time": "10:00",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "The Tool Landscape",
+          "description": "What's available, what each tool does, which is sanctioned, how to decide which to reach for, plus the Mercury ecosystem.",
+          "instructors": ["Javi Quinones", "Rohit Nutalapati"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "The API Sandbox",
+          "description": "Hands-on: integrating weather data for clients. Build something in 30 minutes.",
+          "instructors": ["James Belanger", "Thomas Hinson"],
+          "rooms": { "brookhaven": "2126", "andover": "Chinook", "newYork": "Supercell", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "Workflow Bottlenecks",
+          "description": "Where work gets stuck. Approvals, feedback loops, and manual auditing. Map your own bottlenecks to AI intervention points.",
+          "instructors": ["Dave de Sa"],
+          "rooms": { "brookhaven": "2045", "andover": "Sirocco", "newYork": "Microburst", "remote": true }
+        }
+      ]
+    },
+    {
+      "time": "10:30",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "From Dabbling to Doing",
+          "description": "SOP framework for prompt construction. Using one model to architect a prompt before executing in another.",
+          "instructors": ["Tyler Steben"],
+          "rooms": { "brookhaven": "20th Fl. Breakroom", "andover": "Typhoon", "newYork": "Supercell", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "Visualizing Data",
+          "description": "Turning atmospheric and operational data into dashboards and visual outputs.",
+          "instructors": ["Jack Kreps"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Chinook", "newYork": "Polar Vortex", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "AI for the Non-Coder",
+          "description": "Guided hands-on. AI in Slack, Drive, Gmail, then getting out of your comfort zone with Gemini and Claude. Someone next to you. Build one thing before you leave.",
+          "instructors": ["Lauriana Gaudet", "Sam Gates"],
+          "rooms": { "brookhaven": "2045", "andover": "Sirocco", "newYork": "Microburst", "remote": true }
+        }
+      ]
+    },
+    {
+      "time": "11:00",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "Defending the Castle",
+          "description": "TWCo's competitive moat and data security posture. How AI strengthens what makes us valuable.",
+          "instructors": ["Brennan Gerster", "Dan Margulies"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Sirocco", "newYork": "Polar Vortex", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "MCPs and Integrations",
+          "description": "Connecting AI to external systems: Slack, ServiceNow, Drive, and databases. How MCPs work, how to configure them, and what's available at TWCo.",
+          "instructors": ["Max Jacubowsky"],
+          "rooms": { "brookhaven": "2126", "andover": "Tsunami", "newYork": "Microburst", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "LLM Office Assist",
+          "description": "Email drafting, Slack management, meeting summaries, and report generation. Guided, hands-on.",
+          "instructors": ["Tyler Steben"],
+          "rooms": { "brookhaven": "2045", "andover": "Typhoon", "newYork": "Supercell", "remote": true }
+        }
+      ]
+    },
+    {
+      "time": "11:30",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "Lightning Demos",
+          "description": "Three teams, ten minutes each, real AI work already happening across TWCo.",
+          "instructors": ["Sahana Subbanna", "Eric Peterson", "James Baker"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Sirocco", "newYork": "Polar Vortex", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "Build a Skill",
+          "description": "Build a shareable Claude or Mercury skill from scratch. Starts with Gems-to-Skills migration, then new skill construction: structure, prompting, testing, publishing.",
+          "instructors": ["Miguel Gervassi"],
+          "rooms": { "brookhaven": "2126", "andover": "Chinook", "newYork": "Supercell", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "Your Work, Not a Demo",
+          "description": "Bring a real task from your actual job. Try AI on it with a facilitator next to you. Leave with one thing that worked.",
+          "instructors": ["Brian O'Neil"],
+          "rooms": { "brookhaven": "2045", "andover": "Typhoon", "newYork": "Microburst", "remote": true }
+        }
+      ]
+    },
+    {
+      "time": "12:00",
+      "kind": "full",
+      "title": "Lunch",
+      "people": [],
+      "rooms": {}
+    },
+    {
+      "time": "1:00",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "The Permission Gap",
+          "description": "The adoption data story: 52%, bimodal, 100% vs 0%. What separates teams that adopted. Interactive discussion.",
+          "instructors": ["Michelle Kilroy"],
+          "rooms": { "brookhaven": "2126", "andover": "Sirocco", "newYork": "Supercell", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "WeatherCo Arch",
+          "description": "Mercury, the Project AIR stack, and the roadmap. Brian's session. Builder-track anchor.",
+          "instructors": ["Brian O'Neil"],
+          "rooms": { "brookhaven": "2045", "andover": "Tsunami", "newYork": "Microburst", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "From Dabbling to Doing (Repeat)",
+          "description": "Morning's most broadly relevant session, repeated for afternoon attendees.",
+          "instructors": ["Kate Collins"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true },
+          "isRepeat": true
+        }
+      ]
+    },
+    {
+      "time": "1:45",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "From Personal to Team",
+          "description": "How individual experiments become team workflows. The organizational gap between 'I built a cool thing' and 'my team uses this every day.'",
+          "instructors": ["Matthew Drooker"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Sirocco", "newYork": "Polar Vortex", "remote": true }
+        },
+        {
+          "track": "apply",
+          "title": "Agentic Workflows",
+          "description": "Multi-step agent design, harnesses, orchestration, and chaining. For builders past prompting and past single-tool integrations.",
+          "instructors": ["Elizabeth Martin"],
+          "rooms": { "brookhaven": "2126", "andover": "Chinook", "newYork": "Microburst", "remote": true }
+        },
+        {
+          "track": "build",
+          "title": "AI for the Non-Coder (Repeat)",
+          "description": "Repeat of morning guided hands-on.",
+          "instructors": ["Lauriana Gaudet", "Sam Gates"],
+          "rooms": { "brookhaven": "2045", "andover": "Typhoon", "newYork": "Supercell", "remote": true },
+          "isRepeat": true
+        }
+      ]
+    },
+    {
+      "time": "2:15",
+      "kind": "sessions",
+      "sessions": [
+        {
+          "track": "explore",
+          "title": "Tool Landscape (Repeat)",
+          "description": "Repeat of the morning orientation.",
+          "instructors": ["Javi Quinones", "Rohit Nutalapati"],
+          "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true },
+          "isRepeat": true
+        },
+        {
+          "track": "apply",
+          "title": "Visualizing Data (Repeat)",
+          "description": "Repeat of morning lab session. Dashboards and visual outputs from atmospheric and operational data.",
+          "instructors": ["Jack Kreps"],
+          "rooms": { "brookhaven": "2045", "andover": "Chinook", "newYork": "Supercell", "remote": true },
+          "isRepeat": true
+        },
+        {
+          "track": "build",
+          "title": "The Time Problem",
+          "description": "Honest conversation about finding time for AI when your day job doesn't stop. Operational teams, shift workers, lean teams. Facilitated discussion.",
+          "instructors": ["Shannon King"],
+          "rooms": { "brookhaven": "2126", "andover": "Sirocco", "newYork": "Microburst", "remote": true }
+        }
+      ]
+    },
+    {
+      "time": "3:00",
+      "kind": "full",
+      "title": "Closing Remarks",
+      "people": ["Matthew Drooker"],
+      "rooms": { "brookhaven": "Zephyr", "andover": "Typhoon", "newYork": "Polar Vortex", "remote": true }
+    },
+    {
+      "time": "3:10",
+      "kind": "full",
+      "title": "Fun Time!",
+      "people": [],
+      "rooms": { "brookhaven": "4th Floor Lawn", "andover": "TBD", "newYork": "TBD" }
+    }
+  ]
+}
