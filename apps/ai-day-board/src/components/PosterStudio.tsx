@@ -12,6 +12,7 @@ import {
   TOP_SIZE,
   PORTRAIT_SIZE,
   SQUIGGLE_SIZE,
+  TEXT_SIZE,
   OFFSET_X,
   OFFSET_Y,
   getVariant,
@@ -174,6 +175,9 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
                 useAltHeadshot={style.useAltHeadshot}
+                badgeOffsetX={style.badgeOffsetX}
+                dateSize={style.dateSize}
+                tagSize={style.tagSize}
                 topOffsetX={style.topOffsetX}
                 topOffsetY={style.topOffsetY}
                 bottomOffsetX={style.bottomOffsetX}
@@ -248,6 +252,14 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
                 <Chips options={RING_STYLES as readonly string[]} value={style.ringStyle} accent={accent} onChange={(v) => patch({ ringStyle: v as RingStyle })} cap />
               </Row>
               {sizeRow("ringSize", "Size", RING_SIZE, "x", "Ring size")}
+              {sizeRow("badgeOffsetX", "X ⇄", OFFSET_X, "px", "Badge+headshot X")}
+              <p className="pl-14 text-[10px] text-white/35">X moves the ring badge and headshot together.</p>
+            </Group>
+
+            <Group title="Date &amp; track tag">
+              {sizeRow("tagSize", "Tag", TEXT_SIZE, "x", "Track-tag size")}
+              {sizeRow("dateSize", "Date", TEXT_SIZE, "x", "Date size")}
+              <p className="pl-14 text-[10px] text-white/35">Track tag sits above the date, top-left.</p>
             </Group>
 
             <Group title="Headshot">

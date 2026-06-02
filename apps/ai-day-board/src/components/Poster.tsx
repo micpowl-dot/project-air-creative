@@ -82,14 +82,14 @@ function HeadshotSquare({ name, ink, alt }: { name: string; ink: string; alt?: b
 
 /** 1–3 headshots laid out as squares, centered on the ring badge.
  *  The whole group (squares + the gap between them) scales as a unit. */
-function PortraitGroup({ names, ink, scale, alt }: { names: string[]; ink: string; scale: number; alt?: boolean }) {
+function PortraitGroup({ names, ink, scale, alt, dx = 0 }: { names: string[]; ink: string; scale: number; alt?: boolean; dx?: number }) {
   const list = names.slice(0, 3);
   const n = Math.max(1, list.length);
   // base square size + gap per count, then scaled together as a unit
   const base = n === 1 ? { size: 482, gap: 0 } : n === 2 ? { size: 360, gap: 28 } : { size: 300, gap: 20 };
   const cfg = { size: base.size * scale, gap: base.gap * scale };
   const totalW = cfg.size * n + cfg.gap * (n - 1);
-  const left = RING_CENTER.x - totalW / 2;
+  const left = RING_CENTER.x - totalW / 2 + dx;
   const top = RING_CENTER.y - cfg.size / 2;
   return (
     <div
@@ -116,6 +116,9 @@ export function Poster({
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   useAltHeadshot = false,
+  badgeOffsetX = 0,
+  dateSize = 1,
+  tagSize = 1,
   topOffsetX = 0,
   topOffsetY = 0,
   bottomOffsetX = 0,
@@ -134,6 +137,9 @@ export function Poster({
   topFlip?: boolean;
   portraitSize?: number;
   useAltHeadshot?: boolean;
+  badgeOffsetX?: number;
+  dateSize?: number;
+  tagSize?: number;
   topOffsetX?: number;
   topOffsetY?: number;
   bottomOffsetX?: number;
@@ -146,7 +152,7 @@ export function Poster({
   const display = "var(--font-poster-display)";
 
   const ringPx = RING_BASE * ringSize;
-  const ringLeft = RING_CENTER.x - ringPx / 2;
+  const ringLeft = RING_CENTER.x - ringPx / 2 + badgeOffsetX;
   const ringTop = RING_CENTER.y - ringPx / 2;
 
   return (
@@ -215,19 +221,25 @@ export function Poster({
           />
         )}
 
-        {/* Date */}
-        {slots.date && (
-          <div
-            className="absolute"
-            style={{ left: pctX(114), top: pctY(40), fontFamily: mono, fontWeight: 500, fontSize: c(46), color: variant.light, letterSpacing: c(2) }}
-          >
-            {data.dateLabel}
+        {/* Top-left kicker: track tag above, date below */}
+        {(slots.tag || slots.date) && (
+          <div className="absolute flex flex-col" style={{ left: pctX(114), top: pctY(40), gap: c(10) }}>
+            {slots.tag && (
+              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}>
+                {data.tag}
+              </div>
+            )}
+            {slots.date && (
+              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(46 * dateSize), color: variant.light, letterSpacing: c(2), lineHeight: 1 }}>
+                {data.dateLabel}
+              </div>
+            )}
           </div>
         )}
 
         {/* Portrait(s) over the ring badge */}
         {slots.portrait && (
-          <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} scale={portraitSize} alt={useAltHeadshot} />
+          <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} scale={portraitSize} alt={useAltHeadshot} dx={badgeOffsetX} />
         )}
 
         {/* Speaker stack */}
@@ -258,9 +270,6 @@ export function Poster({
             )}
             {slots.sessionTitle && (
               <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(58), color: variant.ink }}>{data.sessionTitle}</div>
-            )}
-            {slots.tag && (
-              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(50), color: variant.accent }}>{data.tag}</div>
             )}
             {(slots.location || slots.room || slots.time) && (
               <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(36), color: variant.light, marginTop: c(8), letterSpacing: c(1) }}>

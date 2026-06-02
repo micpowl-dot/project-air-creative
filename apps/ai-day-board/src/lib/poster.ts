@@ -190,6 +190,7 @@ export const RING_SIZE = { min: 0.6, max: 1.6, default: 1 };
 export const TOP_SIZE = { min: 0.6, max: 1.8, default: 1 };
 export const PORTRAIT_SIZE = { min: 0.6, max: 1.6, default: 1 };
 export const SQUIGGLE_SIZE = { min: 0.4, max: 2, default: 1 };
+export const TEXT_SIZE = { min: 0.5, max: 2, default: 1 };
 
 // Position offsets, expressed in 1920x1080 design pixels (added via transform).
 export const OFFSET_X = { min: -800, max: 800, default: 0, step: 10 };
@@ -205,6 +206,9 @@ export interface SessionStyle {
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
   useAltHeadshot: boolean; // use the alternate headshot art
+  badgeOffsetX: number; // moves ring badge + headshot together (design px)
+  dateSize: number; // date text scale
+  tagSize: number; // track-tag text scale
   // decorative element positions (design px)
   topOffsetX: number;
   topOffsetY: number;
@@ -228,6 +232,9 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topFlip: false,
     portraitSize: PORTRAIT_SIZE.default,
     useAltHeadshot: false,
+    badgeOffsetX: 0,
+    dateSize: TEXT_SIZE.default,
+    tagSize: TEXT_SIZE.default,
     topOffsetX: 0,
     topOffsetY: 0,
     bottomOffsetX: 0,
