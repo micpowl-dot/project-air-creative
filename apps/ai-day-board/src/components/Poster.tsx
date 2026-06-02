@@ -221,19 +221,13 @@ export function Poster({
           />
         )}
 
-        {/* Top-left kicker: track tag above, date below */}
-        {(slots.tag || slots.date) && (
-          <div className="absolute flex flex-col" style={{ left: pctX(114), top: pctY(40), gap: c(10) }}>
-            {slots.tag && (
-              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}>
-                {data.tag}
-              </div>
-            )}
-            {slots.date && (
-              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(46 * dateSize), color: variant.light, letterSpacing: c(2), lineHeight: 1 }}>
-                {data.dateLabel}
-              </div>
-            )}
+        {/* Top-left: track tag */}
+        {slots.tag && (
+          <div
+            className="absolute"
+            style={{ left: pctX(114), top: pctY(40), fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}
+          >
+            {data.tag}
           </div>
         )}
 
@@ -280,6 +274,13 @@ export function Poster({
                 ]
                   .filter(Boolean)
                   .join("   ·   ")}
+              </div>
+            )}
+            {slots.date && (
+              <div
+                style={{ fontFamily: mono, fontWeight: 500, fontSize: c(46 * dateSize), color: variant.light, letterSpacing: c(2), marginTop: c(6) }}
+              >
+                {data.dateLabel}
               </div>
             )}
           </div>
