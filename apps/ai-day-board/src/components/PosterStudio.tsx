@@ -49,7 +49,6 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   const [overrides, setOverrides] = useState<StyleOverrides>({});
   const [flash, setFlash] = useState<string | null>(null);
 
-  // Load saved per-session overrides from the browser once on mount.
   useEffect(() => setOverrides(loadStyleOverrides()), []);
 
   const selected = entries.find((e) => e.id === selectedId) ?? entries[0];
@@ -57,6 +56,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   const style: SessionStyle = { ...defaultSessionStyle(track), ...overrides[selected.id] };
   const variant = getVariant(style.variantId);
   const data = sessionToPoster(selected.session, style.site, selected.time);
+  const accent = variant.accent;
 
   function patch(p: Partial<SessionStyle>) {
     setOverrides((prev) => {
@@ -76,7 +76,6 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
       return next;
     });
   }
-  // Apply a property (or several) from the current poster to EVERY poster.
   function applyToAll(p: Partial<SessionStyle>, label: string) {
     setOverrides((prev) => {
       const next: StyleOverrides = { ...prev };
@@ -88,8 +87,20 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
     window.setTimeout(() => setFlash(null), 2200);
   }
   const isOverridden = Boolean(overrides[selected.id]);
-
   const renderHref = `/render?focus=${encodeURIComponent(selected.id)}`;
+
+  // Helper to build a px/×-offset slider row bound to one style field.
+  const sizeRow = (field: keyof SessionStyle, label: string, range: { min: number; max: number }, unit: "px" | "x", niceLabel: string) => (
+    <Row label={label} onAll={() => applyToAll({ [field]: style[field] } as Partial<SessionStyle>, niceLabel)}>
+      <MiniSlider
+        value={style[field] as number}
+        range={range}
+        unit={unit}
+        accent={accent}
+        onChange={(v) => patch({ [field]: v } as Partial<SessionStyle>)}
+      />
+    </Row>
+  );
 
   return (
     <div className="min-h-screen bg-[#1b1b1b] text-[#f5f3ee]">
@@ -97,30 +108,21 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
         <header className="mb-5 flex items-end justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-bold">Poster Studio</h1>
-            <p className="text-sm text-white/60">
-              Project AIR · slot-based TV poster system · color coordinated by track
-            </p>
+            <p className="text-sm text-white/60">Project AIR · slot-based TV poster system · color coordinated by track</p>
           </div>
-          <Link
-            href="/render"
-            className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]"
-            style={{ background: variant.accent }}
-          >
+          <Link href="/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
             Render queue → 1920×1080
           </Link>
         </header>
 
         {flash && (
-          <div
-            className="mb-4 rounded-lg px-4 py-2 text-sm font-medium text-[#111]"
-            style={{ background: variant.accent }}
-          >
+          <div className="mb-4 rounded-lg px-4 py-2 text-sm font-medium text-[#111]" style={{ background: accent }}>
             ✓ {flash}
           </div>
         )}
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-          {/* Stage (square corners) */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
+          {/* Stage */}
           <div>
             <div className="overflow-hidden shadow-2xl ring-1 ring-white/10">
               <Poster
@@ -144,27 +146,20 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
 
             <div className="mt-3 flex items-center justify-between text-xs text-white/50">
               <span>
-                Default scheme for {track.toUpperCase()}:{" "}
-                <span className="uppercase text-white/80">{TRACK_SCHEME[track]}</span>
+                Default scheme for {track.toUpperCase()}: <span className="uppercase text-white/80">{TRACK_SCHEME[track]}</span>
                 {isOverridden && <span className="ml-2 text-amber-300">· customized</span>}
               </span>
               <div className="flex items-center gap-3">
                 {isOverridden && (
-                  <button onClick={resetToDefault} className="underline hover:text-white">
-                    Reset to default
-                  </button>
+                  <button onClick={resetToDefault} className="underline hover:text-white">Reset to default</button>
                 )}
-                <Link href={renderHref} className="underline hover:text-white">
-                  Send this to render →
-                </Link>
+                <Link href={renderHref} className="underline hover:text-white">Send this to render →</Link>
               </div>
             </div>
 
             {/* Session picker */}
             <div className="mt-5">
-              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">
-                Session ({entries.length})
-              </div>
+              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">Session ({entries.length})</div>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
                 {entries.map((e) => {
                   const active = e.id === selected.id;
@@ -174,18 +169,13 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                       key={e.id}
                       onClick={() => setSelectedId(e.id)}
                       className="rounded-lg border px-3 py-2 text-left text-xs transition"
-                      style={{
-                        borderColor: active ? variant.accent : "rgba(255,255,255,0.12)",
-                        background: active ? "rgba(255,255,255,0.08)" : "transparent",
-                      }}
+                      style={{ borderColor: active ? accent : "rgba(255,255,255,0.12)", background: active ? "rgba(255,255,255,0.08)" : "transparent" }}
                     >
                       <div className="font-semibold text-white/90">
                         {e.session.title}
                         {customized && <span className="ml-1 text-amber-300">•</span>}
                       </div>
-                      <div className="text-white/50">
-                        {e.time} · {e.session.instructors.join(" + ") || "—"}
-                      </div>
+                      <div className="text-white/50">{e.time} · {e.session.instructors.join(" + ") || "—"}</div>
                     </button>
                   );
                 })}
@@ -195,14 +185,14 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
 
           {/* Controls */}
           <aside className="space-y-5">
-            <Control label="Color variant (override)">
+            <Group title="Color">
               <div className="flex flex-wrap gap-2">
                 {POSTER_VARIANTS.map((v) => (
                   <button
                     key={v.id}
                     onClick={() => patch({ variantId: v.id })}
                     title={v.name}
-                    className="h-9 w-9 rounded-full border-2"
+                    className="h-8 w-8 rounded-full border-2"
                     style={{
                       background: v.bg,
                       borderColor: v.id === style.variantId ? v.accent : "transparent",
@@ -211,160 +201,58 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                   />
                 ))}
               </div>
-            </Control>
+            </Group>
 
-            <Control
-              label="Ring badge shape"
-              onAll={() => applyToAll({ ringStyle: style.ringStyle }, `Ring shape "${style.ringStyle}"`)}
-            >
-              <Chips
-                options={RING_STYLES as readonly string[]}
-                value={style.ringStyle}
-                accent={variant.accent}
-                onChange={(v) => patch({ ringStyle: v as RingStyle })}
-                cap
-              />
-            </Control>
+            <Group title="Ring badge">
+              <Row label="Shape" onAll={() => applyToAll({ ringStyle: style.ringStyle }, `Ring shape "${style.ringStyle}"`)}>
+                <Chips options={RING_STYLES as readonly string[]} value={style.ringStyle} accent={accent} onChange={(v) => patch({ ringStyle: v as RingStyle })} cap />
+              </Row>
+              {sizeRow("ringSize", "Size", RING_SIZE, "x", "Ring size")}
+            </Group>
 
-            <Control
-              label={`Ring badge size — ${style.ringSize.toFixed(2)}×`}
-              onAll={() => applyToAll({ ringSize: style.ringSize }, `Ring size ${style.ringSize.toFixed(2)}×`)}
-            >
-              <input
-                type="range"
-                min={RING_SIZE.min}
-                max={RING_SIZE.max}
-                step={0.05}
-                value={style.ringSize}
-                onChange={(e) => patch({ ringSize: Number(e.target.value) })}
-                className="w-full"
-                style={{ accentColor: variant.accent }}
-              />
-            </Control>
+            <Group title="Headshot">
+              {sizeRow("portraitSize", "Size", PORTRAIT_SIZE, "x", "Headshot size")}
+            </Group>
 
-            <Control
-              label={`Headshot size — ${style.portraitSize.toFixed(2)}×`}
-              onAll={() => applyToAll({ portraitSize: style.portraitSize }, `Headshot size ${style.portraitSize.toFixed(2)}×`)}
-            >
-              <input
-                type="range"
-                min={PORTRAIT_SIZE.min}
-                max={PORTRAIT_SIZE.max}
-                step={0.05}
-                value={style.portraitSize}
-                onChange={(e) => patch({ portraitSize: Number(e.target.value) })}
-                className="w-full"
-                style={{ accentColor: variant.accent }}
-              />
-            </Control>
+            <Group title="Top edge">
+              <Row label="Graphic" onAll={() => applyToAll({ topStyle: style.topStyle }, `Top graphic "${style.topStyle}"`)}>
+                <Chips options={TOP_STYLES as readonly string[]} value={style.topStyle} accent={accent} onChange={(v) => patch({ topStyle: v as TopStyle })} />
+              </Row>
+              {sizeRow("topSize", "Size", TOP_SIZE, "x", "Top size")}
+              {sizeRow("topOffsetX", "X", OFFSET_X, "px", "Top-edge X")}
+              {sizeRow("topOffsetY", "Y", OFFSET_Y, "px", "Top-edge Y")}
+            </Group>
 
-            <Control
-              label="Top-edge graphic"
-              onAll={() => applyToAll({ topStyle: style.topStyle }, `Top graphic "${style.topStyle}"`)}
-            >
-              <Chips
-                options={TOP_STYLES as readonly string[]}
-                value={style.topStyle}
-                accent={variant.accent}
-                onChange={(v) => patch({ topStyle: v as TopStyle })}
-              />
-            </Control>
+            <Group title="Bottom-left">
+              {sizeRow("bottomOffsetX", "X", OFFSET_X, "px", "Bottom-left X")}
+              {sizeRow("bottomOffsetY", "Y", OFFSET_Y, "px", "Bottom-left Y")}
+            </Group>
 
-            <Control
-              label={`Top-edge size — ${style.topSize.toFixed(2)}×`}
-              onAll={() => applyToAll({ topSize: style.topSize }, `Top size ${style.topSize.toFixed(2)}×`)}
-            >
-              <input
-                type="range"
-                min={TOP_SIZE.min}
-                max={TOP_SIZE.max}
-                step={0.05}
-                value={style.topSize}
-                onChange={(e) => patch({ topSize: Number(e.target.value) })}
-                className="w-full"
-                style={{ accentColor: variant.accent }}
-              />
-            </Control>
+            <Group title="Squiggle">
+              {sizeRow("squiggleSize", "Size", SQUIGGLE_SIZE, "x", "Squiggle size")}
+              {sizeRow("squiggleOffsetX", "X", OFFSET_X, "px", "Squiggle X")}
+              {sizeRow("squiggleOffsetY", "Y", OFFSET_Y, "px", "Squiggle Y")}
+            </Group>
 
-            <NumSlider
-              label="Top-edge X" accent={variant.accent} unit="px" range={OFFSET_X}
-              value={style.topOffsetX}
-              onChange={(v) => patch({ topOffsetX: v })}
-              onAll={() => applyToAll({ topOffsetX: style.topOffsetX }, `Top-edge X ${style.topOffsetX}px`)}
-            />
-            <NumSlider
-              label="Top-edge Y" accent={variant.accent} unit="px" range={OFFSET_Y}
-              value={style.topOffsetY}
-              onChange={(v) => patch({ topOffsetY: v })}
-              onAll={() => applyToAll({ topOffsetY: style.topOffsetY }, `Top-edge Y ${style.topOffsetY}px`)}
-            />
+            <Group title="Location (drives room)">
+              <Row label="Site" onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}>
+                <div className="flex flex-wrap gap-2">
+                  {SITES.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => patch({ site: s.id as SiteId })}
+                      className="rounded-md px-3 py-1.5 text-sm"
+                      style={{ background: s.id === style.site ? accent : "rgba(255,255,255,0.08)", color: s.id === style.site ? "#111" : "#fff" }}
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </div>
+              </Row>
+              <p className="text-xs text-white/40">Room here: <span className="text-white/70">{data.room}</span></p>
+            </Group>
 
-            <div className="border-t border-white/10 pt-1 text-[10px] uppercase tracking-widest text-white/30">
-              Bottom-left graphic
-            </div>
-            <NumSlider
-              label="Bottom-left X" accent={variant.accent} unit="px" range={OFFSET_X}
-              value={style.bottomOffsetX}
-              onChange={(v) => patch({ bottomOffsetX: v })}
-              onAll={() => applyToAll({ bottomOffsetX: style.bottomOffsetX }, `Bottom-left X ${style.bottomOffsetX}px`)}
-            />
-            <NumSlider
-              label="Bottom-left Y" accent={variant.accent} unit="px" range={OFFSET_Y}
-              value={style.bottomOffsetY}
-              onChange={(v) => patch({ bottomOffsetY: v })}
-              onAll={() => applyToAll({ bottomOffsetY: style.bottomOffsetY }, `Bottom-left Y ${style.bottomOffsetY}px`)}
-            />
-
-            <div className="border-t border-white/10 pt-1 text-[10px] uppercase tracking-widest text-white/30">
-              Squiggle
-            </div>
-            <NumSlider
-              label="Squiggle size" accent={variant.accent} unit="x" range={SQUIGGLE_SIZE} step={0.05}
-              value={style.squiggleSize}
-              onChange={(v) => patch({ squiggleSize: v })}
-              onAll={() => applyToAll({ squiggleSize: style.squiggleSize }, `Squiggle size ${style.squiggleSize.toFixed(2)}×`)}
-            />
-            <NumSlider
-              label="Squiggle X" accent={variant.accent} unit="px" range={OFFSET_X}
-              value={style.squiggleOffsetX}
-              onChange={(v) => patch({ squiggleOffsetX: v })}
-              onAll={() => applyToAll({ squiggleOffsetX: style.squiggleOffsetX }, `Squiggle X ${style.squiggleOffsetX}px`)}
-            />
-            <NumSlider
-              label="Squiggle Y" accent={variant.accent} unit="px" range={OFFSET_Y}
-              value={style.squiggleOffsetY}
-              onChange={(v) => patch({ squiggleOffsetY: v })}
-              onAll={() => applyToAll({ squiggleOffsetY: style.squiggleOffsetY }, `Squiggle Y ${style.squiggleOffsetY}px`)}
-            />
-
-            <Control
-              label="Location (drives room)"
-              onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}
-            >
-              <div className="flex flex-wrap gap-2">
-                {SITES.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => patch({ site: s.id as SiteId })}
-                    className="rounded-md px-3 py-1.5 text-sm"
-                    style={{
-                      background: s.id === style.site ? variant.accent : "rgba(255,255,255,0.08)",
-                      color: s.id === style.site ? "#111" : "#fff",
-                    }}
-                  >
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-              <p className="mt-2 text-xs text-white/40">
-                Room here: <span className="text-white/70">{data.room}</span>
-              </p>
-            </Control>
-
-            <Control
-              label="Slots (toggle elements)"
-              onAll={() => applyToAll({ slots: { ...style.slots } }, "Element visibility")}
-            >
+            <Group title="Elements" onAll={() => applyToAll({ slots: { ...style.slots } }, "Element visibility")}>
               <div className="grid grid-cols-2 gap-1.5">
                 {SLOT_LABELS.map(({ key, label }) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-white/5">
@@ -373,7 +261,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                   </label>
                 ))}
               </div>
-            </Control>
+            </Group>
           </aside>
         </div>
       </div>
@@ -381,68 +269,72 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   );
 }
 
-function Control({
-  label,
-  children,
-  onAll,
-}: {
-  label: string;
-  children: React.ReactNode;
-  onAll?: () => void;
-}) {
+/** A titled section. Optional "Set all" applies the section's whole state. */
+function Group({ title, children, onAll }: { title: string; children: React.ReactNode; onAll?: () => void }) {
   return (
-    <section>
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <span className="text-xs uppercase tracking-wide text-white/50">{label}</span>
-        {onAll && (
-          <button
-            onClick={onAll}
-            title="Apply this value to every poster in the series"
-            className="rounded border border-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/70 hover:bg-white/10 hover:text-white"
-          >
-            Set for all
-          </button>
-        )}
+    <section className="space-y-2">
+      <div className="flex items-center justify-between border-b border-white/10 pb-1">
+        <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/45">{title}</h3>
+        {onAll && <AllButton onClick={onAll} />}
       </div>
       {children}
     </section>
   );
 }
 
-function NumSlider({
-  label,
+/** A labelled control row: short label · control · optional "all". */
+function Row({ label, children, onAll }: { label: string; children: React.ReactNode; onAll?: () => void }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="w-12 shrink-0 text-xs text-white/55">{label}</span>
+      <div className="min-w-0 flex-1">{children}</div>
+      {onAll && <AllButton onClick={onAll} />}
+    </div>
+  );
+}
+
+function AllButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      title="Apply this value to every poster in the series"
+      className="shrink-0 rounded border border-white/15 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white/50 hover:bg-white/10 hover:text-white"
+    >
+      all
+    </button>
+  );
+}
+
+/** Slider with an inline value readout (px or ×). */
+function MiniSlider({
   value,
   range,
-  step = 0.05,
   unit,
   accent,
   onChange,
-  onAll,
 }: {
-  label: string;
   value: number;
   range: { min: number; max: number };
-  step?: number;
   unit: "px" | "x";
   accent: string;
   onChange: (v: number) => void;
-  onAll: () => void;
 }) {
-  const effStep = step ?? (unit === "px" ? 10 : 0.05);
+  const step = unit === "px" ? 10 : 0.05;
   const shown = unit === "px" ? `${value}px` : `${value.toFixed(2)}×`;
   return (
-    <Control label={`${label} — ${shown}`} onAll={onAll}>
+    <div className="flex items-center gap-2">
       <input
         type="range"
         min={range.min}
         max={range.max}
-        step={effStep}
+        step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full"
+        className="min-w-0 flex-1"
         style={{ accentColor: accent }}
       />
-    </Control>
+      <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{shown}</span>
+    </div>
   );
 }
 
@@ -465,11 +357,8 @@ function Chips({
         <button
           key={o}
           onClick={() => onChange(o)}
-          className={`rounded-md px-2.5 py-1 text-xs ${cap ? "capitalize" : ""}`}
-          style={{
-            background: o === value ? accent : "rgba(255,255,255,0.08)",
-            color: o === value ? "#111" : "#fff",
-          }}
+          className={`rounded-md px-2 py-1 text-[11px] ${cap ? "capitalize" : ""}`}
+          style={{ background: o === value ? accent : "rgba(255,255,255,0.08)", color: o === value ? "#111" : "#fff" }}
         >
           {o}
         </button>
