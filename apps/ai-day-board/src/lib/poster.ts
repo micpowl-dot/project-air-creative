@@ -12,7 +12,7 @@
 // Edits vs the Figma example (per Michael): the example has no slot for the
 // session TITLE, ROOM, or LOCATION. Those are added here as first-class slots.
 
-import type { Schedule, ScheduleSlot, Session } from "./types";
+import type { Schedule, ScheduleSlot, Session, TrackId } from "./types";
 
 export type SiteId = "brookhaven" | "andover" | "newYork";
 
@@ -105,7 +105,8 @@ export const DEFAULT_SLOTS: PosterSlots = {
 export interface PosterData {
   dateLabel: string; // "JUNE.9.2026"
   eventTitle: string; // "AI DAY"
-  name: string; // speaker (drives headshot lookup too)
+  name: string; // primary speaker (single-headshot fallback)
+  names: string[]; // all instructors (multi-portrait)
   role?: string; // job title — not in chart; optional override
   sessionTitle: string;
   tag: string; // e.g. track name
@@ -128,6 +129,7 @@ export function sessionToPoster(
     dateLabel: DATE_LABEL,
     eventTitle: "AI DAY",
     name: session.instructors[0] ?? "",
+    names: session.instructors,
     sessionTitle: session.title,
     tag: trackTag(session.track),
     location: siteLabel,
@@ -161,6 +163,54 @@ export function posterEntriesFromSchedule(schedule: Schedule): PosterEntry[] {
     }
   }
   return out;
+}
+
+// --- Track-driven defaults -------------------------------------------------
+// Color coordination is established by the Track tag first: each track maps to
+// a consistent scheme by default (overridable per session). Ring shape and
+// top-edge graphic also default per track for visual rhythm.
+export const TRACK_SCHEME: Record<TrackId, string> = {
+  explore: "magenta",
+  apply: "cyan",
+  build: "amber",
+};
+const TRACK_RING: Record<TrackId, RingStyle> = {
+  explore: "clover",
+  apply: "circle",
+  build: "star",
+};
+const TRACK_TOP: Record<TrackId, TopStyle> = {
+  explore: "piano-stripes",
+  apply: "converging",
+  build: "checker",
+};
+
+// Size sliders (multipliers on the base element size).
+export const RING_SIZE = { min: 0.6, max: 1.6, default: 1 };
+export const TOP_SIZE = { min: 0.6, max: 1.8, default: 1 };
+
+/** The full set of design choices for one session's poster. */
+export interface SessionStyle {
+  variantId: string;
+  ringStyle: RingStyle;
+  topStyle: TopStyle;
+  ringSize: number;
+  topSize: number;
+  site: SiteId;
+  slots: PosterSlots;
+}
+
+/** Default style for a session, derived from its track. */
+export function defaultSessionStyle(track: TrackId): SessionStyle {
+  return {
+    variantId: TRACK_SCHEME[track],
+    ringStyle: TRACK_RING[track],
+    topStyle: TRACK_TOP[track],
+    ringSize: RING_SIZE.default,
+    topSize: TOP_SIZE.default,
+    site: "brookhaven",
+    slots: { ...DEFAULT_SLOTS },
+  };
 }
 
 export type { ScheduleSlot };
