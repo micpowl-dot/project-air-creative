@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Questrial } from "next/font/google";
+import {
+  IBM_Plex_Sans,
+  Questrial,
+  Fira_Sans_Extra_Condensed,
+  Fira_Code,
+} from "next/font/google";
 import "./globals.css";
 
 // Body / supporting type — IBM Plex Sans (brand body font, free on Google).
@@ -18,6 +23,18 @@ const questrial = Questrial({
   weight: "400",
 });
 
+// Poster system fonts (from the Figma TV templates — distinct from the deck).
+const firaCondensed = Fira_Sans_Extra_Condensed({
+  variable: "--font-poster-display",
+  subsets: ["latin"],
+  weight: ["400", "700", "800"],
+});
+const firaCode = Fira_Code({
+  variable: "--font-poster-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
 export const metadata: Metadata = {
   title: "AI Day Board — Project AIR",
   description: "AI Day (US), June 9, 2026. Live schedule board.",
@@ -29,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plex.variable} ${questrial.variable} h-full antialiased`}
+      className={`${plex.variable} ${questrial.variable} ${firaCondensed.variable} ${firaCode.variable} h-full antialiased`}
     >
       <body className="min-h-full">{children}</body>
     </html>
