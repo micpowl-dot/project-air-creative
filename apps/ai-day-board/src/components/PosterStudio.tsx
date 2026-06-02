@@ -6,11 +6,17 @@ import {
   POSTER_VARIANTS,
   SITES,
   DEFAULT_SLOTS,
+  RING_STYLES,
+  TOP_STYLES,
+  DEFAULT_RING_STYLE,
+  DEFAULT_TOP_STYLE,
   getVariant,
   posterEntriesFromSchedule,
   sessionToPoster,
   type PosterSlots,
   type SiteId,
+  type RingStyle,
+  type TopStyle,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
 
@@ -38,6 +44,8 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   const [site, setSite] = useState<SiteId>("brookhaven");
   const [selectedId, setSelectedId] = useState(entries[0]?.id);
   const [slots, setSlots] = useState<PosterSlots>(DEFAULT_SLOTS);
+  const [ringStyle, setRingStyle] = useState<RingStyle>(DEFAULT_RING_STYLE);
+  const [topStyle, setTopStyle] = useState<TopStyle>(DEFAULT_TOP_STYLE);
 
   const variant = getVariant(variantId);
   const selected = entries.find((e) => e.id === selectedId) ?? entries[0];
@@ -61,7 +69,13 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
           {/* Stage */}
           <div>
             <div className="overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10">
-              <Poster data={data} variant={variant} slots={slots} />
+              <Poster
+                data={data}
+                variant={variant}
+                slots={slots}
+                ringStyle={ringStyle}
+                topStyle={topStyle}
+              />
             </div>
 
             {/* Session picker */}
@@ -114,6 +128,48 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                       outline: v.id === variantId ? `2px solid ${v.accent}` : "none",
                     }}
                   />
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">
+                Ring badge shape
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {RING_STYLES.map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setRingStyle(r)}
+                    className="rounded-md px-2.5 py-1 text-xs capitalize"
+                    style={{
+                      background: r === ringStyle ? variant.accent : "rgba(255,255,255,0.08)",
+                      color: r === ringStyle ? "#111" : "#fff",
+                    }}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">
+                Top-edge graphic
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {TOP_STYLES.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setTopStyle(t)}
+                    className="rounded-md px-2.5 py-1 text-xs"
+                    style={{
+                      background: t === topStyle ? variant.accent : "rgba(255,255,255,0.08)",
+                      color: t === topStyle ? "#111" : "#fff",
+                    }}
+                  >
+                    {t}
+                  </button>
                 ))}
               </div>
             </section>

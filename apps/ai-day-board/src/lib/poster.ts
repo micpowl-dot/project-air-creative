@@ -78,6 +78,29 @@ export function getVariant(id: string): PosterVariant {
   return POSTER_VARIANTS.find((v) => v.id === id) ?? POSTER_VARIANTS[0];
 }
 
+// Real element art lives in /public/poster-elements (from the Project Air
+// elements folder). These are the swappable shape options for two slots.
+export const RING_STYLES = [
+  "clover",
+  "circle",
+  "star",
+  "sunburst",
+  "diamond",
+  "hexagon",
+] as const;
+export type RingStyle = (typeof RING_STYLES)[number];
+
+export const TOP_STYLES = [
+  "piano-stripes",
+  "converging",
+  "dot-row",
+  "checker",
+] as const;
+export type TopStyle = (typeof TOP_STYLES)[number];
+
+export const DEFAULT_RING_STYLE: RingStyle = "clover";
+export const DEFAULT_TOP_STYLE: TopStyle = "piano-stripes";
+
 /** Which slots are switched on for a given poster. */
 export interface PosterSlots {
   date: boolean;
