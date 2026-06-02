@@ -188,6 +188,7 @@ const TRACK_TOP: Record<TrackId, TopStyle> = {
 // Size sliders (multipliers on the base element size).
 export const RING_SIZE = { min: 0.6, max: 1.6, default: 1 };
 export const TOP_SIZE = { min: 0.6, max: 1.8, default: 1 };
+export const PORTRAIT_SIZE = { min: 0.6, max: 1.6, default: 1 };
 
 /** The full set of design choices for one session's poster. */
 export interface SessionStyle {
@@ -196,6 +197,7 @@ export interface SessionStyle {
   topStyle: TopStyle;
   ringSize: number;
   topSize: number;
+  portraitSize: number;
   site: SiteId;
   slots: PosterSlots;
 }
@@ -208,6 +210,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topStyle: TRACK_TOP[track],
     ringSize: RING_SIZE.default,
     topSize: TOP_SIZE.default,
+    portraitSize: PORTRAIT_SIZE.default,
     site: "brookhaven",
     slots: { ...DEFAULT_SLOTS },
   };

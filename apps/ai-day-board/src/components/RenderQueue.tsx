@@ -84,6 +84,7 @@ function RenderCard({
               topStyle={style.topStyle}
               ringSize={style.ringSize}
               topSize={style.topSize}
+              portraitSize={style.portraitSize}
             />
           </div>
         </div>

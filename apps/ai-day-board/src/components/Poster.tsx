@@ -13,6 +13,7 @@ import {
   DEFAULT_TOP_STYLE,
   RING_SIZE,
   TOP_SIZE,
+  PORTRAIT_SIZE,
 } from "@/lib/poster";
 import { AiDayLogo } from "./AiDayLogo";
 
@@ -68,12 +69,14 @@ function HeadshotSquare({ name, ink }: { name: string; ink: string }) {
   );
 }
 
-/** 1–3 headshots laid out as squares, centered on the ring badge. */
-function PortraitGroup({ names, ink }: { names: string[]; ink: string }) {
+/** 1–3 headshots laid out as squares, centered on the ring badge.
+ *  The whole group (squares + the gap between them) scales as a unit. */
+function PortraitGroup({ names, ink, scale }: { names: string[]; ink: string; scale: number }) {
   const list = names.slice(0, 3);
   const n = Math.max(1, list.length);
-  // square size + gap per count, all centered on RING_CENTER
-  const cfg = n === 1 ? { size: 482, gap: 0 } : n === 2 ? { size: 360, gap: 28 } : { size: 300, gap: 20 };
+  // base square size + gap per count, then scaled together as a unit
+  const base = n === 1 ? { size: 482, gap: 0 } : n === 2 ? { size: 360, gap: 28 } : { size: 300, gap: 20 };
+  const cfg = { size: base.size * scale, gap: base.gap * scale };
   const totalW = cfg.size * n + cfg.gap * (n - 1);
   const left = RING_CENTER.x - totalW / 2;
   const top = RING_CENTER.y - cfg.size / 2;
@@ -99,6 +102,7 @@ export function Poster({
   topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
   topSize = TOP_SIZE.default,
+  portraitSize = PORTRAIT_SIZE.default,
 }: {
   data: PosterData;
   variant: PosterVariant;
@@ -107,6 +111,7 @@ export function Poster({
   topStyle?: TopStyle;
   ringSize?: number;
   topSize?: number;
+  portraitSize?: number;
 }) {
   const mono = "var(--font-poster-mono)";
   const display = "var(--font-poster-display)";
@@ -178,7 +183,9 @@ export function Poster({
         )}
 
         {/* Portrait(s) over the ring badge */}
-        {slots.portrait && <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} />}
+        {slots.portrait && (
+          <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} scale={portraitSize} />
+        )}
 
         {/* Speaker stack */}
         <div className="absolute flex" style={{ left: pctX(50), top: pctY(150), width: pctX(820), gap: c(20) }}>

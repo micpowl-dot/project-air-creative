@@ -10,6 +10,7 @@ import {
   TOP_STYLES,
   RING_SIZE,
   TOP_SIZE,
+  PORTRAIT_SIZE,
   getVariant,
   posterEntriesFromSchedule,
   sessionToPoster,
@@ -43,6 +44,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   const entries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
   const [selectedId, setSelectedId] = useState(entries[0]?.id);
   const [overrides, setOverrides] = useState<StyleOverrides>({});
+  const [flash, setFlash] = useState<string | null>(null);
 
   // Load saved per-session overrides from the browser once on mount.
   useEffect(() => setOverrides(loadStyleOverrides()), []);
@@ -71,6 +73,17 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
       return next;
     });
   }
+  // Apply a property (or several) from the current poster to EVERY poster.
+  function applyToAll(p: Partial<SessionStyle>, label: string) {
+    setOverrides((prev) => {
+      const next: StyleOverrides = { ...prev };
+      for (const e of entries) next[e.id] = { ...next[e.id], ...p };
+      saveStyleOverrides(next);
+      return next;
+    });
+    setFlash(`${label} applied to all ${entries.length} posters`);
+    window.setTimeout(() => setFlash(null), 2200);
+  }
   const isOverridden = Boolean(overrides[selected.id]);
 
   const renderHref = `/render?focus=${encodeURIComponent(selected.id)}`;
@@ -94,6 +107,15 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
           </Link>
         </header>
 
+        {flash && (
+          <div
+            className="mb-4 rounded-lg px-4 py-2 text-sm font-medium text-[#111]"
+            style={{ background: variant.accent }}
+          >
+            ✓ {flash}
+          </div>
+        )}
+
         <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
           {/* Stage (square corners) */}
           <div>
@@ -106,6 +128,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                 topStyle={style.topStyle}
                 ringSize={style.ringSize}
                 topSize={style.topSize}
+                portraitSize={style.portraitSize}
               />
             </div>
 
@@ -180,7 +203,10 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               </div>
             </Control>
 
-            <Control label="Ring badge shape">
+            <Control
+              label="Ring badge shape"
+              onAll={() => applyToAll({ ringStyle: style.ringStyle }, `Ring shape "${style.ringStyle}"`)}
+            >
               <Chips
                 options={RING_STYLES as readonly string[]}
                 value={style.ringStyle}
@@ -190,7 +216,10 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               />
             </Control>
 
-            <Control label={`Ring badge size — ${style.ringSize.toFixed(2)}×`}>
+            <Control
+              label={`Ring badge size — ${style.ringSize.toFixed(2)}×`}
+              onAll={() => applyToAll({ ringSize: style.ringSize }, `Ring size ${style.ringSize.toFixed(2)}×`)}
+            >
               <input
                 type="range"
                 min={RING_SIZE.min}
@@ -203,7 +232,26 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               />
             </Control>
 
-            <Control label="Top-edge graphic">
+            <Control
+              label={`Headshot size — ${style.portraitSize.toFixed(2)}×`}
+              onAll={() => applyToAll({ portraitSize: style.portraitSize }, `Headshot size ${style.portraitSize.toFixed(2)}×`)}
+            >
+              <input
+                type="range"
+                min={PORTRAIT_SIZE.min}
+                max={PORTRAIT_SIZE.max}
+                step={0.05}
+                value={style.portraitSize}
+                onChange={(e) => patch({ portraitSize: Number(e.target.value) })}
+                className="w-full"
+                style={{ accentColor: variant.accent }}
+              />
+            </Control>
+
+            <Control
+              label="Top-edge graphic"
+              onAll={() => applyToAll({ topStyle: style.topStyle }, `Top graphic "${style.topStyle}"`)}
+            >
               <Chips
                 options={TOP_STYLES as readonly string[]}
                 value={style.topStyle}
@@ -212,7 +260,10 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               />
             </Control>
 
-            <Control label={`Top-edge size — ${style.topSize.toFixed(2)}×`}>
+            <Control
+              label={`Top-edge size — ${style.topSize.toFixed(2)}×`}
+              onAll={() => applyToAll({ topSize: style.topSize }, `Top size ${style.topSize.toFixed(2)}×`)}
+            >
               <input
                 type="range"
                 min={TOP_SIZE.min}
@@ -225,7 +276,10 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               />
             </Control>
 
-            <Control label="Location (drives room)">
+            <Control
+              label="Location (drives room)"
+              onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}
+            >
               <div className="flex flex-wrap gap-2">
                 {SITES.map((s) => (
                   <button
@@ -246,7 +300,10 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               </p>
             </Control>
 
-            <Control label="Slots (toggle elements)">
+            <Control
+              label="Slots (toggle elements)"
+              onAll={() => applyToAll({ slots: { ...style.slots } }, "Element visibility")}
+            >
               <div className="grid grid-cols-2 gap-1.5">
                 {SLOT_LABELS.map(({ key, label }) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-white/5">
@@ -263,10 +320,29 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
   );
 }
 
-function Control({ label, children }: { label: string; children: React.ReactNode }) {
+function Control({
+  label,
+  children,
+  onAll,
+}: {
+  label: string;
+  children: React.ReactNode;
+  onAll?: () => void;
+}) {
   return (
     <section>
-      <div className="mb-2 text-xs uppercase tracking-wide text-white/50">{label}</div>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="text-xs uppercase tracking-wide text-white/50">{label}</span>
+        {onAll && (
+          <button
+            onClick={onAll}
+            title="Apply this value to every poster in the series"
+            className="rounded border border-white/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/70 hover:bg-white/10 hover:text-white"
+          >
+            Set for all
+          </button>
+        )}
+      </div>
       {children}
     </section>
   );
