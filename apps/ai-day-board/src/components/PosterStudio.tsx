@@ -43,13 +43,35 @@ const SLOT_LABELS: { key: keyof PosterSlots; label: string }[] = [
   { key: "lockup", label: "AI DAY logo" },
 ];
 
-export function PosterStudio({ schedule }: { schedule: Schedule }) {
+export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule }) {
+  const [schedule, setSchedule] = useState(initialSchedule);
   const entries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
   const [selectedId, setSelectedId] = useState(entries[0]?.id);
   const [overrides, setOverrides] = useState<StyleOverrides>({});
-  const [flash, setFlash] = useState<string | null>(null);
+  const [flash, setFlash] = useState<{ text: string; error?: boolean } | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => setOverrides(loadStyleOverrides()), []);
+
+  async function refreshFromDrop() {
+    setRefreshing(true);
+    setFlash(null);
+    try {
+      const res = await fetch("/api/refresh", { cache: "no-store" });
+      const body = await res.json();
+      if (res.ok && body.schedule) {
+        setSchedule(body.schedule);
+        setFlash({ text: "Schedule refreshed from The Drop" });
+      } else {
+        setFlash({ text: body.message || "Refresh failed", error: true });
+      }
+    } catch (e) {
+      setFlash({ text: `Refresh failed: ${String(e)}`, error: true });
+    } finally {
+      setRefreshing(false);
+      window.setTimeout(() => setFlash(null), 6000);
+    }
+  }
 
   const selected = entries.find((e) => e.id === selectedId) ?? entries[0];
   const track = selected.session.track;
@@ -83,7 +105,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
       saveStyleOverrides(next);
       return next;
     });
-    setFlash(`${label} applied to all ${entries.length} posters`);
+    setFlash({ text: `${label} applied to all ${entries.length} posters` });
     window.setTimeout(() => setFlash(null), 2200);
   }
   const isOverridden = Boolean(overrides[selected.id]);
@@ -108,16 +130,32 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
         <header className="mb-5 flex items-end justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-bold">Poster Studio</h1>
-            <p className="text-sm text-white/60">Project AIR · slot-based TV poster system · color coordinated by track</p>
+            <p className="text-sm text-white/60">
+              Project AIR · slot-based TV poster system · synced{" "}
+              {new Date(schedule.lastSynced).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
+            </p>
           </div>
-          <Link href="/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
-            Render queue → 1920×1080
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={refreshFromDrop}
+              disabled={refreshing}
+              className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 disabled:opacity-50"
+            >
+              {refreshing ? "Refreshing…" : "↻ Refresh from The Drop"}
+            </button>
+            <Link href="/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
+              Render queue → 1920×1080
+            </Link>
+          </div>
         </header>
 
         {flash && (
-          <div className="mb-4 rounded-lg px-4 py-2 text-sm font-medium text-[#111]" style={{ background: accent }}>
-            ✓ {flash}
+          <div
+            className="mb-4 rounded-lg px-4 py-2 text-sm font-medium"
+            style={{ background: flash.error ? "#7f1d1d" : accent, color: flash.error ? "#fff" : "#111" }}
+          >
+            {flash.error ? "⚠ " : "✓ "}
+            {flash.text}
           </div>
         )}
 
