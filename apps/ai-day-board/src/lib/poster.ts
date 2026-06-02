@@ -189,6 +189,11 @@ const TRACK_TOP: Record<TrackId, TopStyle> = {
 export const RING_SIZE = { min: 0.6, max: 1.6, default: 1 };
 export const TOP_SIZE = { min: 0.6, max: 1.8, default: 1 };
 export const PORTRAIT_SIZE = { min: 0.6, max: 1.6, default: 1 };
+export const SQUIGGLE_SIZE = { min: 0.4, max: 2, default: 1 };
+
+// Position offsets, expressed in 1920x1080 design pixels (added via transform).
+export const OFFSET_X = { min: -800, max: 800, default: 0, step: 10 };
+export const OFFSET_Y = { min: -500, max: 500, default: 0, step: 10 };
 
 /** The full set of design choices for one session's poster. */
 export interface SessionStyle {
@@ -198,6 +203,14 @@ export interface SessionStyle {
   ringSize: number;
   topSize: number;
   portraitSize: number;
+  // decorative element positions (design px)
+  topOffsetX: number;
+  topOffsetY: number;
+  bottomOffsetX: number;
+  bottomOffsetY: number;
+  squiggleSize: number;
+  squiggleOffsetX: number;
+  squiggleOffsetY: number;
   site: SiteId;
   slots: PosterSlots;
 }
@@ -211,6 +224,13 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     ringSize: RING_SIZE.default,
     topSize: TOP_SIZE.default,
     portraitSize: PORTRAIT_SIZE.default,
+    topOffsetX: 0,
+    topOffsetY: 0,
+    bottomOffsetX: 0,
+    bottomOffsetY: 0,
+    squiggleSize: SQUIGGLE_SIZE.default,
+    squiggleOffsetX: 0,
+    squiggleOffsetY: 0,
     site: "brookhaven",
     slots: { ...DEFAULT_SLOTS },
   };

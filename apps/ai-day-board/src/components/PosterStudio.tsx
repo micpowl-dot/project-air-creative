@@ -11,6 +11,9 @@ import {
   RING_SIZE,
   TOP_SIZE,
   PORTRAIT_SIZE,
+  SQUIGGLE_SIZE,
+  OFFSET_X,
+  OFFSET_Y,
   getVariant,
   posterEntriesFromSchedule,
   sessionToPoster,
@@ -129,6 +132,13 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                 ringSize={style.ringSize}
                 topSize={style.topSize}
                 portraitSize={style.portraitSize}
+                topOffsetX={style.topOffsetX}
+                topOffsetY={style.topOffsetY}
+                bottomOffsetX={style.bottomOffsetX}
+                bottomOffsetY={style.bottomOffsetY}
+                squiggleSize={style.squiggleSize}
+                squiggleOffsetX={style.squiggleOffsetX}
+                squiggleOffsetY={style.squiggleOffsetY}
               />
             </div>
 
@@ -276,6 +286,57 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
               />
             </Control>
 
+            <NumSlider
+              label="Top-edge X" accent={variant.accent} unit="px" range={OFFSET_X}
+              value={style.topOffsetX}
+              onChange={(v) => patch({ topOffsetX: v })}
+              onAll={() => applyToAll({ topOffsetX: style.topOffsetX }, `Top-edge X ${style.topOffsetX}px`)}
+            />
+            <NumSlider
+              label="Top-edge Y" accent={variant.accent} unit="px" range={OFFSET_Y}
+              value={style.topOffsetY}
+              onChange={(v) => patch({ topOffsetY: v })}
+              onAll={() => applyToAll({ topOffsetY: style.topOffsetY }, `Top-edge Y ${style.topOffsetY}px`)}
+            />
+
+            <div className="border-t border-white/10 pt-1 text-[10px] uppercase tracking-widest text-white/30">
+              Bottom-left graphic
+            </div>
+            <NumSlider
+              label="Bottom-left X" accent={variant.accent} unit="px" range={OFFSET_X}
+              value={style.bottomOffsetX}
+              onChange={(v) => patch({ bottomOffsetX: v })}
+              onAll={() => applyToAll({ bottomOffsetX: style.bottomOffsetX }, `Bottom-left X ${style.bottomOffsetX}px`)}
+            />
+            <NumSlider
+              label="Bottom-left Y" accent={variant.accent} unit="px" range={OFFSET_Y}
+              value={style.bottomOffsetY}
+              onChange={(v) => patch({ bottomOffsetY: v })}
+              onAll={() => applyToAll({ bottomOffsetY: style.bottomOffsetY }, `Bottom-left Y ${style.bottomOffsetY}px`)}
+            />
+
+            <div className="border-t border-white/10 pt-1 text-[10px] uppercase tracking-widest text-white/30">
+              Squiggle
+            </div>
+            <NumSlider
+              label="Squiggle size" accent={variant.accent} unit="x" range={SQUIGGLE_SIZE} step={0.05}
+              value={style.squiggleSize}
+              onChange={(v) => patch({ squiggleSize: v })}
+              onAll={() => applyToAll({ squiggleSize: style.squiggleSize }, `Squiggle size ${style.squiggleSize.toFixed(2)}×`)}
+            />
+            <NumSlider
+              label="Squiggle X" accent={variant.accent} unit="px" range={OFFSET_X}
+              value={style.squiggleOffsetX}
+              onChange={(v) => patch({ squiggleOffsetX: v })}
+              onAll={() => applyToAll({ squiggleOffsetX: style.squiggleOffsetX }, `Squiggle X ${style.squiggleOffsetX}px`)}
+            />
+            <NumSlider
+              label="Squiggle Y" accent={variant.accent} unit="px" range={OFFSET_Y}
+              value={style.squiggleOffsetY}
+              onChange={(v) => patch({ squiggleOffsetY: v })}
+              onAll={() => applyToAll({ squiggleOffsetY: style.squiggleOffsetY }, `Squiggle Y ${style.squiggleOffsetY}px`)}
+            />
+
             <Control
               label="Location (drives room)"
               onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}
@@ -345,6 +406,43 @@ function Control({
       </div>
       {children}
     </section>
+  );
+}
+
+function NumSlider({
+  label,
+  value,
+  range,
+  step = 0.05,
+  unit,
+  accent,
+  onChange,
+  onAll,
+}: {
+  label: string;
+  value: number;
+  range: { min: number; max: number };
+  step?: number;
+  unit: "px" | "x";
+  accent: string;
+  onChange: (v: number) => void;
+  onAll: () => void;
+}) {
+  const effStep = step ?? (unit === "px" ? 10 : 0.05);
+  const shown = unit === "px" ? `${value}px` : `${value.toFixed(2)}×`;
+  return (
+    <Control label={`${label} — ${shown}`} onAll={onAll}>
+      <input
+        type="range"
+        min={range.min}
+        max={range.max}
+        step={effStep}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full"
+        style={{ accentColor: accent }}
+      />
+    </Control>
   );
 }
 

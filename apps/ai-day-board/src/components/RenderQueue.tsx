@@ -85,6 +85,13 @@ function RenderCard({
               ringSize={style.ringSize}
               topSize={style.topSize}
               portraitSize={style.portraitSize}
+              topOffsetX={style.topOffsetX}
+              topOffsetY={style.topOffsetY}
+              bottomOffsetX={style.bottomOffsetX}
+              bottomOffsetY={style.bottomOffsetY}
+              squiggleSize={style.squiggleSize}
+              squiggleOffsetX={style.squiggleOffsetX}
+              squiggleOffsetY={style.squiggleOffsetY}
             />
           </div>
         </div>

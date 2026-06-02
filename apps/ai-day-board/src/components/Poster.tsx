@@ -14,6 +14,7 @@ import {
   RING_SIZE,
   TOP_SIZE,
   PORTRAIT_SIZE,
+  SQUIGGLE_SIZE,
 } from "@/lib/poster";
 import { AiDayLogo } from "./AiDayLogo";
 
@@ -103,6 +104,13 @@ export function Poster({
   ringSize = RING_SIZE.default,
   topSize = TOP_SIZE.default,
   portraitSize = PORTRAIT_SIZE.default,
+  topOffsetX = 0,
+  topOffsetY = 0,
+  bottomOffsetX = 0,
+  bottomOffsetY = 0,
+  squiggleSize = SQUIGGLE_SIZE.default,
+  squiggleOffsetX = 0,
+  squiggleOffsetY = 0,
 }: {
   data: PosterData;
   variant: PosterVariant;
@@ -112,6 +120,13 @@ export function Poster({
   ringSize?: number;
   topSize?: number;
   portraitSize?: number;
+  topOffsetX?: number;
+  topOffsetY?: number;
+  bottomOffsetX?: number;
+  bottomOffsetY?: number;
+  squiggleSize?: number;
+  squiggleOffsetX?: number;
+  squiggleOffsetY?: number;
 }) {
   const mono = "var(--font-poster-mono)";
   const display = "var(--font-poster-display)";
@@ -139,6 +154,7 @@ export function Poster({
               width: pctX(1019 * topSize),
               height: pctY(300 * topSize),
               objectPosition: "right top",
+              transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})`,
             }}
           />
         )}
@@ -149,7 +165,14 @@ export function Poster({
           src="/poster-elements/bottom-left/quarter-circles.png"
           alt=""
           className="absolute object-contain object-left-bottom"
-          style={{ left: 0, bottom: 0, width: pctX(986), height: pctY(365), opacity: 0.9 }}
+          style={{
+            left: 0,
+            bottom: 0,
+            width: pctX(986),
+            height: pctY(365),
+            opacity: 0.9,
+            transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})`,
+          }}
         />
 
         {/* mid squiggle */}
@@ -158,7 +181,13 @@ export function Poster({
           src="/poster-elements/mid/squiggle.png"
           alt=""
           className="absolute object-contain"
-          style={{ left: pctX(-120), top: pctY(905), width: pctX(1100), height: pctY(240) }}
+          style={{
+            left: pctX(-120),
+            top: pctY(905),
+            width: pctX(1100 * squiggleSize),
+            height: pctY(240 * squiggleSize),
+            transform: `translate(${c(squiggleOffsetX)}, ${c(squiggleOffsetY)})`,
+          }}
         />
 
         {/* center ring badge — scalable around its center */}
@@ -208,7 +237,7 @@ export function Poster({
             {(slots.location || slots.room || slots.time) && (
               <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(36), color: variant.light, marginTop: c(8), letterSpacing: c(1) }}>
                 {[
-                  slots.location && data.location && `📍 ${data.location}`,
+                  slots.location && data.location && data.location,
                   slots.room && data.room && `ROOM ${data.room}`,
                   slots.time && data.time && data.time,
                 ]
