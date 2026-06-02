@@ -220,11 +220,23 @@ export function Poster({
         <div className="absolute flex" style={{ left: pctX(50), top: pctY(150), width: pctX(820), gap: c(20) }}>
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
           <div className="flex flex-col" style={{ gap: c(14) }}>
-            {slots.name && (
-              <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(120), lineHeight: 0.92, color: variant.ink }}>
-                {data.names.length > 1 ? data.names.join(" + ") : data.name}
-              </div>
-            )}
+            {slots.name &&
+              (() => {
+                const names = data.names.length ? data.names : [data.name];
+                // shrink type as more presenters are added; each full name
+                // stays on one line (only the " + " separators may wrap)
+                const sizePx = names.length >= 3 ? 78 : names.length === 2 ? 96 : 120;
+                return (
+                  <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(sizePx), lineHeight: 0.95, color: variant.ink }}>
+                    {names.map((nm, i) => (
+                      <span key={nm + i}>
+                        <span style={{ whiteSpace: "nowrap" }}>{nm}</span>
+                        {i < names.length - 1 ? <span> + </span> : null}
+                      </span>
+                    ))}
+                  </div>
+                );
+              })()}
             {slots.role && data.role && (
               <div style={{ fontFamily: display, fontSize: c(46), color: variant.ink }}>{data.role}</div>
             )}
