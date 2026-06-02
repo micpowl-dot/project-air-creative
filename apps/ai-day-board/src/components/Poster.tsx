@@ -30,6 +30,16 @@ const pctY = (px: number) => `${((px / BASE_H) * 100).toFixed(3)}%`;
 const RING_CENTER = { x: 1347.5, y: 595.5 };
 const RING_BASE = 875;
 
+/** Perceived-luminance check so we can pick a contrasting color. */
+function isDark(hex: string): boolean {
+  const h = hex.replace("#", "");
+  if (h.length < 6) return true;
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return 0.299 * r + 0.587 * g + 0.114 * b < 140;
+}
+
 /** One square headshot with initials fallback (no rounded corners). */
 function HeadshotSquare({ name, ink }: { name: string; ink: string }) {
   const r = resolveHeadshot(name);
@@ -103,6 +113,7 @@ export function Poster({
   topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
   topSize = TOP_SIZE.default,
+  topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   topOffsetX = 0,
   topOffsetY = 0,
@@ -119,6 +130,7 @@ export function Poster({
   topStyle?: TopStyle;
   ringSize?: number;
   topSize?: number;
+  topFlip?: boolean;
   portraitSize?: number;
   topOffsetX?: number;
   topOffsetY?: number;
@@ -154,7 +166,7 @@ export function Poster({
               width: pctX(1019 * topSize),
               height: pctY(300 * topSize),
               objectPosition: "right top",
-              transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})`,
+              transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})${topFlip ? " scaleX(-1)" : ""}`,
             }}
           />
         )}
@@ -226,12 +238,14 @@ export function Poster({
                 // shrink type as more presenters are added; each full name
                 // stays on one line (only the " + " separators may wrap)
                 const sizePx = names.length >= 3 ? 78 : names.length === 2 ? 96 : 120;
+                // the "+" separator takes the opposite of the name color
+                const plusColor = isDark(variant.ink) ? "#ffffff" : "#000000";
                 return (
                   <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(sizePx), lineHeight: 0.95, color: variant.ink }}>
                     {names.map((nm, i) => (
                       <span key={nm + i}>
                         <span style={{ whiteSpace: "nowrap" }}>{nm}</span>
-                        {i < names.length - 1 ? <span> + </span> : null}
+                        {i < names.length - 1 ? <span style={{ color: plusColor }}> + </span> : null}
                       </span>
                     ))}
                   </div>

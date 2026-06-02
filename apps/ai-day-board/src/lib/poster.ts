@@ -202,6 +202,7 @@ export interface SessionStyle {
   topStyle: TopStyle;
   ringSize: number;
   topSize: number;
+  topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
   // decorative element positions (design px)
   topOffsetX: number;
@@ -223,6 +224,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topStyle: TRACK_TOP[track],
     ringSize: RING_SIZE.default,
     topSize: TOP_SIZE.default,
+    topFlip: false,
     portraitSize: PORTRAIT_SIZE.default,
     topOffsetX: 0,
     topOffsetY: 0,

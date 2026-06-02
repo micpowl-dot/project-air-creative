@@ -133,6 +133,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                 topStyle={style.topStyle}
                 ringSize={style.ringSize}
                 topSize={style.topSize}
+                topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
                 topOffsetX={style.topOffsetX}
                 topOffsetY={style.topOffsetY}
@@ -219,6 +220,12 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                 <Chips options={TOP_STYLES as readonly string[]} value={style.topStyle} accent={accent} onChange={(v) => patch({ topStyle: v as TopStyle })} />
               </Row>
               {sizeRow("topSize", "Size", TOP_SIZE, "x", "Top size")}
+              <Row label="Flip" onAll={() => applyToAll({ topFlip: style.topFlip }, `Top-edge flip ${style.topFlip ? "on" : "off"}`)}>
+                <label className="flex cursor-pointer items-center gap-2 text-sm">
+                  <input type="checkbox" checked={style.topFlip} onChange={() => patch({ topFlip: !style.topFlip })} />
+                  <span className="text-white/70">Mirror horizontally</span>
+                </label>
+              </Row>
               {sizeRow("topOffsetX", "X", OFFSET_X, "px", "Top-edge X")}
               {sizeRow("topOffsetY", "Y", OFFSET_Y, "px", "Top-edge Y")}
             </Group>
