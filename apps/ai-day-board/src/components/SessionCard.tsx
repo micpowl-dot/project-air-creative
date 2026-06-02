@@ -68,10 +68,22 @@ export function SessionCard({
               </div>
             ) : null
           )}
-          {session.rooms.remote && (
-            <div className="inline" style={{ color: accent }}>
-              ● Remote (Meet)
-            </div>
+          {session.rooms.meetUrl ? (
+            <a
+              href={session.rooms.meetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline underline decoration-dotted underline-offset-2"
+              style={{ color: accent }}
+            >
+              ● Join Meet
+            </a>
+          ) : (
+            session.rooms.remote && (
+              <div className="inline" style={{ color: accent }}>
+                ● Remote (Meet)
+              </div>
+            )
           )}
         </div>
       </dl>

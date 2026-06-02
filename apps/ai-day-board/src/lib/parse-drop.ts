@@ -31,16 +31,25 @@ export function parseDropSchedule(model: unknown): Schedule {
   return gridToSchedule(buildGrid(html));
 }
 
-/** Table -> array of rows; each cell is an array of trimmed text lines. */
-function buildGrid(html: string): string[][][] {
+interface Cell {
+  lines: string[];
+  meetUrl?: string;
+}
+
+/** Table -> rows of cells; each cell carries text lines + its Meet link. */
+function buildGrid(html: string): Cell[][] {
   const root = parse(html);
   return root.querySelectorAll("tr").map((tr) =>
-    tr.querySelectorAll("th,td").map((td) =>
-      td.structuredText
-        .split("\n")
-        .map((l) => l.replace(/\s+/g, " ").trim())
-        .filter(Boolean)
-    )
+    tr.querySelectorAll("th,td").map((td) => {
+      const href = td.querySelector("a[href]")?.getAttribute("href");
+      return {
+        lines: td.structuredText
+          .split("\n")
+          .map((l) => l.replace(/\s+/g, " ").trim())
+          .filter(Boolean),
+        meetUrl: href ? href.replace(/^http:/, "https:") : undefined,
+      };
+    })
   );
 }
 
@@ -84,11 +93,16 @@ function parseRoomsLoose(text: string): RoomSet {
   return rooms;
 }
 
-function parseSession(track: TrackId, lines: string[]): Session | null {
+function parseSession(track: TrackId, cell: Cell): Session | null {
+  const lines = cell.lines;
   if (!lines.length) return null;
   const title = lines[0];
   const instructors = parseInstructors(lines);
   const rooms = parseRoomsColon(lines);
+  if (cell.meetUrl) {
+    rooms.meetUrl = cell.meetUrl;
+    rooms.remote = true;
+  }
   // description = lines after the title, before the "-", instructor, room or remote markers
   const stop = (l: string) => l === "-" || /^(instructors?|brookhaven|andover|new york|remote)\s*:/i.test(l);
   const desc: string[] = [];
@@ -106,37 +120,42 @@ function parseSession(track: TrackId, lines: string[]): Session | null {
   };
 }
 
-function gridToSchedule(grid: string[][][]): Schedule {
+function gridToSchedule(grid: Cell[][]): Schedule {
+  const empty: Cell = { lines: [] };
   // Header row builds tracks (fallback to defaults).
   const header = grid[0] ?? [];
   const tracks = TRACK_ORDER.map((id, i) => {
-    const cell = header[i + 1] ?? [];
-    return { id, name: cell[0] ?? id.toUpperCase(), subtitle: cell[1] ?? "" };
+    const lines = (header[i + 1] ?? empty).lines;
+    return { id, name: lines[0] ?? id.toUpperCase(), subtitle: lines[1] ?? "" };
   });
 
   const slots: ScheduleSlot[] = [];
   for (let r = 1; r < grid.length; r++) {
     const row = grid[r];
     if (!row.length) continue;
-    const time = (row[0] ?? [])[0] ?? "";
+    const time = (row[0] ?? empty).lines[0] ?? "";
     if (!time) continue;
 
     if (row.length >= 4) {
       const sessions: Session[] = [];
       TRACK_ORDER.forEach((id, i) => {
-        const s = parseSession(id, row[i + 1] ?? []);
+        const s = parseSession(id, row[i + 1] ?? empty);
         if (s) sessions.push(s);
       });
       slots.push({ time, kind: "sessions", sessions });
     } else {
-      const cell = row[1] ?? [];
-      const text = cell.join(" ");
-      // title = first line minus any "(people)"; people from the parenthetical
-      const first = cell[0] ?? "";
+      const cell = row[1] ?? empty;
+      const text = cell.lines.join(" ");
+      const first = cell.lines[0] ?? "";
       const m = first.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
       const title = (m ? m[1] : first).trim();
       const people = m ? m[2].split(/\s*\+\s*|,\s*/).map((p) => p.trim()).filter(Boolean) : [];
-      slots.push({ time, kind: "full", title, people, rooms: parseRoomsLoose(text) });
+      const rooms = parseRoomsLoose(text);
+      if (cell.meetUrl) {
+        rooms.meetUrl = cell.meetUrl;
+        rooms.remote = true;
+      }
+      slots.push({ time, kind: "full", title, people, rooms });
     }
   }
 

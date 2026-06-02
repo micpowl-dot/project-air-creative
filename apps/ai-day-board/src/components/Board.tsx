@@ -46,6 +46,17 @@ function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
               .join("  |  ")}
           </p>
         )}
+      {slot.rooms?.meetUrl && (
+        <a
+          href={slot.rooms.meetUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-block text-xs underline decoration-dotted underline-offset-2"
+          style={{ color: "var(--accent)" }}
+        >
+          ● Join Meet
+        </a>
+      )}
     </div>
   );
 }

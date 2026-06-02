@@ -16,6 +16,7 @@ export interface RoomSet {
   andover?: string;
   newYork?: string;
   remote?: boolean; // true when a Google Meet link is offered
+  meetUrl?: string; // the actual Google Meet join link
 }
 
 export interface Session {
