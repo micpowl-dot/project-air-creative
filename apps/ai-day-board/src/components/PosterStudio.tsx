@@ -126,11 +126,11 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
   );
 
   return (
-    <div className="min-h-screen bg-[#1b1b1b] text-[#f5f3ee]">
+    <div className="min-h-screen bg-[#0D142A] text-[#EDEBE4]">
       <div className="mx-auto max-w-[1400px] px-6 py-6">
         <header className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-3xl font-bold">Poster Studio</h1>
+            <h1 className="font-display text-3xl font-bold text-[#C8910A]">Poster Studio</h1>
             <p className="text-sm text-white/60">
               Project AIR · slot-based TV poster system · synced{" "}
               {new Date(schedule.lastSynced).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
