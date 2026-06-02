@@ -135,6 +135,7 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
                 topSize={style.topSize}
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
+                useAltHeadshot={style.useAltHeadshot}
                 topOffsetX={style.topOffsetX}
                 topOffsetY={style.topOffsetY}
                 bottomOffsetX={style.bottomOffsetX}
@@ -213,6 +214,12 @@ export function PosterStudio({ schedule }: { schedule: Schedule }) {
 
             <Group title="Headshot">
               {sizeRow("portraitSize", "Size", PORTRAIT_SIZE, "x", "Headshot size")}
+              <Row label="Alt" onAll={() => applyToAll({ useAltHeadshot: style.useAltHeadshot }, `Alternate headshot ${style.useAltHeadshot ? "on" : "off"}`)}>
+                <label className="flex cursor-pointer items-center gap-2 text-sm">
+                  <input type="checkbox" checked={style.useAltHeadshot} onChange={() => patch({ useAltHeadshot: !style.useAltHeadshot })} />
+                  <span className="text-white/70">Use alternate art</span>
+                </label>
+              </Row>
             </Group>
 
             <Group title="Top edge">

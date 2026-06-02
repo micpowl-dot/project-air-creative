@@ -41,8 +41,8 @@ function isDark(hex: string): boolean {
 }
 
 /** One square headshot with initials fallback (no rounded corners). */
-function HeadshotSquare({ name, ink }: { name: string; ink: string }) {
-  const r = resolveHeadshot(name);
+function HeadshotSquare({ name, ink, alt }: { name: string; ink: string; alt?: boolean }) {
+  const r = resolveHeadshot(name, alt);
   const [errored, setErrored] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -82,7 +82,7 @@ function HeadshotSquare({ name, ink }: { name: string; ink: string }) {
 
 /** 1–3 headshots laid out as squares, centered on the ring badge.
  *  The whole group (squares + the gap between them) scales as a unit. */
-function PortraitGroup({ names, ink, scale }: { names: string[]; ink: string; scale: number }) {
+function PortraitGroup({ names, ink, scale, alt }: { names: string[]; ink: string; scale: number; alt?: boolean }) {
   const list = names.slice(0, 3);
   const n = Math.max(1, list.length);
   // base square size + gap per count, then scaled together as a unit
@@ -98,7 +98,7 @@ function PortraitGroup({ names, ink, scale }: { names: string[]; ink: string; sc
     >
       {list.map((person, i) => (
         <div key={person + i} style={{ width: c(cfg.size), height: c(cfg.size) }}>
-          <HeadshotSquare name={person} ink={ink} />
+          <HeadshotSquare name={person} ink={ink} alt={alt} />
         </div>
       ))}
     </div>
@@ -115,6 +115,7 @@ export function Poster({
   topSize = TOP_SIZE.default,
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
+  useAltHeadshot = false,
   topOffsetX = 0,
   topOffsetY = 0,
   bottomOffsetX = 0,
@@ -132,6 +133,7 @@ export function Poster({
   topSize?: number;
   topFlip?: boolean;
   portraitSize?: number;
+  useAltHeadshot?: boolean;
   topOffsetX?: number;
   topOffsetY?: number;
   bottomOffsetX?: number;
@@ -225,7 +227,7 @@ export function Poster({
 
         {/* Portrait(s) over the ring badge */}
         {slots.portrait && (
-          <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} scale={portraitSize} />
+          <PortraitGroup names={data.names.length ? data.names : [data.name]} ink={variant.ink} scale={portraitSize} alt={useAltHeadshot} />
         )}
 
         {/* Speaker stack */}

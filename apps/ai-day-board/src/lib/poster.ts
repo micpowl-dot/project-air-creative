@@ -204,6 +204,7 @@ export interface SessionStyle {
   topSize: number;
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
+  useAltHeadshot: boolean; // use the alternate headshot art
   // decorative element positions (design px)
   topOffsetX: number;
   topOffsetY: number;
@@ -226,6 +227,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topSize: TOP_SIZE.default,
     topFlip: false,
     portraitSize: PORTRAIT_SIZE.default,
+    useAltHeadshot: false,
     topOffsetX: 0,
     topOffsetY: 0,
     bottomOffsetX: 0,

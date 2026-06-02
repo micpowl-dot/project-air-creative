@@ -55,16 +55,18 @@ export function initialsOf(name: string): string {
  * is PNG). If a person is in HEADSHOT_MISSING we return src=null so the UI
  * shows the initials placeholder.
  */
-export function resolveHeadshot(name: string): HeadshotResolution {
+export function resolveHeadshot(name: string, alt = false): HeadshotResolution {
   const initials = initialsOf(name);
   if (HEADSHOT_MISSING.includes(name)) {
     return { name, src: null, initials, missing: true, overridden: false };
   }
   const override = HEADSHOT_OVERRIDES[name];
   const base = override ?? slugify(name);
+  // Alternate art lives in /public/headshots/alternates/<slug>.png
+  const dir = alt ? "/headshots/alternates/" : "/headshots/";
   return {
     name,
-    src: `/headshots/${base}.png`,
+    src: `${dir}${base}.png`,
     initials,
     missing: false,
     overridden: Boolean(override),
