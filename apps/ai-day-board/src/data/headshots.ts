@@ -24,7 +24,7 @@ export const HEADSHOT_OVERRIDES: Record<string, string> = {
  * People in the chart with no headshot in the Headshots set yet.
  * They render as a branded initials placeholder until art is added.
  */
-export const HEADSHOT_MISSING: string[] = ["Tyler Steben", "Kate Collins"];
+export const HEADSHOT_MISSING: string[] = ["Kate Collins"];
 
 /** Lowercase, strip accents/punctuation, collapse to a hyphen slug. */
 export function slugify(name: string): string {
@@ -53,9 +53,9 @@ export function initialsOf(name: string): string {
 }
 
 /**
- * Resolve a person to a headshot path. Extension is fixed to .jpg because the
- * pipeline normalizes every export to jpg. If a person is in HEADSHOT_MISSING
- * we return src=null so the UI shows the initials placeholder.
+ * Resolve a person to a headshot path. Extension is fixed to .png (the art set
+ * is PNG). If a person is in HEADSHOT_MISSING we return src=null so the UI
+ * shows the initials placeholder.
  */
 export function resolveHeadshot(name: string): HeadshotResolution {
   const initials = initialsOf(name);
