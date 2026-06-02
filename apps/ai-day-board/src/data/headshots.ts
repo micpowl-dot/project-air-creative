@@ -1,38 +1,30 @@
 // Headshot resolution: map a person's name (as it appears in the chart) to an
-// image in /public/headshots. The headshot pipeline (Phase 4) downloads every
-// photo from the "AI Day Headshots - Export" Drive folder and normalizes it to
-// /public/headshots/<slug>.jpg, where <slug> = slugify(chartName).
+// image in /public/headshots. Source art is the branded illustrated headshots
+// from "Project Air elements/Headshots", copied to /public/headshots/<slug>.png
+// where <slug> = slugify(personName).
 //
-// Reality from the Drive folder: filenames are inconsistent (spelling variants,
-// nicknames, first-name-only, mixed formats incl. HEIC, duplicates). So the
-// resolver is: OVERRIDES first, then auto-match by slug, then a branded
-// initials placeholder. Editors can correct any single match in OVERRIDES
-// without touching code elsewhere.
+// A few chart names don't slugify to the art filename (spelling variants,
+// nicknames), so the resolver is: OVERRIDES first, then auto-match by slug,
+// then a branded initials placeholder for anyone without art. Editors can
+// correct any single match in OVERRIDES without touching code elsewhere.
 
-/** chartName -> explicit file basename (no extension) under /public/headshots. */
+/** chartName -> explicit file basename (no extension) under /public/headshots.
+ * Only needed where the chart name doesn't slugify to the headshot filename
+ * (from the Project Air elements/Headshots set). */
 export const HEADSHOT_OVERRIDES: Record<string, string> = {
-  // Spelling mismatch: chart says "Eric Peterson", photo is "Erik Petersen".
-  "Eric Peterson": "eric-peterson",
-  // Nickname: chart says "Sam Gates", photo is "Samantha Gates".
-  "Sam Gates": "sam-gates",
-  // First-name-only source files map cleanly to the slug; listed for clarity.
-  "Tyler Steben": "tyler-steben",
-  "Shannon King": "shannon-king",
-  "Miguel Gervassi": "miguel-gervassi",
-  // HEIC source ("Thomas_Hinson.HEIC") gets converted to jpg in the pipeline.
-  "Thomas Hinson": "thomas-hinson",
+  // Spelling mismatch: chart says "Eric Peterson", art is "Erik Petersen".
+  "Eric Peterson": "erik-petersen",
+  // Nickname: chart says "Sam Gates", art is "Samantha Gates".
+  "Sam Gates": "samantha-gates",
+  // Spelling mismatch: chart says "Michelle Kilroy", art is "Michelle Killroy".
+  "Michelle Kilroy": "michelle-killroy",
 };
 
 /**
- * People in the chart with no headshot found in the Drive folder yet.
- * They render as a branded initials placeholder until a photo is added.
+ * People in the chart with no headshot in the Headshots set yet.
+ * They render as a branded initials placeholder until art is added.
  */
-export const HEADSHOT_MISSING: string[] = [
-  "James Belanger",
-  "Michelle Kilroy",
-  "Matthew Drooker",
-  "Rohit Agarwal",
-];
+export const HEADSHOT_MISSING: string[] = ["Tyler Steben", "Kate Collins"];
 
 /** Lowercase, strip accents/punctuation, collapse to a hyphen slug. */
 export function slugify(name: string): string {
@@ -74,7 +66,7 @@ export function resolveHeadshot(name: string): HeadshotResolution {
   const base = override ?? slugify(name);
   return {
     name,
-    src: `/headshots/${base}.jpg`,
+    src: `/headshots/${base}.png`,
     initials,
     missing: false,
     overridden: Boolean(override),
