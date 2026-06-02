@@ -26,6 +26,8 @@ Until those two are locked, no posters, swag, or templates should go into produc
 | Resource | Link |
 |----------|------|
 | Brief / Tentative Timeline / Swag Tracker | [Google Sheets](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0) |
+| Speaker headshots (×21 — Ambassador + Executive, processed & ready) | [Figma — Project AIR Design System, node 600:8505](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR---Design-System?node-id=600-8505) |
+| PPT template (R1C final) | [Google Slides](https://docs.google.com/presentation/d/1V882MEREe4vpXvjiSu1Idw6VDSMNUZEI/edit?usp=sharing) · [history doc](docs/ppt-template-history.md) |
 
 ---
 
@@ -86,7 +88,7 @@ Nothing downstream starts until this phase ships.
 | Task | ID | Owner | Internal Due | Status |
 |------|----|-------|-------------|--------|
 | Ambassador list + intl employee numbers for swag | — | ⚠️ TBD — unassigned | **May 12** | ⬜ |
-| Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ⬜ |
+| Maigh shares Ambassador + Executive headshots (×21 total) | — | Maigh Houlihan | **May 13** | ✅ *(processed + live in Figma — see [Project AIR — Design System, node 600:8505](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR---Design-System?node-id=600-8505))* |
 | Camille shares swag product recommendation selects + mocks | — | Camille Nettles | **May 13** | ✅ *(sent to Maigh May 15)* |
 | Camille sends swag pricing + item recommendations to Maigh for review | — | Camille Nettles | **May 15** | ✅ |
 | Maigh reviews swag recommendations + confirms Tier 1 / 2 / 3 selections | — | Maigh Houlihan | **Mon May 18** | ⬜ |
