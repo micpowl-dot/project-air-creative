@@ -25,53 +25,22 @@ export const SITES: { id: SiteId; label: string }[] = [
 export interface PosterVariant {
   id: string;
   name: string;
-  bg: string; // primary background
-  accent: string; // highlight (bars, tag, accents)
-  ink: string; // primary text / contrast motifs
-  light: string; // light text / motifs
-  /** colors used for the concentric ring badge, outermost -> in. */
-  ringColors: string[];
+  bg: string; // role: primary (background)
+  accent: string; // role: accent (bars, tag, AI DAY logo dynamic color)
+  ink: string; // role: contrast (name/title text, logo dark paths)
+  light: string; // role: light (date, info row, logo light paths)
 }
 
-// "Magenta" is the exact Figma variant. The others reuse the same 4-token
-// structure in the festival expansion direction (see brand-guidelines.md).
+// Exact swatch collections from the Project AIR design system
+// (Figma cN02srfPOLg8jLZRI9iMiB — palette/<name>). Roles: primary, accent,
+// contrast, light. Note: "contrast" is navy #0D142A ("our blue") for most,
+// not pure black.
 export const POSTER_VARIANTS: PosterVariant[] = [
-  {
-    id: "magenta",
-    name: "Magenta",
-    bg: "#fb00ff",
-    accent: "#ffe500",
-    ink: "#000000",
-    light: "#ffffff",
-    ringColors: ["#000000", "#ffffff", "#000000", "#ffffff", "#000000"],
-  },
-  {
-    id: "cyan",
-    name: "Electric Cyan",
-    bg: "#14c8e6",
-    accent: "#ff2e9a",
-    ink: "#06222b",
-    light: "#ffffff",
-    ringColors: ["#06222b", "#ffffff", "#06222b", "#ffffff", "#06222b"],
-  },
-  {
-    id: "amber",
-    name: "Hot Amber",
-    bg: "#ff9e1b",
-    accent: "#2b1b6b",
-    ink: "#1a1003",
-    light: "#fff7e8",
-    ringColors: ["#1a1003", "#fff7e8", "#1a1003", "#fff7e8", "#1a1003"],
-  },
-  {
-    id: "purple",
-    name: "Deep Purple",
-    bg: "#5b16a8",
-    accent: "#ffe500",
-    ink: "#0e0320",
-    light: "#f3e8ff",
-    ringColors: ["#0e0320", "#f3e8ff", "#0e0320", "#f3e8ff", "#0e0320"],
-  },
+  { id: "magenta", name: "Magenta", bg: "#FB00FF", accent: "#FFE500", ink: "#0D142A", light: "#FFFFFF" },
+  { id: "cyan", name: "Cyan", bg: "#0062FF", accent: "#67FAE0", ink: "#0D142A", light: "#FFFFFF" },
+  { id: "violet", name: "Violet", bg: "#46125B", accent: "#FFDC14", ink: "#9E5BB9", light: "#FFFFFF" },
+  { id: "amber", name: "Amber", bg: "#FF9500", accent: "#6B0800", ink: "#BC1100", light: "#FFE8C1" },
+  { id: "forest", name: "Forest", bg: "#1F7A4D", accent: "#76D662", ink: "#0D142A", light: "#FFFFFF" },
 ];
 
 export function getVariant(id: string): PosterVariant {
