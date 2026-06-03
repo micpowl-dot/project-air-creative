@@ -72,3 +72,24 @@ export function resolveHeadshot(name: string, alt = false): HeadshotResolution {
     overridden: Boolean(override),
   };
 }
+
+/**
+ * Resolve a person to their TRANSPARENT cutout (person only, no background).
+ * Lives in /public/headshots/cutout/<slug>.png. Used by the poster's two-layer
+ * portrait (selectable background + cutout on top).
+ */
+export function resolveCutout(name: string): HeadshotResolution {
+  const initials = initialsOf(name);
+  if (HEADSHOT_MISSING.includes(name)) {
+    return { name, src: null, initials, missing: true, overridden: false };
+  }
+  const override = HEADSHOT_OVERRIDES[name];
+  const base = override ?? slugify(name);
+  return {
+    name,
+    src: `/headshots/cutout/${base}.png`,
+    initials,
+    missing: false,
+    overridden: Boolean(override),
+  };
+}

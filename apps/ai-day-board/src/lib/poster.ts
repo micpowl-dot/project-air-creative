@@ -54,6 +54,22 @@ export function getVariant(id: string): PosterVariant {
   return POSTER_VARIANTS.find((v) => v.id === id) ?? POSTER_VARIANTS[0];
 }
 
+// Two-layer headshot: a transparent cutout over a selectable patterned
+// background (files in /public/headshots/bg/<id>.png). `swatch` is the small
+// color chip shown in the picker.
+export const HEADSHOT_BACKGROUNDS: { id: string; label: string; swatch: string }[] = [
+  { id: "magenta", label: "Magenta", swatch: "#FB00FF" },
+  { id: "magenta-accent", label: "Magenta accent", swatch: "#FFE500" },
+  { id: "cyan", label: "Cyan", swatch: "#0062FF" },
+  { id: "cyan-accent", label: "Cyan accent", swatch: "#67FAE0" },
+  { id: "violet", label: "Violet", swatch: "#46125B" },
+  { id: "violet-accent", label: "Violet accent", swatch: "#FFDC14" },
+  { id: "amber", label: "Amber", swatch: "#FF9500" },
+  { id: "amber-accent", label: "Amber accent", swatch: "#6B0800" },
+  { id: "forest", label: "Forest", swatch: "#1F7A4D" },
+  { id: "forest-accent", label: "Forest accent", swatch: "#76D662" },
+];
+
 // Real element art lives in /public/poster-elements (from the Project Air
 // elements folder). These are the swappable shape options for two slots.
 export const RING_STYLES = [
@@ -213,6 +229,7 @@ export interface SessionStyle {
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
   useAltHeadshot: boolean; // use the alternate headshot art
+  headshotBg: string; // background id behind the transparent cutout (poster)
   badgeOffsetX: number; // moves ring badge + headshot together (design px)
   dateSize: number; // date text scale
   tagSize: number; // track-tag text scale
@@ -261,6 +278,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topStyle: TRACK_TOP[track],
     site: "brookhaven",
     slots: { ...DEFAULT_SLOTS },
+    headshotBg: TRACK_SCHEME[track], // coordinate the cutout bg with the track
     ...FACTORY_DEFAULTS,
   };
 }

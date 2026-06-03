@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { resolveHeadshot } from "@/data/headshots";
+import { resolveCutout } from "@/data/headshots";
 import {
   type PosterData,
   type PosterSlots,
@@ -46,9 +46,10 @@ function isDark(hex: string): boolean {
 
 type Unit = (n: number) => string;
 
-/** One square headshot with initials fallback (no rounded corners). */
-function HeadshotSquare({ name, ink, alt, c }: { name: string; ink: string; alt?: boolean; c: Unit }) {
-  const r = resolveHeadshot(name, alt);
+/** Two-layer portrait: selectable background pattern + transparent cutout on
+ *  top, with an initials fallback if the cutout is missing. */
+function HeadshotSquare({ name, bg, c }: { name: string; bg: string; c: Unit }) {
+  const r = resolveCutout(name);
   const [errored, setErrored] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -57,17 +58,20 @@ function HeadshotSquare({ name, ink, alt, c }: { name: string; ink: string; alt?
   }, [r.src]);
   const showImg = r.src && !errored;
   return (
-    <div
-      className="flex h-full w-full items-center justify-center overflow-hidden"
-      style={{ background: "rgba(255,255,255,0.94)" }}
-    >
+    <div className="relative h-full w-full overflow-hidden">
+      {/* background layer */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/headshots/bg/${bg}.png`} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      {/* cutout on top, or initials over the background */}
       {showImg ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img ref={imgRef} src={r.src!} alt={name} onError={() => setErrored(true)} className="h-full w-full object-cover" />
+        <img ref={imgRef} src={r.src!} alt={name} onError={() => setErrored(true)} className="absolute inset-0 h-full w-full object-cover" />
       ) : (
-        <span style={{ color: ink, fontFamily: "var(--font-poster-display)", fontWeight: 800, fontSize: c(140) }}>
-          {r.initials}
-        </span>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span style={{ color: "#fff", fontFamily: "var(--font-poster-display)", fontWeight: 800, fontSize: c(140) }}>
+            {r.initials}
+          </span>
+        </div>
       )}
     </div>
   );
@@ -77,23 +81,21 @@ function HeadshotSquare({ name, ink, alt, c }: { name: string; ink: string; alt?
  *  The whole group (squares + the gap) scales as a unit. */
 function PortraitGroup({
   names,
-  ink,
   scale,
-  alt,
   dx = 0,
   center,
   baseSize,
+  bg,
   c,
   px,
   py,
 }: {
   names: string[];
-  ink: string;
   scale: number;
-  alt?: boolean;
   dx?: number;
   center: { x: number; y: number };
   baseSize: number;
+  bg: string;
   c: Unit;
   px: Unit;
   py: Unit;
@@ -109,7 +111,7 @@ function PortraitGroup({
     <div className="absolute flex" style={{ left: px(left), top: py(top), gap: c(cfg.gap) }}>
       {list.map((person, i) => (
         <div key={person + i} style={{ width: c(cfg.size), height: c(cfg.size) }}>
-          <HeadshotSquare name={person} ink={ink} alt={alt} c={c} />
+          <HeadshotSquare name={person} bg={bg} c={c} />
         </div>
       ))}
     </div>
@@ -153,6 +155,7 @@ export interface PosterProps {
   topSize?: number;
   topFlip?: boolean;
   portraitSize?: number;
+  headshotBg?: string;
   useAltHeadshot?: boolean;
   badgeOffsetX?: number;
   dateSize?: number;
@@ -180,7 +183,7 @@ function WidePoster({
   topSize = TOP_SIZE.default,
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
-  useAltHeadshot = false,
+  headshotBg = "magenta",
   badgeOffsetX = 0,
   dateSize = 1,
   tagSize = 1,
@@ -227,7 +230,7 @@ function WidePoster({
           </div>
         )}
         {slots.portrait && (
-          <PortraitGroup names={names} ink={variant.ink} scale={portraitSize} alt={useAltHeadshot} dx={badgeOffsetX} center={RING_CENTER} baseSize={482} c={c} px={px} py={py} />
+          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={RING_CENTER} baseSize={482} c={c} px={px} py={py} />
         )}
         <div className="absolute flex" style={{ left: px(50), top: py(150), width: px(820), gap: c(20) }}>
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
@@ -259,7 +262,7 @@ function SquarePoster({
   topSize = TOP_SIZE.default,
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
-  useAltHeadshot = false,
+  headshotBg = "magenta",
   badgeOffsetX = 0,
   dateSize = 1,
   tagSize = 1,
@@ -299,7 +302,7 @@ function SquarePoster({
         )}
         {/* portrait over the ring */}
         {slots.portrait && (
-          <PortraitGroup names={names} ink={variant.ink} scale={portraitSize} alt={useAltHeadshot} dx={badgeOffsetX} center={SQ_RING_CENTER} baseSize={300} c={c} px={px} py={py} />
+          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={300} c={c} px={px} py={py} />
         )}
         {/* centered text block */}
         <div className="absolute flex flex-col items-center text-center" style={{ left: px(70), top: py(778), width: px(940), gap: c(10) }}>

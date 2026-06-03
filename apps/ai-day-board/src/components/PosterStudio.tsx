@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Schedule } from "@/lib/types";
 import {
   POSTER_VARIANTS,
+  HEADSHOT_BACKGROUNDS,
   SITES,
   RING_STYLES,
   TOP_STYLES,
@@ -221,6 +222,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
                 topSize={style.topSize}
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
+                headshotBg={style.headshotBg}
                 useAltHeadshot={style.useAltHeadshot}
                 badgeOffsetX={style.badgeOffsetX}
                 dateSize={style.dateSize}
@@ -311,11 +313,18 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
 
             <Group title="Headshot">
               {sizeRow("portraitSize", "Size", PORTRAIT_SIZE, "x", "Headshot size")}
-              <Row label="Alt" onAll={() => applyToAll({ useAltHeadshot: style.useAltHeadshot }, `Alternate headshot ${style.useAltHeadshot ? "on" : "off"}`)}>
-                <label className="flex cursor-pointer items-center gap-2 text-sm">
-                  <input type="checkbox" checked={style.useAltHeadshot} onChange={() => patch({ useAltHeadshot: !style.useAltHeadshot })} />
-                  <span className="text-white/70">Use alternate art</span>
-                </label>
+              <Row label="Backdrop" onAll={() => applyToAll({ headshotBg: style.headshotBg }, "Headshot backdrop")}>
+                <div className="flex flex-wrap gap-1.5">
+                  {HEADSHOT_BACKGROUNDS.map((b) => (
+                    <button
+                      key={b.id}
+                      onClick={() => patch({ headshotBg: b.id })}
+                      title={b.label}
+                      className="h-6 w-6 rounded-full border-2"
+                      style={{ background: b.swatch, borderColor: b.id === style.headshotBg ? "#fff" : "transparent", outline: b.id === style.headshotBg ? `2px solid ${b.swatch}` : "none" }}
+                    />
+                  ))}
+                </div>
               </Row>
             </Group>
 

@@ -92,6 +92,7 @@ function RenderCard({
               topSize={style.topSize}
               topFlip={style.topFlip}
               portraitSize={style.portraitSize}
+              headshotBg={style.headshotBg}
               useAltHeadshot={style.useAltHeadshot}
               badgeOffsetX={style.badgeOffsetX}
               dateSize={style.dateSize}
