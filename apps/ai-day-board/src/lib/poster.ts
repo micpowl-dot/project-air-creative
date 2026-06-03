@@ -348,22 +348,22 @@ export function compTransform(layout: ProfileLayout | undefined, comp: ProfileCo
 // values as JSON, then paste them here.)
 export const FACTORY_DEFAULTS = {
   ringSize: 1,
-  topSize: 1.45,
+  topSize: 1.1,
   topOpacity: 1,
   topFlip: true,
-  portraitSize: 1,
+  portraitSize: 1.05,
   nameScale: 1,
   useAltHeadshot: false,
   badgeOffsetX: 0,
-  dateSize: 1.25,
-  tagSize: 1.75,
-  topOffsetX: 780,
-  topOffsetY: -170,
-  bottomOffsetX: -230,
-  bottomOffsetY: 80,
+  dateSize: 1.35,
+  tagSize: 1.45,
+  topOffsetX: 140,
+  topOffsetY: -140,
+  bottomOffsetX: 0,
+  bottomOffsetY: 0,
   squiggleSize: 1.45,
-  squiggleOffsetX: -40,
-  squiggleOffsetY: -70,
+  squiggleOffsetX: 0,
+  squiggleOffsetY: 0,
 };
 
 /** The factory-default fields, in the order the "Copy" button emits them. */
@@ -382,6 +382,15 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
   };
 }
 
+// PROFILE FACTORY DEFAULTS — the 1:1's per-element starting positions/sizes.
+// Capture these from a tuned profile with the Studio "Copy starting defaults"
+// button (in Profile Studio it emits this shape), then paste here + redeploy.
+export const PROFILE_FACTORY = {
+  nameScale: 1,
+  tagSize: 1.45,
+  layout: {} as ProfileLayout,
+};
+
 /** Default style for a 1:1 profile. The square layout hand-places each element,
  *  so decorative offsets START at zero (the wide poster's offsets don't apply
  *  to the square). The X/Y sliders then move things from their placed spot. */
@@ -395,6 +404,9 @@ export function defaultProfileStyle(): SessionStyle {
     squiggleOffsetX: 0,
     squiggleOffsetY: 0,
     badgeOffsetX: 0,
+    nameScale: PROFILE_FACTORY.nameScale,
+    tagSize: PROFILE_FACTORY.tagSize,
+    layout: { ...PROFILE_FACTORY.layout },
   };
 }
 

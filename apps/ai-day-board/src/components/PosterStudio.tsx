@@ -185,26 +185,34 @@ export function PosterStudio({
   // Capture the current poster's sizing/position as the proposed factory
   // default (what every new browser/user starts with). Copies JSON to paste in.
   function copyDefaults() {
-    const d = {
-      ringSize: style.ringSize,
-      topSize: style.topSize,
-      topOpacity: style.topOpacity,
-      topFlip: style.topFlip,
-      portraitSize: style.portraitSize,
-      useAltHeadshot: style.useAltHeadshot,
-      badgeOffsetX: style.badgeOffsetX,
-      dateSize: style.dateSize,
-      tagSize: style.tagSize,
-      topOffsetX: style.topOffsetX,
-      topOffsetY: style.topOffsetY,
-      bottomOffsetX: style.bottomOffsetX,
-      bottomOffsetY: style.bottomOffsetY,
-      squiggleSize: style.squiggleSize,
-      squiggleOffsetX: style.squiggleOffsetX,
-      squiggleOffsetY: style.squiggleOffsetY,
-    };
+    // Profile mode drives the 1:1 through the per-element `layout`, so capture
+    // that (plus the text sizes) — not the legacy 16:9 fields.
+    const d = isProfile
+      ? {
+          nameScale: style.nameScale,
+          tagSize: style.tagSize,
+          layout: style.layout ?? {},
+        }
+      : {
+          ringSize: style.ringSize,
+          topSize: style.topSize,
+          topOpacity: style.topOpacity,
+          topFlip: style.topFlip,
+          portraitSize: style.portraitSize,
+          useAltHeadshot: style.useAltHeadshot,
+          badgeOffsetX: style.badgeOffsetX,
+          dateSize: style.dateSize,
+          tagSize: style.tagSize,
+          topOffsetX: style.topOffsetX,
+          topOffsetY: style.topOffsetY,
+          bottomOffsetX: style.bottomOffsetX,
+          bottomOffsetY: style.bottomOffsetY,
+          squiggleSize: style.squiggleSize,
+          squiggleOffsetX: style.squiggleOffsetX,
+          squiggleOffsetY: style.squiggleOffsetY,
+        };
     navigator.clipboard?.writeText(JSON.stringify(d, null, 2));
-    setFlash({ text: "Starting defaults copied to clipboard — share to make them the default for everyone" });
+    setFlash({ text: `${isProfile ? "Profile" : "Poster"} starting defaults copied — share to make them the default for everyone` });
     window.setTimeout(() => setFlash(null), 5000);
   }
 
@@ -562,7 +570,7 @@ export function PosterStudio({
                 {SLOT_LABELS.filter(({ key }) => !isProfile || !["sessionTitle", "role", "location", "room", "time"].includes(key)).map(({ key, label }) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-white/5">
                     <input type="checkbox" checked={style.slots[key]} onChange={() => patchSlot(key)} />
-                    {label}
+                    {isProfile && key === "tag" ? "Title" : label}
                   </label>
                 ))}
               </div>
