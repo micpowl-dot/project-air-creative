@@ -290,6 +290,7 @@ export interface SessionStyle {
   topOpacity: number; // top-edge graphic opacity (0–1)
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
+  nameScale: number; // name text scale (1:1 profile)
   useAltHeadshot: boolean; // use the alternate headshot art
   headshotBg: string; // background id behind the transparent cutout (poster)
   badgeOffsetX: number; // moves ring badge + headshot together (design px)
@@ -351,6 +352,7 @@ export const FACTORY_DEFAULTS = {
   topOpacity: 1,
   topFlip: true,
   portraitSize: 1,
+  nameScale: 1,
   useAltHeadshot: false,
   badgeOffsetX: 0,
   dateSize: 1.25,

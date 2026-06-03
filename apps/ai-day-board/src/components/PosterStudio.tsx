@@ -305,6 +305,7 @@ export function PosterStudio({
                 topOpacity={style.topOpacity}
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
+                nameScale={style.nameScale}
                 headshotBg={style.headshotBg}
                 useAltHeadshot={style.useAltHeadshot}
                 badgeOffsetX={style.badgeOffsetX}
@@ -375,7 +376,7 @@ export function PosterStudio({
           {/* Controls */}
           <aside className="space-y-5">
             {isProfile && (
-              <Group title="Ambassador text" onAll={() => applyToAll({ tagText: tagText }, `Text "${tagText}"`)}>
+              <Group title="Name &amp; title" onAll={() => applyToAll({ tagText: tagText }, `Title "${tagText}"`)}>
                 <input
                   type="text"
                   value={style.tagText ?? DEFAULT_PROFILE_TAG}
@@ -384,8 +385,10 @@ export function PosterStudio({
                   className="w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-white/40 focus:outline-none"
                 />
                 <p className="text-[10px] text-white/35">
-                  Shows under the name. Defaults to “{DEFAULT_PROFILE_TAG}”. Use “all” to set every participant at once.
+                  Title shows under the name. Defaults to “{DEFAULT_PROFILE_TAG}”. Use “all” to set every participant at once.
                 </p>
+                {sizeRow("nameScale", "Name", TEXT_SIZE, "x", "Name size")}
+                {sizeRow("tagSize", "Title", TEXT_SIZE, "x", "Title size")}
               </Group>
             )}
 

@@ -105,6 +105,7 @@ function RenderCard({
               topOpacity={item.style.topOpacity}
               topFlip={item.style.topFlip}
               portraitSize={item.style.portraitSize}
+              nameScale={item.style.nameScale}
               headshotBg={item.style.headshotBg}
               useAltHeadshot={item.style.useAltHeadshot}
               badgeOffsetX={item.style.badgeOffsetX}

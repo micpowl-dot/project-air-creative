@@ -161,6 +161,7 @@ export interface PosterProps {
   topOpacity?: number;
   topFlip?: boolean;
   portraitSize?: number;
+  nameScale?: number;
   headshotBg?: string;
   useAltHeadshot?: boolean;
   badgeOffsetX?: number;
@@ -272,6 +273,7 @@ function SquarePoster({
   topFlip = false,
   headshotBg = "magenta",
   tagSize = 1,
+  nameScale = 1,
   layout,
 }: PosterProps) {
   const { c, px, py } = SQUARE;
@@ -281,7 +283,7 @@ function SquarePoster({
   const ringLeft = SQ_RING_CENTER.x - ringPx / 2;
   const ringTop = SQ_RING_CENTER.y - ringPx / 2;
   const names = data.names.length ? data.names : [data.name];
-  const nameSize = c(names.length >= 3 ? 44 : names.length === 2 ? 56 : 72);
+  const nameSize = c((names.length >= 3 ? 44 : names.length === 2 ? 56 : 72) * nameScale);
 
   // transform/opacity for one component, scaled around the given CSS origin.
   const tf = (comp: ProfileComp, origin: string, extra = ""): React.CSSProperties => {
