@@ -96,9 +96,11 @@ function TimeChip({ time }: { time: string }) {
 function GridLayout({
   schedule,
   trackColors,
+  pageBg,
 }: {
   schedule: Schedule;
   trackColors: Record<string, string>;
+  pageBg: string;
 }) {
   return (
     <div className="space-y-4">
@@ -106,8 +108,12 @@ function GridLayout({
       <div className="grid grid-cols-[64px_repeat(3,1fr)] gap-4">
         <div />
         {schedule.tracks.map((t) => {
-          const bg = trackColors[t.id] ?? "#000000";
-          const onDark = isDark(bg);
+          const raw = trackColors[t.id] ?? "#000000";
+          // If a track color matches the page background it would blend in;
+          // give that chip a subtle 5% white tint so it still reads as a panel.
+          const blends = raw.toLowerCase() === pageBg.toLowerCase();
+          const bg = blends ? `color-mix(in srgb, #ffffff 5%, ${pageBg})` : raw;
+          const onDark = isDark(blends ? pageBg : raw);
           const txt = onDark ? "#FFFFFF" : "#0D142A";
           return (
             <div
@@ -356,6 +362,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
           <GridLayout
             schedule={schedule}
             trackColors={{ explore: variant.accent, apply: variant.bg, build: variant.ink }}
+            pageBg={variant.bg}
           />
         )}
         {layoutId === "agenda" && <AgendaLayout schedule={schedule} />}
