@@ -247,7 +247,10 @@ export function PosterStudio({
         <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
           {/* Stage */}
           <div>
-            <div className="overflow-hidden shadow-2xl ring-1 ring-white/10">
+            <div
+              className="overflow-hidden shadow-2xl ring-1 ring-white/10"
+              style={isProfile ? { maxWidth: "70%" } : undefined}
+            >
               <Poster
                 data={data}
                 variant={variant}
@@ -313,11 +316,11 @@ export function PosterStudio({
                       className="rounded-lg border px-3 py-2 text-left text-xs transition"
                       style={{ borderColor: active ? accent : "rgba(255,255,255,0.12)", background: active ? "rgba(255,255,255,0.08)" : "transparent" }}
                     >
-                      <div className="font-semibold text-white/90">
+                      <div className={`font-semibold text-white/90 ${person ? "text-sm" : ""}`}>
                         {person ? person.name : sess!.session.title}
                         {customized && <span className="ml-1 text-amber-300">•</span>}
                       </div>
-                      <div className="text-white/50">{tagLine}</div>
+                      <div className="text-[11px] text-white/50">{tagLine}</div>
                     </button>
                   );
                 })}

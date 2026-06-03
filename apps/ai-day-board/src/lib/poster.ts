@@ -208,7 +208,8 @@ export function participantsFromSchedule(schedule: Schedule): ParticipantEntry[]
       }
     }
   }
-  return out;
+  // Names prioritized: order the roster alphabetically, not by session sequence.
+  return out.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 /** Poster data for an individual: name + a free-text tag (e.g. "AI Ambassador").
