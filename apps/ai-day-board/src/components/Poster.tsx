@@ -221,11 +221,11 @@ export function Poster({
           />
         )}
 
-        {/* Top-left: track tag */}
+        {/* Top-left: track tag (left edge aligned with the speaker text below) */}
         {slots.tag && (
           <div
             className="absolute"
-            style={{ left: pctX(114), top: pctY(40), fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}
+            style={{ left: pctX(78), top: pctY(40), fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}
           >
             {data.tag}
           </div>

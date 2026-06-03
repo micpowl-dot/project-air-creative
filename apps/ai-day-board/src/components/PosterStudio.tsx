@@ -112,6 +112,31 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
   const isOverridden = Boolean(overrides[selected.id]);
   const renderHref = `/render?focus=${encodeURIComponent(selected.id)}`;
 
+  // Capture the current poster's sizing/position as the proposed factory
+  // default (what every new browser/user starts with). Copies JSON to paste in.
+  function copyDefaults() {
+    const d = {
+      ringSize: style.ringSize,
+      topSize: style.topSize,
+      topFlip: style.topFlip,
+      portraitSize: style.portraitSize,
+      useAltHeadshot: style.useAltHeadshot,
+      badgeOffsetX: style.badgeOffsetX,
+      dateSize: style.dateSize,
+      tagSize: style.tagSize,
+      topOffsetX: style.topOffsetX,
+      topOffsetY: style.topOffsetY,
+      bottomOffsetX: style.bottomOffsetX,
+      bottomOffsetY: style.bottomOffsetY,
+      squiggleSize: style.squiggleSize,
+      squiggleOffsetX: style.squiggleOffsetX,
+      squiggleOffsetY: style.squiggleOffsetY,
+    };
+    navigator.clipboard?.writeText(JSON.stringify(d, null, 2));
+    setFlash({ text: "Starting defaults copied to clipboard — share to make them the default for everyone" });
+    window.setTimeout(() => setFlash(null), 5000);
+  }
+
   // Helper to build a px/×-offset slider row bound to one style field.
   const sizeRow = (field: keyof SessionStyle, label: string, range: { min: number; max: number }, unit: "px" | "x", niceLabel: string) => (
     <Row label={label} onAll={() => applyToAll({ [field]: style[field] } as Partial<SessionStyle>, niceLabel)}>
@@ -137,6 +162,13 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={copyDefaults}
+              title="Copy this poster's sizing as the proposed starting default for new users"
+              className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+            >
+              Copy starting defaults
+            </button>
             <button
               onClick={refreshFromDrop}
               disabled={refreshing}

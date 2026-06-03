@@ -221,29 +221,40 @@ export interface SessionStyle {
   slots: PosterSlots;
 }
 
-/** Default style for a session, derived from its track. */
+// FACTORY DEFAULTS — the sizing/positioning a brand-new user (empty browser)
+// starts with. Edit these to set the preferred starting point for everyone.
+// (Use the Studio's "Copy starting defaults" button to capture a tuned poster's
+// values as JSON, then paste them here.)
+export const FACTORY_DEFAULTS = {
+  ringSize: RING_SIZE.default,
+  topSize: TOP_SIZE.default,
+  topFlip: false,
+  portraitSize: PORTRAIT_SIZE.default,
+  useAltHeadshot: false,
+  badgeOffsetX: 0,
+  dateSize: TEXT_SIZE.default,
+  tagSize: TEXT_SIZE.default,
+  topOffsetX: 0,
+  topOffsetY: 0,
+  bottomOffsetX: 0,
+  bottomOffsetY: 0,
+  squiggleSize: SQUIGGLE_SIZE.default,
+  squiggleOffsetX: 0,
+  squiggleOffsetY: 0,
+};
+
+/** The factory-default fields, in the order the "Copy" button emits them. */
+export type FactoryDefaults = typeof FACTORY_DEFAULTS;
+
+/** Default style for a session: track-derived look + factory sizing. */
 export function defaultSessionStyle(track: TrackId): SessionStyle {
   return {
     variantId: TRACK_SCHEME[track],
     ringStyle: TRACK_RING[track],
     topStyle: TRACK_TOP[track],
-    ringSize: RING_SIZE.default,
-    topSize: TOP_SIZE.default,
-    topFlip: false,
-    portraitSize: PORTRAIT_SIZE.default,
-    useAltHeadshot: false,
-    badgeOffsetX: 0,
-    dateSize: TEXT_SIZE.default,
-    tagSize: TEXT_SIZE.default,
-    topOffsetX: 0,
-    topOffsetY: 0,
-    bottomOffsetX: 0,
-    bottomOffsetY: 0,
-    squiggleSize: SQUIGGLE_SIZE.default,
-    squiggleOffsetX: 0,
-    squiggleOffsetY: 0,
     site: "brookhaven",
     slots: { ...DEFAULT_SLOTS },
+    ...FACTORY_DEFAULTS,
   };
 }
 
