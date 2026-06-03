@@ -338,11 +338,9 @@ function SquarePoster({
           </div>
         </div>
 
-        {/* air lockup, bottom-left */}
-        <div className="absolute" style={{ left: px(60), bottom: py(70) }}>
-          <div style={{ fontFamily: display, fontWeight: 800, fontSize: c(118), lineHeight: 0.8, color: variant.accent }}>air</div>
-          <div style={{ fontFamily: mono, fontSize: c(22), color: variant.light, letterSpacing: c(6) }}>AI IN REACH</div>
-        </div>
+        {/* AIR lockup (supplied SVG), bottom-left */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/poster-elements/air-stacked.svg" alt="AIR — AI in Reach" className="absolute" style={{ left: px(60), bottom: py(64), width: px(300) }} />
       </div>
     </div>
   );

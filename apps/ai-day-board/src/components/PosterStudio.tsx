@@ -46,14 +46,22 @@ const SLOT_LABELS: { key: keyof PosterSlots; label: string }[] = [
   { key: "lockup", label: "AI DAY logo" },
 ];
 
-export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule }) {
+export function PosterStudio({
+  schedule: initialSchedule,
+  fixedFormat,
+  title = "Poster Studio",
+}: {
+  schedule: Schedule;
+  fixedFormat?: PosterFormat;
+  title?: string;
+}) {
   const [schedule, setSchedule] = useState(initialSchedule);
   const entries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
   const [selectedId, setSelectedId] = useState(entries[0]?.id);
   const [overrides, setOverrides] = useState<StyleOverrides>({});
   const [flash, setFlash] = useState<{ text: string; error?: boolean } | null>(null);
   const [refreshing, setRefreshing] = useState(false);
-  const [format, setFormat] = useState<PosterFormat>("wide");
+  const [format, setFormat] = useState<PosterFormat>(fixedFormat ?? "wide");
 
   useEffect(() => setOverrides(loadStyleOverrides()), []);
 
@@ -159,25 +167,34 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
       <div className="mx-auto max-w-[1400px] px-6 py-6">
         <header className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-3xl font-bold text-white">Poster Studio</h1>
+            <h1 className="font-display text-3xl font-bold text-white">{title}</h1>
             <p className="text-sm text-white/60">
-              Project AIR · slot-based TV poster system · synced{" "}
+              Project AIR · {fixedFormat === "square" ? "1:1 profile / social posters" : "slot-based TV poster system"} · synced{" "}
               {new Date(schedule.lastSynced).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex overflow-hidden rounded-lg border border-white/20 text-sm font-semibold">
-              {(["wide", "square"] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFormat(f)}
-                  className="px-3 py-2"
-                  style={{ background: format === f ? accent : "transparent", color: format === f ? "#111" : "#fff" }}
-                >
-                  {f === "wide" ? "16:9" : "1:1"}
-                </button>
-              ))}
-            </div>
+            {fixedFormat ? (
+              <Link
+                href={fixedFormat === "square" ? "/posters" : "/profile"}
+                className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+              >
+                {fixedFormat === "square" ? "Poster Studio (16:9) →" : "Profile Studio (1:1) →"}
+              </Link>
+            ) : (
+              <div className="flex overflow-hidden rounded-lg border border-white/20 text-sm font-semibold">
+                {(["wide", "square"] as const).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setFormat(f)}
+                    className="px-3 py-2"
+                    style={{ background: format === f ? accent : "transparent", color: format === f ? "#111" : "#fff" }}
+                  >
+                    {f === "wide" ? "16:9" : "1:1"}
+                  </button>
+                ))}
+              </div>
+            )}
             <button
               onClick={copyDefaults}
               title="Copy this poster's sizing as the proposed starting default for new users"
@@ -193,7 +210,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
               {refreshing ? "Refreshing…" : "↻ Refresh from The Drop"}
             </button>
             <Link href="/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
-              Render queue → 1920×1080
+              Render queue →
             </Link>
           </div>
         </header>
