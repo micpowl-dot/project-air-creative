@@ -324,12 +324,14 @@ export interface CompTransform {
 }
 export const COMP_DEFAULT: CompTransform = { x: 0, y: 0, scale: 1, opacity: 1 };
 
-export type ProfileComp = "aiday" | "speaker" | "date" | "badge" | "top" | "squiggle" | "air";
+export type ProfileComp = "aiday" | "speaker" | "date" | "headshot" | "ring" | "top" | "squiggle" | "air";
 export type ProfileLayout = Partial<Record<ProfileComp, Partial<CompTransform>>>;
 
-/** Components in control-panel order. "badge" = headshot + ring as one unit. */
+/** Components in control-panel order. Headshot and ring are independent so each
+ *  can be scaled/moved/faded on its own (both pivot on the ring center). */
 export const PROFILE_COMPS: { id: ProfileComp; label: string }[] = [
-  { id: "badge", label: "Headshot + ring" },
+  { id: "headshot", label: "Headshot" },
+  { id: "ring", label: "Ring badge" },
   { id: "speaker", label: "Name + text" },
   { id: "aiday", label: "AI DAY logo" },
   { id: "date", label: "Date" },
@@ -401,7 +403,8 @@ export const PROFILE_FACTORY = {
     speaker: { x: -20, y: -110, scale: 0.95, opacity: 1 },
     air: { x: -30, y: 160, scale: 0.85, opacity: 1 },
     squiggle: { x: -520, y: -30, scale: 2, opacity: 0.35 },
-    badge: { x: 0, y: 0, scale: 1, opacity: 1 },
+    headshot: { x: 0, y: 0, scale: 1, opacity: 1 },
+    ring: { x: 0, y: 0, scale: 1, opacity: 1 },
   } as ProfileLayout,
 };
 

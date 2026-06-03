@@ -317,16 +317,19 @@ function SquarePoster({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560), height: py(220), ...tf("squiggle", "left center") }} />
 
-        {/* ring badge + headshot move/scale/fade together as one unit */}
-        <div className="absolute inset-0" style={tf("badge", `${pct(SQ_RING_CENTER.x, 1080)} ${pct(SQ_RING_CENTER.y, 1080)}`)}>
-          {slots.ringBadge && (
-            // eslint-disable-next-line @next/next/no-img-element
+        {/* ring badge and headshot are independent — each scales/moves/fades
+            on its own, both pivoting on the ring center */}
+        {slots.ringBadge && (
+          <div className="absolute inset-0" style={tf("ring", `${pct(SQ_RING_CENTER.x, 1080)} ${pct(SQ_RING_CENTER.y, 1080)}`)}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
-          )}
-          {slots.portrait && (
+          </div>
+        )}
+        {slots.portrait && (
+          <div className="absolute inset-0" style={tf("headshot", `${pct(SQ_RING_CENTER.x, 1080)} ${pct(SQ_RING_CENTER.y, 1080)}`)}>
             <PortraitGroup names={names} scale={1} bg={headshotBg} center={SQ_RING_CENTER} baseSize={430} c={c} px={px} py={py} />
-          )}
-        </div>
+          </div>
+        )}
 
         {/* AI DAY wordmark, top-left, with a background-colored box behind it */}
         {slots.lockup && (
