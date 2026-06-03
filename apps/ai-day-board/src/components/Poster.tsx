@@ -153,6 +153,7 @@ export interface PosterProps {
   topStyle?: TopStyle;
   ringSize?: number;
   topSize?: number;
+  topOpacity?: number;
   topFlip?: boolean;
   portraitSize?: number;
   headshotBg?: string;
@@ -181,6 +182,7 @@ function WidePoster({
   topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
   topSize = TOP_SIZE.default,
+  topOpacity = 1,
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   headshotBg = "magenta",
@@ -213,7 +215,7 @@ function WidePoster({
             src={`/poster-elements/top-edge/${topStyle}.png`}
             alt=""
             className="absolute object-cover"
-            style={{ right: 0, top: 0, width: px(1019 * topSize), height: py(300 * topSize), objectPosition: "right top", transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})${topFlip ? " scaleX(-1)" : ""}` }}
+            style={{ right: 0, top: 0, width: px(1019 * topSize), height: py(300 * topSize), objectPosition: "right top", opacity: topOpacity, transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})${topFlip ? " scaleX(-1)" : ""}` }}
           />
         )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -235,7 +237,7 @@ function WidePoster({
         <div className="absolute flex" style={{ left: px(50), top: py(150), width: px(820), gap: c(20) }}>
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
           <div className="flex flex-col" style={{ gap: c(14) }}>
-            {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
+            {slots.name && <NameLine data={data} ink={variant.accent} display={display} size={nameSize} />}
             {slots.role && data.role && <div style={{ fontFamily: display, fontSize: c(46), color: variant.ink }}>{data.role}</div>}
             {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(58), color: variant.ink }}>{data.sessionTitle}</div>}
             {(slots.location || slots.room || slots.time) && (
@@ -260,6 +262,7 @@ function SquarePoster({
   topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
   topSize = TOP_SIZE.default,
+  topOpacity = 1,
   topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   headshotBg = "magenta",
@@ -283,7 +286,7 @@ function SquarePoster({
         {/* top-edge graphic — full-width band across the top */}
         {slots.eventMark && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ left: 0, top: 0, width: px(1080), height: py(240 * topSize), objectPosition: "center top", transform: topFlip ? "scaleX(-1)" : undefined }} />
+          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ left: 0, top: 0, width: px(1080), height: py(240 * topSize), objectPosition: "center top", opacity: topOpacity, transform: topFlip ? "scaleX(-1)" : undefined }} />
         )}
         {/* bottom-left pattern */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -296,9 +299,13 @@ function SquarePoster({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
         )}
-        {/* AI DAY logo across the top, recolored per scheme */}
+        {/* AI DAY logo across the top, recolored per scheme; a background-
+            colored box sits behind it so it reads cleanly over the top graphic */}
         {slots.lockup && (
-          <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px((1080 - 430) / 2), top: py(60), width: px(430) }} />
+          <>
+            <div className="absolute" style={{ left: px((1080 - 510) / 2), top: py(40), width: px(510), height: py(224), background: variant.bg }} />
+            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px((1080 - 430) / 2), top: py(70), width: px(430) }} />
+          </>
         )}
         {/* portrait over the ring */}
         {slots.portrait && (
@@ -307,7 +314,7 @@ function SquarePoster({
         {/* centered text block */}
         <div className="absolute flex flex-col items-center text-center" style={{ left: px(70), top: py(778), width: px(940), gap: c(10) }}>
           {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, lineHeight: 1 }}>{data.tag}</div>}
-          {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
+          {slots.name && <NameLine data={data} ink={variant.accent} display={display} size={nameSize} />}
           {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(42), color: variant.ink }}>{data.sessionTitle}</div>}
           {(slots.location || slots.room || slots.time) && (
             <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(28), color: variant.light, letterSpacing: c(1) }}>{infoRow(data, slots)}</div>

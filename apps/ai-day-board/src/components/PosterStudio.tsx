@@ -121,6 +121,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
     const d = {
       ringSize: style.ringSize,
       topSize: style.topSize,
+      topOpacity: style.topOpacity,
       topFlip: style.topFlip,
       portraitSize: style.portraitSize,
       useAltHeadshot: style.useAltHeadshot,
@@ -220,6 +221,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
                 topStyle={style.topStyle}
                 ringSize={style.ringSize}
                 topSize={style.topSize}
+                topOpacity={style.topOpacity}
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
                 headshotBg={style.headshotBg}
@@ -333,6 +335,21 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
                 <Chips options={TOP_STYLES as readonly string[]} value={style.topStyle} accent={accent} onChange={(v) => patch({ topStyle: v as TopStyle })} />
               </Row>
               {sizeRow("topSize", "Size", TOP_SIZE, "x", "Top size")}
+              <Row label="Opacity" onAll={() => applyToAll({ topOpacity: style.topOpacity }, `Top opacity ${Math.round(style.topOpacity * 100)}%`)}>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={0.1}
+                    max={1}
+                    step={0.05}
+                    value={style.topOpacity}
+                    onChange={(e) => patch({ topOpacity: Number(e.target.value) })}
+                    className="min-w-0 flex-1"
+                    style={{ accentColor: variant.accent }}
+                  />
+                  <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(style.topOpacity * 100)}%</span>
+                </div>
+              </Row>
               <Row label="Flip" onAll={() => applyToAll({ topFlip: style.topFlip }, `Top-edge flip ${style.topFlip ? "on" : "off"}`)}>
                 <label className="flex cursor-pointer items-center gap-2 text-sm">
                   <input type="checkbox" checked={style.topFlip} onChange={() => patch({ topFlip: !style.topFlip })} />

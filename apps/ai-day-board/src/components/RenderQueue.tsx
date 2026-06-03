@@ -90,6 +90,7 @@ function RenderCard({
               topStyle={style.topStyle}
               ringSize={style.ringSize}
               topSize={style.topSize}
+              topOpacity={style.topOpacity}
               topFlip={style.topFlip}
               portraitSize={style.portraitSize}
               headshotBg={style.headshotBg}

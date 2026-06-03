@@ -226,6 +226,7 @@ export interface SessionStyle {
   topStyle: TopStyle;
   ringSize: number;
   topSize: number;
+  topOpacity: number; // top-edge graphic opacity (0–1)
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
   useAltHeadshot: boolean; // use the alternate headshot art
@@ -252,6 +253,7 @@ export interface SessionStyle {
 export const FACTORY_DEFAULTS = {
   ringSize: 1,
   topSize: 1.45,
+  topOpacity: 1,
   topFlip: true,
   portraitSize: 1,
   useAltHeadshot: false,
@@ -278,7 +280,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     topStyle: TRACK_TOP[track],
     site: "brookhaven",
     slots: { ...DEFAULT_SLOTS },
-    headshotBg: TRACK_SCHEME[track], // coordinate the cutout bg with the track
+    headshotBg: `${TRACK_SCHEME[track]}-accent`, // accent-version bg, matches the name color
     ...FACTORY_DEFAULTS,
   };
 }
