@@ -153,6 +153,21 @@ export function PosterStudio({
       return next;
     });
   }
+  // Give every entry a randomly-picked palette; the headshot backdrop follows
+  // the new scheme's accent so each profile stays internally coordinated.
+  function randomizePalettes() {
+    setOverrides((prev) => {
+      const next: StyleOverrides = { ...prev };
+      for (const e of entries) {
+        const v = POSTER_VARIANTS[Math.floor(Math.random() * POSTER_VARIANTS.length)];
+        next[e.id] = { ...next[e.id], variantId: v.id, headshotBg: `${v.id}-accent` };
+      }
+      saveStyleOverrides(next);
+      return next;
+    });
+    setFlash({ text: `Randomized palettes across all ${entries.length} ${isProfile ? "profiles" : "posters"}` });
+    window.setTimeout(() => setFlash(null), 2400);
+  }
   function applyToAll(p: Partial<SessionStyle>, label: string) {
     setOverrides((prev) => {
       const next: StyleOverrides = { ...prev };
@@ -372,11 +387,11 @@ export function PosterStudio({
             )}
 
             <Group title="Color">
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {POSTER_VARIANTS.map((v) => (
                   <button
                     key={v.id}
-                    onClick={() => patch({ variantId: v.id })}
+                    onClick={() => patch({ variantId: v.id, headshotBg: `${v.id}-accent` })}
                     title={v.name}
                     className="h-8 w-8 rounded-full border-2"
                     style={{
@@ -387,6 +402,12 @@ export function PosterStudio({
                   />
                 ))}
               </div>
+              <button
+                onClick={randomizePalettes}
+                className="mt-1 w-full rounded-md border border-white/15 px-3 py-1.5 text-xs font-semibold text-white/80 hover:bg-white/10 hover:text-white"
+              >
+                🎲 Randomize all {isProfile ? "profiles" : "posters"}
+              </button>
             </Group>
 
             <Group title="Ring badge">
