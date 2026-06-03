@@ -161,11 +161,11 @@ export function RenderQueue({ schedule, focus }: { schedule: Schedule; focus?: s
   }
 
   return (
-    <div className="min-h-screen bg-[#0D142A] text-[#EDEBE4]">
+    <div className="min-h-screen bg-[#0D142A] text-white">
       <div className="mx-auto max-w-[1400px] px-6 py-6">
         <header className="mb-4 flex items-end justify-between">
           <div>
-            <h1 className="font-display text-3xl font-bold text-[#C8910A]">Render Queue</h1>
+            <h1 className="font-display text-3xl font-bold text-white">Render Queue</h1>
             <p className="text-sm text-white/60">{entries.length} posters · select any, then batch-render to 1920×1080 PNG</p>
           </div>
           <Link href="/posters" className="text-sm underline hover:text-white">← Back to Studio</Link>

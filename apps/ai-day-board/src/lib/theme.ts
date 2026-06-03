@@ -4,12 +4,12 @@
 //   1. ColorScheme  — palette (mirrors the Project AIR Figma palettes)
 //   2. Layout       — how the schedule is arranged on screen
 //
-// Color values: the "cream" and "near-black" schemes use the LOCKED base
-// palette from docs/brand-guidelines.md. The "festival-*" schemes are the
-// in-development expansion direction (Coachella/SXSW energy: magenta, cyan,
-// purple, hot amber). Swap exact hexes once the Figma expansion is locked.
+// Schemes are derived from the established design-system swatch groups
+// (POSTER_VARIANTS in poster.ts) so the board matches the Poster Studio:
+// primary -> bg, accent -> accent, contrast/light drive text + surfaces.
 
 import type { TrackId } from "./types";
+import { POSTER_VARIANTS } from "./poster";
 
 export interface ColorScheme {
   id: string;
@@ -27,56 +27,21 @@ export interface ColorScheme {
   track: Record<TrackId, string>;
 }
 
-export const COLOR_SCHEMES: ColorScheme[] = [
-  {
-    id: "cream",
-    name: "Cream (base)",
-    dark: false,
-    bg: "#EDEBE4",
-    surface: "#F5F3EE",
-    surfaceAlt: "#E2DFD5",
-    ink: "#111111",
-    inkSoft: "#6B6B6B",
-    accent: "#C8910A",
-    track: { explore: "#C8910A", apply: "#111111", build: "#B5341F" },
-  },
-  {
-    id: "near-black",
-    name: "Near-Black (base)",
-    dark: true,
-    bg: "#111111",
-    surface: "#1C1C1C",
-    surfaceAlt: "#262626",
-    ink: "#F5F3EE",
-    inkSoft: "#9A9A9A",
-    accent: "#C8910A",
-    track: { explore: "#E6A91E", apply: "#F5F3EE", build: "#E0573F" },
-  },
-  {
-    id: "festival-magenta",
-    name: "Festival — Magenta",
-    dark: true,
-    bg: "#1F0A2E",
-    surface: "#2E1145",
-    surfaceAlt: "#3D1A5B",
-    ink: "#F7ECFF",
-    inkSoft: "#C4A6DD",
-    accent: "#E6007E",
-    track: { explore: "#FFB200", apply: "#16D5E6", build: "#E6007E" },
-  },
-  {
-    id: "festival-cyan",
-    name: "Festival — Electric Cyan",
-    dark: true,
-    bg: "#06141B",
-    surface: "#0C2230",
-    surfaceAlt: "#123040",
-    ink: "#EAFBFF",
-    inkSoft: "#86B8C7",
-    accent: "#14C8E6",
-    track: { explore: "#FFC23D", apply: "#14C8E6", build: "#FF5DA2" },
-  },
-];
+// Built from the five swatch groups (magenta/cyan/violet/amber/forest).
+// primary = page bg; light = text; accent = highlight; surfaces are the
+// primary darkened so cards read against the background.
+export const COLOR_SCHEMES: ColorScheme[] = POSTER_VARIANTS.map((v) => ({
+  id: v.id,
+  name: v.name,
+  dark: true,
+  bg: v.bg,
+  surface: `color-mix(in srgb, ${v.bg} 82%, #000)`,
+  surfaceAlt: `color-mix(in srgb, ${v.bg} 66%, #000)`,
+  ink: v.light,
+  inkSoft: `color-mix(in srgb, ${v.light} 70%, transparent)`,
+  accent: v.accent,
+  track: { explore: v.accent, apply: v.light, build: v.ink },
+}));
 
 export interface Layout {
   id: string;
@@ -102,7 +67,7 @@ export const LAYOUTS: Layout[] = [
   },
 ];
 
-export const DEFAULT_SCHEME = "cream";
+export const DEFAULT_SCHEME = "magenta";
 export const DEFAULT_LAYOUT = "grid";
 
 export function getScheme(id: string): ColorScheme {
