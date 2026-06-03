@@ -86,10 +86,15 @@ Anchor neutrals (constants):
 
 ## Adding a new subject
 
-1. Process the new headshot in the Figma design system (node 600:8505) using the existing template
-2. Export as transparent PNG
-3. Save as `Headshot - {First Last}.png` to `assets/separated headshots/`
-4. Commit + push
+The workflow used for the existing 24 (repeat this so every portrait matches the established style):
+
+1. **Google Flow** — take the source photo + illustrate it in the creative/festive style. Generate variations until the illustrated version reads as a recognizable, on-brand portrait.
+2. **Photoshop** — open the illustrated portrait. Use the **Object Selection tool** to isolate just the person from the background. Copy.
+3. **Figma** — paste into the Project AIR Design System file (node 600:8505). Drop the cutout into a **1200×1200 frame** with the chosen palette background plate behind it.
+4. **Export** — transparent PNG of just the cutout (no background), saved as `Headshot - {First Last}.png` to `assets/separated headshots/`. If the subject is getting a new pre-rendered palette background, export that too as `Headshot BG - {Palette}.png`.
+5. **Commit + push** to GitHub.
+
+Dimensions and frame: **1200×1200** (square). Cutouts should fill the frame with hair, shoulders, and headroom intact — don't tightly crop to the face.
 
 ---
 
