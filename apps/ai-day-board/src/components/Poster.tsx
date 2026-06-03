@@ -31,8 +31,8 @@ const SQUARE = mk(1080, 1080);
 
 const RING_CENTER = { x: 1347.5, y: 595.5 };
 const RING_BASE = 875;
-const SQ_RING_CENTER = { x: 540, y: 332 };
-const SQ_RING_BASE = 780;
+const SQ_RING_CENTER = { x: 800, y: 786 };
+const SQ_RING_BASE = 840;
 
 /** Perceived-luminance check so we can pick a contrasting color. */
 function isDark(hex: string): boolean {
@@ -237,7 +237,7 @@ function WidePoster({
         <div className="absolute flex" style={{ left: px(50), top: py(150), width: px(820), gap: c(20) }}>
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
           <div className="flex flex-col" style={{ gap: c(14) }}>
-            {slots.name && <NameLine data={data} ink={variant.accent} display={display} size={nameSize} />}
+            {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
             {slots.role && data.role && <div style={{ fontFamily: display, fontSize: c(46), color: variant.ink }}>{data.role}</div>}
             {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(58), color: variant.ink }}>{data.sessionTitle}</div>}
             {(slots.location || slots.room || slots.time) && (
@@ -262,7 +262,11 @@ function SquarePoster({
   variant,
   slots = DEFAULT_SLOTS,
   ringStyle = DEFAULT_RING_STYLE,
+  topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
+  topSize = TOP_SIZE.default,
+  topOpacity = 1,
+  topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   headshotBg = "magenta",
   badgeOffsetX = 0,
@@ -277,53 +281,68 @@ function SquarePoster({
   const ringLeft = SQ_RING_CENTER.x - ringPx / 2 + badgeOffsetX;
   const ringTop = SQ_RING_CENTER.y - ringPx / 2;
   const names = data.names.length ? data.names : [data.name];
-  const nameSize = c(names.length >= 3 ? 48 : names.length === 2 ? 60 : 80);
+  const nameSize = c(names.length >= 3 ? 44 : names.length === 2 ? 56 : 72);
 
   return (
     <div style={{ containerType: "inline-size" }} className="relative w-full" aria-label={`Poster for ${data.name}`}>
       <div className="relative overflow-hidden" style={{ aspectRatio: "1 / 1", background: variant.bg, color: variant.ink }}>
-        {/* Construct (Figma TV variant): big ring badge + headshot up top
-            (bleeding off the top), speaker text bottom-left, AI DAY logo + date
-            bottom-right, decorative in the corners. No top-edge stripe. */}
+        {/* Composition follows the Figma "LinkedIn Template" (1080x1080):
+            AI DAY top-left, piano-stripes top-right, date top-right, speaker
+            block left-middle, ring badge + headshot bottom-right, air lockup
+            bottom-left, squiggle mid-left. */}
 
-        {/* bottom-left pattern (faint, behind the speaker text) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/bottom-left/quarter-circles.png" alt="" className="absolute object-contain object-left-bottom" style={{ left: 0, bottom: 0, width: px(500), height: py(330), opacity: 0.3 }} />
-        {/* squiggle near the bottom */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-40), bottom: py(16), width: px(820 * squiggleSize), height: py(180 * squiggleSize) }} />
+        {/* top-edge graphic, top-right */}
+        {slots.eventMark && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ right: 0, top: 0, width: px(540 * topSize), height: py(360 * topSize), objectPosition: "right top", opacity: topOpacity, transform: topFlip ? "scaleX(-1)" : undefined }} />
+        )}
 
-        {/* big ring badge, centered up top */}
+        {/* squiggle, mid-left */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560 * squiggleSize), height: py(220 * squiggleSize) }} />
+
+        {/* ring badge + headshot, bottom-right (bleeds off the corner) */}
         {slots.ringBadge && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
         )}
         {slots.portrait && (
-          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={440} c={c} px={px} py={py} />
+          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={430} c={c} px={px} py={py} />
         )}
 
-        {/* speaker block, bottom-left */}
-        <div className="absolute flex flex-col" style={{ left: px(64), top: py(742), width: px(600), gap: c(10) }}>
-          {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(38 * tagSize), color: variant.accent, lineHeight: 1 }}>{data.tag}</div>}
-          {slots.name && <NameLine data={data} ink={variant.accent} display={display} size={nameSize} />}
-          {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(44), color: variant.ink }}>{data.sessionTitle}</div>}
-          {(slots.location || slots.room || slots.time) && (
-            <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(28), color: variant.light, letterSpacing: c(1) }}>{infoRow(data, slots)}</div>
-          )}
-        </div>
-
-        {/* AI DAY logo + date, bottom-right; bg box behind the logo */}
+        {/* AI DAY wordmark, top-left, with a background-colored box behind it */}
         {slots.lockup && (
           <>
-            <div className="absolute" style={{ left: px(654), top: py(742), width: px(380), height: py(170), background: variant.bg }} />
-            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(680), top: py(760), width: px(330) }} />
+            <div className="absolute" style={{ left: px(36), top: py(48), width: px(600), height: py(252), background: variant.bg }} />
+            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(54), top: py(70), width: px(560) }} />
           </>
         )}
+
+        {/* date, top-right under the stripes */}
         {slots.date && (
-          <div className="absolute text-right" style={{ left: px(654), top: py(914), width: px(380), fontFamily: mono, fontWeight: 500, fontSize: c(30 * dateSize), color: variant.light, letterSpacing: c(1) }}>
+          <div className="absolute text-right" style={{ left: px(560), top: py(392), width: px(474), fontFamily: mono, fontWeight: 500, fontSize: c(46 * dateSize), color: variant.light, letterSpacing: c(2) }}>
             {data.dateLabel}
           </div>
         )}
+
+        {/* speaker block, left-middle: accent bar + name / title / tag / info */}
+        <div className="absolute flex" style={{ left: px(54), top: py(452), width: px(620), gap: c(20) }}>
+          <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
+          <div className="flex flex-col" style={{ gap: c(12) }}>
+            {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
+            {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(40), color: variant.ink }}>{data.sessionTitle}</div>}
+            {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, marginTop: c(6) }}>{data.tag}</div>}
+            {(slots.location || slots.room || slots.time) && (
+              <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(26), color: variant.light, letterSpacing: c(1) }}>{infoRow(data, slots)}</div>
+            )}
+          </div>
+        </div>
+
+        {/* air lockup, bottom-left */}
+        <div className="absolute" style={{ left: px(60), bottom: py(70) }}>
+          <div style={{ fontFamily: display, fontWeight: 800, fontSize: c(118), lineHeight: 0.8, color: variant.accent }}>air</div>
+          <div style={{ fontFamily: mono, fontSize: c(22), color: variant.light, letterSpacing: c(6) }}>AI IN REACH</div>
+        </div>
       </div>
     </div>
   );
