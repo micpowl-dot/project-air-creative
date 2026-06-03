@@ -265,17 +265,21 @@ export function Board({ schedule }: { schedule: Schedule }) {
         </div>
       </div>
 
-      {/* Hero — converging graphic fills the header band, flanking the title */}
-      <header className="flex items-stretch overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/poster-elements/top-edge/converging.png"
-          alt=""
-          aria-hidden
-          className="hidden min-w-0 flex-1 object-cover md:block"
-          style={{ transform: "scaleX(-1)" }}
-        />
-        <div className="shrink-0 px-8 py-7 text-center">
+      {/* Hero — converging graphic flanks a vertically-centered title.
+          The pattern is cropped 75px off the top and bottom (the image is
+          rendered 150px taller than the band and shifted up 75px). */}
+      <header className="relative flex h-40 items-center overflow-hidden">
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/poster-elements/top-edge/converging.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)" }}
+          />
+        </div>
+        <div className="shrink-0 px-8 text-center">
           <h1 className="font-display text-4xl font-bold text-[var(--ink)] md:text-5xl">
             {schedule.title}
           </h1>
@@ -289,13 +293,16 @@ export function Board({ schedule }: { schedule: Schedule }) {
             })}
           </p>
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/poster-elements/top-edge/converging.png"
-          alt=""
-          aria-hidden
-          className="hidden min-w-0 flex-1 object-cover md:block"
-        />
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/poster-elements/top-edge/converging.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)" }}
+          />
+        </div>
       </header>
 
       <main className="px-6 pb-16 pt-4">
