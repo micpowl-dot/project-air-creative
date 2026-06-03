@@ -1,6 +1,6 @@
 # Headshot System — Cutouts + Palette Backgrounds
 
-> 24 transparent-PNG headshots + 10 palette background plates. Designed to be layered together so any subject can sit on any palette — for posters, badges, the deck, or digital adaptations — without re-rendering from Figma.
+> 24 transparent-PNG headshots + 10 palette background plates. **Designed so every portrait can carry its own background** — no shared palette per row, per track, or per section. Each subject gets their own treatment, customizable independently. For posters, badges, the deck, or digital adaptations — no re-rendering from Figma needed.
 
 ---
 
@@ -77,10 +77,10 @@ Anchor neutrals (constants):
 
 ## Rules of thumb
 
-- **One palette per subject.** Don't mix dominant from one palette with accent from another.
+- **Every portrait carries its own background.** That's the whole point of separating them — you can give each speaker a different palette without re-rendering from Figma. Mix freely across a lineup.
+- **One palette per subject.** Within a single portrait composition, don't mix dominant from one palette with accent from another. Pick one palette and use both its dominant and accent on that subject.
 - **Anchor neutrals (dark/light) are always available.** Use anchor-light for text on a dominant background; anchor-dark for text on an accent background.
 - **Don't crop the cutout headshot.** Hair, shoulders, ears are part of the silhouette — cropping kills the festival-poster feel.
-- **Match the palette to the speaker's slot in the lineup, not personal preference.** Use one palette per track or section so the visual story stays coherent across posters.
 
 ---
 
