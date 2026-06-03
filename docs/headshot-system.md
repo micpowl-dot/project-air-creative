@@ -84,6 +84,19 @@ Anchor neutrals (constants):
 
 ---
 
+## Style reference
+
+[`assets/separated headshots/style-key-2.png`](../assets/separated%20headshots/style-key-2.png) is the canonical visual target. Any new portrait should match this style:
+
+- High-contrast vector illustration (cel-shaded, not photographic)
+- Vivid skin tones with cool blue/teal shadows
+- Glossy, festival-poster feel — saturated but not garish
+- Strong, clean highlights on hair / glasses / fabric folds
+- Subject fills the 1200×1200 frame with hair and shoulders intact
+- Source rendered on a chroma background (green is fine) so Photoshop's Object Selection isolates cleanly
+
+If the Google Flow output doesn't read like the reference, regenerate before moving to Photoshop. Style drift across portraits will be obvious in a lineup.
+
 ## Adding a new subject
 
 The workflow used for the existing 24 (repeat this so every portrait matches the established style):
