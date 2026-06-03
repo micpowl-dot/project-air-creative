@@ -247,7 +247,10 @@ function WidePoster({
           </div>
         </div>
         {slots.lockup && (
-          <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(1470), top: py(870), width: px(390) }} />
+          <>
+            <div className="absolute" style={{ left: px(1448), top: py(848), width: px(436), height: py(212), background: variant.bg }} />
+            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(1470), top: py(870), width: px(390) }} />
+          </>
         )}
       </div>
     </div>
