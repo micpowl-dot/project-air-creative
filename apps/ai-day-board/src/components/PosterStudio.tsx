@@ -39,6 +39,7 @@ import {
   type CompTransform,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
+import { resolveTitle } from "@/data/titles";
 import { loadStyleOverrides, saveStyleOverrides, type StyleOverrides } from "@/lib/poster-store";
 
 const SLOT_LABELS: { key: keyof PosterSlots; label: string }[] = [
@@ -109,12 +110,14 @@ export function PosterStudio({
   const style: SessionStyle = { ...baseStyle, ...overrides[selected.id] };
   const variant = getVariant(style.variantId);
   const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;
+  const roleText = isProfile ? (style.roleText ?? resolveTitle(selectedPerson!.name)) : "";
   const data = isProfile
-    ? profileToPoster(selectedPerson!.name, tagText)
+    ? profileToPoster(selectedPerson!.name, tagText, roleText)
     : sessionToPoster(selectedSession!.session, style.site, selectedSession!.time);
-  // On a profile, the poster is about the individual — hide session-driven slots.
+  // On a profile, the poster is about the individual — hide session-driven slots
+  // (but keep the job-title "role" line, which the user toggles).
   const renderSlots: PosterSlots = isProfile
-    ? { ...style.slots, sessionTitle: false, role: false, location: false, room: false, time: false }
+    ? { ...style.slots, sessionTitle: false, location: false, room: false, time: false }
     : style.slots;
   const accent = variant.accent;
 
@@ -314,6 +317,7 @@ export function PosterStudio({
                 topFlip={style.topFlip}
                 portraitSize={style.portraitSize}
                 nameScale={style.nameScale}
+                roleScale={style.roleScale}
                 headshotBg={style.headshotBg}
                 useAltHeadshot={style.useAltHeadshot}
                 badgeOffsetX={style.badgeOffsetX}
@@ -384,19 +388,32 @@ export function PosterStudio({
           {/* Controls */}
           <aside className="space-y-5">
             {isProfile && (
-              <Group title="Name &amp; title" onAll={() => applyToAll({ tagText: tagText }, `Title "${tagText}"`)}>
+              <Group title="Name, title &amp; tag">
+                <label className="text-[10px] uppercase tracking-wide text-white/40">Job title (from Slack)</label>
                 <input
                   type="text"
-                  value={style.tagText ?? DEFAULT_PROFILE_TAG}
-                  onChange={(e) => patch({ tagText: e.target.value })}
-                  placeholder={DEFAULT_PROFILE_TAG}
+                  value={style.roleText ?? resolveTitle(selectedPerson!.name)}
+                  onChange={(e) => patch({ roleText: e.target.value })}
+                  placeholder="Job title"
                   className="w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-white/40 focus:outline-none"
                 />
+                <label className="mt-1 block text-[10px] uppercase tracking-wide text-white/40">Tag (everyone)</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={style.tagText ?? DEFAULT_PROFILE_TAG}
+                    onChange={(e) => patch({ tagText: e.target.value })}
+                    placeholder={DEFAULT_PROFILE_TAG}
+                    className="min-w-0 flex-1 rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-white/40 focus:outline-none"
+                  />
+                  <AllButton onClick={() => applyToAll({ tagText: tagText }, `Tag "${tagText}"`)} />
+                </div>
                 <p className="text-[10px] text-white/35">
-                  Title shows under the name. Defaults to “{DEFAULT_PROFILE_TAG}”. Use “all” to set every participant at once.
+                  Job title pre-fills from Slack and is editable. The tag (“{DEFAULT_PROFILE_TAG}”) is shared — use “all”.
                 </p>
                 {sizeRow("nameScale", "Name", TEXT_SIZE, "x", "Name size")}
-                {sizeRow("tagSize", "Title", TEXT_SIZE, "x", "Title size")}
+                {sizeRow("roleScale", "Title", TEXT_SIZE, "x", "Job-title size")}
+                {sizeRow("tagSize", "Tag", TEXT_SIZE, "x", "Tag size")}
               </Group>
             )}
 
@@ -567,7 +584,7 @@ export function PosterStudio({
 
             <Group title="Elements" onAll={() => applyToAll({ slots: { ...style.slots } }, "Element visibility")}>
               <div className="grid grid-cols-2 gap-1.5">
-                {SLOT_LABELS.filter(({ key }) => !isProfile || !["sessionTitle", "role", "location", "room", "time"].includes(key)).map(({ key, label }) => (
+                {SLOT_LABELS.filter(({ key }) => !isProfile || !["sessionTitle", "location", "room", "time"].includes(key)).map(({ key, label }) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-white/5">
                     <input type="checkbox" checked={style.slots[key]} onChange={() => patchSlot(key)} />
                     {isProfile && key === "tag" ? "Title" : label}

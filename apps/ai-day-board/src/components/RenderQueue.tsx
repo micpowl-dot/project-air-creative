@@ -20,6 +20,7 @@ import {
   type PosterFormat,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
+import { resolveTitle } from "@/data/titles";
 import { loadStyleOverrides, type StyleOverrides } from "@/lib/poster-store";
 
 type RenderMode = "sessions" | "profiles";
@@ -106,6 +107,7 @@ function RenderCard({
               topFlip={item.style.topFlip}
               portraitSize={item.style.portraitSize}
               nameScale={item.style.nameScale}
+              roleScale={item.style.roleScale}
               headshotBg={item.style.headshotBg}
               useAltHeadshot={item.style.useAltHeadshot}
               badgeOffsetX={item.style.badgeOffsetX}
@@ -158,11 +160,12 @@ export function RenderQueue({
       return participantsFromSchedule(schedule).map((p) => {
         const style: SessionStyle = { ...defaultProfileStyle(), ...overrides[p.id] };
         const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;
+        const roleText = style.roleText ?? resolveTitle(p.name);
         return {
           id: p.id,
-          data: profileToPoster(p.name, tagText),
+          data: profileToPoster(p.name, tagText, roleText),
           style,
-          slots: { ...style.slots, sessionTitle: false, role: false, location: false, room: false, time: false },
+          slots: { ...style.slots, sessionTitle: false, location: false, room: false, time: false },
           label: p.name,
           sub: tagText,
           fileBase: `aiday_profile_${slugify(p.name)}`,

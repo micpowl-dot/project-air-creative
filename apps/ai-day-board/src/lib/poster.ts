@@ -217,6 +217,7 @@ export function participantsFromSchedule(schedule: Schedule): ParticipantEntry[]
 export function profileToPoster(
   name: string,
   tag: string,
+  role = "",
   overrides: Partial<PosterData> = {}
 ): PosterData {
   return {
@@ -225,6 +226,7 @@ export function profileToPoster(
     name,
     names: [name],
     sessionTitle: "",
+    role,
     tag,
     location: "",
     room: "",
@@ -291,6 +293,7 @@ export interface SessionStyle {
   topFlip: boolean; // mirror the top-edge graphic horizontally
   portraitSize: number;
   nameScale: number; // name text scale (1:1 profile)
+  roleScale: number; // job-title text scale (1:1 profile)
   useAltHeadshot: boolean; // use the alternate headshot art
   headshotBg: string; // background id behind the transparent cutout (poster)
   badgeOffsetX: number; // moves ring badge + headshot together (design px)
@@ -306,7 +309,8 @@ export interface SessionStyle {
   squiggleOffsetY: number;
   site: SiteId;
   slots: PosterSlots;
-  tagText?: string; // profile mode: free-text role under the name (e.g. "AI Ambassador")
+  tagText?: string; // profile mode: the shared tag (e.g. "AI Ambassador")
+  roleText?: string; // profile mode: override for the Slack job title
   layout?: ProfileLayout; // profile mode: per-component x/y/scale/opacity
 }
 
@@ -353,6 +357,7 @@ export const FACTORY_DEFAULTS = {
   topFlip: true,
   portraitSize: 1.05,
   nameScale: 1,
+  roleScale: 1,
   useAltHeadshot: false,
   badgeOffsetX: 0,
   dateSize: 1.35,
@@ -387,6 +392,7 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
 // button (in Profile Studio it emits this shape), then paste here + redeploy.
 export const PROFILE_FACTORY = {
   nameScale: 1,
+  roleScale: 1,
   tagSize: 1.45,
   layout: {} as ProfileLayout,
 };
@@ -404,7 +410,9 @@ export function defaultProfileStyle(): SessionStyle {
     squiggleOffsetX: 0,
     squiggleOffsetY: 0,
     badgeOffsetX: 0,
+    slots: { ...DEFAULT_SLOTS, role: true },
     nameScale: PROFILE_FACTORY.nameScale,
+    roleScale: PROFILE_FACTORY.roleScale,
     tagSize: PROFILE_FACTORY.tagSize,
     layout: { ...PROFILE_FACTORY.layout },
   };
