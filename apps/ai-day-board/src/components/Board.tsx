@@ -320,7 +320,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
             alt=""
             aria-hidden
             className="absolute inset-x-0 w-full object-cover"
-            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)" }}
+            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)", opacity: 0.7 }}
           />
         </div>
         <div className="shrink-0 px-8 text-center">
@@ -352,7 +352,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
             alt=""
             aria-hidden
             className="absolute inset-x-0 w-full object-cover"
-            style={{ top: -75, height: "calc(100% + 150px)" }}
+            style={{ top: -75, height: "calc(100% + 150px)", opacity: 0.7 }}
           />
         </div>
       </header>
