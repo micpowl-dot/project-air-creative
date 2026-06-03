@@ -20,23 +20,23 @@ function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
       className="rounded-xl border px-6 py-5 text-center"
       style={{
         background: "var(--surface-alt)",
-        borderColor: "color-mix(in srgb, var(--ink) 12%, transparent)",
+        borderColor: "color-mix(in srgb, var(--card-ink) 14%, transparent)",
       }}
     >
-      <h3 className="font-display text-2xl text-[var(--ink)]">{slot.title}</h3>
+      <h3 className="font-display text-2xl text-[var(--card-ink)]">{slot.title}</h3>
       {hasPeople && (
         <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
           {slot.people!.map((p) => (
             <span key={p} className="inline-flex items-center gap-2">
               <Headshot name={p} size={40} />
-              <span className="text-sm font-medium text-[var(--ink)]">{p}</span>
+              <span className="text-sm font-medium text-[var(--card-ink)]">{p}</span>
             </span>
           ))}
         </div>
       )}
       {slot.rooms &&
         (slot.rooms.brookhaven || slot.rooms.andover || slot.rooms.newYork) && (
-          <p className="mt-2 text-xs text-[var(--ink-soft)]">
+          <p className="mt-2 text-xs text-[var(--card-ink-soft)]">
             {[
               slot.rooms.brookhaven && `Brookhaven (${slot.rooms.brookhaven})`,
               slot.rooms.andover && `Andover (${slot.rooms.andover})`,
@@ -51,10 +51,9 @@ function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
           href={slot.rooms.meetUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-block text-xs underline decoration-dotted underline-offset-2"
-          style={{ color: "var(--accent)" }}
+          className="mt-2 inline-block text-xs font-medium underline decoration-dotted underline-offset-2 text-[var(--card-ink)]"
         >
-          ● Join Meet
+          <span style={{ color: "var(--accent)" }}>●</span> Join Meet
         </a>
       )}
     </div>
@@ -266,20 +265,38 @@ export function Board({ schedule }: { schedule: Schedule }) {
         </div>
       </div>
 
-      {/* Hero */}
-      <header className="px-6 pb-2 pt-8 text-center">
-        <h1 className="font-display text-4xl font-bold text-[var(--ink)] md:text-5xl">
-          {schedule.title}
-        </h1>
-        <p className="mt-2 text-sm text-[var(--ink-soft)]">
-          Live from The Drop · last synced{" "}
-          {synced.toLocaleString("en-US", {
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-          })}
-        </p>
+      {/* Hero — converging graphic flanks the title as a light header band */}
+      <header className="flex items-center justify-center gap-5 px-6 pb-2 pt-8">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/poster-elements/top-edge/converging.png"
+          alt=""
+          aria-hidden
+          className="hidden h-12 min-w-0 flex-1 object-cover opacity-90 md:block"
+          style={{ maxWidth: 320, transform: "scaleX(-1)" }}
+        />
+        <div className="shrink-0 text-center">
+          <h1 className="font-display text-4xl font-bold text-[var(--ink)] md:text-5xl">
+            {schedule.title}
+          </h1>
+          <p className="mt-2 text-sm text-[var(--ink-soft)]">
+            Live from The Drop · last synced{" "}
+            {synced.toLocaleString("en-US", {
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+            })}
+          </p>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/poster-elements/top-edge/converging.png"
+          alt=""
+          aria-hidden
+          className="hidden h-12 min-w-0 flex-1 object-cover opacity-90 md:block"
+          style={{ maxWidth: 320 }}
+        />
       </header>
 
       <main className="px-6 pb-16 pt-4">

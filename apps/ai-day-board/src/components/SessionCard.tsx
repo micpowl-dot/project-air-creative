@@ -22,23 +22,23 @@ export function SessionCard({
   return (
     <article
       className="flex h-full flex-col rounded-xl border bg-[var(--surface)] p-4"
-      style={{ borderColor: "color-mix(in srgb, var(--ink) 12%, transparent)" }}
+      style={{ borderColor: "color-mix(in srgb, var(--card-ink) 14%, transparent)" }}
     >
       <div
         className="mb-3 h-1.5 w-10 rounded-full"
         style={{ background: accent }}
       />
-      <h3 className="font-display text-lg leading-tight text-[var(--ink)]">
+      <h3 className="font-display text-lg leading-tight text-[var(--card-ink)]">
         {session.title}
         {session.isRepeat && (
-          <span className="ml-2 align-middle text-[10px] font-medium uppercase tracking-wide text-[var(--ink-soft)]">
+          <span className="ml-2 align-middle text-[10px] font-medium uppercase tracking-wide text-[var(--card-ink-soft)]">
             repeat
           </span>
         )}
       </h3>
 
       {!compact && session.description && (
-        <p className="mt-2 text-sm leading-snug text-[var(--ink-soft)]">
+        <p className="mt-2 text-sm leading-snug text-[var(--card-ink-soft)]">
           {session.description}
         </p>
       )}
@@ -48,7 +48,7 @@ export function SessionCard({
         {session.instructors.map((person) => (
           <span key={person} className="inline-flex items-center gap-2">
             <Headshot name={person} size={36} ring={accent} />
-            <span className="text-sm font-medium text-[var(--ink)]">
+            <span className="text-sm font-medium text-[var(--card-ink)]">
               {person}
             </span>
           </span>
@@ -56,7 +56,7 @@ export function SessionCard({
       </div>
 
       {/* Rooms per site */}
-      <dl className="mt-auto pt-3 text-xs text-[var(--ink-soft)]">
+      <dl className="mt-auto pt-3 text-xs text-[var(--card-ink-soft)]">
         <div className="flex flex-wrap gap-x-4 gap-y-1">
           {SITE_LABELS.map(([key, label]) =>
             session.rooms[key] ? (
@@ -73,15 +73,14 @@ export function SessionCard({
               href={session.rooms.meetUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline underline decoration-dotted underline-offset-2"
-              style={{ color: accent }}
+              className="inline font-medium underline decoration-dotted underline-offset-2 text-[var(--card-ink)]"
             >
-              ● Join Meet
+              <span style={{ color: accent }}>●</span> Join Meet
             </a>
           ) : (
             session.rooms.remote && (
-              <div className="inline" style={{ color: accent }}>
-                ● Remote (Meet)
+              <div className="inline text-[var(--card-ink-soft)]">
+                <span style={{ color: accent }}>●</span> Remote (Meet)
               </div>
             )
           )}

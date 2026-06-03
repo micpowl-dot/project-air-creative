@@ -19,8 +19,10 @@ export interface ColorScheme {
   bg: string; // page background
   surface: string; // card background
   surfaceAlt: string; // secondary card / header strip
-  ink: string; // primary text
-  inkSoft: string; // secondary text
+  ink: string; // primary text ON the page background (light)
+  inkSoft: string; // secondary text on the page background
+  cardInk: string; // text inside white cards (dark)
+  cardInkSoft: string; // secondary text inside white cards
   accent: string; // single accent (stripes, highlights)
   // Per-track accent. Mirrors the three-tier color idea (gold / black / red)
   // from the Figma poster system; tune freely.
@@ -30,15 +32,19 @@ export interface ColorScheme {
 // Built from the five swatch groups (magenta/cyan/violet/amber/forest).
 // primary = page bg; light = text; accent = highlight; surfaces are the
 // primary darkened so cards read against the background.
+// Vibrant primary page background, WHITE cards with dark navy text for
+// readability. Page-level text (hero, time labels) stays light.
 export const COLOR_SCHEMES: ColorScheme[] = POSTER_VARIANTS.map((v) => ({
   id: v.id,
   name: v.name,
   dark: true,
   bg: v.bg,
-  surface: `color-mix(in srgb, ${v.bg} 82%, #000)`,
-  surfaceAlt: `color-mix(in srgb, ${v.bg} 66%, #000)`,
+  surface: "#FFFFFF",
+  surfaceAlt: "#FFFFFF",
   ink: v.light,
-  inkSoft: `color-mix(in srgb, ${v.light} 70%, transparent)`,
+  inkSoft: `color-mix(in srgb, ${v.light} 72%, transparent)`,
+  cardInk: "#0D142A",
+  cardInkSoft: "color-mix(in srgb, #0D142A 58%, #ffffff)",
   accent: v.accent,
   track: { explore: v.accent, apply: v.light, build: v.ink },
 }));
@@ -86,6 +92,8 @@ export function schemeVars(scheme: ColorScheme): React.CSSProperties {
     ["--surface-alt" as string]: scheme.surfaceAlt,
     ["--ink" as string]: scheme.ink,
     ["--ink-soft" as string]: scheme.inkSoft,
+    ["--card-ink" as string]: scheme.cardInk,
+    ["--card-ink-soft" as string]: scheme.cardInkSoft,
     ["--accent" as string]: scheme.accent,
     ["--track-explore" as string]: scheme.track.explore,
     ["--track-apply" as string]: scheme.track.apply,
