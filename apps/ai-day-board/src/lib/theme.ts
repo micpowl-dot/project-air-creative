@@ -46,7 +46,9 @@ export const COLOR_SCHEMES: ColorScheme[] = POSTER_VARIANTS.map((v) => ({
   cardInk: "#0D142A",
   cardInkSoft: "color-mix(in srgb, #0D142A 58%, #ffffff)",
   accent: v.accent,
-  track: { explore: v.accent, apply: v.light, build: v.ink },
+  // Three distinct, non-white track colors so the category bars show on the
+  // white cards: accent, the scheme's primary, and the dark contrast.
+  track: { explore: v.accent, apply: v.bg, build: v.ink },
 }));
 
 export interface Layout {

@@ -25,6 +25,16 @@ const HEADER_TOP_GRAPHIC: Record<string, string> = {
   forest: "piano-stripes",
 };
 
+/** Perceived-luminance check to pick readable text on a colored chip. */
+function isDark(hex: string): boolean {
+  const h = hex.replace("#", "");
+  if (h.length < 6) return true;
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return 0.299 * r + 0.587 * g + 0.114 * b < 140;
+}
+
 function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
   const hasPeople = (slot.people?.length ?? 0) > 0;
   return (
@@ -83,32 +93,40 @@ function TimeChip({ time }: { time: string }) {
   );
 }
 
-function GridLayout({ schedule }: { schedule: Schedule }) {
+function GridLayout({
+  schedule,
+  trackColors,
+}: {
+  schedule: Schedule;
+  trackColors: Record<string, string>;
+}) {
   return (
     <div className="space-y-4">
       {/* Track header */}
       <div className="grid grid-cols-[64px_repeat(3,1fr)] gap-4">
         <div />
-        {schedule.tracks.map((t) => (
-          <div
-            key={t.id}
-            className="rounded-lg px-4 py-3 text-center"
-            style={{ background: `var(--track-${t.id})` }}
-          >
+        {schedule.tracks.map((t) => {
+          const bg = trackColors[t.id] ?? "#000000";
+          const onDark = isDark(bg);
+          const txt = onDark ? "#FFFFFF" : "#0D142A";
+          return (
             <div
-              className="font-display text-xl font-bold"
-              style={{ color: "var(--bg)" }}
+              key={t.id}
+              className="rounded-lg px-4 py-3 text-center"
+              style={{ background: bg }}
             >
-              {t.name}
+              <div className="font-display text-xl font-bold" style={{ color: txt }}>
+                {t.name}
+              </div>
+              <div
+                className="text-xs font-medium"
+                style={{ color: `color-mix(in srgb, ${txt} 72%, transparent)` }}
+              >
+                {t.subtitle}
+              </div>
             </div>
-            <div
-              className="text-xs font-medium"
-              style={{ color: "color-mix(in srgb, var(--bg) 75%, transparent)" }}
-            >
-              {t.subtitle}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {schedule.slots.map((slot) => {
@@ -334,7 +352,12 @@ export function Board({ schedule }: { schedule: Schedule }) {
       </header>
 
       <main className="px-6 pb-16 pt-4">
-        {layoutId === "grid" && <GridLayout schedule={schedule} />}
+        {layoutId === "grid" && (
+          <GridLayout
+            schedule={schedule}
+            trackColors={{ explore: variant.accent, apply: variant.bg, build: variant.ink }}
+          />
+        )}
         {layoutId === "agenda" && <AgendaLayout schedule={schedule} />}
         {layoutId === "spotlight" && <SpotlightLayout schedule={schedule} />}
       </main>
