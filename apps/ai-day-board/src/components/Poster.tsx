@@ -31,8 +31,8 @@ const SQUARE = mk(1080, 1080);
 
 const RING_CENTER = { x: 1347.5, y: 595.5 };
 const RING_BASE = 875;
-const SQ_RING_CENTER = { x: 540, y: 498 };
-const SQ_RING_BASE = 520;
+const SQ_RING_CENTER = { x: 540, y: 332 };
+const SQ_RING_BASE = 780;
 
 /** Perceived-luminance check so we can pick a contrasting color. */
 function isDark(hex: string): boolean {
@@ -262,11 +262,7 @@ function SquarePoster({
   variant,
   slots = DEFAULT_SLOTS,
   ringStyle = DEFAULT_RING_STYLE,
-  topStyle = DEFAULT_TOP_STYLE,
   ringSize = RING_SIZE.default,
-  topSize = TOP_SIZE.default,
-  topOpacity = 1,
-  topFlip = false,
   portraitSize = PORTRAIT_SIZE.default,
   headshotBg = "magenta",
   badgeOffsetX = 0,
@@ -286,44 +282,48 @@ function SquarePoster({
   return (
     <div style={{ containerType: "inline-size" }} className="relative w-full" aria-label={`Poster for ${data.name}`}>
       <div className="relative overflow-hidden" style={{ aspectRatio: "1 / 1", background: variant.bg, color: variant.ink }}>
-        {/* top-edge graphic — full-width band across the top */}
-        {slots.eventMark && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ left: 0, top: 0, width: px(1080), height: py(240 * topSize), objectPosition: "center top", opacity: topOpacity, transform: topFlip ? "scaleX(-1)" : undefined }} />
-        )}
-        {/* bottom-left pattern */}
+        {/* Construct (Figma TV variant): big ring badge + headshot up top
+            (bleeding off the top), speaker text bottom-left, AI DAY logo + date
+            bottom-right, decorative in the corners. No top-edge stripe. */}
+
+        {/* bottom-left pattern (faint, behind the speaker text) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/bottom-left/quarter-circles.png" alt="" className="absolute object-contain object-left-bottom" style={{ left: 0, bottom: 0, width: px(560), height: py(360), opacity: 0.9 }} />
+        <img src="/poster-elements/bottom-left/quarter-circles.png" alt="" className="absolute object-contain object-left-bottom" style={{ left: 0, bottom: 0, width: px(500), height: py(330), opacity: 0.3 }} />
         {/* squiggle near the bottom */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(60), bottom: py(24), width: px(960 * squiggleSize), height: py(200 * squiggleSize) }} />
-        {/* ring badge centered */}
+        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-40), bottom: py(16), width: px(820 * squiggleSize), height: py(180 * squiggleSize) }} />
+
+        {/* big ring badge, centered up top */}
         {slots.ringBadge && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
         )}
-        {/* AI DAY logo across the top, recolored per scheme; a background-
-            colored box sits behind it so it reads cleanly over the top graphic */}
-        {slots.lockup && (
-          <>
-            <div className="absolute" style={{ left: px((1080 - 510) / 2), top: py(40), width: px(510), height: py(224), background: variant.bg }} />
-            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px((1080 - 430) / 2), top: py(70), width: px(430) }} />
-          </>
-        )}
-        {/* portrait over the ring */}
         {slots.portrait && (
-          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={300} c={c} px={px} py={py} />
+          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={440} c={c} px={px} py={py} />
         )}
-        {/* centered text block */}
-        <div className="absolute flex flex-col items-center text-center" style={{ left: px(70), top: py(778), width: px(940), gap: c(10) }}>
-          {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, lineHeight: 1 }}>{data.tag}</div>}
+
+        {/* speaker block, bottom-left */}
+        <div className="absolute flex flex-col" style={{ left: px(64), top: py(742), width: px(600), gap: c(10) }}>
+          {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(38 * tagSize), color: variant.accent, lineHeight: 1 }}>{data.tag}</div>}
           {slots.name && <NameLine data={data} ink={variant.accent} display={display} size={nameSize} />}
-          {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(42), color: variant.ink }}>{data.sessionTitle}</div>}
+          {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(44), color: variant.ink }}>{data.sessionTitle}</div>}
           {(slots.location || slots.room || slots.time) && (
             <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(28), color: variant.light, letterSpacing: c(1) }}>{infoRow(data, slots)}</div>
           )}
-          {slots.date && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(34 * dateSize), color: variant.light, letterSpacing: c(1) }}>{data.dateLabel}</div>}
         </div>
+
+        {/* AI DAY logo + date, bottom-right; bg box behind the logo */}
+        {slots.lockup && (
+          <>
+            <div className="absolute" style={{ left: px(654), top: py(742), width: px(380), height: py(170), background: variant.bg }} />
+            <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(680), top: py(760), width: px(330) }} />
+          </>
+        )}
+        {slots.date && (
+          <div className="absolute text-right" style={{ left: px(654), top: py(914), width: px(380), fontFamily: mono, fontWeight: 500, fontSize: c(30 * dateSize), color: variant.light, letterSpacing: c(1) }}>
+            {data.dateLabel}
+          </div>
+        )}
       </div>
     </div>
   );
