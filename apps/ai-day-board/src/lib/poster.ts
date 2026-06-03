@@ -306,6 +306,39 @@ export interface SessionStyle {
   site: SiteId;
   slots: PosterSlots;
   tagText?: string; // profile mode: free-text role under the name (e.g. "AI Ambassador")
+  layout?: ProfileLayout; // profile mode: per-component x/y/scale/opacity
+}
+
+// --- Per-component transform model (Profile Studio 1:1) --------------------
+// Every element on the 1:1 can be moved (x/y, in design px), scaled, and faded.
+export interface CompTransform {
+  x: number;
+  y: number;
+  scale: number;
+  opacity: number;
+}
+export const COMP_DEFAULT: CompTransform = { x: 0, y: 0, scale: 1, opacity: 1 };
+
+export type ProfileComp = "aiday" | "speaker" | "date" | "badge" | "top" | "squiggle" | "air";
+export type ProfileLayout = Partial<Record<ProfileComp, Partial<CompTransform>>>;
+
+/** Components in control-panel order. "badge" = headshot + ring as one unit. */
+export const PROFILE_COMPS: { id: ProfileComp; label: string }[] = [
+  { id: "badge", label: "Headshot + ring" },
+  { id: "speaker", label: "Name + text" },
+  { id: "aiday", label: "AI DAY logo" },
+  { id: "date", label: "Date" },
+  { id: "top", label: "Top graphic" },
+  { id: "squiggle", label: "Squiggle" },
+  { id: "air", label: "AIR logo" },
+];
+
+export const PROFILE_POS = { min: -700, max: 700 };
+export const PROFILE_SCALE = { min: 0.2, max: 3 };
+
+/** Resolve a component's transform, falling back to the neutral default. */
+export function compTransform(layout: ProfileLayout | undefined, comp: ProfileComp): CompTransform {
+  return { ...COMP_DEFAULT, ...(layout?.[comp] ?? {}) };
 }
 
 // FACTORY DEFAULTS — the sizing/positioning a brand-new user (empty browser)

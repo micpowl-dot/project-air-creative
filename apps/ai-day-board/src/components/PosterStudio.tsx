@@ -25,12 +25,18 @@ import {
   defaultProfileStyle,
   DEFAULT_PROFILE_TAG,
   TRACK_SCHEME,
+  PROFILE_COMPS,
+  PROFILE_POS,
+  PROFILE_SCALE,
+  compTransform,
   type PosterSlots,
   type SiteId,
   type RingStyle,
   type TopStyle,
   type SessionStyle,
   type PosterFormat,
+  type ProfileComp,
+  type CompTransform,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
 import { loadStyleOverrides, saveStyleOverrides, type StyleOverrides } from "@/lib/poster-store";
@@ -121,6 +127,23 @@ export function PosterStudio({
   }
   function patchSlot(k: keyof PosterSlots) {
     patch({ slots: { ...style.slots, [k]: !style.slots[k] } });
+  }
+  // Per-component transform (profile mode): merge one field into one component.
+  function patchLayout(comp: ProfileComp, p: Partial<CompTransform>) {
+    patch({ layout: { ...style.layout, [comp]: { ...style.layout?.[comp], ...p } } });
+  }
+  function applyLayoutAll(comp: ProfileComp, p: Partial<CompTransform>, label: string) {
+    setOverrides((prev) => {
+      const next: StyleOverrides = { ...prev };
+      for (const e of entries) {
+        const prevLayout = next[e.id]?.layout ?? {};
+        next[e.id] = { ...next[e.id], layout: { ...prevLayout, [comp]: { ...prevLayout[comp], ...p } } };
+      }
+      saveStyleOverrides(next);
+      return next;
+    });
+    setFlash({ text: `${label} applied to all ${entries.length} profiles` });
+    window.setTimeout(() => setFlash(null), 2200);
   }
   function resetToDefault() {
     setOverrides((prev) => {
@@ -277,6 +300,7 @@ export function PosterStudio({
                 squiggleSize={style.squiggleSize}
                 squiggleOffsetX={style.squiggleOffsetX}
                 squiggleOffsetY={style.squiggleOffsetY}
+                layout={style.layout}
               />
             </div>
 
@@ -369,19 +393,21 @@ export function PosterStudio({
               <Row label="Shape" onAll={() => applyToAll({ ringStyle: style.ringStyle }, `Ring shape "${style.ringStyle}"`)}>
                 <Chips options={RING_STYLES as readonly string[]} value={style.ringStyle} accent={accent} onChange={(v) => patch({ ringStyle: v as RingStyle })} cap />
               </Row>
-              {sizeRow("ringSize", "Size", RING_SIZE, "x", "Ring size")}
-              {sizeRow("badgeOffsetX", "X ⇄", OFFSET_X, "px", "Badge+headshot X")}
-              <p className="pl-14 text-[10px] text-white/35">X moves the ring badge and headshot together.</p>
+              {!isProfile && sizeRow("ringSize", "Size", RING_SIZE, "x", "Ring size")}
+              {!isProfile && sizeRow("badgeOffsetX", "X ⇄", OFFSET_X, "px", "Badge+headshot X")}
+              {!isProfile && <p className="pl-14 text-[10px] text-white/35">X moves the ring badge and headshot together.</p>}
             </Group>
 
-            <Group title="Date &amp; track tag">
-              {sizeRow("tagSize", "Tag", TEXT_SIZE, "x", "Track-tag size")}
-              {sizeRow("dateSize", "Date", TEXT_SIZE, "x", "Date size")}
-              <p className="pl-14 text-[10px] text-white/35">Track tag sits above the date, top-left.</p>
-            </Group>
+            {!isProfile && (
+              <Group title="Date &amp; track tag">
+                {sizeRow("tagSize", "Tag", TEXT_SIZE, "x", "Track-tag size")}
+                {sizeRow("dateSize", "Date", TEXT_SIZE, "x", "Date size")}
+                <p className="pl-14 text-[10px] text-white/35">Track tag sits above the date, top-left.</p>
+              </Group>
+            )}
 
             <Group title="Headshot">
-              {sizeRow("portraitSize", "Size", PORTRAIT_SIZE, "x", "Headshot size")}
+              {!isProfile && sizeRow("portraitSize", "Size", PORTRAIT_SIZE, "x", "Headshot size")}
               <Row label="Backdrop" onAll={() => applyToAll({ headshotBg: style.headshotBg }, "Headshot backdrop")}>
                 <div className="flex flex-wrap gap-1.5">
                   {HEADSHOT_BACKGROUNDS.map((b) => (
@@ -401,42 +427,88 @@ export function PosterStudio({
               <Row label="Graphic" onAll={() => applyToAll({ topStyle: style.topStyle }, `Top graphic "${style.topStyle}"`)}>
                 <Chips options={TOP_STYLES as readonly string[]} value={style.topStyle} accent={accent} onChange={(v) => patch({ topStyle: v as TopStyle })} />
               </Row>
-              {sizeRow("topSize", "Size", TOP_SIZE, "x", "Top size")}
-              <Row label="Opacity" onAll={() => applyToAll({ topOpacity: style.topOpacity }, `Top opacity ${Math.round(style.topOpacity * 100)}%`)}>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="range"
-                    min={0.1}
-                    max={1}
-                    step={0.05}
-                    value={style.topOpacity}
-                    onChange={(e) => patch({ topOpacity: Number(e.target.value) })}
-                    className="min-w-0 flex-1"
-                    style={{ accentColor: variant.accent }}
-                  />
-                  <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(style.topOpacity * 100)}%</span>
-                </div>
-              </Row>
               <Row label="Flip" onAll={() => applyToAll({ topFlip: style.topFlip }, `Top-edge flip ${style.topFlip ? "on" : "off"}`)}>
                 <label className="flex cursor-pointer items-center gap-2 text-sm">
                   <input type="checkbox" checked={style.topFlip} onChange={() => patch({ topFlip: !style.topFlip })} />
                   <span className="text-white/70">Mirror horizontally</span>
                 </label>
               </Row>
-              {sizeRow("topOffsetX", "X", OFFSET_X, "px", "Top-edge X")}
-              {sizeRow("topOffsetY", "Y", OFFSET_Y, "px", "Top-edge Y")}
+              {!isProfile && sizeRow("topSize", "Size", TOP_SIZE, "x", "Top size")}
+              {!isProfile && (
+                <Row label="Opacity" onAll={() => applyToAll({ topOpacity: style.topOpacity }, `Top opacity ${Math.round(style.topOpacity * 100)}%`)}>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="range"
+                      min={0.1}
+                      max={1}
+                      step={0.05}
+                      value={style.topOpacity}
+                      onChange={(e) => patch({ topOpacity: Number(e.target.value) })}
+                      className="min-w-0 flex-1"
+                      style={{ accentColor: variant.accent }}
+                    />
+                    <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(style.topOpacity * 100)}%</span>
+                  </div>
+                </Row>
+              )}
+              {!isProfile && sizeRow("topOffsetX", "X", OFFSET_X, "px", "Top-edge X")}
+              {!isProfile && sizeRow("topOffsetY", "Y", OFFSET_Y, "px", "Top-edge Y")}
             </Group>
 
-            <Group title="Bottom-left">
-              {sizeRow("bottomOffsetX", "X", OFFSET_X, "px", "Bottom-left X")}
-              {sizeRow("bottomOffsetY", "Y", OFFSET_Y, "px", "Bottom-left Y")}
-            </Group>
+            {!isProfile && (
+              <Group title="Bottom-left">
+                {sizeRow("bottomOffsetX", "X", OFFSET_X, "px", "Bottom-left X")}
+                {sizeRow("bottomOffsetY", "Y", OFFSET_Y, "px", "Bottom-left Y")}
+              </Group>
+            )}
 
-            <Group title="Squiggle">
-              {sizeRow("squiggleSize", "Size", SQUIGGLE_SIZE, "x", "Squiggle size")}
-              {sizeRow("squiggleOffsetX", "X", OFFSET_X, "px", "Squiggle X")}
-              {sizeRow("squiggleOffsetY", "Y", OFFSET_Y, "px", "Squiggle Y")}
-            </Group>
+            {!isProfile && (
+              <Group title="Squiggle">
+                {sizeRow("squiggleSize", "Size", SQUIGGLE_SIZE, "x", "Squiggle size")}
+                {sizeRow("squiggleOffsetX", "X", OFFSET_X, "px", "Squiggle X")}
+                {sizeRow("squiggleOffsetY", "Y", OFFSET_Y, "px", "Squiggle Y")}
+              </Group>
+            )}
+
+            {isProfile && (
+              <section className="space-y-4">
+                <h3 className="border-b border-white/10 pb-1 text-[11px] font-semibold uppercase tracking-widest text-white/45">
+                  Position, scale &amp; opacity
+                </h3>
+                {PROFILE_COMPS.map(({ id, label }) => {
+                  const t: CompTransform = compTransform(style.layout, id);
+                  return (
+                    <div key={id} className="space-y-2 rounded-lg border border-white/10 p-2.5">
+                      <div className="text-[11px] font-semibold uppercase tracking-wide text-white/60">{label}</div>
+                      <Row label="X ⇄" onAll={() => applyLayoutAll(id, { x: t.x }, `${label} X`)}>
+                        <MiniSlider value={t.x} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => patchLayout(id, { x: v })} />
+                      </Row>
+                      <Row label="Y ⇅" onAll={() => applyLayoutAll(id, { y: t.y }, `${label} Y`)}>
+                        <MiniSlider value={t.y} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => patchLayout(id, { y: v })} />
+                      </Row>
+                      <Row label="Scale" onAll={() => applyLayoutAll(id, { scale: t.scale }, `${label} scale`)}>
+                        <MiniSlider value={t.scale} range={PROFILE_SCALE} unit="x" accent={accent} onChange={(v) => patchLayout(id, { scale: v })} />
+                      </Row>
+                      <Row label="Fade" onAll={() => applyLayoutAll(id, { opacity: t.opacity }, `${label} opacity`)}>
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="range"
+                            min={0}
+                            max={1}
+                            step={0.05}
+                            value={t.opacity}
+                            onChange={(e) => patchLayout(id, { opacity: Number(e.target.value) })}
+                            className="min-w-0 flex-1"
+                            style={{ accentColor: accent }}
+                          />
+                          <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(t.opacity * 100)}%</span>
+                        </div>
+                      </Row>
+                    </div>
+                  );
+                })}
+              </section>
+            )}
 
             {!isProfile && (
               <Group title="Location (drives room)">

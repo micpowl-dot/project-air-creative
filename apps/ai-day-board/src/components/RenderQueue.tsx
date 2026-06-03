@@ -117,6 +117,7 @@ function RenderCard({
               squiggleSize={item.style.squiggleSize}
               squiggleOffsetX={item.style.squiggleOffsetX}
               squiggleOffsetY={item.style.squiggleOffsetY}
+              layout={item.style.layout}
             />
           </div>
         </div>

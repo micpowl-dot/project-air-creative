@@ -16,6 +16,10 @@ import {
   TOP_SIZE,
   PORTRAIT_SIZE,
   SQUIGGLE_SIZE,
+  compTransform,
+  type ProfileLayout,
+  type ProfileComp,
+  type CompTransform,
 } from "@/lib/poster";
 import { AiDayLogo } from "./AiDayLogo";
 import { AirLogo } from "./AirLogo";
@@ -169,6 +173,7 @@ export interface PosterProps {
   squiggleSize?: number;
   squiggleOffsetX?: number;
   squiggleOffsetY?: number;
+  layout?: ProfileLayout;
 }
 
 export function Poster(props: PosterProps) {
@@ -264,31 +269,30 @@ function SquarePoster({
   slots = DEFAULT_SLOTS,
   ringStyle = DEFAULT_RING_STYLE,
   topStyle = DEFAULT_TOP_STYLE,
-  ringSize = RING_SIZE.default,
-  topSize = TOP_SIZE.default,
-  topOpacity = 1,
   topFlip = false,
-  portraitSize = PORTRAIT_SIZE.default,
   headshotBg = "magenta",
-  badgeOffsetX = 0,
-  dateSize = 1,
   tagSize = 1,
-  topOffsetX = 0,
-  topOffsetY = 0,
-  bottomOffsetX = 0,
-  bottomOffsetY = 0,
-  squiggleSize = SQUIGGLE_SIZE.default,
-  squiggleOffsetX = 0,
-  squiggleOffsetY = 0,
+  layout,
 }: PosterProps) {
   const { c, px, py } = SQUARE;
   const mono = "var(--font-poster-mono)";
   const display = "var(--font-poster-display)";
-  const ringPx = SQ_RING_BASE * ringSize;
-  const ringLeft = SQ_RING_CENTER.x - ringPx / 2 + badgeOffsetX;
+  const ringPx = SQ_RING_BASE;
+  const ringLeft = SQ_RING_CENTER.x - ringPx / 2;
   const ringTop = SQ_RING_CENTER.y - ringPx / 2;
   const names = data.names.length ? data.names : [data.name];
   const nameSize = c(names.length >= 3 ? 44 : names.length === 2 ? 56 : 72);
+
+  // transform/opacity for one component, scaled around the given CSS origin.
+  const tf = (comp: ProfileComp, origin: string, extra = ""): React.CSSProperties => {
+    const t: CompTransform = compTransform(layout, comp);
+    return {
+      transform: `translate(${c(t.x)}, ${c(t.y)}) scale(${t.scale})${extra ? ` ${extra}` : ""}`,
+      transformOrigin: origin,
+      opacity: t.opacity,
+    };
+  };
+  const pct = (v: number, base: number) => `${((v / base) * 100).toFixed(2)}%`;
 
   return (
     <div style={{ containerType: "inline-size" }} className="relative w-full" aria-label={`Poster for ${data.name}`}>
@@ -296,44 +300,47 @@ function SquarePoster({
         {/* Composition follows the Figma "LinkedIn Template" (1080x1080):
             AI DAY top-left, piano-stripes top-right, date top-right, speaker
             block left-middle, ring badge + headshot bottom-right, air lockup
-            bottom-left, squiggle mid-left. */}
+            bottom-left, squiggle mid-left. Each element can be moved, scaled,
+            and faded independently via the per-component `layout`. */}
 
         {/* top-edge graphic, top-right */}
         {slots.eventMark && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ right: 0, top: 0, width: px(540 * topSize), height: py(360 * topSize), objectPosition: "right top", opacity: topOpacity, transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})${topFlip ? " scaleX(-1)" : ""}` }} />
+          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ right: 0, top: 0, width: px(540), height: py(360), objectPosition: "right top", ...tf("top", "right top", topFlip ? "scaleX(-1)" : "") }} />
         )}
 
         {/* squiggle, mid-left */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560 * squiggleSize), height: py(220 * squiggleSize), transform: `translate(${c(squiggleOffsetX)}, ${c(squiggleOffsetY)})` }} />
+        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560), height: py(220), ...tf("squiggle", "left center") }} />
 
-        {/* ring badge + headshot, bottom-right (bleeds off the corner) */}
-        {slots.ringBadge && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
-        )}
-        {slots.portrait && (
-          <PortraitGroup names={names} scale={portraitSize} dx={badgeOffsetX} bg={headshotBg} center={SQ_RING_CENTER} baseSize={430} c={c} px={px} py={py} />
-        )}
+        {/* ring badge + headshot move/scale/fade together as one unit */}
+        <div className="absolute inset-0" style={tf("badge", `${pct(SQ_RING_CENTER.x, 1080)} ${pct(SQ_RING_CENTER.y, 1080)}`)}>
+          {slots.ringBadge && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
+          )}
+          {slots.portrait && (
+            <PortraitGroup names={names} scale={1} bg={headshotBg} center={SQ_RING_CENTER} baseSize={430} c={c} px={px} py={py} />
+          )}
+        </div>
 
         {/* AI DAY wordmark, top-left, with a background-colored box behind it */}
         {slots.lockup && (
-          <>
+          <div className="absolute inset-0" style={tf("aiday", "left top")}>
             <div className="absolute" style={{ left: px(36), top: py(48), width: px(600), height: py(252), background: variant.bg }} />
             <AiDayLogo accent={variant.accent} ink={variant.ink} light={variant.light} className="absolute" style={{ left: px(54), top: py(70), width: px(560) }} />
-          </>
+          </div>
         )}
 
         {/* date, top-right under the stripes */}
         {slots.date && (
-          <div className="absolute text-right" style={{ left: px(560), top: py(392), width: px(474), fontFamily: mono, fontWeight: 500, fontSize: c(46 * dateSize), color: variant.light, letterSpacing: c(2) }}>
+          <div className="absolute text-right" style={{ left: px(560), top: py(392), width: px(474), fontFamily: mono, fontWeight: 500, fontSize: c(46), color: variant.light, letterSpacing: c(2), ...tf("date", "right top") }}>
             {data.dateLabel}
           </div>
         )}
 
-        {/* speaker block, left-middle: accent bar + name / title / tag / info */}
-        <div className="absolute flex" style={{ left: px(54), top: py(452), width: px(620), gap: c(20) }}>
+        {/* speaker block, left-middle: accent bar + name / tag */}
+        <div className="absolute flex" style={{ left: px(54), top: py(452), width: px(620), gap: c(20), ...tf("speaker", "left top") }}>
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
           <div className="flex flex-col" style={{ gap: c(12) }}>
             {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
@@ -346,7 +353,9 @@ function SquarePoster({
         </div>
 
         {/* AIR lockup, bottom-left — "AI" + "IN" follow the scheme accent */}
-        <AirLogo accent={variant.accent} light={variant.light} className="absolute" style={{ left: px(60), bottom: py(64), width: px(300), transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})` }} />
+        {slots.lockup && (
+          <AirLogo accent={variant.accent} light={variant.light} className="absolute" style={{ left: px(60), bottom: py(64), width: px(300), ...tf("air", "left bottom") }} />
+        )}
       </div>
     </div>
   );
