@@ -9,25 +9,25 @@ import {
   posterEntriesFromSchedule,
   sessionToPoster,
   defaultSessionStyle,
+  POSTER_DIMS,
   type SessionStyle,
   type PosterEntry,
+  type PosterFormat,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
 import { loadStyleOverrides, type StyleOverrides } from "@/lib/poster-store";
-
-const OUT_W = 1920;
-const OUT_H = 1080;
 
 function slugify(s: string) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
-function fileName(entry: PosterEntry, style: SessionStyle, location: string) {
-  return `aiday_${slugify(entry.session.title)}_${slugify(location)}_${style.variantId}.png`;
+function fileName(entry: PosterEntry, style: SessionStyle, location: string, format: PosterFormat) {
+  const ratio = format === "square" ? "1x1" : "16x9";
+  return `aiday_${slugify(entry.session.title)}_${slugify(location)}_${style.variantId}_${ratio}.png`;
 }
 
-async function exportNode(node: HTMLElement, name: string) {
-  const url = await toPng(node, { width: OUT_W, height: OUT_H, pixelRatio: 1, cacheBust: true });
+async function exportNode(node: HTMLElement, name: string, w: number, h: number) {
+  const url = await toPng(node, { width: w, height: h, pixelRatio: 1, cacheBust: true });
   const a = document.createElement("a");
   a.href = url;
   a.download = name;
@@ -39,12 +39,14 @@ async function exportNode(node: HTMLElement, name: string) {
 function RenderCard({
   entry,
   style,
+  format,
   focused,
   checked,
   onToggle,
 }: {
   entry: PosterEntry;
   style: SessionStyle;
+  format: PosterFormat;
   focused: boolean;
   checked: boolean;
   onToggle: () => void;
@@ -53,13 +55,14 @@ function RenderCard({
   const [busy, setBusy] = useState(false);
   const variant = getVariant(style.variantId);
   const data = sessionToPoster(entry.session, style.site, entry.time);
+  const { w: OUT_W, h: OUT_H } = POSTER_DIMS[format];
   const previewW = 540;
 
   async function download() {
     if (!nodeRef.current) return;
     setBusy(true);
     try {
-      await exportNode(nodeRef.current, fileName(entry, style, data.location));
+      await exportNode(nodeRef.current, fileName(entry, style, data.location, format), OUT_W, OUT_H);
     } finally {
       setBusy(false);
     }
@@ -81,6 +84,7 @@ function RenderCard({
             <Poster
               data={data}
               variant={variant}
+              format={format}
               slots={style.slots}
               ringStyle={style.ringStyle}
               topStyle={style.topStyle}
@@ -109,7 +113,7 @@ function RenderCard({
           <div>{entry.time} · {data.location} · {style.variantId}</div>
         </div>
         <button onClick={download} disabled={busy} className="rounded-md px-3 py-1.5 text-xs font-semibold text-[#111] disabled:opacity-50" style={{ background: variant.accent }}>
-          {busy ? "Rendering…" : "Download 1920×1080"}
+          {busy ? "Rendering…" : `Download ${OUT_W}×${OUT_H}`}
         </button>
       </div>
     </div>
@@ -122,6 +126,7 @@ export function RenderQueue({ schedule, focus }: { schedule: Schedule; focus?: s
   const [ready, setReady] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [batch, setBatch] = useState<{ running: boolean; done: number; total: number } | null>(null);
+  const [format, setFormat] = useState<PosterFormat>("wide");
 
   useEffect(() => {
     setOverrides(loadStyleOverrides());
@@ -152,7 +157,8 @@ export function RenderQueue({ schedule, focus }: { schedule: Schedule; focus?: s
       if (node) {
         const st = styleFor(e);
         const data = sessionToPoster(e.session, st.site, e.time);
-        await exportNode(node, fileName(e, st, data.location));
+        const { w, h } = POSTER_DIMS[format];
+        await exportNode(node, fileName(e, st, data.location, format), w, h);
       }
       setBatch({ running: true, done: i + 1, total: chosen.length });
     }
@@ -166,13 +172,27 @@ export function RenderQueue({ schedule, focus }: { schedule: Schedule; focus?: s
         <header className="mb-4 flex items-end justify-between">
           <div>
             <h1 className="font-display text-3xl font-bold text-white">Render Queue</h1>
-            <p className="text-sm text-white/60">{entries.length} posters · select any, then batch-render to 1920×1080 PNG</p>
+            <p className="text-sm text-white/60">
+              {entries.length} posters · select any, then batch-render to {POSTER_DIMS[format].w}×{POSTER_DIMS[format].h} PNG
+            </p>
           </div>
           <Link href="/posters" className="text-sm underline hover:text-white">← Back to Studio</Link>
         </header>
 
         {/* Batch toolbar */}
         <div className="sticky top-0 z-10 mb-5 flex flex-wrap items-center gap-3 rounded-lg border border-white/10 bg-[#0D142A]/90 px-4 py-3 backdrop-blur">
+          <div className="flex overflow-hidden rounded-md border border-white/20 text-xs font-semibold">
+            {(["wide", "square"] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => setFormat(f)}
+                className="px-2.5 py-1.5"
+                style={{ background: format === f ? "#ffffff" : "transparent", color: format === f ? "#111" : "#fff" }}
+              >
+                {f === "wide" ? "16:9" : "1:1"}
+              </button>
+            ))}
+          </div>
           <span className="text-sm font-semibold">{selected.size} selected</span>
           <button onClick={selectAll} className="rounded-md border border-white/20 px-3 py-1.5 text-xs hover:bg-white/10">Select all</button>
           <button onClick={deselectAll} className="rounded-md border border-white/20 px-3 py-1.5 text-xs hover:bg-white/10">Deselect all</button>
@@ -196,6 +216,7 @@ export function RenderQueue({ schedule, focus }: { schedule: Schedule; focus?: s
                 key={e.id}
                 entry={e}
                 style={styleFor(e)}
+                format={format}
                 focused={e.id === focus}
                 checked={selected.has(e.id)}
                 onToggle={() => toggle(e.id)}

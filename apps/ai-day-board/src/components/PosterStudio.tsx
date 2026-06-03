@@ -25,6 +25,7 @@ import {
   type RingStyle,
   type TopStyle,
   type SessionStyle,
+  type PosterFormat,
 } from "@/lib/poster";
 import { Poster } from "./Poster";
 import { loadStyleOverrides, saveStyleOverrides, type StyleOverrides } from "@/lib/poster-store";
@@ -51,6 +52,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
   const [overrides, setOverrides] = useState<StyleOverrides>({});
   const [flash, setFlash] = useState<{ text: string; error?: boolean } | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [format, setFormat] = useState<PosterFormat>("wide");
 
   useEffect(() => setOverrides(loadStyleOverrides()), []);
 
@@ -162,6 +164,18 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <div className="flex overflow-hidden rounded-lg border border-white/20 text-sm font-semibold">
+              {(["wide", "square"] as const).map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFormat(f)}
+                  className="px-3 py-2"
+                  style={{ background: format === f ? accent : "transparent", color: format === f ? "#111" : "#fff" }}
+                >
+                  {f === "wide" ? "16:9" : "1:1"}
+                </button>
+              ))}
+            </div>
             <button
               onClick={copyDefaults}
               title="Copy this poster's sizing as the proposed starting default for new users"
@@ -199,6 +213,7 @@ export function PosterStudio({ schedule: initialSchedule }: { schedule: Schedule
               <Poster
                 data={data}
                 variant={variant}
+                format={format}
                 slots={style.slots}
                 ringStyle={style.ringStyle}
                 topStyle={style.topStyle}

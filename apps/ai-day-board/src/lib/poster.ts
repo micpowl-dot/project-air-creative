@@ -16,6 +16,13 @@ import type { Schedule, ScheduleSlot, Session, TrackId } from "./types";
 
 export type SiteId = "brookhaven" | "andover" | "newYork";
 
+/** Poster aspect: 16:9 TV (wide) or 1:1 square. */
+export type PosterFormat = "wide" | "square";
+export const POSTER_DIMS: Record<PosterFormat, { w: number; h: number }> = {
+  wide: { w: 1920, h: 1080 },
+  square: { w: 1080, h: 1080 },
+};
+
 export const SITES: { id: SiteId; label: string }[] = [
   { id: "brookhaven", label: "Brookhaven" },
   { id: "andover", label: "Andover" },
