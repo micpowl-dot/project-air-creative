@@ -26,7 +26,7 @@ Until those two are locked, no posters, swag, or templates should go into produc
 | Resource | Link |
 |----------|------|
 | Brief / Tentative Timeline / Swag Tracker | [Google Sheets](https://docs.google.com/spreadsheets/d/1MeFqM1FKk18r-EPdNGhBm_D0aMqk1Hj-yJjrcHyZ5Y4/edit?gid=0#gid=0) |
-| Speaker headshots (×21 — Ambassador + Executive, processed & ready) | [Figma — Project AIR Design System, node 600:8505](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR---Design-System?node-id=600-8505) |
+| Speaker headshots (×24 — Ambassador + Executive, processed & ready) | [Figma — Design System node 600:8505](https://www.figma.com/design/cN02srfPOLg8jLZRI9iMiB/Project-AIR---Design-System?node-id=600-8505) · [Repo — transparent PNGs](assets/separated%20headshots/) · [system doc](docs/headshot-system.md) |
 | PPT template (R1C final) | [Google Slides](https://docs.google.com/presentation/d/1V882MEREe4vpXvjiSu1Idw6VDSMNUZEI/edit?usp=sharing) · [history doc](docs/ppt-template-history.md) |
 
 ---
