@@ -272,7 +272,13 @@ function SquarePoster({
   badgeOffsetX = 0,
   dateSize = 1,
   tagSize = 1,
+  topOffsetX = 0,
+  topOffsetY = 0,
+  bottomOffsetX = 0,
+  bottomOffsetY = 0,
   squiggleSize = SQUIGGLE_SIZE.default,
+  squiggleOffsetX = 0,
+  squiggleOffsetY = 0,
 }: PosterProps) {
   const { c, px, py } = SQUARE;
   const mono = "var(--font-poster-mono)";
@@ -294,12 +300,12 @@ function SquarePoster({
         {/* top-edge graphic, top-right */}
         {slots.eventMark && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ right: 0, top: 0, width: px(540 * topSize), height: py(360 * topSize), objectPosition: "right top", opacity: topOpacity, transform: topFlip ? "scaleX(-1)" : undefined }} />
+          <img src={`/poster-elements/top-edge/${topStyle}.png`} alt="" className="absolute object-cover" style={{ right: 0, top: 0, width: px(540 * topSize), height: py(360 * topSize), objectPosition: "right top", opacity: topOpacity, transform: `translate(${c(topOffsetX)}, ${c(topOffsetY)})${topFlip ? " scaleX(-1)" : ""}` }} />
         )}
 
         {/* squiggle, mid-left */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560 * squiggleSize), height: py(220 * squiggleSize) }} />
+        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-30), top: py(700), width: px(560 * squiggleSize), height: py(220 * squiggleSize), transform: `translate(${c(squiggleOffsetX)}, ${c(squiggleOffsetY)})` }} />
 
         {/* ring badge + headshot, bottom-right (bleeds off the corner) */}
         {slots.ringBadge && (
@@ -340,7 +346,7 @@ function SquarePoster({
 
         {/* AIR lockup (supplied SVG), bottom-left */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/air-stacked.svg" alt="AIR — AI in Reach" className="absolute" style={{ left: px(60), bottom: py(64), width: px(300) }} />
+        <img src="/poster-elements/air-stacked.svg" alt="AIR — AI in Reach" className="absolute" style={{ left: px(60), bottom: py(64), width: px(300), transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})` }} />
       </div>
     </div>
   );

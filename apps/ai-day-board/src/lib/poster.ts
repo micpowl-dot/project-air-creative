@@ -347,4 +347,20 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
   };
 }
 
+/** Default style for a 1:1 profile. The square layout hand-places each element,
+ *  so decorative offsets START at zero (the wide poster's offsets don't apply
+ *  to the square). The X/Y sliders then move things from their placed spot. */
+export function defaultProfileStyle(): SessionStyle {
+  return {
+    ...defaultSessionStyle("explore"),
+    topOffsetX: 0,
+    topOffsetY: 0,
+    bottomOffsetX: 0,
+    bottomOffsetY: 0,
+    squiggleOffsetX: 0,
+    squiggleOffsetY: 0,
+    badgeOffsetX: 0,
+  };
+}
+
 export type { ScheduleSlot };

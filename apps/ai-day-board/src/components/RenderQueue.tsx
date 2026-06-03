@@ -11,6 +11,7 @@ import {
   sessionToPoster,
   profileToPoster,
   defaultSessionStyle,
+  defaultProfileStyle,
   DEFAULT_PROFILE_TAG,
   POSTER_DIMS,
   type SessionStyle,
@@ -153,7 +154,7 @@ export function RenderQueue({
   const items: RenderItem[] = useMemo(() => {
     if (isProfile) {
       return participantsFromSchedule(schedule).map((p) => {
-        const style: SessionStyle = { ...defaultSessionStyle("explore"), ...overrides[p.id] };
+        const style: SessionStyle = { ...defaultProfileStyle(), ...overrides[p.id] };
         const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;
         return {
           id: p.id,

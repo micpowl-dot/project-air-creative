@@ -22,6 +22,7 @@ import {
   sessionToPoster,
   profileToPoster,
   defaultSessionStyle,
+  defaultProfileStyle,
   DEFAULT_PROFILE_TAG,
   TRACK_SCHEME,
   type PosterSlots,
@@ -98,7 +99,8 @@ export function PosterStudio({
   const selectedSession = isProfile ? null : (selected as import("@/lib/poster").PosterEntry);
   const selectedPerson = isProfile ? (selected as import("@/lib/poster").ParticipantEntry) : null;
   const track = selectedSession ? selectedSession.session.track : "explore";
-  const style: SessionStyle = { ...defaultSessionStyle(track), ...overrides[selected.id] };
+  const baseStyle = isProfile ? defaultProfileStyle() : defaultSessionStyle(track);
+  const style: SessionStyle = { ...baseStyle, ...overrides[selected.id] };
   const variant = getVariant(style.variantId);
   const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;
   const data = isProfile
