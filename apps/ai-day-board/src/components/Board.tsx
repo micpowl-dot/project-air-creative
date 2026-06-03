@@ -15,6 +15,16 @@ import { Headshot } from "./Headshot";
 import { AiDayLogo } from "./AiDayLogo";
 import { getVariant } from "@/lib/poster";
 
+// Header top-edge graphic per scheme — converging stays on magenta (pink),
+// the others get variety.
+const HEADER_TOP_GRAPHIC: Record<string, string> = {
+  magenta: "converging",
+  cyan: "piano-stripes",
+  violet: "dot-row",
+  amber: "checker",
+  forest: "piano-stripes",
+};
+
 function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
   const hasPeople = (slot.people?.length ?? 0) > 0;
   return (
@@ -213,6 +223,8 @@ export function Board({ schedule }: { schedule: Schedule }) {
   const scheme = useMemo(() => getScheme(schemeId), [schemeId]);
   const variant = useMemo(() => getVariant(schemeId), [schemeId]);
 
+  const topGraphic = HEADER_TOP_GRAPHIC[schemeId] ?? "converging";
+
   const synced = new Date(schedule.lastSynced);
   const eventDate = new Date(schedule.date + "T12:00:00").toLocaleDateString("en-US", {
     month: "long",
@@ -280,7 +292,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
         <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/poster-elements/top-edge/converging.png"
+            src={`/poster-elements/top-edge/${topGraphic}.png`}
             alt=""
             aria-hidden
             className="absolute inset-x-0 w-full object-cover"
@@ -312,7 +324,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
         <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/poster-elements/top-edge/converging.png"
+            src={`/poster-elements/top-edge/${topGraphic}.png`}
             alt=""
             aria-hidden
             className="absolute inset-x-0 w-full object-cover"
