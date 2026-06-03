@@ -394,7 +394,15 @@ export const PROFILE_FACTORY = {
   nameScale: 1,
   roleScale: 1,
   tagSize: 1.45,
-  layout: {} as ProfileLayout,
+  layout: {
+    top: { x: -430, y: -140, scale: 1.1, opacity: 0.75 },
+    date: { x: 20, y: -120, scale: 0.95 },
+    aiday: { x: -20, y: -40, scale: 1, opacity: 1 },
+    speaker: { x: -20, y: -110, scale: 0.95, opacity: 1 },
+    air: { x: -30, y: 160, scale: 0.85, opacity: 1 },
+    squiggle: { x: -520, y: -30, scale: 2, opacity: 0.35 },
+    badge: { x: 0, y: 0, scale: 1, opacity: 1 },
+  } as ProfileLayout,
 };
 
 /** Default style for a 1:1 profile. The square layout hand-places each element,

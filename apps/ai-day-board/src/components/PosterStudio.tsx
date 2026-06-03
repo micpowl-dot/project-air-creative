@@ -172,16 +172,23 @@ export function PosterStudio({
   // Give every entry a randomly-picked palette; the headshot backdrop follows
   // the new scheme's accent so each profile stays internally coordinated.
   function randomizePalettes() {
+    const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)];
     setOverrides((prev) => {
       const next: StyleOverrides = { ...prev };
       for (const e of entries) {
-        const v = POSTER_VARIANTS[Math.floor(Math.random() * POSTER_VARIANTS.length)];
-        next[e.id] = { ...next[e.id], variantId: v.id, headshotBg: `${v.id}-accent` };
+        const v = pick(POSTER_VARIANTS);
+        next[e.id] = {
+          ...next[e.id],
+          variantId: v.id,
+          headshotBg: `${v.id}-accent`,
+          topStyle: pick(TOP_STYLES) as TopStyle,
+          ringStyle: pick(RING_STYLES) as RingStyle,
+        };
       }
       saveStyleOverrides(next);
       return next;
     });
-    setFlash({ text: `Randomized palettes across all ${entries.length} ${isProfile ? "profiles" : "posters"}` });
+    setFlash({ text: `Randomized palettes & graphics across all ${entries.length} ${isProfile ? "profiles" : "posters"}` });
     window.setTimeout(() => setFlash(null), 2400);
   }
   function applyToAll(p: Partial<SessionStyle>, label: string) {
