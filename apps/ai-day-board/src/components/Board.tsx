@@ -256,7 +256,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
               style={{
                 background:
                   l.id === layoutId ? "var(--accent)" : "var(--surface)",
-                color: l.id === layoutId ? "var(--bg)" : "var(--ink)",
+                color: l.id === layoutId ? "#0D142A" : "var(--card-ink)",
               }}
             >
               {l.name}
@@ -265,17 +265,17 @@ export function Board({ schedule }: { schedule: Schedule }) {
         </div>
       </div>
 
-      {/* Hero — converging graphic flanks the title as a light header band */}
-      <header className="flex items-center justify-center gap-5 px-6 pb-2 pt-8">
+      {/* Hero — converging graphic fills the header band, flanking the title */}
+      <header className="flex items-stretch overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/poster-elements/top-edge/converging.png"
           alt=""
           aria-hidden
-          className="hidden h-12 min-w-0 flex-1 object-cover opacity-90 md:block"
-          style={{ maxWidth: 320, transform: "scaleX(-1)" }}
+          className="hidden min-w-0 flex-1 object-cover md:block"
+          style={{ transform: "scaleX(-1)" }}
         />
-        <div className="shrink-0 text-center">
+        <div className="shrink-0 px-8 py-7 text-center">
           <h1 className="font-display text-4xl font-bold text-[var(--ink)] md:text-5xl">
             {schedule.title}
           </h1>
@@ -294,8 +294,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
           src="/poster-elements/top-edge/converging.png"
           alt=""
           aria-hidden
-          className="hidden h-12 min-w-0 flex-1 object-cover opacity-90 md:block"
-          style={{ maxWidth: 320 }}
+          className="hidden min-w-0 flex-1 object-cover md:block"
         />
       </header>
 

@@ -226,21 +226,21 @@ export interface SessionStyle {
 // (Use the Studio's "Copy starting defaults" button to capture a tuned poster's
 // values as JSON, then paste them here.)
 export const FACTORY_DEFAULTS = {
-  ringSize: RING_SIZE.default,
-  topSize: TOP_SIZE.default,
-  topFlip: false,
-  portraitSize: PORTRAIT_SIZE.default,
+  ringSize: 1,
+  topSize: 1.45,
+  topFlip: true,
+  portraitSize: 1,
   useAltHeadshot: false,
   badgeOffsetX: 0,
-  dateSize: TEXT_SIZE.default,
-  tagSize: TEXT_SIZE.default,
-  topOffsetX: 0,
-  topOffsetY: 0,
-  bottomOffsetX: 0,
-  bottomOffsetY: 0,
-  squiggleSize: SQUIGGLE_SIZE.default,
-  squiggleOffsetX: 0,
-  squiggleOffsetY: 0,
+  dateSize: 1,
+  tagSize: 1,
+  topOffsetX: 780,
+  topOffsetY: -170,
+  bottomOffsetX: -230,
+  bottomOffsetY: 80,
+  squiggleSize: 1.45,
+  squiggleOffsetX: -40,
+  squiggleOffsetY: -70,
 };
 
 /** The factory-default fields, in the order the "Copy" button emits them. */
