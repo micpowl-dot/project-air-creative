@@ -284,9 +284,11 @@ export function PosterStudio({
           </div>
         )}
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_330px]">
+        <div className="grid items-start gap-6 lg:grid-cols-[1fr_330px]">
           {/* Stage */}
           <div>
+            {/* Preview stays pinned while the controls scroll */}
+            <div className="z-10 bg-[#0D142A] pb-3 lg:sticky lg:top-4">
             <div
               className="overflow-hidden shadow-2xl ring-1 ring-white/10"
               style={isProfile ? { maxWidth: "70%" } : undefined}
@@ -334,6 +336,7 @@ export function PosterStudio({
                 )}
                 <Link href={renderHref} className="underline hover:text-white">Send this to render →</Link>
               </div>
+            </div>
             </div>
 
             {/* Picker */}
