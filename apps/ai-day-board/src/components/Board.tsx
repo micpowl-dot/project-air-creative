@@ -12,6 +12,8 @@ import {
 } from "@/lib/theme";
 import { SessionCard } from "./SessionCard";
 import { Headshot } from "./Headshot";
+import { AiDayLogo } from "./AiDayLogo";
+import { getVariant } from "@/lib/poster";
 
 function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
   const hasPeople = (slot.people?.length ?? 0) > 0;
@@ -28,7 +30,7 @@ function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
         <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
           {slot.people!.map((p) => (
             <span key={p} className="inline-flex items-center gap-2">
-              <Headshot name={p} size={40} />
+              <Headshot name={p} size={60} />
               <span className="text-sm font-medium text-[var(--card-ink)]">{p}</span>
             </span>
           ))}
@@ -209,8 +211,14 @@ export function Board({ schedule }: { schedule: Schedule }) {
   const [schemeId, setSchemeId] = useState(DEFAULT_SCHEME);
   const [layoutId, setLayoutId] = useState(DEFAULT_LAYOUT);
   const scheme = useMemo(() => getScheme(schemeId), [schemeId]);
+  const variant = useMemo(() => getVariant(schemeId), [schemeId]);
 
   const synced = new Date(schedule.lastSynced);
+  const eventDate = new Date(schedule.date + "T12:00:00").toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
   return (
     <div
@@ -268,7 +276,7 @@ export function Board({ schedule }: { schedule: Schedule }) {
       {/* Hero — converging graphic flanks a vertically-centered title.
           The pattern is cropped 75px off the top and bottom (the image is
           rendered 150px taller than the band and shifted up 75px). */}
-      <header className="relative flex h-40 items-center overflow-hidden">
+      <header className="relative flex h-52 items-center overflow-hidden">
         <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -280,10 +288,18 @@ export function Board({ schedule }: { schedule: Schedule }) {
           />
         </div>
         <div className="shrink-0 px-8 text-center">
-          <h1 className="font-display text-4xl font-bold text-[var(--ink)] md:text-5xl">
-            {schedule.title}
-          </h1>
-          <p className="mt-2 text-sm text-[var(--ink-soft)]">
+          {/* AI DAY logo — recolors with the scheme, exactly like the posters */}
+          <AiDayLogo
+            accent={variant.accent}
+            ink={variant.ink}
+            light={variant.light}
+            className="mx-auto block"
+            style={{ width: 320, height: 133 }}
+          />
+          <p className="mt-1 font-display text-2xl font-bold text-[var(--ink)]">
+            {eventDate}
+          </p>
+          <p className="mt-1 text-xs text-[var(--ink-soft)]">
             Live from The Drop · last synced{" "}
             {synced.toLocaleString("en-US", {
               month: "short",

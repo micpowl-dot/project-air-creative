@@ -47,7 +47,7 @@ export function SessionCard({
       <div className="mt-3 flex flex-wrap items-center gap-3">
         {session.instructors.map((person) => (
           <span key={person} className="inline-flex items-center gap-2">
-            <Headshot name={person} size={36} ring={accent} />
+            <Headshot name={person} size={54} ring={accent} />
             <span className="text-sm font-medium text-[var(--card-ink)]">
               {person}
             </span>
