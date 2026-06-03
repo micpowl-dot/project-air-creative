@@ -172,6 +172,66 @@ export interface PosterEntry {
   time: string;
 }
 
+// --- Profile mode (per-participant, not per-session) -----------------------
+export const DEFAULT_PROFILE_TAG = "AI Ambassador";
+
+export interface ParticipantEntry {
+  id: string;
+  name: string;
+}
+
+function pslug(s: string): string {
+  return s
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/['’.]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Every unique person across the schedule (session instructors + opening/
+ *  closing remarks), de-duplicated, in first-seen order. */
+export function participantsFromSchedule(schedule: Schedule): ParticipantEntry[] {
+  const seen = new Set<string>();
+  const out: ParticipantEntry[] = [];
+  for (const slot of schedule.slots) {
+    const people =
+      slot.kind === "sessions"
+        ? (slot.sessions ?? []).flatMap((s) => s.instructors)
+        : slot.people ?? [];
+    for (const name of people) {
+      const id = pslug(name);
+      if (id && !seen.has(id)) {
+        seen.add(id);
+        out.push({ id, name });
+      }
+    }
+  }
+  return out;
+}
+
+/** Poster data for an individual: name + a free-text tag (e.g. "AI Ambassador").
+ *  No session/room/time — it's about the person. */
+export function profileToPoster(
+  name: string,
+  tag: string,
+  overrides: Partial<PosterData> = {}
+): PosterData {
+  return {
+    dateLabel: DATE_LABEL,
+    eventTitle: "AI DAY",
+    name,
+    names: [name],
+    sessionTitle: "",
+    tag,
+    location: "",
+    room: "",
+    time: "",
+    ...overrides,
+  };
+}
+
 /** Flatten the schedule into one poster entry per (session, instructor head). */
 export function posterEntriesFromSchedule(schedule: Schedule): PosterEntry[] {
   const out: PosterEntry[] = [];
@@ -244,6 +304,7 @@ export interface SessionStyle {
   squiggleOffsetY: number;
   site: SiteId;
   slots: PosterSlots;
+  tagText?: string; // profile mode: free-text role under the name (e.g. "AI Ambassador")
 }
 
 // FACTORY DEFAULTS — the sizing/positioning a brand-new user (empty browser)

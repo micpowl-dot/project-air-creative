@@ -5,5 +5,5 @@ import scheduleData from "@/data/schedule.json";
 const schedule = scheduleData as unknown as Schedule;
 
 export default function ProfilePage() {
-  return <PosterStudio schedule={schedule} fixedFormat="square" title="Profile Studio" />;
+  return <PosterStudio schedule={schedule} fixedFormat="square" title="Profile Studio" mode="profiles" />;
 }

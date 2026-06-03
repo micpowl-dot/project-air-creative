@@ -8,8 +8,8 @@ const schedule = scheduleData as unknown as Schedule;
 export default async function RenderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ focus?: string }>;
+  searchParams: Promise<{ focus?: string; mode?: string }>;
 }) {
-  const { focus } = await searchParams;
-  return <RenderQueue schedule={schedule} focus={focus} />;
+  const { focus, mode } = await searchParams;
+  return <RenderQueue schedule={schedule} focus={focus} mode={mode === "profiles" ? "profiles" : "sessions"} />;
 }

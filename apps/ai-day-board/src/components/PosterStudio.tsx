@@ -18,8 +18,11 @@ import {
   OFFSET_Y,
   getVariant,
   posterEntriesFromSchedule,
+  participantsFromSchedule,
   sessionToPoster,
+  profileToPoster,
   defaultSessionStyle,
+  DEFAULT_PROFILE_TAG,
   TRACK_SCHEME,
   type PosterSlots,
   type SiteId,
@@ -50,13 +53,19 @@ export function PosterStudio({
   schedule: initialSchedule,
   fixedFormat,
   title = "Poster Studio",
+  mode = "sessions",
 }: {
   schedule: Schedule;
   fixedFormat?: PosterFormat;
   title?: string;
+  mode?: "sessions" | "profiles";
 }) {
+  const isProfile = mode === "profiles";
   const [schedule, setSchedule] = useState(initialSchedule);
-  const entries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
+  const entries = useMemo(
+    () => (isProfile ? participantsFromSchedule(schedule) : posterEntriesFromSchedule(schedule)),
+    [schedule, isProfile]
+  );
   const [selectedId, setSelectedId] = useState(entries[0]?.id);
   const [overrides, setOverrides] = useState<StyleOverrides>({});
   const [flash, setFlash] = useState<{ text: string; error?: boolean } | null>(null);
@@ -85,11 +94,20 @@ export function PosterStudio({
     }
   }
 
-  const selected = entries.find((e) => e.id === selectedId) ?? entries[0];
-  const track = selected.session.track;
+  const selected = (entries as { id: string }[]).find((e) => e.id === selectedId) ?? entries[0];
+  const selectedSession = isProfile ? null : (selected as import("@/lib/poster").PosterEntry);
+  const selectedPerson = isProfile ? (selected as import("@/lib/poster").ParticipantEntry) : null;
+  const track = selectedSession ? selectedSession.session.track : "explore";
   const style: SessionStyle = { ...defaultSessionStyle(track), ...overrides[selected.id] };
   const variant = getVariant(style.variantId);
-  const data = sessionToPoster(selected.session, style.site, selected.time);
+  const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;
+  const data = isProfile
+    ? profileToPoster(selectedPerson!.name, tagText)
+    : sessionToPoster(selectedSession!.session, style.site, selectedSession!.time);
+  // On a profile, the poster is about the individual — hide session-driven slots.
+  const renderSlots: PosterSlots = isProfile
+    ? { ...style.slots, sessionTitle: false, role: false, location: false, room: false, time: false }
+    : style.slots;
   const accent = variant.accent;
 
   function patch(p: Partial<SessionStyle>) {
@@ -121,7 +139,8 @@ export function PosterStudio({
     window.setTimeout(() => setFlash(null), 2200);
   }
   const isOverridden = Boolean(overrides[selected.id]);
-  const renderHref = `/render?focus=${encodeURIComponent(selected.id)}`;
+  const renderBase = isProfile ? "/render?mode=profiles" : "/render";
+  const renderHref = `${renderBase}${renderBase.includes("?") ? "&" : "?"}focus=${encodeURIComponent(selected.id)}`;
 
   // Capture the current poster's sizing/position as the proposed factory
   // default (what every new browser/user starts with). Copies JSON to paste in.
@@ -209,7 +228,7 @@ export function PosterStudio({
             >
               {refreshing ? "Refreshing…" : "↻ Refresh from The Drop"}
             </button>
-            <Link href="/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
+            <Link href={renderBase} className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: accent }}>
               Render queue →
             </Link>
           </div>
@@ -233,7 +252,7 @@ export function PosterStudio({
                 data={data}
                 variant={variant}
                 format={format}
-                slots={style.slots}
+                slots={renderSlots}
                 ringStyle={style.ringStyle}
                 topStyle={style.topStyle}
                 ringSize={style.ringSize}
@@ -258,7 +277,11 @@ export function PosterStudio({
 
             <div className="mt-3 flex items-center justify-between text-xs text-white/50">
               <span>
-                Default scheme for {track.toUpperCase()}: <span className="uppercase text-white/80">{TRACK_SCHEME[track]}</span>
+                {isProfile ? (
+                  <>Profile: <span className="text-white/80">{selectedPerson!.name}</span></>
+                ) : (
+                  <>Default scheme for {track.toUpperCase()}: <span className="uppercase text-white/80">{TRACK_SCHEME[track]}</span></>
+                )}
                 {isOverridden && <span className="ml-2 text-amber-300">· customized</span>}
               </span>
               <div className="flex items-center gap-3">
@@ -269,13 +292,20 @@ export function PosterStudio({
               </div>
             </div>
 
-            {/* Session picker */}
+            {/* Picker */}
             <div className="mt-5">
-              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">Session ({entries.length})</div>
+              <div className="mb-2 text-xs uppercase tracking-wide text-white/50">
+                {isProfile ? "Participant" : "Session"} ({entries.length})
+              </div>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-                {entries.map((e) => {
+                {(entries as { id: string }[]).map((e) => {
                   const active = e.id === selected.id;
                   const customized = Boolean(overrides[e.id]);
+                  const person = isProfile ? (e as import("@/lib/poster").ParticipantEntry) : null;
+                  const sess = isProfile ? null : (e as import("@/lib/poster").PosterEntry);
+                  const tagLine = person
+                    ? ((overrides[e.id]?.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG)
+                    : `${sess!.time} · ${sess!.session.instructors.join(" + ") || "—"}`;
                   return (
                     <button
                       key={e.id}
@@ -284,10 +314,10 @@ export function PosterStudio({
                       style={{ borderColor: active ? accent : "rgba(255,255,255,0.12)", background: active ? "rgba(255,255,255,0.08)" : "transparent" }}
                     >
                       <div className="font-semibold text-white/90">
-                        {e.session.title}
+                        {person ? person.name : sess!.session.title}
                         {customized && <span className="ml-1 text-amber-300">•</span>}
                       </div>
-                      <div className="text-white/50">{e.time} · {e.session.instructors.join(" + ") || "—"}</div>
+                      <div className="text-white/50">{tagLine}</div>
                     </button>
                   );
                 })}
@@ -297,6 +327,21 @@ export function PosterStudio({
 
           {/* Controls */}
           <aside className="space-y-5">
+            {isProfile && (
+              <Group title="Ambassador text" onAll={() => applyToAll({ tagText: tagText }, `Text "${tagText}"`)}>
+                <input
+                  type="text"
+                  value={style.tagText ?? DEFAULT_PROFILE_TAG}
+                  onChange={(e) => patch({ tagText: e.target.value })}
+                  placeholder={DEFAULT_PROFILE_TAG}
+                  className="w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-white/40 focus:outline-none"
+                />
+                <p className="text-[10px] text-white/35">
+                  Shows under the name. Defaults to “{DEFAULT_PROFILE_TAG}”. Use “all” to set every participant at once.
+                </p>
+              </Group>
+            )}
+
             <Group title="Color">
               <div className="flex flex-wrap gap-2">
                 {POSTER_VARIANTS.map((v) => (
@@ -388,27 +433,29 @@ export function PosterStudio({
               {sizeRow("squiggleOffsetY", "Y", OFFSET_Y, "px", "Squiggle Y")}
             </Group>
 
-            <Group title="Location (drives room)">
-              <Row label="Site" onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}>
-                <div className="flex flex-wrap gap-2">
-                  {SITES.map((s) => (
-                    <button
-                      key={s.id}
-                      onClick={() => patch({ site: s.id as SiteId })}
-                      className="rounded-md px-3 py-1.5 text-sm"
-                      style={{ background: s.id === style.site ? accent : "rgba(255,255,255,0.08)", color: s.id === style.site ? "#111" : "#fff" }}
-                    >
-                      {s.label}
-                    </button>
-                  ))}
-                </div>
-              </Row>
-              <p className="text-xs text-white/40">Room here: <span className="text-white/70">{data.room}</span></p>
-            </Group>
+            {!isProfile && (
+              <Group title="Location (drives room)">
+                <Row label="Site" onAll={() => applyToAll({ site: style.site }, `Location "${data.location}"`)}>
+                  <div className="flex flex-wrap gap-2">
+                    {SITES.map((s) => (
+                      <button
+                        key={s.id}
+                        onClick={() => patch({ site: s.id as SiteId })}
+                        className="rounded-md px-3 py-1.5 text-sm"
+                        style={{ background: s.id === style.site ? accent : "rgba(255,255,255,0.08)", color: s.id === style.site ? "#111" : "#fff" }}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </Row>
+                <p className="text-xs text-white/40">Room here: <span className="text-white/70">{data.room}</span></p>
+              </Group>
+            )}
 
             <Group title="Elements" onAll={() => applyToAll({ slots: { ...style.slots } }, "Element visibility")}>
               <div className="grid grid-cols-2 gap-1.5">
-                {SLOT_LABELS.map(({ key, label }) => (
+                {SLOT_LABELS.filter(({ key }) => !isProfile || !["sessionTitle", "role", "location", "room", "time"].includes(key)).map(({ key, label }) => (
                   <label key={key} className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-white/5">
                     <input type="checkbox" checked={style.slots[key]} onChange={() => patchSlot(key)} />
                     {label}
