@@ -135,6 +135,19 @@ export function PosterStudio({
   function patchLayout(comp: ProfileComp, p: Partial<CompTransform>) {
     patch({ layout: { ...style.layout, [comp]: { ...style.layout?.[comp], ...p } } });
   }
+  // Sync this profile's ENTIRE layout (every component's x/y/scale/opacity) to
+  // all profiles at once.
+  function applyWholeLayoutToAll() {
+    const lay = JSON.parse(JSON.stringify(style.layout ?? {}));
+    setOverrides((prev) => {
+      const next: StyleOverrides = { ...prev };
+      for (const e of entries) next[e.id] = { ...next[e.id], layout: { ...lay } };
+      saveStyleOverrides(next);
+      return next;
+    });
+    setFlash({ text: `Positioning synced to all ${entries.length} profiles` });
+    window.setTimeout(() => setFlash(null), 2400);
+  }
   function applyLayoutAll(comp: ProfileComp, p: Partial<CompTransform>, label: string) {
     setOverrides((prev) => {
       const next: StyleOverrides = { ...prev };
@@ -524,9 +537,19 @@ export function PosterStudio({
 
             {isProfile && (
               <section className="space-y-4">
-                <h3 className="border-b border-white/10 pb-1 text-[11px] font-semibold uppercase tracking-widest text-white/45">
-                  Position, scale &amp; opacity
-                </h3>
+                <div className="flex items-center justify-between border-b border-white/10 pb-1">
+                  <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/45">
+                    Position, scale &amp; opacity
+                  </h3>
+                </div>
+                <button
+                  onClick={applyWholeLayoutToAll}
+                  title="Copy every element's position, scale, and opacity from this profile to all profiles"
+                  className="w-full rounded-md px-3 py-2 text-xs font-semibold text-[#111]"
+                  style={{ background: accent }}
+                >
+                  ⇉ Sync this positioning to all {entries.length} profiles
+                </button>
                 {PROFILE_COMPS.map(({ id, label }) => {
                   const t: CompTransform = compTransform(style.layout, id);
                   return (
