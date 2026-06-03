@@ -35,6 +35,20 @@ function isDark(hex: string): boolean {
   return 0.299 * r + 0.587 * g + 0.114 * b < 140;
 }
 
+/** Mix a hex color with white by pct (0–1). */
+function mixWhite(hex: string, pct: number): string {
+  const h = hex.replace("#", "");
+  if (h.length < 6) return hex;
+  const ch = (i: number) => parseInt(h.slice(i, i + 2), 16);
+  const mix = (c: number) => Math.round(c * (1 - pct) + 255 * pct);
+  return (
+    "#" +
+    [mix(ch(0)), mix(ch(2)), mix(ch(4))]
+      .map((x) => x.toString(16).padStart(2, "0"))
+      .join("")
+  );
+}
+
 function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
   const hasPeople = (slot.people?.length ?? 0) > 0;
   return (
@@ -112,8 +126,9 @@ function GridLayout({
           // If a track color matches the page background it would blend in;
           // give that chip a subtle 5% white tint so it still reads as a panel.
           const blends = raw.toLowerCase() === pageBg.toLowerCase();
-          const bg = blends ? `color-mix(in srgb, #ffffff 5%, ${pageBg})` : raw;
-          const onDark = isDark(blends ? pageBg : raw);
+          // ~38% white tint when the track color matches the page background
+          const bg = blends ? mixWhite(pageBg, 0.38) : raw;
+          const onDark = isDark(bg);
           const txt = onDark ? "#FFFFFF" : "#0D142A";
           return (
             <div
