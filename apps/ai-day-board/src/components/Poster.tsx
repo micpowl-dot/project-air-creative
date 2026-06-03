@@ -18,6 +18,7 @@ import {
   SQUIGGLE_SIZE,
 } from "@/lib/poster";
 import { AiDayLogo } from "./AiDayLogo";
+import { AirLogo } from "./AirLogo";
 
 // Unit helpers per design space. 1cqw = 1% of the poster's rendered width, so
 // everything scales with the poster regardless of display size.
@@ -344,9 +345,8 @@ function SquarePoster({
           </div>
         </div>
 
-        {/* AIR lockup (supplied SVG), bottom-left */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/air-stacked.svg" alt="AIR — AI in Reach" className="absolute" style={{ left: px(60), bottom: py(64), width: px(300), transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})` }} />
+        {/* AIR lockup, bottom-left — "AI" + "IN" follow the scheme accent */}
+        <AirLogo accent={variant.accent} light={variant.light} className="absolute" style={{ left: px(60), bottom: py(64), width: px(300), transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})` }} />
       </div>
     </div>
   );
