@@ -334,10 +334,11 @@ function SquarePoster({
           </div>
         )}
 
-        {/* date, top-right under the stripes */}
+        {/* date, top-right under the stripes — trailing "26" in ink */}
         {slots.date && (
           <div className="absolute text-right" style={{ left: px(560), top: py(392), width: px(474), fontFamily: mono, fontWeight: 500, fontSize: c(46), color: variant.light, letterSpacing: c(2), ...tf("date", "right top") }}>
-            {data.dateLabel}
+            <span>{data.dateLabel.slice(0, -2)}</span>
+            <span style={{ color: variant.ink }}>{data.dateLabel.slice(-2)}</span>
           </div>
         )}
 
