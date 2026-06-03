@@ -349,7 +349,7 @@ function SquarePoster({
           <div style={{ width: c(8), background: variant.accent, alignSelf: "stretch" }} />
           <div className="flex flex-col" style={{ gap: c(12) }}>
             {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
-            {slots.role && data.role && <div style={{ fontFamily: display, fontWeight: 600, fontSize: c(40 * roleScale), color: variant.ink, lineHeight: 1.05 }}>{data.role}</div>}
+            {slots.role && data.role && <div style={{ fontFamily: display, fontWeight: 400, fontSize: c(40 * roleScale), color: variant.ink, lineHeight: 1.05 }}>{data.role}</div>}
             {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(40), color: variant.ink }}>{data.sessionTitle}</div>}
             {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, marginTop: c(10) }}>{data.tag}</div>}
             {(slots.location || slots.room || slots.time) && (
