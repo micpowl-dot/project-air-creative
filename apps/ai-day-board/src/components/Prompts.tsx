@@ -45,12 +45,35 @@ function PromptCard({ n, label, text }: { n: number; label: string; text: string
 export function Prompts() {
   return (
     <div className="min-h-screen" style={{ background: BG }}>
-      {/* header band */}
-      <div className="px-6 py-8 text-center" style={{ background: MAGENTA }}>
-        <AiDayLogo accent={ACCENT} ink={BG} light="#fff" className="mx-auto" style={{ width: 220, maxWidth: "70%" }} />
-        <h1 className="mt-3 font-display text-2xl font-bold text-white sm:text-3xl">5 prompts to get started</h1>
-        <p className="mt-1 text-sm text-white/85">Works for any role. Copy one, paste in your real details, and go.</p>
-      </div>
+      {/* header band — mirrors the schedule board hero: converging graphic
+          flanks a centered AI DAY lockup (cropped 75px top/bottom, 70% opacity) */}
+      <header className="relative flex h-48 items-center overflow-hidden sm:h-52" style={{ background: MAGENTA }}>
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/poster-elements/top-edge/converging.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)", opacity: 0.7 }}
+          />
+        </div>
+        <div className="shrink-0 px-6 text-center sm:px-8">
+          <AiDayLogo accent={ACCENT} ink={BG} light="#fff" className="mx-auto block" style={{ width: 260, maxWidth: "70vw" }} />
+          <h1 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">5 prompts to get started</h1>
+          <p className="mt-1 text-sm text-white/85">Works for any role. Copy one, paste your details, go.</p>
+        </div>
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden md:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/poster-elements/top-edge/converging.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)", opacity: 0.7 }}
+          />
+        </div>
+      </header>
 
       {/* prompts */}
       <div className="mx-auto max-w-2xl space-y-4 px-5 py-8">
