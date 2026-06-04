@@ -2,7 +2,7 @@
   "title": "AI Day (US) — June 9, 2026",
   "date": "2026-06-09",
   "sourceUrl": "https://thedrop.weather.com/pages/1jp62gi1i768q7m567/AiDayUsJune9th2026/1jp62mt88cuvqkhh7b",
-  "lastSynced": "2026-06-03T19:59:11.102Z",
+  "lastSynced": "2026-06-04T13:31:10.049Z",
   "tracks": [
     {
       "id": "explore",
@@ -44,7 +44,7 @@
         {
           "track": "explore",
           "title": "The Tool Landscape",
-          "description": "What's available, what each tool does, which is sanctioned, how to decide which to reach for, plus the Mercury ecosystem.",
+          "description": "What’s available, what each tool does, which is sanctioned, how to decide which to reach for + the Mercury ecosystem.",
           "instructors": [
             "Javi Quinones",
             "Rohit Nutalapati"
@@ -55,7 +55,8 @@
             "newYork": "Polar Vortex",
             "remote": true,
             "meetUrl": "https://meet.google.com/obz-hpoo-gsz"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
@@ -71,7 +72,8 @@
             "newYork": "Supercell",
             "remote": true,
             "meetUrl": "https://meet.google.com/tpp-frmx-fnr"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "build",
@@ -86,7 +88,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/tmj-vbeb-ner"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -107,7 +110,8 @@
             "newYork": "Supercell",
             "remote": true,
             "meetUrl": "https://meet.google.com/doa-xdwd-vdx"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
@@ -122,12 +126,13 @@
             "newYork": "Polar Vortex",
             "remote": true,
             "meetUrl": "https://meet.google.com/znk-jjay-sxd"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "build",
           "title": "AI for the Non-Coder",
-          "description": "Guided hands-on. AI in Slack, Drive, Gmail, then getting out of your comfort zone with Gemini and Claude. Someone next to you. Build one thing before you leave.",
+          "description": "Guided hands-on. AI in Slack, Drive, Gmail..then getting out of your comfort zone with Gemini & Claude. Someone next to you. Build one thing before you leave.",
           "instructors": [
             "Lauriana Gaudet",
             "Sam Gates"
@@ -138,7 +143,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/fdw-sghb-bxg"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -149,7 +155,7 @@
         {
           "track": "explore",
           "title": "Defending the Castle",
-          "description": "TWCo's competitive moat and data security posture. How AI strengthens what makes us valuable.",
+          "description": "TWCo’s competitive moat and data security posture. How AI strengthens what makes us valuable.",
           "instructors": [
             "Brennan Gerster",
             "Dan Margulies"
@@ -160,12 +166,13 @@
             "newYork": "Polar Vortex",
             "remote": true,
             "meetUrl": "https://meet.google.com/wax-ucvy-oej"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
           "title": "MCPs and Integrations",
-          "description": "Connecting AI to external systems: Slack, ServiceNow, Drive, and databases. How MCPs work, how to configure them, and what's available at TWCo.",
+          "description": "Connecting AI to external systems: Slack, ServiceNow, Drive, and databases. How MCPs work, how to configure them, and what’s available at TWCo.",
           "instructors": [
             "Max Jacubowsky"
           ],
@@ -175,7 +182,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/xxb-dutt-ofz"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "build",
@@ -190,7 +198,8 @@
             "newYork": "Supercell",
             "remote": true,
             "meetUrl": "https://meet.google.com/baq-wouo-wzy"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -213,7 +222,8 @@
             "newYork": "Polar Vortex",
             "remote": true,
             "meetUrl": "https://meet.google.com/hty-vmyb-gnk"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
@@ -228,14 +238,15 @@
             "newYork": "Supercell",
             "remote": true,
             "meetUrl": "https://meet.google.com/dfi-tixa-rgj"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "build",
           "title": "Your Work, Not a Demo",
           "description": "Bring a real task from your actual job. Try AI on it with a facilitator next to you. Leave with one thing that worked.",
           "instructors": [
-            "Brian O'Neil"
+            "Brian O’Neil"
           ],
           "rooms": {
             "brookhaven": "2045",
@@ -243,7 +254,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/hdp-emcg-yjn"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -271,14 +283,15 @@
             "newYork": "Supercell",
             "remote": true,
             "meetUrl": "https://meet.google.com/gnk-iwvo-yzu"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
           "title": "WeatherCo Arch",
-          "description": "Mercury, the Project AIR stack, and the roadmap. Brian's session. Builder-track anchor.",
+          "description": "Mercury, the Project AIR stack, and the roadmap. Brian’s session. Builder-track anchor.",
           "instructors": [
-            "Brian O'Neil"
+            "Brian O’Neil"
           ],
           "rooms": {
             "brookhaven": "2045",
@@ -286,7 +299,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/coc-xead-auo"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -297,7 +311,7 @@
         {
           "track": "explore",
           "title": "From Personal to Team",
-          "description": "How individual experiments become team workflows. The organizational gap between 'I built a cool thing' and 'my team uses this every day.'",
+          "description": "How individual experiments become team workflows. The organizational gap between “I built a cool thing” and “my team uses this every day.”",
           "instructors": [
             "Matthew Drooker"
           ],
@@ -307,7 +321,8 @@
             "newYork": "Polar Vortex",
             "remote": true,
             "meetUrl": "https://meet.google.com/oho-jsgn-ofm"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "apply",
@@ -322,7 +337,8 @@
             "newYork": "Microburst",
             "remote": true,
             "meetUrl": "https://meet.google.com/opu-fnii-gto"
-          }
+          },
+          "isRepeat": false
         },
         {
           "track": "build",
@@ -367,7 +383,7 @@
         {
           "track": "apply",
           "title": "Visualizing Data (Repeat)",
-          "description": "Repeat of morning lab session. Dashboards and visual outputs from atmospheric and operational data.",
+          "description": "Repeat of morning Lab session. Dashboards and visual outputs from atmospheric and operational data.",
           "instructors": [
             "Jack Kreps"
           ],
@@ -383,7 +399,7 @@
         {
           "track": "build",
           "title": "The Time Problem",
-          "description": "Honest conversation about finding time for AI when your day job doesn't stop. Operational teams, shift workers, lean teams. Facilitated discussion.",
+          "description": "Honest conversation about finding time for AI when your day job doesn’t stop. Operational teams, shift workers, lean teams. Facilitated discussion.",
           "instructors": [
             "Shannon King"
           ],
@@ -393,7 +409,8 @@
             "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/nws-wnuv-rnk"
-          }
+          },
+          "isRepeat": false
         }
       ]
     },
@@ -418,8 +435,8 @@
       "title": "Fun Time!",
       "people": [],
       "rooms": {
-        "brookhaven": "4th Floor Lawn",
-        "andover": "TBD",
+        "brookhaven": "4th Floor Lawn Andover: TBD New York: TBD",
+        "andover": "TBD New York: TBD",
         "newYork": "TBD"
       }
     }
