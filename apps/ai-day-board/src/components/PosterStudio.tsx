@@ -557,38 +557,16 @@ export function PosterStudio({
                 >
                   ⇉ Sync this positioning to all {entries.length} profiles
                 </button>
-                {PROFILE_COMPS.map(({ id, label }) => {
-                  const t: CompTransform = compTransform(style.layout, id);
-                  return (
-                    <div key={id} className="space-y-2 rounded-lg border border-white/10 p-2.5">
-                      <div className="text-[11px] font-semibold uppercase tracking-wide text-white/60">{label}</div>
-                      <Row label="X ⇄" onAll={() => applyLayoutAll(id, { x: t.x }, `${label} X`)}>
-                        <MiniSlider value={t.x} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => patchLayout(id, { x: v })} />
-                      </Row>
-                      <Row label="Y ⇅" onAll={() => applyLayoutAll(id, { y: t.y }, `${label} Y`)}>
-                        <MiniSlider value={t.y} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => patchLayout(id, { y: v })} />
-                      </Row>
-                      <Row label="Scale" onAll={() => applyLayoutAll(id, { scale: t.scale }, `${label} scale`)}>
-                        <MiniSlider value={t.scale} range={PROFILE_SCALE} unit="x" accent={accent} onChange={(v) => patchLayout(id, { scale: v })} />
-                      </Row>
-                      <Row label="Fade" onAll={() => applyLayoutAll(id, { opacity: t.opacity }, `${label} opacity`)}>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="range"
-                            min={0}
-                            max={1}
-                            step={0.05}
-                            value={t.opacity}
-                            onChange={(e) => patchLayout(id, { opacity: Number(e.target.value) })}
-                            className="min-w-0 flex-1"
-                            style={{ accentColor: accent }}
-                          />
-                          <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(t.opacity * 100)}%</span>
-                        </div>
-                      </Row>
-                    </div>
-                  );
-                })}
+                {PROFILE_COMPS.map(({ id, label }) => (
+                  <LayoutGroup
+                    key={id}
+                    label={label}
+                    t={compTransform(style.layout, id)}
+                    accent={accent}
+                    onPatch={(p) => patchLayout(id, p)}
+                    onAll={(p, lbl) => applyLayoutAll(id, p, lbl)}
+                  />
+                ))}
               </section>
             )}
 
@@ -629,16 +607,65 @@ export function PosterStudio({
   );
 }
 
-/** A titled section. Optional "Set all" applies the section's whole state. */
-function Group({ title, children, onAll }: { title: string; children: React.ReactNode; onAll?: () => void }) {
+/** A titled, collapsible section. Optional "Set all" applies its whole state. */
+function Group({ title, children, onAll, defaultOpen = true }: { title: string; children: React.ReactNode; onAll?: () => void; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <section className="space-y-2">
       <div className="flex items-center justify-between border-b border-white/10 pb-1">
-        <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/45">{title}</h3>
+        <button onClick={() => setOpen((o) => !o)} className="flex flex-1 items-center gap-1.5 text-left" aria-expanded={open}>
+          <span className="text-[9px] text-white/40" style={{ display: "inline-block", transform: open ? "rotate(90deg)" : "none" }}>▶</span>
+          <h3 className="text-[11px] font-semibold uppercase tracking-widest text-white/45">{title}</h3>
+        </button>
         {onAll && <AllButton onClick={onAll} />}
       </div>
-      {children}
+      {open && children}
     </section>
+  );
+}
+
+/** A collapsible per-element block in the profile "Position, scale & opacity"
+ *  section (X / Y / Scale / Fade, each with its own "all"). Default collapsed. */
+function LayoutGroup({
+  label,
+  t,
+  accent,
+  onPatch,
+  onAll,
+}: {
+  label: string;
+  t: CompTransform;
+  accent: string;
+  onPatch: (p: Partial<CompTransform>) => void;
+  onAll: (p: Partial<CompTransform>, label: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg border border-white/10">
+      <button onClick={() => setOpen((o) => !o)} className="flex w-full items-center justify-between px-2.5 py-2 text-left" aria-expanded={open}>
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-white/60">{label}</span>
+        <span className="text-[9px] text-white/40" style={{ display: "inline-block", transform: open ? "rotate(90deg)" : "none" }}>▶</span>
+      </button>
+      {open && (
+        <div className="space-y-2 px-2.5 pb-2.5">
+          <Row label="X ⇄" onAll={() => onAll({ x: t.x }, `${label} X`)}>
+            <MiniSlider value={t.x} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => onPatch({ x: v })} />
+          </Row>
+          <Row label="Y ⇅" onAll={() => onAll({ y: t.y }, `${label} Y`)}>
+            <MiniSlider value={t.y} range={PROFILE_POS} unit="px" accent={accent} onChange={(v) => onPatch({ y: v })} />
+          </Row>
+          <Row label="Scale" onAll={() => onAll({ scale: t.scale }, `${label} scale`)}>
+            <MiniSlider value={t.scale} range={PROFILE_SCALE} unit="x" accent={accent} onChange={(v) => onPatch({ scale: v })} />
+          </Row>
+          <Row label="Fade" onAll={() => onAll({ opacity: t.opacity }, `${label} opacity`)}>
+            <div className="flex items-center gap-2">
+              <input type="range" min={0} max={1} step={0.05} value={t.opacity} onChange={(e) => onPatch({ opacity: Number(e.target.value) })} className="min-w-0 flex-1" style={{ accentColor: accent }} />
+              <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round(t.opacity * 100)}%</span>
+            </div>
+          </Row>
+        </div>
+      )}
+    </div>
   );
 }
 

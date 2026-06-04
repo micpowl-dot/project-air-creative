@@ -5,49 +5,11 @@ import Link from "next/link";
 import { toPng } from "html-to-image";
 import type { Schedule } from "@/lib/types";
 import { HEADSHOT_BACKGROUNDS, participantsFromSchedule } from "@/lib/poster";
-import { resolveCutout, slugify } from "@/data/headshots";
+import { slugify } from "@/data/headshots";
+import { ComposedHeadshot, HEADSHOT_OUT as OUT } from "./ComposedHeadshot";
 
-const OUT = 1200; // native art size (square, RGBA)
-
-/** One composed headshot: palette-pattern background + transparent cutout. */
-function Composed({
-  name,
-  bg,
-  zoom,
-  offsetY,
-  innerRef,
-}: {
-  name: string;
-  bg: string;
-  zoom: number;
-  offsetY: number;
-  innerRef?: React.Ref<HTMLDivElement>;
-}) {
-  const r = resolveCutout(name);
-  return (
-    <div ref={innerRef} className="relative overflow-hidden" style={{ width: OUT, height: OUT }}>
-      {/* layer 1: background pattern */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/headshots/bg/${bg}.png`} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      {/* layer 2: transparent person cutout, or initials fallback */}
-      {r.src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={r.src}
-          alt={name}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ transform: `translateY(${offsetY}%) scale(${zoom})`, transformOrigin: "center bottom" }}
-        />
-      ) : (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span style={{ color: "#fff", fontFamily: "var(--font-poster-display)", fontWeight: 800, fontSize: OUT * 0.3 }}>
-            {r.initials}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
+// Local alias so existing call sites keep working after extracting the tile.
+const Composed = ComposedHeadshot;
 
 export function HeadshotComposer({ schedule }: { schedule: Schedule }) {
   const people = useMemo(() => participantsFromSchedule(schedule), [schedule]);
@@ -100,9 +62,14 @@ export function HeadshotComposer({ schedule }: { schedule: Schedule }) {
               Project AIR · two-layer branded headshots (palette background + transparent cutout) · export 1200×1200 PNG
             </p>
           </div>
-          <Link href="/profile" className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10">
-            Profile Studio →
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href="/headshot-composer/render" className="rounded-lg px-4 py-2 text-sm font-semibold text-[#111]" style={{ background: "#67FAE0" }}>
+              Render queue →
+            </Link>
+            <Link href="/profile" className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10">
+              Profile Studio →
+            </Link>
+          </div>
         </header>
 
         {batch && (
