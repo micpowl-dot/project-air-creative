@@ -9,6 +9,7 @@ import {
   sessionToPoster,
   defaultSessionStyle,
   getVariant,
+  HEADSHOT_BACKGROUNDS,
 } from "@/lib/poster";
 
 interface Story {
@@ -26,12 +27,25 @@ const WALL_MS = 32000;
 const POSTERS_MS = 28000;
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
 
+// Deterministic random palette backdrop per tile (stable across re-renders and
+// the duplicated loop copy). Shows through transparent cutouts; real photos
+// just cover it.
+function bgForSrc(src: string): string {
+  let h = 0;
+  for (let i = 0; i < src.length; i++) h = (h * 31 + src.charCodeAt(i)) >>> 0;
+  const id = HEADSHOT_BACKGROUNDS[h % HEADSHOT_BACKGROUNDS.length].id;
+  return `/headshots/bg/${id}.png`;
+}
+
 function Tile({ src, tilt }: { src: string; tilt: number }) {
+  const bg = bgForSrc(src);
   return (
     <div className="mb-[3vh] inline-block rounded-[0.4vw] bg-white p-[0.6vw] shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }}>
-      <div className="overflow-hidden rounded-[0.2vw]" style={{ width: "100%", aspectRatio: "1 / 1", background: INK }}>
+      <div className="relative overflow-hidden rounded-[0.2vw]" style={{ width: "100%", aspectRatio: "1 / 1", background: INK }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="h-full w-full object-cover" />
+        <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
       </div>
     </div>
   );
@@ -72,7 +86,10 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
         ))}
       </div>
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
-      <div className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]">
+      <div
+        className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw] rounded-[0.8vw]"
+        style={{ background: BG, border: `0.18vw solid ${ACCENT}`, padding: "1.4vh 1.6vw", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+      >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
           <div className="font-display font-bold text-white" style={{ fontSize: "2.2vw", lineHeight: 1 }}>AI Helped Me…</div>
