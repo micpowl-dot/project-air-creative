@@ -102,8 +102,8 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
             <div className="font-display font-bold text-white" style={{ fontSize: "2.6vw", lineHeight: 1.15 }}>
               <span style={{ color: ACCENT }}>“</span>{story.text}<span style={{ color: ACCENT }}>”</span>
             </div>
-            {story.name && story.name !== "Sample" && (
-              <div className="mt-[1.5vh] text-white/70" style={{ fontSize: "1.2vw" }}>— {story.name}</div>
+            {story.name && (
+              <div className="mt-[1.5vh] font-display font-bold" style={{ fontSize: "1.5vw", color: ACCENT }}>— {story.name}</div>
             )}
           </div>
         </div>
