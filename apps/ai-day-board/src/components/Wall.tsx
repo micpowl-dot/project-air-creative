@@ -16,6 +16,10 @@ interface Story {
   name: string;
   text: string;
 }
+interface WallImage {
+  src: string;
+  handle?: string;
+}
 
 const COLUMNS = 5;
 const BG = "#FB00FF";
@@ -37,22 +41,27 @@ function bgForSrc(src: string): string {
   return `/headshots/bg/${id}.png`;
 }
 
-function Tile({ src, tilt }: { src: string; tilt: number }) {
-  const bg = bgForSrc(src);
+function Tile({ item, tilt }: { item: WallImage; tilt: number }) {
+  const bg = bgForSrc(item.src);
   return (
     <div className="mb-[3vh] block w-full rounded-[0.4vw] bg-white p-[0.6vw] shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }}>
       <div className="relative w-full overflow-hidden rounded-[0.2vw]" style={{ aspectRatio: "1 / 1", background: INK }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={item.src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        {item.handle && (
+          <div className="absolute bottom-0 left-0 right-0" style={{ background: "rgba(13,20,42,0.72)", padding: "0.35vw 0.6vw" }}>
+            <span className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.95vw" }}>{item.handle}</span>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
 /** The waterfall of photobooth photos + a rotating "AI helped me..." card. */
-function WaterfallView({ images, stories, live }: { images: string[]; stories: Story[]; live: boolean }) {
+function WaterfallView({ images, stories, live }: { images: WallImage[]; stories: Story[]; live: boolean }) {
   const [storyIdx, setStoryIdx] = useState(0);
   useEffect(() => {
     if (stories.length === 0) return;
@@ -61,8 +70,8 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
   }, [stories.length]);
 
   const cols = useMemo(() => {
-    const out: string[][] = Array.from({ length: COLUMNS }, () => []);
-    images.forEach((src, i) => out[i % COLUMNS].push(src));
+    const out: WallImage[][] = Array.from({ length: COLUMNS }, () => []);
+    images.forEach((img, i) => out[i % COLUMNS].push(img));
     return out;
   }, [images]);
   const story = stories[storyIdx];
@@ -76,8 +85,8 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
             <div className="absolute left-0 top-0 w-full" style={{ animation: `wall-fall ${42 + ci * 7}s linear infinite` }}>
               {[0, 1].map((copy) => (
                 <div key={copy}>
-                  {col.map((src, i) => (
-                    <Tile key={`${copy}-${i}`} src={src} tilt={((i + ci) % 5) - 2} />
+                  {col.map((img, i) => (
+                    <Tile key={`${copy}-${i}`} item={img} tilt={((i + ci) % 5) - 2} />
                   ))}
                 </div>
               ))}
@@ -88,7 +97,7 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
         className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
-        style={{ background: BG, padding: "1.4vh 1.6vw", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        style={{ background: BG, padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
@@ -164,7 +173,7 @@ function PosterCycleView({ schedule }: { schedule: Schedule }) {
 }
 
 export function Wall({ schedule }: { schedule: Schedule }) {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<WallImage[]>([]);
   const [stories, setStories] = useState<Story[]>([]);
   const [live, setLive] = useState(false);
   const [view, setView] = useState<"wall" | "posters">("wall");
@@ -178,8 +187,8 @@ export function Wall({ schedule }: { schedule: Schedule }) {
         const body = await res.json();
         if (!active) return;
         setImages((prev) => {
-          const seen = new Set(prev);
-          const added = (body.images as string[]).filter((u) => !seen.has(u));
+          const seen = new Set(prev.map((p) => p.src));
+          const added = (body.images as WallImage[]).filter((it) => it?.src && !seen.has(it.src));
           return added.length ? [...prev, ...added] : prev;
         });
         setStories(body.stories ?? []);

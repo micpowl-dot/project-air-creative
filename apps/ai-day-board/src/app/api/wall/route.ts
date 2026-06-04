@@ -81,14 +81,22 @@ async function storiesFromSlack(): Promise<Story[] | null> {
   }
 }
 
-async function imagesFromSource(): Promise<string[] | null> {
+interface WallImage { src: string; handle?: string }
+
+async function imagesFromSource(): Promise<WallImage[] | null> {
   const liveUrl = process.env.WALL_IMAGES_URL;
   if (!liveUrl) return null;
   try {
     const res = await fetch(liveUrl, { cache: "no-store" });
     if (!res.ok) return null;
     const body = await res.json();
-    return Array.isArray(body.images) ? body.images : null;
+    if (!Array.isArray(body.images)) return null;
+    // Accept either ["url", ...] or [{src, handle}, ...].
+    return body.images
+      .map((it: unknown) =>
+        typeof it === "string" ? { src: it } : it && typeof it === "object" && "src" in it ? (it as WallImage) : null
+      )
+      .filter(Boolean) as WallImage[];
   } catch {
     return null;
   }
@@ -96,7 +104,8 @@ async function imagesFromSource(): Promise<string[] | null> {
 
 export async function GET() {
   const [liveImages, slackStories] = await Promise.all([imagesFromSource(), storiesFromSlack()]);
-  const images = liveImages ?? SAMPLE_SLUGS.map((s) => `/headshots/cutout/${s}.png`);
+  const images: WallImage[] =
+    liveImages ?? SAMPLE_SLUGS.map((s) => ({ src: `/headshots/cutout/${s}.png`, handle: `@${s.replace(/-/g, ".")}` }));
   const stories = slackStories && slackStories.length ? slackStories : SAMPLE_STORIES;
   return Response.json({
     images,
