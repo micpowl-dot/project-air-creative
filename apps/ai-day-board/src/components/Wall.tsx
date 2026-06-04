@@ -40,8 +40,8 @@ function bgForSrc(src: string): string {
 function Tile({ src, tilt }: { src: string; tilt: number }) {
   const bg = bgForSrc(src);
   return (
-    <div className="mb-[3vh] inline-block rounded-[0.4vw] bg-white p-[0.6vw] shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }}>
-      <div className="relative overflow-hidden rounded-[0.2vw]" style={{ width: "100%", aspectRatio: "1 / 1", background: INK }}>
+    <div className="mb-[3vh] block w-full rounded-[0.4vw] bg-white p-[0.6vw] shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }}>
+      <div className="relative w-full overflow-hidden rounded-[0.2vw]" style={{ aspectRatio: "1 / 1", background: INK }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
