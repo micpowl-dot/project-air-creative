@@ -14,7 +14,7 @@ import type { NextRequest } from "next/server";
 // shared password (browser Basic Auth prompt). Fails closed: if WALL_PUBLIC_MODE
 // is on but SITE_PASSWORD is missing, gated routes return 503 (never exposed).
 
-const PUBLIC_PREFIXES = ["/wall", "/api/wall", "/headshots", "/poster-elements"];
+const PUBLIC_PREFIXES = ["/wall", "/api/wall", "/prompts", "/headshots", "/poster-elements"];
 
 function isPublic(pathname: string): boolean {
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
