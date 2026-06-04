@@ -52,8 +52,10 @@ F_MONO_REG = f"{FONT_DIR}/FiraCode-Regular.ttf"
 
 LOCKUP_PATH = "assets/logo/2x/AIR_Color_wht-r_1_Color@2x.png"
 LOCKUP_DARK_PATH = "assets/logo/2x/AIR_Color_blk-r_1_Color@2x.png"
+HERO_IMAGE_PATH = "assets/images/group.png"
 
 OUT_DIR = "assets/templates/giftcards"
+REVISION = "R3"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -99,36 +101,79 @@ def ring_badge(draw, cx, cy, outer_r, rings, ring_w):
 # ============================================================
 # FRONT
 # ============================================================
+def fit_width_top_crop(img, target_w, target_h):
+    """Scale image to fill target width, then crop from bottom only (keep heads)."""
+    src_w, src_h = img.size
+    scale = target_w / src_w
+    new_w, new_h = target_w, int(src_h * scale)
+    img = img.resize((new_w, new_h), Image.LANCZOS)
+    if new_h > target_h:
+        # Crop from bottom — keep top of image (heads/faces)
+        img = img.crop((0, 0, target_w, target_h))
+    elif new_h < target_h:
+        # Pad bottom (shouldn't happen with our source ratio)
+        padded = Image.new("RGBA", (target_w, target_h), (0, 0, 0, 0))
+        padded.paste(img, (0, 0))
+        img = padded
+    return img
+
+
 def build_front(amount):
+    # ─────────────────────────────────────────────────────────
+    # Horizontal split: image takes top ~68%, amber band bottom ~32%
+    # ─────────────────────────────────────────────────────────
+    band_h = int(H * 0.32)
+    img_h = H - band_h
+
     canvas = Image.new("RGBA", (W, H), AMBER_DOM + (255,))
+
+    # 1. Hero image — top portion, fit width, crop from bottom to keep heads
+    hero = Image.open(HERO_IMAGE_PATH).convert("RGBA")
+    hero_fit = fit_width_top_crop(hero, W, img_h)
+    canvas.alpha_composite(hero_fit, (0, 0))
+
     draw = ImageDraw.Draw(canvas)
 
-    # Large decorative ring badge anchored right (background motif)
-    # Position so half is visible on the right edge
-    ring_cx = W - 60
-    ring_cy = H // 2
-    ring_outer = 360
-    ring_colors = [AMBER_ACCENT, AMBER_DOM, AMBER_ACCENT, AMBER_DOM, AMBER_ACCENT]
-    # Use a slightly transparent overlay so type stays readable
-    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    odraw = ImageDraw.Draw(overlay)
-    for i, color in enumerate(ring_colors):
-        r = ring_outer - i * 30
-        if r <= 0:
-            break
-        # Translucent rings
-        odraw.ellipse(
-            (ring_cx - r, ring_cy - r, ring_cx + r, ring_cy + r),
-            outline=color + (220,),
-            width=30,
-        )
-    canvas = Image.alpha_composite(canvas, overlay)
-    draw = ImageDraw.Draw(canvas)
+    # 2. Amber band sits at H - band_h; thin accent rule at the top of the band
+    rule_y = img_h
+    draw.rectangle(
+        [(SAFE_INSET, rule_y + 18), (SAFE_INSET + 70, rule_y + 18 + 5)],
+        fill=AMBER_ACCENT,
+    )
 
-    # Eyebrow top-left
+    # Vertical center of amber band
+    band_center_y = img_h + band_h // 2
+
+    # 3. $ amount — left side, vertically centered in band
+    amount_str = f"${amount}"
+    amt_font = font(F_DISPLAY_BLACK, 48)
     draw_text(
         draw,
-        (SAFE_INSET, SAFE_INSET),
+        (SAFE_INSET, band_center_y),
+        amount_str,
+        amt_font,
+        ANCHOR_LIGHT,
+        anchor="lm",
+    )
+
+    # 4. GIFT CARD — right side, vertically centered with amount
+    gc_font = font(F_DISPLAY_BOLD, 20)
+    draw_text(
+        draw,
+        (W - SAFE_INSET, band_center_y),
+        "GIFT CARD",
+        gc_font,
+        ANCHOR_LIGHT,
+        anchor="rm",
+        tracking=150,
+    )
+
+    # 5. Eyebrow top-left over the image (small dark scrim for legibility)
+    eyebrow_scrim = Image.new("RGBA", (520, 50), (0x29, 0x29, 0x29, 140))
+    canvas.alpha_composite(eyebrow_scrim, (0, 0))
+    draw_text(
+        draw,
+        (SAFE_INSET, SAFE_INSET - 6),
         "AI DAY · JUNE.9.2026",
         font(F_MONO_BOLD, 9),
         ANCHOR_LIGHT,
@@ -136,41 +181,17 @@ def build_front(amount):
         tracking=180,
     )
 
-    # Amount — huge bottom-left
-    amount_str = f"${amount}"
-    amt_font = font(F_DISPLAY_BLACK, 110)
-    amt_y = H - SAFE_INSET - int(110 * DPI / 72) - 50  # rough baseline
-    draw_text(
-        draw,
-        (SAFE_INSET, amt_y),
-        amount_str,
-        amt_font,
-        ANCHOR_LIGHT,
-        anchor="la",
-    )
-
-    # "GIFT CARD" under amount
-    gc_font = font(F_DISPLAY_BOLD, 22)
-    # Measure amount height to position below
-    amt_bbox = draw.textbbox((SAFE_INSET, amt_y), amount_str, font=amt_font, anchor="la")
-    draw_text(
-        draw,
-        (SAFE_INSET + 8, amt_bbox[3] - 20),
-        "GIFT CARD",
-        gc_font,
-        ANCHOR_LIGHT,
-        anchor="la",
-        tracking=120,
-    )
-
-    # Lockup top-right (white-R variant on amber)
-    lockup_h = 110
-    lockup_w = int(Image.open(LOCKUP_PATH).width * lockup_h / Image.open(LOCKUP_PATH).height)
+    # 6. Lockup top-right over the image (with dark scrim)
+    lockup_img = Image.open(LOCKUP_PATH)
+    lockup_h = 80
+    lockup_w = int(lockup_img.width * lockup_h / lockup_img.height)
+    scrim = Image.new("RGBA", (lockup_w + 60, lockup_h + 32), (0x29, 0x29, 0x29, 140))
+    canvas.alpha_composite(scrim, (W - lockup_w - 60, 0))
     paste_lockup(
         canvas,
         LOCKUP_PATH,
         W - SAFE_INSET - lockup_w,
-        SAFE_INSET - 10,
+        SAFE_INSET - 8,
         lockup_h,
     )
 
@@ -273,8 +294,8 @@ def main():
     front = build_front(amount)
     back = build_back(amount)
 
-    front_path = f"{OUT_DIR}/AIDAY-Giftcard-{amount}-R1-front.png"
-    back_path = f"{OUT_DIR}/AIDAY-Giftcard-{amount}-R1-back.png"
+    front_path = f"{OUT_DIR}/AIDAY-Giftcard-{amount}-{REVISION}-front.png"
+    back_path = f"{OUT_DIR}/AIDAY-Giftcard-{amount}-{REVISION}-back.png"
 
     front.save(front_path, "PNG", dpi=(DPI, DPI))
     back.save(back_path, "PNG", dpi=(DPI, DPI))
