@@ -87,8 +87,8 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
       </div>
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
-        className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw] rounded-[0.8vw]"
-        style={{ background: BG, border: `0.18vw solid ${ACCENT}`, padding: "1.4vh 1.6vw", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
+        style={{ background: BG, padding: "1.4vh 1.6vw", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
@@ -98,7 +98,7 @@ function WaterfallView({ images, stories, live }: { images: string[]; stories: S
       </div>
       {story && (
         <div className="absolute left-1/2 top-1/2 w-[60vw] -translate-x-1/2 -translate-y-1/2 text-center">
-          <div className="rounded-[1vw] px-[3vw] py-[3vh] shadow-2xl" style={{ background: "rgba(13,20,42,0.86)", border: `0.2vw solid ${ACCENT}` }}>
+          <div className="px-[3vw] py-[3vh] shadow-2xl" style={{ background: "rgba(13,20,42,0.86)" }}>
             <div className="font-display font-bold text-white" style={{ fontSize: "2.6vw", lineHeight: 1.15 }}>
               <span style={{ color: ACCENT }}>“</span>{story.text}<span style={{ color: ACCENT }}>”</span>
             </div>
