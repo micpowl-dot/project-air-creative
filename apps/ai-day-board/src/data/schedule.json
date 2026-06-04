@@ -2,7 +2,7 @@
   "title": "AI Day (US) — June 9, 2026",
   "date": "2026-06-09",
   "sourceUrl": "https://thedrop.weather.com/pages/1jp62gi1i768q7m567/AiDayUsJune9th2026/1jp62mt88cuvqkhh7b",
-  "lastSynced": "2026-06-02T23:06:41.000Z",
+  "lastSynced": "2026-06-03T19:59:11.102Z",
   "tracks": [
     {
       "id": "explore",
@@ -83,7 +83,7 @@
           "rooms": {
             "brookhaven": "2045",
             "andover": "Sirocco",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/tmj-vbeb-ner"
           }
@@ -135,7 +135,7 @@
           "rooms": {
             "brookhaven": "2045",
             "andover": "Sirocco",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/fdw-sghb-bxg"
           }
@@ -172,7 +172,7 @@
           "rooms": {
             "brookhaven": "2126",
             "andover": "Tsunami",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/xxb-dutt-ofz"
           }
@@ -240,7 +240,7 @@
           "rooms": {
             "brookhaven": "2045",
             "andover": "Typhoon",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/hdp-emcg-yjn"
           }
@@ -283,26 +283,10 @@
           "rooms": {
             "brookhaven": "2045",
             "andover": "Tsunami",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/coc-xead-auo"
           }
-        },
-        {
-          "track": "build",
-          "title": "From Dabbling to Doing (Repeat)",
-          "description": "Morning's most broadly relevant session, repeated for afternoon attendees.",
-          "instructors": [
-            "Tyler Steben"
-          ],
-          "rooms": {
-            "brookhaven": "Zephyr",
-            "andover": "Typhoon",
-            "newYork": "Polar Vortex",
-            "remote": true,
-            "meetUrl": "https://meet.google.com/wrm-ieee-ctr"
-          },
-          "isRepeat": true
         }
       ]
     },
@@ -406,7 +390,7 @@
           "rooms": {
             "brookhaven": "2126",
             "andover": "Sirocco",
-            "newYork": "Microburst",
+            "newYork": "Microburst & Squall",
             "remote": true,
             "meetUrl": "https://meet.google.com/nws-wnuv-rnk"
           }

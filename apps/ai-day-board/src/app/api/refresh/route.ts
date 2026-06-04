@@ -16,7 +16,7 @@ export async function GET() {
       {
         error: "not_connected",
         message:
-          "The Drop isn't connected. Add DROP_COOKIE to .env.local (your authenticated thedrop.weather.com session cookie), then restart the dev server.",
+          "The Drop isn't connected. Local: add DROP_COOKIE to .env.local (your authenticated thedrop.weather.com session cookie) and restart the dev server. Hosted: add DROP_COOKIE in Vercel → Settings → Environment Variables, then redeploy. Note: Drop session cookies expire quickly, so live refresh is best-effort; the committed schedule.json is the reliable source (re-pull via the authenticated browser when it changes).",
       },
       { status: 400 }
     );
