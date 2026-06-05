@@ -162,10 +162,24 @@ export function Snap() {
   // --- Camera + preview ---
   return (
     <div className="flex min-h-screen flex-col" style={{ background: palette.bg }}>
-      {/* header */}
-      <div className="flex items-center justify-center py-5" style={{ background: "rgba(13,20,42,0.35)" }}>
-        <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 140 }} />
-      </div>
+      {/* header — AI DAY logo flanked by top-edge graphic, same as the board */}
+      <header className="relative flex h-36 items-center overflow-hidden" style={{ background: palette.bg }}>
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden sm:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/poster-elements/top-edge/${palette.top}.png`} alt="" aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)", opacity: 0.7 }} />
+        </div>
+        <div className="shrink-0 px-6 text-center">
+          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 160 }} />
+        </div>
+        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden sm:block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/poster-elements/top-edge/${palette.top}.png`} alt="" aria-hidden
+            className="absolute inset-x-0 w-full object-cover"
+            style={{ top: -75, height: "calc(100% + 150px)", opacity: 0.7 }} />
+        </div>
+      </header>
 
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col px-5 pb-8 pt-4">
         <h1 className="mb-1 text-center font-display text-2xl font-bold text-white">Make me AI Day</h1>
