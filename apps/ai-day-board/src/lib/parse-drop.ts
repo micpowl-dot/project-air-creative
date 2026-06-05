@@ -81,10 +81,13 @@ function parseRoomsColon(lines: string[]): RoomSet {
 /** Pull rooms from a full-width cell: "Site (Room)" or "Site: Room". */
 function parseRoomsLoose(text: string): RoomSet {
   const rooms: RoomSet = {};
+  // A "Site: Room" value ends at the next site label, a pipe, or end — so one
+  // run-on line like "Brookhaven: X Andover: Y New York: Z" splits correctly.
+  const LABELS = [...SITES.flatMap((s) => s.names), "Remote"].join("|");
   for (const { key, names } of SITES) {
     for (const nm of names) {
       const paren = text.match(new RegExp(`${nm}\\s*\\(([^)]+)\\)`, "i"));
-      const colon = text.match(new RegExp(`${nm}\\s*:\\s*([^|\\n]+)`, "i"));
+      const colon = text.match(new RegExp(`${nm}\\s*:\\s*(.+?)(?=\\s*(?:${LABELS})\\s*:|\\||$)`, "i"));
       if (paren) rooms[key] = paren[1].trim();
       else if (colon) rooms[key] = colon[1].trim();
     }
