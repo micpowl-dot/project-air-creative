@@ -194,7 +194,7 @@ export function Snap() {
       </header>
 
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col px-5 pb-8 pt-4">
-        <h1 className="mb-1 text-center font-display text-2xl font-bold text-white">Make me AI Day</h1>
+        <h1 className="mb-1 text-center font-display text-2xl font-bold text-white">AI Day Me</h1>
         <p className="mb-4 text-center text-sm text-white/70">Take a selfie and appear on the wall as an illustrated portrait.</p>
 
         {/* Camera / snapshot */}
@@ -270,7 +270,7 @@ export function Snap() {
                 className="rounded-xl py-4 text-lg font-bold shadow-lg"
                 style={{ background: palette.accent, color: palette.ink }}
               >
-                ✨ Make me AI Day
+                ✨ AI Day Me
               </button>
               <button
                 onClick={retake}

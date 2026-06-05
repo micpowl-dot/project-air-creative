@@ -24,7 +24,7 @@ const STEPS = [
   {
     n: "4",
     icon: "✨",
-    title: "Hit \"Make me AI Day\"",
+    title: "Hit \"AI Day Me\"",
     body: "Your photo gets illustrated in the AI Day art style and appears on the screens. Watch for yourself!",
   },
 ];
