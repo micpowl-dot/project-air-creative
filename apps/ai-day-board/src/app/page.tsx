@@ -6,9 +6,11 @@ import scheduleData from "@/data/schedule.json";
 // For now we read the committed snapshot of the live chart.
 const schedule = scheduleData as unknown as Schedule;
 
-// When PUBLIC_BOARD=1 the board is exposed publicly (see proxy.ts); in that
-// mode we hide the internal Google Meet join links.
-const publicMode = process.env.PUBLIC_BOARD === "1";
+// Hiding the Google Meet links is its OWN switch, independent of public access
+// (PUBLIC_BOARD in proxy.ts). Meets are locked to org members ("Trusted") per
+// Michele K., so the board can be public WITH links live; set HIDE_MEET_LINKS=1
+// only if we need to pull them again (e.g., Dan asks).
+const hideMeet = process.env.HIDE_MEET_LINKS === "1";
 
 // Strip every Google Meet URL server-side so they never reach the public
 // client (hiding the link in the UI isn't enough — the data still ships).
@@ -30,6 +32,6 @@ function stripMeetUrls(s: Schedule): Schedule {
 }
 
 export default function Home() {
-  const boardSchedule = publicMode ? stripMeetUrls(schedule) : schedule;
-  return <Board schedule={boardSchedule} publicMode={publicMode} />;
+  const boardSchedule = hideMeet ? stripMeetUrls(schedule) : schedule;
+  return <Board schedule={boardSchedule} publicMode={hideMeet} />;
 }
