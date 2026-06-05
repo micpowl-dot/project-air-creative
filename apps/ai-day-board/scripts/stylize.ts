@@ -1,36 +1,39 @@
 /**
  * Path A test harness: stylize a photo into the AI Day illustrated headshot
- * look (Nano Banana / Gemini image), using an existing speaker headshot as the
- * style key. Outputs the model's image (on chroma-green) so you can eyeball the
- * style + likeness BEFORE we build the Slack/n8n pipeline.
+ * look (Nano Banana / Gemini image) AND composite the person onto a chosen
+ * branded background in one generation — no chroma key, no matting.
  *
- *   npm run stylize -- ./selfie.jpg            (uses default style key)
- *   npm run stylize -- ./selfie.jpg ./style.png
+ *   npm run stylize -- ./selfie.jpg                         (random background)
+ *   npm run stylize -- ./selfie.jpg --bg magenta-accent     (specific background)
+ *   npm run stylize -- ./selfie.jpg --bg cyan ./style.png   (also custom style key)
  *
- * Needs GEMINI_API_KEY in .env.local. Optional GEMINI_IMAGE_MODEL to override
- * the model (default below). Writes ./stylized-output.png.
+ * Backgrounds = the names in public/headshots/bg/ (magenta, magenta-accent,
+ * cyan, cyan-accent, violet, violet-accent, amber, amber-accent, forest,
+ * forest-accent), or "random". Needs GEMINI_API_KEY in .env.local. Optional
+ * GEMINI_IMAGE_MODEL override. Writes ./stylized-output.png.
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DEFAULT_STYLE = path.join(ROOT, "public/headshots/cutout/max-jacubowsky.png");
+const BG_DIR = path.join(ROOT, "public/headshots/bg");
 // Nano Banana Pro (matches Lee's output). For a cheaper pass, set
 // GEMINI_IMAGE_MODEL=gemini-2.5-flash-image (standard Nano Banana).
 const DEFAULT_MODEL = "gemini-3-pro-image-preview";
 
 const PROMPT =
-  "There are two images. IMAGE 1 is ONLY an art-style reference: copy its " +
+  "There are three images. IMAGE 1 is ONLY an art-style reference: copy its " +
   "illustration style (clean semi-realistic vector look, smooth cel-shaded " +
-  "gradient shading, crisp confident linework, color finish). Do NOT copy the " +
-  "face, head shape, hairstyle, or any features or identity from image 1. " +
-  "IMAGE 2 is the ACTUAL PERSON to draw: keep their exact likeness, same face " +
-  "shape, same head (including if bald), same hairline and hair, same facial " +
-  "hair, same glasses, same skin tone, same clothing. It must clearly be the " +
-  "same person as image 2, just illustrated in the style of image 1. " +
-  "Head and shoulders, centered, facing forward, friendly expression. Place on " +
-  "a solid flat chroma-green (#00FF00) background, no shadows or gradient, no " +
-  "green color cast on hair or skin. Square 1:1.";
+  "gradient shading, crisp confident linework, full color). Do NOT copy the " +
+  "face, hair, or identity from image 1. IMAGE 2 is the ACTUAL PERSON to draw: " +
+  "keep their exact likeness — same face shape, head and hairline, facial hair, " +
+  "glasses, skin tone, and clothing. It must clearly be the same person as " +
+  "image 2. IMAGE 3 is the BACKGROUND: place the illustrated person directly in " +
+  "front of this exact background as a head-and-shoulders portrait filling a " +
+  "square frame. Keep image 3's colors and pattern exactly as-is behind the " +
+  "person — do not alter, restyle, recolor, or add anything to the background. " +
+  "Centered, facing forward, friendly expression. Square 1:1.";
 
 function envKey(): string | null {
   if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
@@ -58,17 +61,35 @@ async function main() {
     console.error("\n✗ No GEMINI_API_KEY in .env.local.\n");
     process.exit(1);
   }
-  const selfie = process.argv[2];
-  const style = process.argv[3] || DEFAULT_STYLE;
+  // Parse args: [selfie] [style?] with an optional `--bg <name|random>`.
+  const argv = process.argv.slice(2);
+  let bgArg = "random";
+  const bi = argv.indexOf("--bg");
+  if (bi >= 0) {
+    bgArg = argv[bi + 1] || "random";
+    argv.splice(bi, 2);
+  }
+  const selfie = argv[0];
+  const style = argv[1] || DEFAULT_STYLE;
   if (!selfie) {
-    console.error("\nUsage: npm run stylize -- ./selfie.jpg [./style.png]\n");
+    console.error("\nUsage: npm run stylize -- ./selfie.jpg [--bg <name|random>] [./style.png]\n");
     process.exit(1);
   }
+
+  // Resolve the background image.
+  const bgNames = readdirSync(BG_DIR).filter((f) => f.endsWith(".png")).map((f) => f.replace(/\.png$/, ""));
+  const bgName = bgArg === "random" ? bgNames[Math.floor(Math.random() * bgNames.length)] : bgArg;
+  const bgPath = path.join(BG_DIR, `${bgName}.png`);
+  if (!existsSync(bgPath)) {
+    console.error(`\n✗ Unknown background "${bgName}". Options: ${bgNames.join(", ")}, or "random".\n`);
+    process.exit(1);
+  }
+
   const model = process.env.GEMINI_IMAGE_MODEL || DEFAULT_MODEL;
-  console.log(`→ Stylizing ${path.basename(selfie)} with style ${path.basename(style)} via ${model}…`);
+  console.log(`→ Stylizing ${path.basename(selfie)} onto "${bgName}" background, style ${path.basename(style)}, via ${model}…`);
 
   const body = {
-    contents: [{ role: "user", parts: [{ text: PROMPT }, part(style), part(selfie)] }],
+    contents: [{ role: "user", parts: [{ text: PROMPT }, part(style), part(selfie), part(bgPath)] }],
     generationConfig: { responseModalities: ["IMAGE"] },
   };
 
@@ -91,7 +112,7 @@ async function main() {
   }
   const out = path.join(ROOT, "stylized-output.png");
   writeFileSync(out, Buffer.from(img.inlineData.data, "base64"));
-  console.log(`\n✓ Wrote ${out} — open it to judge the style. (It's on green; the pipeline keys that out.)`);
+  console.log(`\n✓ Wrote ${out} — finished headshot on the "${bgName}" background, no keying needed.`);
 }
 
 main().catch((e) => {
