@@ -20,13 +20,17 @@ const DEFAULT_STYLE = path.join(ROOT, "public/headshots/cutout/max-jacubowsky.pn
 const DEFAULT_MODEL = "gemini-3-pro-image-preview";
 
 const PROMPT =
-  "Image 1 is the style reference. Image 2 is a photo of a person. Re-illustrate " +
-  "the person from image 2 in the exact illustrative style of image 1: clean " +
-  "semi-realistic vector portrait, smooth cel-shaded gradient shading, crisp " +
-  "confident linework, full color. Preserve their likeness, hair, skin tone, " +
-  "glasses, and clothing. Head and shoulders, centered, facing forward, friendly " +
-  "expression. Place on a solid flat chroma-green (#00FF00) background, no shadows " +
-  "or gradient on the background, no green color cast on hair or skin. Square 1:1.";
+  "There are two images. IMAGE 1 is ONLY an art-style reference: copy its " +
+  "illustration style (clean semi-realistic vector look, smooth cel-shaded " +
+  "gradient shading, crisp confident linework, color finish). Do NOT copy the " +
+  "face, head shape, hairstyle, or any features or identity from image 1. " +
+  "IMAGE 2 is the ACTUAL PERSON to draw: keep their exact likeness, same face " +
+  "shape, same head (including if bald), same hairline and hair, same facial " +
+  "hair, same glasses, same skin tone, same clothing. It must clearly be the " +
+  "same person as image 2, just illustrated in the style of image 1. " +
+  "Head and shoulders, centered, facing forward, friendly expression. Place on " +
+  "a solid flat chroma-green (#00FF00) background, no shadows or gradient, no " +
+  "green color cast on hair or skin. Square 1:1.";
 
 function envKey(): string | null {
   if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
