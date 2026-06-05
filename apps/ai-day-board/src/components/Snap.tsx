@@ -19,6 +19,7 @@ type Step = "camera" | "preview" | "submitting" | "done" | "error";
 export function Snap() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const uploadRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState<Step>("camera");
   const [handle, setHandle] = useState("@");
   const [snapshot, setSnapshot] = useState<string | null>(null);
@@ -66,6 +67,19 @@ export function Snap() {
   function retake() {
     setSnapshot(null);
     setStep("camera");
+  }
+
+  function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setSnapshot(ev.target?.result as string);
+      setStep("preview");
+    };
+    reader.readAsDataURL(file);
+    // reset so same file can be re-selected
+    e.target.value = "";
   }
 
   async function submit() {
@@ -200,13 +214,28 @@ export function Snap() {
         {/* Actions */}
         <div className="mt-5 flex flex-col gap-3">
           {step === "camera" && (
-            <button
-              onClick={capture}
-              className="rounded-xl py-4 text-lg font-bold shadow-lg"
-              style={{ background: palette.accent, color: palette.ink }}
-            >
-              📸 Take selfie
-            </button>
+            <>
+              <button
+                onClick={capture}
+                className="rounded-xl py-4 text-lg font-bold shadow-lg"
+                style={{ background: palette.accent, color: palette.ink }}
+              >
+                📸 Take selfie
+              </button>
+              <button
+                onClick={() => uploadRef.current?.click()}
+                className="rounded-xl border border-white/30 py-3 text-base font-semibold text-white hover:bg-white/10"
+              >
+                📁 Upload a photo instead
+              </button>
+              <input
+                ref={uploadRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleUpload}
+              />
+            </>
           )}
           {step === "preview" && (
             <>
