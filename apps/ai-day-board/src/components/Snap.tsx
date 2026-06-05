@@ -162,23 +162,35 @@ export function Snap() {
   // --- Camera + preview ---
   return (
     <div className="flex min-h-screen flex-col" style={{ background: palette.bg }}>
-      {/* header — AI DAY logo flanked by top-edge graphic, same as the board */}
+      {/* header — AI DAY logo flanked by converging graphic (tiled so it never
+          cuts), logo centered with generous padding */}
       <header className="relative flex h-36 items-center overflow-hidden" style={{ background: palette.bg }}>
-        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden sm:block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/poster-elements/top-edge/${palette.top}.png`} alt="" aria-hidden
-            className="absolute inset-x-0 w-full object-cover"
-            style={{ top: -75, height: "calc(100% + 150px)", transform: "scaleX(-1)", opacity: 0.7 }} />
+        {/* left — mirrored + tiled */}
+        <div
+          className="hidden h-full min-w-0 flex-1 sm:block"
+          style={{
+            backgroundImage: "url(/poster-elements/top-edge/converging.png)",
+            backgroundRepeat: "repeat-x",
+            backgroundSize: "auto 100%",
+            backgroundPosition: "right center",
+            transform: "scaleX(-1)",
+            opacity: 0.7,
+          }}
+        />
+        <div className="shrink-0 px-10 text-center">
+          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 120 }} />
         </div>
-        <div className="shrink-0 px-6 text-center">
-          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 160 }} />
-        </div>
-        <div className="relative hidden h-full min-w-0 flex-1 overflow-hidden sm:block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/poster-elements/top-edge/${palette.top}.png`} alt="" aria-hidden
-            className="absolute inset-x-0 w-full object-cover"
-            style={{ top: -75, height: "calc(100% + 150px)", opacity: 0.7 }} />
-        </div>
+        {/* right — tiled */}
+        <div
+          className="hidden h-full min-w-0 flex-1 sm:block"
+          style={{
+            backgroundImage: "url(/poster-elements/top-edge/converging.png)",
+            backgroundRepeat: "repeat-x",
+            backgroundSize: "auto 100%",
+            backgroundPosition: "left center",
+            opacity: 0.7,
+          }}
+        />
       </header>
 
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col px-5 pb-8 pt-4">
