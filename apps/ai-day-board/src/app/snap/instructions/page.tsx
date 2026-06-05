@@ -131,6 +131,9 @@ export default function InstructionsPage() {
               <div className="qr-url">{url}</div>
             </div>
             <div className="qr-sub">Works on any phone. No app download. Takes about 30 seconds.</div>
+            <a href={`https://${url}`} style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.95rem", wordBreak: "break-all" }}>
+              https://{url}
+            </a>
           </div>
 
           <div className="footer">AI Day · June 9, 2026 · The Weather Company</div>
