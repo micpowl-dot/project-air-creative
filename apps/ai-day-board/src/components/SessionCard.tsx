@@ -14,9 +14,11 @@ const SITE_LABELS: Array<[keyof Session["rooms"], string]> = [
 export function SessionCard({
   session,
   compact = false,
+  hideMeet = false,
 }: {
   session: Session;
   compact?: boolean;
+  hideMeet?: boolean;
 }) {
   const accent = trackVar(session.track);
   return (
@@ -68,7 +70,7 @@ export function SessionCard({
               </div>
             ) : null
           )}
-          {session.rooms.meetUrl ? (
+          {session.rooms.meetUrl && !hideMeet ? (
             <a
               href={session.rooms.meetUrl}
               target="_blank"

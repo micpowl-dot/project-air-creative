@@ -26,6 +26,8 @@ export function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   if (isPublic(pathname)) return NextResponse.next();
+  // Optional: expose the board home publicly too (Meet links hidden via PUBLIC_BOARD).
+  if (process.env.PUBLIC_BOARD === "1" && pathname === "/") return NextResponse.next();
 
   const password = process.env.SITE_PASSWORD;
   if (!password) {

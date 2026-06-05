@@ -49,7 +49,7 @@ function mixWhite(hex: string, pct: number): string {
   );
 }
 
-function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
+function FullWidthSlot({ slot, hideMeet = false }: { slot: ScheduleSlot; hideMeet?: boolean }) {
   const hasPeople = (slot.people?.length ?? 0) > 0;
   return (
     <div
@@ -82,7 +82,7 @@ function FullWidthSlot({ slot }: { slot: ScheduleSlot }) {
               .join("  |  ")}
           </p>
         )}
-      {slot.rooms?.meetUrl && (
+      {!hideMeet && slot.rooms?.meetUrl && (
         <a
           href={slot.rooms.meetUrl}
           target="_blank"
@@ -111,10 +111,12 @@ function GridLayout({
   schedule,
   trackColors,
   pageBg,
+  hideMeet = false,
 }: {
   schedule: Schedule;
   trackColors: Record<string, string>;
   pageBg: string;
+  hideMeet?: boolean;
 }) {
   return (
     <div className="space-y-4">
@@ -158,7 +160,7 @@ function GridLayout({
               className="grid grid-cols-[64px_1fr] items-center gap-4"
             >
               <TimeChip time={slot.time} />
-              <FullWidthSlot slot={slot} />
+              <FullWidthSlot slot={slot} hideMeet={hideMeet} />
             </div>
           );
         }
@@ -176,7 +178,7 @@ function GridLayout({
               const s = byTrack(t.id);
               return (
                 <div key={t.id}>
-                  {s ? <SessionCard session={s} /> : <div />}
+                  {s ? <SessionCard session={s} hideMeet={hideMeet} /> : <div />}
                 </div>
               );
             })}
@@ -187,7 +189,7 @@ function GridLayout({
   );
 }
 
-function AgendaLayout({ schedule }: { schedule: Schedule }) {
+function AgendaLayout({ schedule, hideMeet = false }: { schedule: Schedule; hideMeet?: boolean }) {
   return (
     <div className="mx-auto max-w-2xl space-y-5">
       {schedule.slots.map((slot) => (
@@ -200,11 +202,11 @@ function AgendaLayout({ schedule }: { schedule: Schedule }) {
             />
           </div>
           {slot.kind === "full" ? (
-            <FullWidthSlot slot={slot} />
+            <FullWidthSlot slot={slot} hideMeet={hideMeet} />
           ) : (
             <div className="space-y-3">
               {slot.sessions!.map((s) => (
-                <SessionCard key={s.track + s.title} session={s} />
+                <SessionCard key={s.track + s.title} session={s} hideMeet={hideMeet} />
               ))}
             </div>
           )}
@@ -214,7 +216,7 @@ function AgendaLayout({ schedule }: { schedule: Schedule }) {
   );
 }
 
-function SpotlightLayout({ schedule }: { schedule: Schedule }) {
+function SpotlightLayout({ schedule, hideMeet = false }: { schedule: Schedule; hideMeet?: boolean }) {
   const [i, setI] = useState(0);
   const slot = schedule.slots[i];
   const prev = () => setI((n) => (n - 1 + schedule.slots.length) % schedule.slots.length);
@@ -241,11 +243,11 @@ function SpotlightLayout({ schedule }: { schedule: Schedule }) {
         </button>
       </div>
       {slot.kind === "full" ? (
-        <FullWidthSlot slot={slot} />
+        <FullWidthSlot slot={slot} hideMeet={hideMeet} />
       ) : (
         <div className="grid gap-4 md:grid-cols-3">
           {slot.sessions!.map((s) => (
-            <SessionCard key={s.track + s.title} session={s} />
+            <SessionCard key={s.track + s.title} session={s} hideMeet={hideMeet} />
           ))}
         </div>
       )}
@@ -256,7 +258,7 @@ function SpotlightLayout({ schedule }: { schedule: Schedule }) {
   );
 }
 
-export function Board({ schedule }: { schedule: Schedule }) {
+export function Board({ schedule, publicMode = false }: { schedule: Schedule; publicMode?: boolean }) {
   const [schemeId, setSchemeId] = useState(DEFAULT_SCHEME);
   const [layoutId, setLayoutId] = useState(DEFAULT_LAYOUT);
   const scheme = useMemo(() => getScheme(schemeId), [schemeId]);
@@ -378,10 +380,11 @@ export function Board({ schedule }: { schedule: Schedule }) {
             schedule={schedule}
             trackColors={{ explore: variant.accent, apply: variant.bg, build: variant.ink }}
             pageBg={variant.bg}
+            hideMeet={publicMode}
           />
         )}
-        {layoutId === "agenda" && <AgendaLayout schedule={schedule} />}
-        {layoutId === "spotlight" && <SpotlightLayout schedule={schedule} />}
+        {layoutId === "agenda" && <AgendaLayout schedule={schedule} hideMeet={publicMode} />}
+        {layoutId === "spotlight" && <SpotlightLayout schedule={schedule} hideMeet={publicMode} />}
       </main>
     </div>
   );
