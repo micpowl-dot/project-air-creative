@@ -2,7 +2,7 @@
   "title": "AI Day (US) — June 9, 2026",
   "date": "2026-06-09",
   "sourceUrl": "https://thedrop.weather.com/pages/1jp62gi1i768q7m567/AiDayUsJune9th2026/1jp62mt88cuvqkhh7b",
-  "lastSynced": "2026-06-04T14:30:16.516Z",
+  "lastSynced": "2026-06-05T13:55:03.263Z",
   "tracks": [
     {
       "id": "explore",
@@ -435,9 +435,9 @@
       "title": "Fun Time!",
       "people": [],
       "rooms": {
-        "brookhaven": "4th Floor Lawn Andover: TBD New York: TBD",
-        "andover": "TBD New York: TBD",
-        "newYork": "TBD"
+        "brookhaven": "4th Floor Lawn Andover: Cafetorium New York: Library",
+        "andover": "Cafetorium New York: Library",
+        "newYork": "Library"
       }
     }
   ]
