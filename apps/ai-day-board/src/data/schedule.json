@@ -435,8 +435,8 @@
       "title": "Fun Time!",
       "people": [],
       "rooms": {
-        "brookhaven": "4th Floor Lawn Andover: Cafetorium New York: Library",
-        "andover": "Cafetorium New York: Library",
+        "brookhaven": "4th Floor Lawn",
+        "andover": "Cafetorium",
         "newYork": "Library"
       }
     }
