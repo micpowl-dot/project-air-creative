@@ -11,6 +11,7 @@
     "stylize": "tsx scripts/stylize.ts"
   },
   "dependencies": {
+    "@vercel/blob": "^2.4.0",
     "html-to-image": "^1.11.13",
     "next": "16.2.7",
     "node-html-parser": "^7.1.0",

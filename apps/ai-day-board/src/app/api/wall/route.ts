@@ -83,7 +83,20 @@ async function storiesFromSlack(): Promise<Story[] | null> {
 
 interface WallImage { src: string; handle?: string }
 
-async function imagesFromSource(): Promise<WallImage[] | null> {
+// Primary: generated headshots from the Blob manifest (written by /api/process-photos).
+async function imagesFromBlob(): Promise<WallImage[] | null> {
+  try {
+    const { readManifest } = await import("@/lib/wall-store");
+    const m = await readManifest();
+    if (!m || !m.images.length) return null;
+    return m.images.map(({ src, handle }) => ({ src, handle }));
+  } catch {
+    return null;
+  }
+}
+
+// Fallback: a WALL_IMAGES_URL endpoint (n8n/Drive, or old path).
+async function imagesFromUrl(): Promise<WallImage[] | null> {
   const liveUrl = process.env.WALL_IMAGES_URL;
   if (!liveUrl) return null;
   try {
@@ -91,7 +104,6 @@ async function imagesFromSource(): Promise<WallImage[] | null> {
     if (!res.ok) return null;
     const body = await res.json();
     if (!Array.isArray(body.images)) return null;
-    // Accept either ["url", ...] or [{src, handle}, ...].
     return body.images
       .map((it: unknown) =>
         typeof it === "string" ? { src: it } : it && typeof it === "object" && "src" in it ? (it as WallImage) : null
@@ -103,7 +115,12 @@ async function imagesFromSource(): Promise<WallImage[] | null> {
 }
 
 export async function GET() {
-  const [liveImages, slackStories] = await Promise.all([imagesFromSource(), storiesFromSlack()]);
+  const [blobImages, urlImages, slackStories] = await Promise.all([
+    imagesFromBlob(),
+    imagesFromUrl(),
+    storiesFromSlack(),
+  ]);
+  const liveImages = blobImages ?? urlImages;
   const images: WallImage[] =
     liveImages ?? SAMPLE_SLUGS.map((s) => ({ src: `/headshots/cutout/${s}.png`, handle: `@${s.replace(/-/g, ".")}` }));
   const stories = slackStories && slackStories.length ? slackStories : SAMPLE_STORIES;
