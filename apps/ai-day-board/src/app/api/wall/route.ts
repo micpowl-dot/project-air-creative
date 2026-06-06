@@ -12,14 +12,21 @@
 
 export const dynamic = "force-dynamic";
 
-const SAMPLE_SLUGS = [
-  "brennan-gerster", "brian-oneil", "dan-margulies", "dave-de-sa",
-  "elizabeth-martin", "erik-petersen", "jack-kreps", "james-baker",
-  "james-belanger", "javi-quinones", "lauriana-gaudet", "matthew-drooker",
-  "max-jacubowsky", "miguel-gervassi", "rohit-agarwal", "rohit-nutalapati",
-  "sahana-subbanna", "samantha-gates", "shannon-king", "thomas-hinson",
-  "tyler-steben",
+// Speaker / participant headshots that ALWAYS populate the wall so it looks
+// full from the start. Live selfie snaps (from /snap) are merged in on top.
+const SPEAKER_SLUGS = [
+  "ben-papandrea", "brennan-gerster", "brian-oneil", "dan-margulies",
+  "dave-de-sa", "elizabeth-martin", "erik-petersen", "jack-kreps",
+  "james-baker", "james-belanger", "javi-quinones", "lauriana-gaudet",
+  "matthew-drooker", "max-jacubowsky", "michelle-killroy", "miguel-gervassi",
+  "rohit-agarwal", "rohit-nutalapati", "sahana-subbanna", "samantha-gates",
+  "sara-peal", "shannon-king", "thomas-hinson", "tyler-steben",
 ];
+
+const SPEAKER_IMAGES: WallImage[] = SPEAKER_SLUGS.map((s) => ({
+  src: `/headshots/cutout/${s}.png`,
+  handle: `@${s.replace(/-/g, ".")}`,
+}));
 
 const SAMPLE_STORIES = [
   { name: "Dave de Sa", text: "AI helped me turn a week of manual reporting into a 5-minute workflow." },
@@ -122,13 +129,14 @@ export async function GET() {
     imagesFromUrl(),
     storiesFromSlack(),
   ]);
-  const liveImages = blobImages ?? urlImages;
-  const images: WallImage[] =
-    liveImages ?? SAMPLE_SLUGS.map((s) => ({ src: `/headshots/cutout/${s}.png`, handle: `@${s.replace(/-/g, ".")}` }));
+  const liveImages = blobImages ?? urlImages ?? [];
+  // Speakers are always the base layer (wall looks full); live snaps merge on
+  // top. New snaps go first so they're noticeable as they arrive.
+  const images: WallImage[] = [...liveImages, ...SPEAKER_IMAGES];
   const stories = slackStories && slackStories.length ? slackStories : SAMPLE_STORIES;
   return Response.json({
     images,
     stories,
-    live: { images: Boolean(liveImages), stories: Boolean(slackStories && slackStories.length) },
+    live: { images: liveImages.length > 0, stories: Boolean(slackStories && slackStories.length) },
   });
 }
