@@ -275,7 +275,7 @@ export function Snap() {
               ))}
             </div>
           )}
-          <p className="mt-1 text-xs text-white/45">Pick yourself so your name shows on the wall and you get tagged.</p>
+          <p className="mt-1 text-xs text-white/45">Pick yourself to get tagged on the wall.</p>
         </div>
 
         {/* Actions */}
