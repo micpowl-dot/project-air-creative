@@ -64,9 +64,15 @@ async function commitFile(path: string, content: string, message: string): Promi
 
 export async function readManifest(): Promise<WallManifest | null> {
   try {
-    const res = await fetch(RAW(MANIFEST_PATH), { cache: "no-store" });
+    // Read via the authenticated Contents API (fresh, not CDN-cached like raw).
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO()}/contents/${MANIFEST_PATH}?ref=${BRANCH()}&t=${Date.now()}`,
+      { headers: headers(), cache: "no-store" }
+    );
     if (!res.ok) return null;
-    return (await res.json()) as WallManifest;
+    const j = await res.json();
+    if (!j.content) return null;
+    return JSON.parse(Buffer.from(j.content, "base64").toString("utf8")) as WallManifest;
   } catch {
     return null;
   }
