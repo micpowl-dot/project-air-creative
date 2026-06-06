@@ -183,13 +183,14 @@ export function Snap() {
   // --- Camera + preview ---
   return (
     <div className="flex min-h-screen flex-col" style={{ background: palette.bg }}>
-      {/* header — AI DAY logo flanked by converging graphic (tiled so it never
-          cuts), logo centered with generous padding */}
-      <header className="relative flex h-36 items-center overflow-hidden" style={{ background: palette.bg }}>
-        {/* left — mirrored + tiled */}
+      {/* header — centered AI DAY logo flanked by a thin converging-graphic bar
+          on both sides (shown in portrait too; tiled so it never cuts) */}
+      <header className="relative flex h-20 items-center overflow-hidden sm:h-24" style={{ background: palette.bg }}>
+        {/* left — mirrored + tiled (thin band so it doesn't eat vertical space) */}
         <div
-          className="hidden h-full min-w-0 flex-1 sm:block"
+          className="block min-w-0 flex-1"
           style={{
+            height: "56px",
             backgroundImage: "url(/poster-elements/top-edge/converging.png)",
             backgroundRepeat: "repeat-x",
             backgroundSize: "auto 100%",
@@ -198,13 +199,14 @@ export function Snap() {
             opacity: 0.7,
           }}
         />
-        <div className="shrink-0 px-10 text-center">
-          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 120 }} />
+        <div className="shrink-0 px-6 text-center sm:px-10">
+          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: 110 }} />
         </div>
         {/* right — tiled */}
         <div
-          className="hidden h-full min-w-0 flex-1 sm:block"
+          className="block min-w-0 flex-1"
           style={{
+            height: "56px",
             backgroundImage: "url(/poster-elements/top-edge/converging.png)",
             backgroundRepeat: "repeat-x",
             backgroundSize: "auto 100%",
@@ -216,7 +218,7 @@ export function Snap() {
 
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col px-5 pb-8 pt-4">
         <h1 className="mb-1 text-center font-display text-2xl font-bold text-white">AI Day Me</h1>
-        <p className="mb-4 text-center text-sm text-white/70">Take a selfie and appear on the wall as an illustrated portrait.</p>
+        <p className="mb-4 text-center text-sm text-white/70">Take a selfie and appear on the wall<br />as an illustrated portrait.</p>
 
         {/* Camera / snapshot */}
         <div className="relative overflow-hidden rounded-2xl shadow-xl" style={{ aspectRatio: "1/1", background: "#111" }}>
