@@ -13,9 +13,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Slack not configured" }, { status: 503 });
   }
 
-  let image: string, handle: string;
+  let image: string, userId: string, name: string;
   try {
-    ({ image, handle } = await request.json());
+    ({ image, userId, name } = await request.json());
   } catch {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
@@ -29,9 +29,10 @@ export async function POST(request: Request) {
   const buf = Buffer.from(b64, "base64");
   const filename = `snap-${Date.now()}.${ext}`;
 
-  const comment = handle && handle.trim().length > 1
-    ? `${handle.trim()} just snapped a selfie at the AI Day photo station 📸`
-    : "Someone just snapped a selfie at the AI Day photo station 📸";
+  // Real <@mention> when we have a user ID (notifies them + lets the cron
+  // resolve the exact handle for the wall); fall back to typed name, then generic.
+  const who = userId ? `<@${userId}>` : name && name.trim() ? name.trim() : "Someone";
+  const comment = `${who} just snapped a selfie at the AI Day photo station 📸`;
 
   try {
     // Slack's new 3-step upload flow (files.upload was deprecated).

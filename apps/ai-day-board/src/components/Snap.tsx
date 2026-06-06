@@ -21,9 +21,30 @@ export function Snap() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
   const [step, setStep] = useState<Step>("camera");
-  const [handle, setHandle] = useState("@");
   const [snapshot, setSnapshot] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+
+  // Directory typeahead — pick yourself so the wall + Slack tag are exact.
+  type DirUser = { id: string; name: string; real: string; handle: string };
+  const [dir, setDir] = useState<DirUser[]>([]);
+  const [query, setQuery] = useState("");
+  const [picked, setPicked] = useState<DirUser | null>(null);
+  const handle = picked ? `@${picked.handle || picked.name}` : query.trim();
+
+  useEffect(() => {
+    fetch("/api/users")
+      .then((r) => r.json())
+      .then((d) => setDir(d.users || []))
+      .catch(() => {});
+  }, []);
+
+  const matches = (() => {
+    const q = query.trim().toLowerCase().replace(/^@/, "");
+    if (!q || picked) return [];
+    return dir
+      .filter((u) => u.name.toLowerCase().includes(q) || u.real.toLowerCase().includes(q) || u.handle.toLowerCase().includes(q))
+      .slice(0, 6);
+  })();
 
   // Start camera on mount.
   useEffect(() => {
@@ -89,7 +110,7 @@ export function Snap() {
       const res = await fetch("/api/snap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: snapshot, handle: handle.trim() }),
+        body: JSON.stringify({ image: snapshot, userId: picked?.id || "", name: picked?.name || query.trim() }),
       });
       if (!res.ok) throw new Error((await res.json()).error || "Unknown error");
       setStep("done");
@@ -101,7 +122,7 @@ export function Snap() {
 
   // --- Confirmation card (step === "done") ---
   if (step === "done") {
-    const displayHandle = handle.trim().length > 1 ? handle.trim() : null;
+    const displayHandle = picked ? `@${picked.handle || picked.name}` : (query.trim() ? query.trim() : null);
     return (
       <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden" style={{ background: palette.bg }}>
         <style>{`
@@ -221,20 +242,38 @@ export function Snap() {
           <canvas ref={canvasRef} className="hidden" />
         </div>
 
-        {/* @handle field */}
-        <div className="mt-4">
-          <input
-            type="text"
-            value={handle}
-            onChange={(e) => {
-              const v = e.target.value;
-              setHandle(v.startsWith("@") ? v : `@${v}`);
-            }}
-            placeholder="@yourhandle (optional)"
-            className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-base font-semibold text-white placeholder:font-normal placeholder:text-white/40 focus:border-white/60 focus:outline-none"
-            style={{ caretColor: palette.accent }}
-          />
-          <p className="mt-1 text-xs text-white/45">Your Slack handle so people know it's you.</p>
+        {/* who are you — directory typeahead */}
+        <div className="relative mt-4">
+          {picked ? (
+            <div className="flex items-center justify-between rounded-xl border border-white/30 bg-white/10 px-4 py-3">
+              <span className="font-semibold text-white">{picked.name} <span className="text-white/50">@{picked.handle || picked.name}</span></span>
+              <button onClick={() => { setPicked(null); setQuery(""); }} className="text-sm text-white/60 hover:text-white">change</button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Find your name (optional)"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-base font-semibold text-white placeholder:font-normal placeholder:text-white/40 focus:border-white/60 focus:outline-none"
+              style={{ caretColor: palette.accent }}
+            />
+          )}
+          {matches.length > 0 && (
+            <div className="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-white/20 bg-[#0D142A] shadow-2xl">
+              {matches.map((u) => (
+                <button
+                  key={u.id}
+                  onClick={() => { setPicked(u); setQuery(u.name); }}
+                  className="flex w-full flex-col items-start px-4 py-2.5 text-left hover:bg-white/10"
+                >
+                  <span className="font-semibold text-white">{u.name}</span>
+                  {u.handle && <span className="text-xs text-white/45">@{u.handle}</span>}
+                </button>
+              ))}
+            </div>
+          )}
+          <p className="mt-1 text-xs text-white/45">Pick yourself so your name shows on the wall and you get tagged.</p>
         </div>
 
         {/* Actions */}

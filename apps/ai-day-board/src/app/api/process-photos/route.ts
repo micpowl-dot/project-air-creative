@@ -88,7 +88,7 @@ export async function GET(request: Request) {
   let newLastTs = manifest.lastTs;
   const errors: string[] = [];
 
-  for (const m of msgs as { ts: string; user: string; files: { mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
+  for (const m of msgs as { ts: string; user: string; text?: string; files: { mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
     if (processed >= MAX_PER_RUN) break;
     newLastTs = m.ts; // advance regardless so we don't re-scan
     const file = m.files.find((f) => String(f.mimetype || "").startsWith("image/"));
@@ -105,7 +105,10 @@ export async function GET(request: Request) {
         background: { mimeType: "image/png", data: bgData },
       });
       const url = await putImage(m.ts.replace(".", ""), Buffer.from(out, "base64"));
-      const handle = await resolveHandle(m.user, token);
+      // The /snap upload posts a real <@mention>; resolve THAT to the handle
+      // (the message author is the bot). Fall back to the poster otherwise.
+      const mentioned = (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
+      const handle = await resolveHandle(mentioned || m.user, token);
       manifest.images.push({ src: url, handle, ts: m.ts });
       processed++;
     } catch (e) {
