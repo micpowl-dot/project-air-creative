@@ -29,10 +29,12 @@ export async function POST(request: Request) {
   const buf = Buffer.from(b64, "base64");
   const filename = `snap-${Date.now()}.${ext}`;
 
-  // Real <@mention> when we have a user ID (notifies them + lets the cron
-  // resolve the exact handle for the wall); fall back to typed name, then generic.
-  const who = userId ? `<@${userId}>` : name && name.trim() ? name.trim() : "Someone";
-  const comment = `${who} just snapped a selfie at the AI Day photo station 📸`;
+  // Post the raw selfie QUIETLY — no @mention here, so the person isn't pinged
+  // about their unprocessed upload. We embed a plain-text `ref:<id>` token (not
+  // a real mention, so it doesn't notify) that the cron reads to know who this
+  // is. The cron posts the *finished* portrait back with the real @mention.
+  const ref = userId ? ` (ref:${userId})` : name && name.trim() ? ` — ${name.trim()}` : "";
+  const comment = `New AI Day selfie at the photo station 📸${ref}`;
 
   try {
     // Slack's new 3-step upload flow (files.upload was deprecated).

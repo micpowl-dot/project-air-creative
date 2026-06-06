@@ -42,6 +42,29 @@ async function resolveHandle(user: string, token: string): Promise<string> {
   }
 }
 
+// Post the FINISHED portrait back into the photo-station channel with the real
+// @mention. This is the notification the person actually sees (the raw selfie
+// was posted quietly, unpinged). Best-effort — never throws. Uses an image
+// block (no file attachment) so the next cron run won't re-process it.
+async function postPortraitToChannel(channel: string, userId: string, imageUrl: string, token: string): Promise<void> {
+  try {
+    await fetch("https://slack.com/api/chat.postMessage", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        channel,
+        text: `<@${userId}> you're on the AI Day wall! ✨`,
+        blocks: [
+          { type: "section", text: { type: "mrkdwn", text: `<@${userId}> you're on the AI Day wall! ✨\nYour illustrated portrait is now live — <https://ai-day-board.vercel.weather.com/wall|see it on the wall>.` } },
+          { type: "image", image_url: imageUrl, alt_text: "AI Day illustrated portrait" },
+        ],
+      }),
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
 // DM the person their finished portrait. Opens a DM channel then posts the
 // image URL with a friendly note. Best-effort — never throws.
 async function dmPortrait(userId: string, imageUrl: string, token: string): Promise<void> {
@@ -134,13 +157,17 @@ export async function GET(request: Request) {
         background: { mimeType: "image/png", data: bgData },
       });
       const url = await putImage(m.ts.replace(".", ""), Buffer.from(out, "base64"));
-      // The /snap upload posts a real <@mention>; resolve THAT to the handle
-      // (the message author is the bot). Fall back to the poster otherwise.
-      const mentioned = (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
-      const handle = await resolveHandle(mentioned || m.user, token);
+      // /api/snap embeds a plain-text `ref:<id>` token (older messages used a
+      // real <@mention>). Resolve whichever is present to the person's handle.
+      const uid = (m.text || "").match(/ref:(U[A-Z0-9]+)/)?.[1] || (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
+      const handle = await resolveHandle(uid || m.user, token);
       manifest.images.push({ src: url, handle, ts: m.ts });
-      // DM the person their finished portrait (direct, guaranteed delivery).
-      if (mentioned) await dmPortrait(mentioned, url, token);
+      if (uid) {
+        // Post the finished portrait back to the channel (the real notification)
+        // and DM it directly. Both best-effort; need chat:write (+ im:write for DM).
+        await postPortraitToChannel(channel, uid, url, token);
+        await dmPortrait(uid, url, token);
+      }
       processed++;
     } catch (e) {
       errors.push(`${m.ts}: ${String(e).slice(0, 120)}`);
