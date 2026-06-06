@@ -4,7 +4,8 @@
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780712415740659.png",
       "handle": "@ai.day.wall",
-      "ts": "1780712415.740659"
+      "ts": "1780712415.740659",
+      "hidden": true
     }
   ]
 }
