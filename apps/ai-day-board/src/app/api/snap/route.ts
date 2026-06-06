@@ -29,25 +29,41 @@ export async function POST(request: Request) {
   const buf = Buffer.from(b64, "base64");
   const filename = `snap-${Date.now()}.${ext}`;
 
-  // Upload file to Slack.
-  const form = new FormData();
-  form.append("channels", channel);
-  form.append("filename", filename);
-  if (handle && handle.trim().length > 1) {
-    form.append("initial_comment", `${handle.trim()} just snapped a selfie at the AI Day photo station 📸`);
-  }
-  form.append("file", new Blob([buf], { type: mimeType }), filename);
+  const comment = handle && handle.trim().length > 1
+    ? `${handle.trim()} just snapped a selfie at the AI Day photo station 📸`
+    : "Someone just snapped a selfie at the AI Day photo station 📸";
 
-  const res = await fetch("https://slack.com/api/files.upload", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}` },
-    body: form,
-  });
-  const body = await res.json();
-  if (!body.ok) {
-    console.error("[snap] Slack upload error:", body.error);
-    return NextResponse.json({ error: body.error || "Slack upload failed" }, { status: 502 });
-  }
+  try {
+    // Slack's new 3-step upload flow (files.upload was deprecated).
+    // 1) get an upload URL
+    const getUrl = await fetch("https://slack.com/api/files.getUploadURLExternal", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ filename, length: String(buf.length) }),
+    });
+    const up = await getUrl.json();
+    if (!up.ok) throw new Error(`getUploadURL: ${up.error}`);
 
-  return NextResponse.json({ ok: true });
+    // 2) PUT the bytes to that URL
+    const put = await fetch(up.upload_url, { method: "POST", body: new Blob([buf], { type: mimeType }) });
+    if (!put.ok) throw new Error(`upload PUT failed (${put.status})`);
+
+    // 3) complete + share to the channel
+    const complete = await fetch("https://slack.com/api/files.completeUploadExternal", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        files: [{ id: up.file_id, title: filename }],
+        channel_id: channel,
+        initial_comment: comment,
+      }),
+    });
+    const done = await complete.json();
+    if (!done.ok) throw new Error(`complete: ${done.error}`);
+
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    console.error("[snap] Slack upload error:", String(e));
+    return NextResponse.json({ error: String(e) }, { status: 502 });
+  }
 }
