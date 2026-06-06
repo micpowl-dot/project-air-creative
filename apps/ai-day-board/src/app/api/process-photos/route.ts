@@ -42,6 +42,35 @@ async function resolveHandle(user: string, token: string): Promise<string> {
   }
 }
 
+// DM the person their finished portrait. Opens a DM channel then posts the
+// image URL with a friendly note. Best-effort — never throws.
+async function dmPortrait(userId: string, imageUrl: string, token: string): Promise<void> {
+  try {
+    const open = await fetch("https://slack.com/api/conversations.open", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ users: userId }),
+    });
+    const oj = await open.json();
+    const dm = oj.ok ? oj.channel?.id : null;
+    if (!dm) return;
+    await fetch("https://slack.com/api/chat.postMessage", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        channel: dm,
+        text: "You're on the AI Day wall! ✨ Here's your illustrated portrait — see it live with everyone else's at https://ai-day-board.vercel.weather.com/wall",
+        blocks: [
+          { type: "section", text: { type: "mrkdwn", text: "*You're on the AI Day wall!* ✨\nHere's your illustrated portrait — watch it cycle with everyone else's at <https://ai-day-board.vercel.weather.com/wall|the live wall>." } },
+          { type: "image", image_url: imageUrl, alt_text: "Your AI Day illustrated portrait" },
+        ],
+      }),
+    });
+  } catch {
+    /* best-effort */
+  }
+}
+
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
   if (secret && request.headers.get("authorization") !== `Bearer ${secret}`) {
@@ -110,6 +139,8 @@ export async function GET(request: Request) {
       const mentioned = (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
       const handle = await resolveHandle(mentioned || m.user, token);
       manifest.images.push({ src: url, handle, ts: m.ts });
+      // DM the person their finished portrait (direct, guaranteed delivery).
+      if (mentioned) await dmPortrait(mentioned, url, token);
       processed++;
     } catch (e) {
       errors.push(`${m.ts}: ${String(e).slice(0, 120)}`);
