@@ -20,7 +20,43 @@ function isPublic(pathname: string): boolean {
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+// Routes that always require the admin password (Basic Auth), even though the
+// rest of the site is public. Moderating the wall must not be open to everyone.
+const ADMIN_PREFIXES = ["/wall-admin", "/api/wall-admin"];
+
+function isAdmin(pathname: string): boolean {
+  return ADMIN_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
+
+function basicAuthOk(request: NextRequest, password: string): boolean {
+  const header = request.headers.get("authorization") || "";
+  if (!header.startsWith("Basic ")) return false;
+  try {
+    const decoded = atob(header.slice(6));
+    const pass = decoded.split(":").slice(1).join(":"); // accept any username
+    return pass === password;
+  } catch {
+    return false;
+  }
+}
+
+function challenge(): NextResponse {
+  return new NextResponse("Authentication required", {
+    status: 401,
+    headers: { "WWW-Authenticate": 'Basic realm="AI Day Admin"' },
+  });
+}
+
 export function proxy(request: NextRequest) {
+  // Always gate the moderation routes, independent of public mode. Uses the
+  // shared SITE_PASSWORD (ADMIN_PASSWORD overrides it if you ever want a
+  // separate one). Fails closed if neither is set.
+  if (isAdmin(request.nextUrl.pathname)) {
+    const adminPw = process.env.ADMIN_PASSWORD || process.env.SITE_PASSWORD;
+    if (!adminPw) return new NextResponse("Admin not configured", { status: 503 });
+    return basicAuthOk(request, adminPw) ? NextResponse.next() : challenge();
+  }
+
   // No-op unless explicitly switched on (Vercel protection handles gating).
   if (process.env.WALL_PUBLIC_MODE !== "1") return NextResponse.next();
 

@@ -11,6 +11,7 @@ export interface WallImage {
   src: string;
   handle?: string;
   ts?: string;
+  hidden?: boolean; // moderated off the wall (reversible) via /wall-admin
 }
 export interface WallManifest {
   lastTs: string;
@@ -81,6 +82,17 @@ export async function readManifest(): Promise<WallManifest | null> {
 export async function writeManifest(m: WallManifest): Promise<void> {
   const content = Buffer.from(JSON.stringify(m, null, 2)).toString("base64");
   await commitFile(MANIFEST_PATH, content, "chore: update wall manifest [skip ci]");
+}
+
+/** Show/hide an image on the wall (matched by ts). Returns the updated manifest. */
+export async function setHidden(ts: string, hidden: boolean): Promise<WallManifest | null> {
+  const m = await readManifest();
+  if (!m) return null;
+  const img = m.images.find((i) => i.ts === ts);
+  if (!img) return m;
+  img.hidden = hidden;
+  await writeManifest(m);
+  return m;
 }
 
 /** Store a generated headshot PNG; returns its public raw.githubusercontent URL. */

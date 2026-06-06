@@ -89,7 +89,9 @@ async function imagesFromBlob(): Promise<WallImage[] | null> {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
     if (!m || !m.images.length) return null;
-    return m.images.map(({ src, handle }) => ({ src, handle }));
+    const visible = m.images.filter((i) => !i.hidden);
+    if (!visible.length) return null;
+    return visible.map(({ src, handle }) => ({ src, handle }));
   } catch {
     return null;
   }
