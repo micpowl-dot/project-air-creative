@@ -29,7 +29,22 @@ const INK = "#0D142A";
 // How long each view stays on screen before alternating.
 const WALL_MS = 42000;
 const POSTERS_MS = 28000;
+const INSTRUCTIONS_MS = 16000; // "how to join" slide between waterfall and posters
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
+
+// Rotation order for the wall. Add/remove views here to change the loop.
+const VIEW_ORDER = ["wall", "instructions", "posters"] as const;
+type View = (typeof VIEW_ORDER)[number];
+
+// "How to join" steps, mirrored from the /snap/instructions phone page but laid
+// out for a 16:9 screen. Kept in sync by hand — it's a tiny list.
+const STEPS = [
+  { n: "1", icon: "📱", title: "Scan the QR code", body: "Point your phone camera at the code. It opens instantly, no app to download." },
+  { n: "2", icon: "📸", title: "Take a selfie", body: "Tap for a live selfie, or upload a photo from your library." },
+  { n: "3", icon: "✍️", title: "Add your @handle", body: "Type your Slack handle so everyone knows it's you. Optional." },
+  { n: "4", icon: "✨", title: "Hit “AI Day Me”", body: "Your photo gets illustrated in the AI Day style and lands on this wall." },
+];
+const SNAP_URL = "ai-day-board.vercel.weather.com/snap";
 
 // Deterministic random palette backdrop per tile (stable across re-renders and
 // the duplicated loop copy). Shows through transparent cutouts; real photos
@@ -172,11 +187,80 @@ function PosterCycleView({ schedule }: { schedule: Schedule }) {
   );
 }
 
+/** Full-screen 16:9 "how to get on the wall" slide. */
+function InstructionsView() {
+  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=480x480&data=https://${SNAP_URL}&color=0D142A`;
+  return (
+    <div className="relative flex h-full w-full flex-col overflow-hidden" style={{ background: BG }}>
+      {/* header */}
+      <div className="flex items-center gap-[1.6vw] px-[4vw] pt-[5vh]">
+        <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "13vw" }} />
+        <div>
+          <div className="font-display font-bold text-white" style={{ fontSize: "3vw", lineHeight: 1.05 }}>
+            Get your AI portrait on the wall <span style={{ color: ACCENT }}>🎨</span>
+          </div>
+          <div className="text-white/85" style={{ fontSize: "1.25vw", marginTop: "1.2vh" }}>
+            Snap a selfie and watch yourself appear as an illustrated AI Day portrait.
+          </div>
+        </div>
+      </div>
+
+      {/* body: steps on the left, QR on the right */}
+      <div className="flex flex-1 items-center gap-[3.5vw] px-[4vw] py-[4vh]">
+        <div className="grid flex-1 grid-cols-2 gap-[1.8vw]">
+          {STEPS.map((s) => (
+            <div
+              key={s.n}
+              className="flex items-start gap-[1.2vw] rounded-[0.8vw]"
+              style={{ background: "rgba(13,20,42,0.55)", padding: "1.8vh 1.6vw" }}
+            >
+              <div
+                className="flex items-center justify-center rounded-full font-display font-bold"
+                style={{ width: "3.2vw", height: "3.2vw", minWidth: "3.2vw", background: ACCENT, color: INK, fontSize: "1.5vw" }}
+              >
+                {s.n}
+              </div>
+              <div>
+                <div className="font-display font-bold text-white" style={{ fontSize: "1.5vw", marginBottom: "0.5vh" }}>
+                  {s.icon} {s.title}
+                </div>
+                <div className="text-white/75" style={{ fontSize: "1.05vw", lineHeight: 1.4 }}>{s.body}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* QR card */}
+        <div
+          className="flex flex-col items-center text-center rounded-[1vw]"
+          style={{ background: "rgba(13,20,42,0.55)", padding: "3.5vh 2.5vw" }}
+        >
+          <div className="font-display font-bold text-white" style={{ fontSize: "1.7vw", marginBottom: "2vh" }}>
+            📱 Scan to get started
+          </div>
+          <div className="rounded-[0.8vw] bg-white" style={{ padding: "1.4vw" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={qr} alt="QR code to the photo station" style={{ width: "16vw", height: "16vw", imageRendering: "pixelated" }} />
+          </div>
+          <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "1.1vw", marginTop: "2vh" }}>{SNAP_URL}</div>
+          <div className="text-white/70" style={{ fontSize: "0.95vw", marginTop: "1vh", maxWidth: "22vw" }}>
+            Works on any phone. Takes about 30 seconds.
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-[2vh] right-[2.5vw] text-white/60" style={{ fontSize: "0.9vw" }}>
+        AI Day · June 9, 2026 · The Weather Company
+      </div>
+    </div>
+  );
+}
+
 export function Wall({ schedule }: { schedule: Schedule }) {
   const [images, setImages] = useState<WallImage[]>([]);
   const [stories, setStories] = useState<Story[]>([]);
   const [live, setLive] = useState(false);
-  const [view, setView] = useState<"wall" | "posters">("wall");
+  const [view, setView] = useState<View>("wall");
 
   // Poll the feed; merge new images so the wall builds up through the day.
   useEffect(() => {
@@ -202,20 +286,21 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     return () => { active = false; clearInterval(id); };
   }, []);
 
-  // Alternate between the waterfall and the cycling posters.
+  // Cycle through the views in VIEW_ORDER: waterfall → how-to-join → posters → …
   useEffect(() => {
-    const dwell = view === "wall" ? WALL_MS : POSTERS_MS;
-    const t = setTimeout(() => setView((v) => (v === "wall" ? "posters" : "wall")), dwell);
+    const dwell = view === "wall" ? WALL_MS : view === "posters" ? POSTERS_MS : INSTRUCTIONS_MS;
+    const t = setTimeout(
+      () => setView((v) => VIEW_ORDER[(VIEW_ORDER.indexOf(v) + 1) % VIEW_ORDER.length]),
+      dwell,
+    );
     return () => clearTimeout(t);
   }, [view]);
 
   return (
     <div className="h-screen w-screen overflow-hidden" style={{ background: INK }}>
-      {view === "wall" ? (
-        <WaterfallView images={images} stories={stories} live={live} />
-      ) : (
-        <PosterCycleView schedule={schedule} />
-      )}
+      {view === "wall" && <WaterfallView images={images} stories={stories} live={live} />}
+      {view === "instructions" && <InstructionsView />}
+      {view === "posters" && <PosterCycleView schedule={schedule} />}
     </div>
   );
 }
