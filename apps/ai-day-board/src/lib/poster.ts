@@ -373,8 +373,8 @@ export function compTransform(layout: ProfileLayout | undefined, comp: ProfileCo
 // values as JSON, then paste them here.)
 export const FACTORY_DEFAULTS = {
   ringSize: 1,
-  topSize: 1.1,
-  topOpacity: 1,
+  topSize: 1.5,
+  topOpacity: 0.65,
   topFlip: true,
   portraitSize: 1.05,
   nameScale: 1,
@@ -383,14 +383,14 @@ export const FACTORY_DEFAULTS = {
   badgeOffsetX: 0,
   dateSize: 1.35,
   tagSize: 1.45,
-  topOffsetX: 140,
-  topOffsetY: -140,
-  bottomOffsetX: 0,
-  bottomOffsetY: 0,
+  topOffsetX: 720,
+  topOffsetY: -160,
+  bottomOffsetX: -240,
+  bottomOffsetY: 150,
   squiggleSize: 1.45,
-  squiggleOpacity: 1,
-  squiggleOffsetX: 0,
-  squiggleOffsetY: 0,
+  squiggleOpacity: 0.4,
+  squiggleOffsetX: -530,
+  squiggleOffsetY: -130,
 };
 
 /** The factory-default fields, in the order the "Copy" button emits them. */
