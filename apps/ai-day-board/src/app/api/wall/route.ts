@@ -63,7 +63,7 @@ async function resolveName(id: string, token: string): Promise<string> {
 // newer apps — so we only actually call Slack every CACHE_TTL and serve the
 // cached quotes (including the last-good set) in between.
 let storiesCache: { at: number; stories: Story[] } | null = null;
-const STORIES_TTL = 5 * 60 * 1000; // 5 minutes
+const STORIES_TTL = 30 * 1000; // 30s — quick to surface new quotes; last-good is served if Slack throttles
 
 // Pull "AI helped me..." posts from a Slack channel and turn them into cards.
 async function storiesFromSlack(): Promise<Story[] | null> {
