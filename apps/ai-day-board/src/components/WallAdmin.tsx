@@ -20,6 +20,7 @@ export function WallAdmin() {
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [sort, setSort] = useState<"recent" | "lastname">("recent");
 
   async function load() {
     try {
@@ -63,6 +64,20 @@ export function WallAdmin() {
 
   const visibleCount = images.filter((i) => !i.hidden).length;
   const hiddenCount = images.length - visibleCount;
+
+  // Last name parsed from the handle ("@first.last" -> "last"); blank handles
+  // (anonymous, the dog) sort to the end.
+  const lastName = (h: string) => {
+    const clean = (h || "").replace(/^@/, "").trim();
+    if (!clean) return "￿"; // push captionless tiles last
+    const parts = clean.split(".");
+    return (parts[parts.length - 1] || clean).toLowerCase();
+  };
+  const sorted = [...images].sort((a, b) =>
+    sort === "lastname"
+      ? lastName(a.handle).localeCompare(lastName(b.handle)) || Number(b.ts) - Number(a.ts)
+      : Number(b.ts) - Number(a.ts)
+  );
 
   return (
     <main className="min-h-screen bg-[#11100c] text-[#f4f0e6]">
@@ -109,13 +124,29 @@ export function WallAdmin() {
           </div>
         )}
 
+        {/* Sort toggle */}
+        <div className="mb-4 flex items-center gap-2 text-xs">
+          <span className="text-white/40">Sort:</span>
+          {([["recent", "Most recent"], ["lastname", "Last name (A–Z)"]] as const).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setSort(key)}
+              className={`rounded-md px-2.5 py-1 font-semibold ${
+                sort === key ? "bg-amber-400 text-black" : "border border-white/15 text-white/70 hover:bg-white/10"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <p className="text-white/40">Loading…</p>
         ) : images.length === 0 ? (
           <p className="text-white/40">No images on the wall yet.</p>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {images.map((img) => (
+            {sorted.map((img) => (
               <div key={img.ts || img.src}>
               <button
                 onClick={() => toggle(img)}
