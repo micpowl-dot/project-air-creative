@@ -217,12 +217,12 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
         className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
-        style={{ background: BG, padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        style={{ background: "rgba(251, 0, 255, 0.5)", backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
-          <div className="font-display font-bold text-white" style={{ fontSize: "2.2vw", lineHeight: 1 }}>AI Helped Me…</div>
-          <div className="text-white/80" style={{ fontSize: "1vw" }}>June 9, 2026 · share yours at the photo wall</div>
+          <div className="font-display font-bold text-white" style={{ fontSize: "2.2vw", lineHeight: 1, textShadow: "0 0.12vw 0.5vw rgba(13,20,42,0.55)" }}>AI Helped Me…</div>
+          <div className="text-white" style={{ fontSize: "1vw", textShadow: "0 0.1vw 0.4vw rgba(13,20,42,0.6)", opacity: 0.9 }}>June 9, 2026 · share yours at the photo wall</div>
         </div>
       </div>
       {story && (
