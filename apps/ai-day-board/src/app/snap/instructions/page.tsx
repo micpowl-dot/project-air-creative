@@ -58,6 +58,7 @@ export default function InstructionsPage() {
           --ink: #0D142A; --light: #fff;
           --card: rgba(13,20,42,0.5);
           font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--ink); color: var(--light); min-height: 100vh;
+          display: flex; flex-direction: column;
         }
 
         .sign .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
@@ -65,7 +66,7 @@ export default function InstructionsPage() {
         .sign .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
         .sign .sub { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.9); max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 
-        .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+        .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; flex: 1 0 auto; }
         @media (min-width: 780px) { .sign .split { grid-template-columns: 1fr 1fr; } }
 
         .sign .col { padding: calc(2.25rem - 35px) 1.5rem 3rem; }
@@ -95,7 +96,7 @@ export default function InstructionsPage() {
         .sign .examples .accent { color: var(--accent); font-style: normal; font-weight: 700; }
         .sign .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
 
-        .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.55); padding: 1.25rem; background: var(--ink); }
+        .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.85); padding: 1.25rem; background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 
         @media print {
           .sign { background: #fff; color: #111; }
