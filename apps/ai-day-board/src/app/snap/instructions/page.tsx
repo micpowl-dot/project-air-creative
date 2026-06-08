@@ -55,8 +55,8 @@ const CONFETTI = Array.from({ length: 60 }, (_, i) => {
     left: (i * 7.3 + (i % 6) * 4.1) % 100,        // % across the page
     fallDelay: ((i * 41) % 140) / 10,             // 0–14s stagger
     fallDur: 5.5 + ((i * 23) % 85) / 10,          // 5.5–14s fall (more spread)
-    w: 5 + (i % 5) * 2,                           // 5–13px wide
-    h: 9 + (i % 6) * 4,                           // 9–29px tall (varied tape)
+    w: 3 + (i % 4) * 1.5,                         // 3–7.5px wide (small flecks)
+    h: 5 + (i % 5) * 2,                           // 5–13px tall (varied tape)
     color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
     sway: dir * (12 + (i % 7) * 15),              // 12–102px drift, both ways
     op: 0.7 + (i % 3) * 0.1,                       // 0.7–0.9
