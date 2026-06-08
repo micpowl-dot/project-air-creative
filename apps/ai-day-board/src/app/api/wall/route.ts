@@ -94,8 +94,11 @@ async function storiesFromSlack(): Promise<Story[] | null> {
       if (text.length < 8 || text.length > 240) continue;
       cand.push({ user: m.user, text });
     }
-    const helped = cand.filter((s) => /helped/i.test(s.text));
-    const chosen = (helped.length ? helped : cand).slice(0, 40).reverse();
+    // Only real testimonials: contains "helped" (the prompted phrasing) or
+    // starts with "AI ...". Never fall back to arbitrary channel chatter —
+    // if there are no matches we return nothing and the curated samples show.
+    const helped = cand.filter((s) => /helped/i.test(s.text) || /^ai\b/i.test(s.text.trim()));
+    const chosen = helped.slice(0, 40).reverse();
     // Resolve author names (cached).
     const out: Story[] = [];
     for (const c of chosen) out.push({ name: await resolveName(c.user, token), text: c.text });
