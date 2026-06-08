@@ -26,13 +26,20 @@
       "handle": "@maigh.houlihan",
       "ts": "1780938821.068299",
       "model": "pro",
-      "hidden": false
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938942869909.png",
       "handle": "@lee.payne",
       "ts": "1780938942.869909",
       "model": "pro"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938612282499.png",
+      "handle": "@maigh.houlihan",
+      "ts": "1780938612.282499",
+      "model": "pro",
+      "hidden": false
     }
   ],
   "attempts": {},
