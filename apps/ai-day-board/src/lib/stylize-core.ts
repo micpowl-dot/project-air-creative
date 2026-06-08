@@ -74,12 +74,12 @@ export async function stylize(opts: {
     await new Promise((r) => setTimeout(r, attempt * 2000)); // 2s, 4s backoff
   }
   const parts = json?.candidates?.[0]?.content?.parts ?? [];
-  const img = parts.find((p: { inlineData?: { data: string } }) => p.inlineData?.data);
-  if (!img) {
-    const text = parts.map((p: { text?: string }) => p.text).filter(Boolean).join(" ");
+  const data = parts.find((p) => p.inlineData?.data)?.inlineData?.data;
+  if (!data) {
+    const text = parts.map((p) => p.text).filter(Boolean).join(" ");
     throw new Error(`No image returned. ${text.slice(0, 200)}`);
   }
-  return img.inlineData.data as string;
+  return data;
 }
 
 export function mimeForExt(p: string): string {
