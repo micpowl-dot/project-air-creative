@@ -130,9 +130,13 @@ export async function GET() {
     storiesFromSlack(),
   ]);
   const liveImages = blobImages ?? urlImages ?? [];
-  // Speakers are always the base layer (wall looks full); live snaps merge on
-  // top. New snaps go first so they're noticeable as they arrive.
-  const images: WallImage[] = [...liveImages, ...SPEAKER_IMAGES];
+  // One image per person: if someone has a live snap, drop their static speaker
+  // headshot so the live portrait replaces it (no duplicate of the same person).
+  const liveHandles = new Set(liveImages.map((i) => (i.handle || "").toLowerCase()).filter(Boolean));
+  const speakers = SPEAKER_IMAGES.filter((s) => !liveHandles.has((s.handle || "").toLowerCase()));
+  // Speakers are the base layer (wall looks full); live snaps merge on top,
+  // newest first so they're noticeable as they arrive.
+  const images: WallImage[] = [...liveImages, ...speakers];
   const stories = slackStories && slackStories.length ? slackStories : SAMPLE_STORIES;
   return Response.json({
     images,
