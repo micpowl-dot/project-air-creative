@@ -46,16 +46,23 @@ async function resolveHandle(user: string, token: string): Promise<string> {
 // @mention. This is the notification the person actually sees (the raw selfie
 // was posted quietly, unpinged). Best-effort — never throws. Uses an image
 // block (no file attachment) so the next cron run won't re-process it.
-async function postPortraitToChannel(channel: string, userId: string, imageUrl: string, token: string): Promise<void> {
+async function postPortraitToChannel(channel: string, userId: string | null, imageUrl: string, token: string): Promise<void> {
   try {
+    // @mention only when we know who snapped; otherwise a generic celebratory line.
+    const heading = userId
+      ? `<@${userId}> you're on the AI Day wall! ✨`
+      : `✨ A new portrait just hit the AI Day wall!`;
+    const sub = userId
+      ? `Your illustrated portrait is now live — <https://ai-day-board.vercel.weather.com/wall|see it on the wall>.`
+      : `<https://ai-day-board.vercel.weather.com/wall|See it on the live wall>.`;
     await fetch("https://slack.com/api/chat.postMessage", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         channel,
-        text: `<@${userId}> you're on the AI Day wall! ✨`,
+        text: heading,
         blocks: [
-          { type: "section", text: { type: "mrkdwn", text: `<@${userId}> you're on the AI Day wall! ✨\nYour illustrated portrait is now live — <https://ai-day-board.vercel.weather.com/wall|see it on the wall>.` } },
+          { type: "section", text: { type: "mrkdwn", text: `${heading}\n${sub}` } },
           { type: "image", image_url: imageUrl, alt_text: "AI Day illustrated portrait" },
         ],
       }),
@@ -172,17 +179,18 @@ export async function GET(request: Request) {
         (file.name || "").match(/-(U[A-Z0-9]+)\.[a-z0-9]+$/i)?.[1] ||
         (m.text || "").match(/ref:(U[A-Z0-9]+)/)?.[1] ||
         (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
-      const handle = await resolveHandle(uid || m.user, token);
+      // Caption only when we know who (no falling back to the bot's own handle
+      // for anonymous snaps — that produced a bogus "@ai.day.wall" caption).
+      const handle = uid ? await resolveHandle(uid, token) : "";
       manifest.images.push({ src: url, handle, ts: m.ts, model: useFlash ? "flash" : "pro" });
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
       manifest.rendered[useFlash ? "flash" : "pro"]++;
-      if (uid) {
-        // Post the finished portrait back to the channel (the real notification)
-        // and DM it directly. Both best-effort; need chat:write (+ im:write for DM).
-        await postPortraitToChannel(channel, uid, url, token);
-        await dmPortrait(uid, url, token);
-      }
+      // ALWAYS post the finished portrait back to the channel (with @mention if
+      // we know who, generic if not — e.g. they skipped the name picker). DM
+      // only works when we have a user id.
+      await postPortraitToChannel(channel, uid ?? null, url, token);
+      if (uid) await dmPortrait(uid, url, token);
       processed++;
       newLastTs = m.ts;                 // advance only on success
       delete manifest.attempts[m.ts];
