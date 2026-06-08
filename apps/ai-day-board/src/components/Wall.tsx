@@ -27,7 +27,7 @@ const ACCENT = "#FFE500";
 const INK = "#0D142A";
 
 // How long each view stays on screen before alternating.
-const WALL_MS = 32000;
+const WALL_MS = 42000;
 const POSTERS_MS = 28000;
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
 

@@ -666,7 +666,7 @@ export function PosterStudio({
 }
 
 /** A titled, collapsible section. Optional "Set all" applies its whole state. */
-function Group({ title, children, onAll, defaultOpen = true }: { title: string; children: React.ReactNode; onAll?: () => void; defaultOpen?: boolean }) {
+function Group({ title, children, onAll, defaultOpen = false }: { title: string; children: React.ReactNode; onAll?: () => void; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <section className="space-y-2">
