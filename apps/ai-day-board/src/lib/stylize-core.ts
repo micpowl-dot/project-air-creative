@@ -23,9 +23,15 @@ export const STYLIZE_PROMPT =
   "keep their exact likeness — same face shape, head and hairline, facial hair, " +
   "glasses, skin tone, and clothing. It must clearly be the same person as " +
   "image 2. IMAGE 3 is the BACKGROUND: place the illustrated person directly in " +
-  "front of this exact background as a head-and-shoulders portrait filling a " +
-  "square frame. Keep image 3's colors and pattern exactly as-is behind the " +
-  "person — do not alter, restyle, recolor, or add anything to the background. " +
+  "front of this exact background. Keep image 3's colors and pattern exactly " +
+  "as-is behind the person — do not alter, restyle, recolor, or add anything " +
+  "to the background. " +
+  "FRAMING (identical crop every time, regardless of the input photo's zoom): " +
+  "a head-and-shoulders portrait where the top of the head sits just inside the " +
+  "top edge with a small margin above it, the face is centered in the " +
+  "upper-middle, and BOTH shoulders and the upper chest are fully visible " +
+  "across the bottom. Never crop the shoulders, never zoom tighter than the " +
+  "upper chest, never leave large empty headroom. " +
   "Centered, facing forward, friendly expression. Square 1:1.";
 
 export interface ImgPart {

@@ -174,6 +174,9 @@ export async function GET(request: Request) {
         (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
       const handle = await resolveHandle(uid || m.user, token);
       manifest.images.push({ src: url, handle, ts: m.ts, model: useFlash ? "flash" : "pro" });
+      // Lifetime render tally (for the credit/usage estimate in /wall-admin).
+      manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
+      manifest.rendered[useFlash ? "flash" : "pro"]++;
       if (uid) {
         // Post the finished portrait back to the channel (the real notification)
         // and DM it directly. Both best-effort; need chat:write (+ im:write for DM).

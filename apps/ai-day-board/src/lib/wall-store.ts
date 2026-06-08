@@ -18,6 +18,7 @@ export interface WallManifest {
   lastTs: string;
   images: WallImage[];
   attempts?: Record<string, number>; // per-message stylize retry counter (cron)
+  rendered?: { pro: number; flash: number }; // lifetime render tally (survives the 400-image cap)
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";

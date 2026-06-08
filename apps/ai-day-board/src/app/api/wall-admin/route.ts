@@ -21,7 +21,17 @@ export async function GET() {
     }));
     // Newest first.
     images.reverse();
-    return NextResponse.json({ images });
+    // Lifetime render tally + optional budget estimate (for "credits left").
+    const rendered = m?.rendered ?? { pro: 0, flash: 0 };
+    const budgetUsd = Number(process.env.GEMINI_BUDGET_USD || 0);
+    const proCost = Number(process.env.GEMINI_PRO_IMAGE_COST || 0);   // $ per Pro image
+    const flashCost = Number(process.env.GEMINI_FLASH_IMAGE_COST || 0); // $ per flash image
+    const spent = rendered.pro * proCost + rendered.flash * flashCost;
+    const budget =
+      budgetUsd > 0 && (proCost > 0 || flashCost > 0)
+        ? { budgetUsd, spent: Math.round(spent * 100) / 100, remaining: Math.round((budgetUsd - spent) * 100) / 100, proCost, flashCost }
+        : null;
+    return NextResponse.json({ images, rendered, budget });
   } catch (e) {
     return NextResponse.json({ images: [], error: String(e) }, { status: 500 });
   }

@@ -10,8 +10,13 @@ interface AdminImage {
   model: "pro" | "flash";
 }
 
+interface Rendered { pro: number; flash: number }
+interface Budget { budgetUsd: number; spent: number; remaining: number }
+
 export function WallAdmin() {
   const [images, setImages] = useState<AdminImage[]>([]);
+  const [rendered, setRendered] = useState<Rendered>({ pro: 0, flash: 0 });
+  const [budget, setBudget] = useState<Budget | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -21,6 +26,8 @@ export function WallAdmin() {
       const res = await fetch("/api/wall-admin", { cache: "no-store" });
       const body = await res.json();
       setImages(Array.isArray(body.images) ? body.images : []);
+      if (body.rendered) setRendered(body.rendered);
+      setBudget(body.budget ?? null);
     } catch (e) {
       setErr(String(e));
     } finally {
@@ -74,6 +81,16 @@ export function WallAdmin() {
             <div>
               <span className="text-[#f4f0e6] font-semibold">{hiddenCount}</span> hidden
             </div>
+            <div className="mt-1 border-t border-white/10 pt-1">
+              <span className="text-[#f4f0e6] font-semibold">{rendered.pro + rendered.flash}</span> rendered
+              <span className="text-white/40"> ({rendered.pro} Pro · {rendered.flash} Flash)</span>
+            </div>
+            {budget && (
+              <div className={budget.remaining <= budget.budgetUsd * 0.2 ? "text-orange-300" : "text-white/60"}>
+                ~<span className="font-semibold">${budget.remaining.toFixed(2)}</span> left of ${budget.budgetUsd.toFixed(0)}
+                <span className="text-white/40"> (est.)</span>
+              </div>
+            )}
             <button
               onClick={() => {
                 setLoading(true);
