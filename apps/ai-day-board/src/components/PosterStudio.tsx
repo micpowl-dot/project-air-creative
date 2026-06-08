@@ -169,6 +169,18 @@ export function PosterStudio({
       return next;
     });
   }
+  // Clear EVERY customization in this mode and return all posters to the
+  // factory defaults. Confirms first since it wipes saved work.
+  function resetAllToDefault() {
+    const count = Object.keys(overrides).length;
+    if (count && !window.confirm(`Reset all ${entries.length} ${isProfile ? "profiles" : "posters"} to the factory defaults? This clears your ${count} customized ${count === 1 ? "one" : "ones"}.`)) return;
+    setOverrides(() => {
+      saveStyleOverrides({});
+      return {};
+    });
+    setFlash({ text: `Reset all ${isProfile ? "profiles" : "posters"} to default` });
+    window.setTimeout(() => setFlash(null), 2400);
+  }
   // Give every entry a randomly-picked palette; the headshot backdrop follows
   // the new scheme's accent so each profile stays internally coordinated.
   function randomizePalettes() {
@@ -383,6 +395,9 @@ export function PosterStudio({
               <div className="flex items-center gap-3">
                 {isOverridden && (
                   <button onClick={resetToDefault} className="underline hover:text-white">Reset to default</button>
+                )}
+                {Object.keys(overrides).length > 0 && (
+                  <button onClick={resetAllToDefault} className="underline hover:text-white">Reset all to default</button>
                 )}
                 <Link href={renderHref} className="underline hover:text-white">Send this to render →</Link>
               </div>
