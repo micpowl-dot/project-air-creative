@@ -55,7 +55,8 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938726364669.png",
       "handle": "@ai.day.wall",
       "ts": "1780938726.364669",
-      "model": "pro"
+      "model": "pro",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938821068299.png",
