@@ -112,16 +112,26 @@ async function storiesFromSlack(): Promise<Story[] | null> {
 interface WallImage { src: string; handle?: string }
 
 // Primary: generated headshots from the Blob manifest (written by /api/process-photos).
+// Cache the manifest-derived images. The wall polls every ~8s and reads the
+// manifest from the GitHub API — without this, that burns the GitHub rate
+// limit fast (especially with multiple screens open). 30s is plenty fresh.
+let imagesCache: { at: number; images: WallImage[] } | null = null;
+const IMAGES_TTL = 30 * 1000;
+
 async function imagesFromBlob(): Promise<WallImage[] | null> {
+  if (imagesCache && Date.now() - imagesCache.at < IMAGES_TTL) {
+    return imagesCache.images.length ? imagesCache.images : null;
+  }
   try {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
-    if (!m || !m.images.length) return null;
-    const visible = m.images.filter((i) => !i.hidden);
-    if (!visible.length) return null;
-    return visible.map(({ src, handle }) => ({ src, handle }));
+    if (!m || !m.images.length) return imagesCache?.images.length ? imagesCache.images : null;
+    const visible = m.images.filter((i) => !i.hidden).map(({ src, handle }) => ({ src, handle }));
+    imagesCache = { at: Date.now(), images: visible };
+    return visible.length ? visible : null;
   } catch {
-    return null;
+    // On a GitHub error/rate-limit, keep serving the last good set.
+    return imagesCache?.images.length ? imagesCache.images : null;
   }
 }
 
