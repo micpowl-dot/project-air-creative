@@ -1,5 +1,5 @@
 {
-  "lastTs": "1780938653.843569",
+  "lastTs": "1780938726.364669",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780712415740659.png",
@@ -49,13 +49,17 @@
       "handle": "@ai.day.wall",
       "ts": "1780938653.843569",
       "model": "pro"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938726364669.png",
+      "handle": "@ai.day.wall",
+      "ts": "1780938726.364669",
+      "model": "pro"
     }
   ],
-  "attempts": {
-    "1780938726.364669": 1
-  },
+  "attempts": {},
   "rendered": {
-    "pro": 4,
+    "pro": 5,
     "flash": 0
   }
 }
