@@ -1,5 +1,5 @@
 {
-  "lastTs": "1780949743.061789",
+  "lastTs": "1780952081.010819",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780934092594009.png",
@@ -80,18 +80,25 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780947138412779.png",
       "handle": "@jeffrey.hampton",
       "ts": "1780947138.412779",
-      "model": "pro"
+      "model": "pro",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780949743061789.png",
       "handle": "@mari.hinojosa",
       "ts": "1780949743.061789",
       "model": "pro"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780952081010819.png",
+      "handle": "@jeffrey.hampton",
+      "ts": "1780952081.010819",
+      "model": "pro"
     }
   ],
   "attempts": {},
   "rendered": {
-    "pro": 9,
+    "pro": 10,
     "flash": 0
   }
 }
