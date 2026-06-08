@@ -35,7 +35,7 @@ export async function POST(request: Request) {
   // ping about the unprocessed upload). The cron posts the *finished* portrait
   // back with the real @mention.
   const who = name && name.trim() ? name.trim() : "Someone";
-  const comment = `📸 ${who} at the AI Day photo station`;
+  const comment = `📸 ${who} using the AI Day Me app`;
 
   try {
     // Slack's new 3-step upload flow (files.upload was deprecated).
