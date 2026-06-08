@@ -42,8 +42,7 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938639846339.png",
       "handle": "@denise.denson",
       "ts": "1780938639.846339",
-      "model": "pro",
-      "hidden": true
+      "model": "pro"
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938653843569.png",
@@ -52,7 +51,9 @@
       "model": "pro"
     }
   ],
-  "attempts": {},
+  "attempts": {
+    "1780938726.364669": 1
+  },
   "rendered": {
     "pro": 4,
     "flash": 0
