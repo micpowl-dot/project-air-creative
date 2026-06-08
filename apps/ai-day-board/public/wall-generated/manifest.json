@@ -1,5 +1,5 @@
 {
-  "lastTs": "1780934092.5",
+  "lastTs": "1780934092.594009",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780712415740659.png",
@@ -18,6 +18,12 @@
       "handle": "@michael.powell",
       "ts": "1780715246.067869",
       "hidden": false
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780934092594009.png",
+      "handle": "@michael.powell",
+      "ts": "1780934092.594009",
+      "model": "pro"
     }
   ],
   "attempts": {}
