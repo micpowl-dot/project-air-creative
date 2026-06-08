@@ -2,24 +2,6 @@
   "lastTs": "1780939305.919",
   "images": [
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780712415740659.png",
-      "handle": "@ai.day.wall",
-      "ts": "1780712415.740659",
-      "hidden": true
-    },
-    {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780714156655459.png",
-      "handle": "@michael.powell",
-      "ts": "1780714156.655459",
-      "hidden": false
-    },
-    {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780715246067869.png",
-      "handle": "@michael.powell",
-      "ts": "1780715246.067869",
-      "hidden": true
-    },
-    {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780934092594009.png",
       "handle": "@michael.powell",
       "ts": "1780934092.594009",
@@ -27,28 +9,9 @@
       "hidden": true
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938577186719.png",
-      "handle": "@ai.day.wall",
-      "ts": "1780938577.186719",
-      "model": "pro",
-      "hidden": true
-    },
-    {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938612282499.png",
-      "handle": "@maigh.houlihan",
-      "ts": "1780938612.282499",
-      "model": "pro"
-    },
-    {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938639846339.png",
       "handle": "@denise.denson",
       "ts": "1780938639.846339",
-      "model": "pro"
-    },
-    {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938653843569.png",
-      "handle": "@ai.day.wall",
-      "ts": "1780938653.843569",
       "model": "pro"
     },
     {
