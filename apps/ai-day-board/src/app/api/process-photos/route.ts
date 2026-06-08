@@ -139,12 +139,13 @@ export async function GET(request: Request) {
   let processed = 0;
   let newLastTs = manifest.lastTs;
   const errors: string[] = [];
+  const MAX_ATTEMPTS = 5; // give up on a snap after this many failed tries, then move on
+  manifest.attempts = manifest.attempts || {};
 
   for (const m of msgs as { ts: string; user: string; text?: string; files: { mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
     if (processed >= MAX_PER_RUN) break;
-    newLastTs = m.ts; // advance regardless so we don't re-scan
     const file = m.files.find((f) => String(f.mimetype || "").startsWith("image/"));
-    if (!file) continue;
+    if (!file) { newLastTs = m.ts; continue; } // non-image: skip past permanently
     try {
       const dl = await fetch(file.url_private_download || file.url_private || "", { headers: { Authorization: `Bearer ${token}` } });
       const personData = Buffer.from(await dl.arrayBuffer()).toString("base64");
@@ -169,8 +170,14 @@ export async function GET(request: Request) {
         await dmPortrait(uid, url, token);
       }
       processed++;
+      newLastTs = m.ts;                 // advance only on success
+      delete manifest.attempts[m.ts];
     } catch (e) {
-      errors.push(`${m.ts}: ${String(e).slice(0, 120)}`);
+      const n = (manifest.attempts[m.ts] ?? 0) + 1;
+      manifest.attempts[m.ts] = n;
+      errors.push(`${m.ts} (try ${n}): ${String(e).slice(0, 120)}`);
+      if (n >= MAX_ATTEMPTS) { newLastTs = m.ts; continue; } // give up, move past it
+      break; // transient failure — leave the cursor so the next run retries this snap
     }
   }
 

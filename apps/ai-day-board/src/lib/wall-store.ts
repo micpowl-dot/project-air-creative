@@ -16,6 +16,7 @@ export interface WallImage {
 export interface WallManifest {
   lastTs: string;
   images: WallImage[];
+  attempts?: Record<string, number>; // per-message stylize retry counter (cron)
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";

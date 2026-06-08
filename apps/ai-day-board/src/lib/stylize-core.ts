@@ -58,13 +58,20 @@ export async function stylize(opts: {
     ],
     generationConfig: { responseModalities: ["IMAGE"] },
   };
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${opts.apiKey}`,
-    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
-  );
-  const json = await res.json();
-  if (!res.ok) {
-    throw new Error(`Gemini ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`);
+  // Gemini image (Nano Banana Pro) gets transient 503/429s under load. Retry
+  // a few times with backoff so a momentary spike doesn't drop a snap.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${opts.apiKey}`;
+  const MAX_TRIES = 3;
+  let json: { error?: unknown; candidates?: Array<{ content?: { parts?: Array<{ text?: string; inlineData?: { data: string } }> } }> } = {};
+  for (let attempt = 1; attempt <= MAX_TRIES; attempt++) {
+    const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    json = await res.json();
+    if (res.ok) break;
+    const retriable = res.status === 503 || res.status === 429 || res.status === 500;
+    if (!retriable || attempt === MAX_TRIES) {
+      throw new Error(`Gemini ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`);
+    }
+    await new Promise((r) => setTimeout(r, attempt * 2000)); // 2s, 4s backoff
   }
   const parts = json?.candidates?.[0]?.content?.parts ?? [];
   const img = parts.find((p: { inlineData?: { data: string } }) => p.inlineData?.data);
