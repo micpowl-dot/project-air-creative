@@ -217,7 +217,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
         className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
-        style={{ background: "rgba(251, 0, 255, 0.5)", backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        style={{ background: "rgba(251, 0, 255, 0.72)", backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
