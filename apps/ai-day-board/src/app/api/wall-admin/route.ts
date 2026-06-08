@@ -38,16 +38,24 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  let ts: string, hidden: boolean;
+  let ts: string, hidden: boolean | undefined, remove: boolean | undefined;
   try {
-    ({ ts, hidden } = await request.json());
+    ({ ts, hidden, remove } = await request.json());
   } catch {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
-  if (!ts || typeof hidden !== "boolean") {
-    return NextResponse.json({ error: "Need { ts, hidden }" }, { status: 400 });
-  }
+  if (!ts) return NextResponse.json({ error: "Need { ts }" }, { status: 400 });
   try {
+    // remove: drop the manifest entry (file stays in repo -> orphaned).
+    if (remove === true) {
+      const { removeImage } = await import("@/lib/wall-store");
+      const m = await removeImage(ts);
+      if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
+      return NextResponse.json({ ok: true, removed: true });
+    }
+    if (typeof hidden !== "boolean") {
+      return NextResponse.json({ error: "Need { ts, hidden } or { ts, remove }" }, { status: 400 });
+    }
     const { setHidden } = await import("@/lib/wall-store");
     const m = await setHidden(ts, hidden);
     if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });

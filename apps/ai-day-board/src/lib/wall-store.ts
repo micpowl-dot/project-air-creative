@@ -98,6 +98,18 @@ export async function setHidden(ts: string, hidden: boolean): Promise<WallManife
   return m;
 }
 
+/** Remove an image's MANIFEST entry (matched by ts). The PNG file is left in
+ *  the repo, so it becomes "orphaned" and can be re-added later — this just
+ *  takes it out of the wall + the /wall-admin gallery. */
+export async function removeImage(ts: string): Promise<WallManifest | null> {
+  const m = await readManifest();
+  if (!m) return null;
+  const before = m.images.length;
+  m.images = m.images.filter((i) => i.ts !== ts);
+  if (m.images.length !== before) await writeManifest(m);
+  return m;
+}
+
 /** Store a generated headshot PNG; returns its public raw.githubusercontent URL. */
 export async function putImage(name: string, buf: Buffer): Promise<string> {
   const path = `${BASE}/${name}.png`;

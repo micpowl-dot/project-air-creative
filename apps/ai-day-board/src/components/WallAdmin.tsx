@@ -62,6 +62,30 @@ export function WallAdmin() {
     }
   }
 
+  // Remove from the gallery (drops the manifest entry; the image file stays in
+  // the repo as an orphan and can be re-added). Confirms first.
+  async function remove(img: AdminImage, e: React.MouseEvent) {
+    e.stopPropagation(); // don't trigger the tile's show/hide toggle
+    if (!window.confirm(`Remove ${img.handle || "this portrait"} from the gallery?\n\nIt comes off the wall and out of this list. The image file is kept (orphaned) and can be re-added later.`)) return;
+    setBusy(img.ts);
+    setErr(null);
+    const prev = images;
+    setImages((p) => p.filter((i) => i.ts !== img.ts)); // optimistic
+    try {
+      const res = await fetch("/api/wall-admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ts: img.ts, remove: true }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || `HTTP ${res.status}`);
+    } catch (err) {
+      setImages(prev); // revert
+      setErr(String(err));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   const visibleCount = images.filter((i) => !i.hidden).length;
   const hiddenCount = images.length - visibleCount;
 
@@ -147,7 +171,16 @@ export function WallAdmin() {
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {sorted.map((img) => (
-              <div key={img.ts || img.src}>
+              <div key={img.ts || img.src} className="relative">
+              {/* Remove-from-gallery (moves to orphaned; file kept) */}
+              <button
+                onClick={(e) => remove(img, e)}
+                disabled={busy === img.ts}
+                title="Remove from gallery (keeps the file, can be re-added)"
+                className="absolute right-1.5 top-1.5 z-10 grid h-6 w-6 place-items-center rounded-full bg-black/70 text-sm text-white/80 hover:bg-red-600 hover:text-white"
+              >
+                ✕
+              </button>
               <button
                 onClick={() => toggle(img)}
                 disabled={busy === img.ts}
