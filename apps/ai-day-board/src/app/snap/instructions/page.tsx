@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export const metadata = { title: "Photo Station · AI Day" };
 export const viewport = { width: "device-width", initialScale: 1 };
@@ -44,6 +44,45 @@ function Icon({ name, className }: { name: string; className?: string }) {
   );
 }
 
+// Falling ticker-tape confetti. Values are derived deterministically from the
+// index (no Math.random) so server and client markup match — no hydration
+// mismatch. Sits behind the cards, above the flat panel color.
+const CONFETTI_COLORS = ["#FFE500", "#67FAE0", "#ffffff", "#0D142A"];
+const CONFETTI = Array.from({ length: 24 }, (_, i) => ({
+  left: (i * 4.7 + (i % 5) * 3.1) % 100,        // % across the panel
+  delay: ((i * 29) % 120) / 10,                  // 0–12s stagger
+  dur: 8 + ((i * 17) % 60) / 10,                 // 8–14s fall
+  w: 6 + (i % 3) * 3,                            // 6–12px wide
+  h: 12 + (i % 4) * 5,                           // 12–27px tall (tape)
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  rot: (i % 2 ? 1 : -1) * (180 + (i % 4) * 120), // spin amount
+  sway: (i % 2 ? 1 : -1) * (15 + (i % 5) * 10),  // horizontal drift px
+  op: 0.7 + (i % 3) * 0.1,                        // 0.7–0.9
+}));
+
+function Confetti() {
+  return (
+    <div className="confetti" aria-hidden="true">
+      {CONFETTI.map((c, i) => (
+        <i
+          key={i}
+          style={{
+            left: `${c.left}%`,
+            width: `${c.w}px`,
+            height: `${c.h}px`,
+            background: c.color,
+            animationDuration: `${c.dur}s`,
+            animationDelay: `${c.delay}s`,
+            ["--sway"]: `${c.sway}px`,
+            ["--rot"]: `${c.rot}deg`,
+            ["--op"]: `${c.op}`,
+          } as CSSProperties}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function InstructionsPage() {
   const url = "ai-day-board.vercel.weather.com/snap";
 
@@ -69,9 +108,19 @@ export default function InstructionsPage() {
         .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; flex: 1 0 auto; }
         @media (min-width: 780px) { .sign .split { grid-template-columns: 1fr 1fr; } }
 
-        .sign .col { padding: calc(2.25rem - 35px) 1.5rem 3rem; }
+        .sign .col { padding: calc(2.25rem - 35px) 1.5rem 3rem; position: relative; overflow: hidden; }
         .sign .ico { width: 1.15em; height: 1.15em; flex-shrink: 0; }
-        .sign .col-inner { max-width: 540px; margin: 0 auto; }
+        .sign .col-inner { max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
+
+        .sign .confetti { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .sign .confetti i { position: absolute; top: 0; display: block; border-radius: 1px; opacity: 0; will-change: transform, opacity; animation-name: confetti-fall; animation-timing-function: linear; animation-iteration-count: infinite; }
+        @keyframes confetti-fall {
+          0%   { transform: translate3d(0, -15vh, 0) rotateZ(0deg); opacity: 0; }
+          10%  { opacity: var(--op, 0.8); }
+          90%  { opacity: var(--op, 0.8); }
+          100% { transform: translate3d(var(--sway, 0), 115vh, 0) rotateZ(var(--rot, 180deg)); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) { .sign .confetti { display: none; } }
         .sign .col-snap  { background: var(--magenta); --accent: var(--magenta-accent); }
         .sign .col-quote { background: var(--blue);    --accent: var(--blue-accent); }
 
@@ -108,6 +157,7 @@ export default function InstructionsPage() {
           .sign .col-sub, .sign .step-body p, .sign .examples p { color: #333; }
           .sign .step, .sign .examples, .sign .qr-wrap { border: 1px solid rgba(0,0,0,0.12); --card: rgba(0,0,0,0.04); }
           .sign .footer { background: #fff; color: #555; }
+          .sign .confetti { display: none; }
         }
       `}</style>
 
@@ -131,6 +181,7 @@ export default function InstructionsPage() {
         <div className="split">
           {/* LEFT — magenta — Snap a portrait */}
           <div className="col col-snap">
+            <Confetti />
             <div className="col-inner">
               <div className="col-title"><Icon name="camera" className="ico" /> Get your portrait up</div>
               <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
@@ -164,6 +215,7 @@ export default function InstructionsPage() {
 
           {/* RIGHT — blue — Share a quote */}
           <div className="col col-quote">
+            <Confetti />
             <div className="col-inner">
               <div className="col-title"><Icon name="message" className="ico" /> Get your words up</div>
               <div className="col-sub">Tell us what AI helped you do. Your quote runs on the wall right alongside the portraits.</div>
