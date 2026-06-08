@@ -1,5 +1,5 @@
 {
-  "lastTs": "1780938250.206",
+  "lastTs": "1780938612.282499",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780712415740659.png",
@@ -25,7 +25,23 @@
       "ts": "1780934092.594009",
       "model": "pro",
       "hidden": true
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938577186719.png",
+      "handle": "@ai.day.wall",
+      "ts": "1780938577.186719",
+      "model": "pro"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938612282499.png",
+      "handle": "@maigh.houlihan",
+      "ts": "1780938612.282499",
+      "model": "pro"
     }
   ],
-  "attempts": {}
+  "attempts": {},
+  "rendered": {
+    "pro": 2,
+    "flash": 0
+  }
 }
