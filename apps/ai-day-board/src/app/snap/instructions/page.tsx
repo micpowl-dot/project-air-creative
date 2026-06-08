@@ -49,36 +49,53 @@ function Icon({ name, className }: { name: string; className?: string }) {
 // mismatch. One page-wide layer; pieces start above the viewport (clipped) so
 // they enter from the top, out of frame, and fall the full height.
 const CONFETTI_COLORS = ["#FFE500", "#67FAE0", "#ffffff", "#0D142A"];
-const CONFETTI = Array.from({ length: 30 }, (_, i) => ({
-  left: (i * 4.7 + (i % 5) * 3.1) % 100,        // % across the panel
-  delay: ((i * 29) % 120) / 10,                  // 0–12s stagger
-  dur: 8 + ((i * 17) % 60) / 10,                 // 8–14s fall
-  w: 6 + (i % 3) * 3,                            // 6–12px wide
-  h: 12 + (i % 4) * 5,                           // 12–27px tall (tape)
-  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-  rot: (i % 2 ? 1 : -1) * (180 + (i % 4) * 120), // spin amount
-  sway: (i % 2 ? 1 : -1) * (15 + (i % 5) * 10),  // horizontal drift px
-  op: 0.7 + (i % 3) * 0.1,                        // 0.7–0.9
-}));
+const CONFETTI = Array.from({ length: 60 }, (_, i) => {
+  const dir = i % 2 ? 1 : -1;
+  return {
+    left: (i * 7.3 + (i % 6) * 4.1) % 100,        // % across the page
+    fallDelay: ((i * 41) % 140) / 10,             // 0–14s stagger
+    fallDur: 5.5 + ((i * 23) % 85) / 10,          // 5.5–14s fall (more spread)
+    w: 5 + (i % 5) * 2,                           // 5–13px wide
+    h: 9 + (i % 6) * 4,                           // 9–29px tall (varied tape)
+    color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+    sway: dir * (12 + (i % 7) * 15),              // 12–102px drift, both ways
+    op: 0.7 + (i % 3) * 0.1,                       // 0.7–0.9
+    flipDur: 0.35 + ((i * 13) % 12) / 10,         // 0.35–1.45s (fast flip)
+    flipDelay: ((i * 7) % 9) / 10,                // 0–0.8s
+    rx: (i % 2 ? 1 : -1) * (1 + (i % 3)),         // 1–3 turns X
+    ry: (i % 3 ? -1 : 1) * (1 + (i % 2)),         // 1–2 turns Y
+    rz: dir * (0.5 + (i % 3) * 0.5),              // 0.5–1.5 turns Z
+  };
+});
 
 function Confetti() {
   return (
     <div className="confetti" aria-hidden="true">
       {CONFETTI.map((c, i) => (
-        <i
+        <span
           key={i}
+          className="cf"
           style={{
             left: `${c.left}%`,
-            width: `${c.w}px`,
-            height: `${c.h}px`,
-            background: c.color,
-            animationDuration: `${c.dur}s`,
-            animationDelay: `${c.delay}s`,
+            animationDuration: `${c.fallDur}s`,
+            animationDelay: `${c.fallDelay}s`,
             ["--sway"]: `${c.sway}px`,
-            ["--rot"]: `${c.rot}deg`,
             ["--op"]: `${c.op}`,
           } as CSSProperties}
-        />
+        >
+          <i
+            style={{
+              width: `${c.w}px`,
+              height: `${c.h}px`,
+              background: c.color,
+              animationDuration: `${c.flipDur}s`,
+              animationDelay: `${c.flipDelay}s`,
+              ["--rx"]: `${c.rx}turn`,
+              ["--ry"]: `${c.ry}turn`,
+              ["--rz"]: `${c.rz}turn`,
+            } as CSSProperties}
+          />
+        </span>
       ))}
     </div>
   );
@@ -114,12 +131,16 @@ export default function InstructionsPage() {
         .sign .ico { width: 1.15em; height: 1.15em; flex-shrink: 0; }
         .sign .col-inner { max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
 
-        .sign .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
-        .sign .confetti i { position: absolute; top: 0; display: block; border-radius: 1px; opacity: 0; will-change: transform, opacity; animation-name: confetti-fall; animation-timing-function: linear; animation-iteration-count: infinite; }
+        .sign .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; perspective: 700px; }
+        .sign .confetti .cf { position: absolute; top: 0; opacity: 0; will-change: transform, opacity; transform-style: preserve-3d; animation-name: confetti-fall; animation-timing-function: linear; animation-iteration-count: infinite; }
+        .sign .confetti i { display: block; border-radius: 1px; will-change: transform; animation-name: confetti-flip; animation-timing-function: linear; animation-iteration-count: infinite; }
         @keyframes confetti-fall {
-          0%   { transform: translate3d(0, -20vh, 0) rotateZ(0deg); opacity: var(--op, 0.8); }
+          0%   { transform: translate3d(0, -20vh, 0); opacity: var(--op, 0.8); }
           90%  { opacity: var(--op, 0.8); }
-          100% { transform: translate3d(var(--sway, 0), 120vh, 0) rotateZ(var(--rot, 180deg)); opacity: 0; }
+          100% { transform: translate3d(var(--sway, 0), 120vh, 0); opacity: 0; }
+        }
+        @keyframes confetti-flip {
+          to { transform: rotateX(var(--rx, 1turn)) rotateY(var(--ry, 1turn)) rotateZ(var(--rz, 0.5turn)); }
         }
         @media (prefers-reduced-motion: reduce) { .sign .confetti { display: none; } }
         @media (max-width: 779px) {
