@@ -182,10 +182,15 @@ export async function GET(request: Request) {
       // Caption only when we know who (no falling back to the bot's own handle
       // for anonymous snaps — that produced a bogus "@ai.day.wall" caption).
       const handle = uid ? await resolveHandle(uid, token) : "";
-      // One image per tagged person: drop any earlier render for this handle so
-      // a re-snap replaces it rather than stacking duplicates on the wall.
+      // One image per tagged person ON THE WALL: hide (don't delete) any earlier
+      // render for this handle so only the latest is active. Prior versions stay
+      // in /wall-admin, grayed out, and can be re-activated by tapping them.
       // (Anonymous snaps have no handle, so they're never deduped against.)
-      if (handle) manifest.images = manifest.images.filter((i) => (i.handle || "") !== handle);
+      if (handle) {
+        for (const i of manifest.images) {
+          if ((i.handle || "") === handle) i.hidden = true;
+        }
+      }
       manifest.images.push({ src: url, handle, ts: m.ts, model: useFlash ? "flash" : "pro" });
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
