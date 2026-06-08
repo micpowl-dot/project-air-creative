@@ -139,7 +139,7 @@ export async function GET(request: Request) {
   let processed = 0;
   let newLastTs = manifest.lastTs;
   const errors: string[] = [];
-  const MAX_ATTEMPTS = 5; // give up on a snap after this many failed tries, then move on
+  const MAX_ATTEMPTS = 3; // give up only on TERMINAL failures (bad image, etc.) after this many
   manifest.attempts = manifest.attempts || {};
 
   for (const m of msgs as { ts: string; user: string; text?: string; files: { name?: string; mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
@@ -177,11 +177,22 @@ export async function GET(request: Request) {
       newLastTs = m.ts;                 // advance only on success
       delete manifest.attempts[m.ts];
     } catch (e) {
+      const msg = String(e);
+      // Transient = Pro overloaded/busy/network. Per the Pro-only choice, keep
+      // the snap queued and retry every run indefinitely until Pro frees up
+      // (don't advance the cursor, don't count toward the give-up cap).
+      const transient = /\b(429|500|503)\b|high demand|overload|unavailable|rate limit|timeout|ETIMEDOUT|ECONN|fetch failed/i.test(msg);
+      if (transient) {
+        errors.push(`${m.ts} (transient, will retry): ${msg.slice(0, 100)}`);
+        break; // leave the cursor so the next run retries this snap (oldest-first)
+      }
+      // Terminal (bad image, malformed response): give up after a few tries so
+      // it can't block the queue.
       const n = (manifest.attempts[m.ts] ?? 0) + 1;
       manifest.attempts[m.ts] = n;
-      errors.push(`${m.ts} (try ${n}): ${String(e).slice(0, 120)}`);
+      errors.push(`${m.ts} (terminal try ${n}): ${msg.slice(0, 120)}`);
       if (n >= MAX_ATTEMPTS) { newLastTs = m.ts; continue; } // give up, move past it
-      break; // transient failure — leave the cursor so the next run retries this snap
+      break;
     }
   }
 
