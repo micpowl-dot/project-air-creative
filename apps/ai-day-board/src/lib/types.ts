@@ -26,7 +26,9 @@ export interface Session {
   instructors: string[];
   rooms: RoomSet;
   isRepeat?: boolean;
-  noTag?: boolean; // suppress the track tag (e.g. Opening/Closing Remarks)
+  noTag?: boolean; // suppress the track tag entirely
+  tagOverride?: string; // show this text in the track-tag slot instead of the track name
+  hideTitle?: boolean; // hide the session-title slot by default (e.g. Opening/Closing Remarks)
 }
 
 /**

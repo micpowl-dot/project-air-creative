@@ -154,7 +154,7 @@ export function sessionToPoster(
     name: session.instructors[0] ?? "",
     names: session.instructors,
     sessionTitle: session.title,
-    tag: session.noTag ? "" : trackTag(session.track),
+    tag: session.tagOverride ?? (session.noTag ? "" : trackTag(session.track)),
     location: siteLabel,
     room: session.rooms[site] ? String(session.rooms[site]) : "TBD",
     time,
@@ -252,13 +252,16 @@ export function posterEntriesFromSchedule(schedule: Schedule): PosterEntry[] {
         out.push({ id: `${slot.time}-${session.track}`, session, time: slot.time });
       }
     } else if (slot.kind === "full" && slot.title && slot.title in REMARKS_TRACK) {
-      // Adapt a full-width remarks slot into a tag-free poster.
+      // Adapt a full-width remarks slot: show the label in the track-tag slot
+      // (same position + treatment) and hide the session-title slot so it isn't
+      // duplicated.
       const session: Session = {
         track: REMARKS_TRACK[slot.title],
         title: slot.title,
         instructors: slot.people ?? [],
         rooms: slot.rooms ?? {},
-        noTag: true,
+        tagOverride: slot.title.toUpperCase(),
+        hideTitle: true,
       };
       out.push({ id: `${slot.time}-${pslug(slot.title)}`, session, time: slot.time });
     }
@@ -404,6 +407,14 @@ export function defaultSessionStyle(track: TrackId): SessionStyle {
     headshotBg: `${TRACK_SCHEME[track]}-accent`, // accent-version bg, matches the name color
     ...FACTORY_DEFAULTS,
   };
+}
+
+/** Default style for a specific session entry, honoring per-session intent
+ *  (e.g. Opening/Closing Remarks hide the session-title slot by default). */
+export function defaultSessionStyleFor(session: Session): SessionStyle {
+  const base = defaultSessionStyle(session.track);
+  if (session.hideTitle) base.slots = { ...base.slots, sessionTitle: false };
+  return base;
 }
 
 // PROFILE FACTORY DEFAULTS — the 1:1's per-element starting positions/sizes.

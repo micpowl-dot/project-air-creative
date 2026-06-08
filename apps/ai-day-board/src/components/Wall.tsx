@@ -7,7 +7,7 @@ import type { Schedule } from "@/lib/types";
 import {
   posterEntriesFromSchedule,
   sessionToPoster,
-  defaultSessionStyle,
+  defaultSessionStyleFor,
   getVariant,
   HEADSHOT_BACKGROUNDS,
 } from "@/lib/poster";
@@ -136,7 +136,7 @@ function PosterCycleView({ schedule }: { schedule: Schedule }) {
 
   if (entries.length === 0) return null;
   const e = entries[i % entries.length];
-  const style = defaultSessionStyle(e.session.track);
+  const style = defaultSessionStyleFor(e.session);
   const variant = getVariant(style.variantId);
   const data = sessionToPoster(e.session, style.site, e.time);
 

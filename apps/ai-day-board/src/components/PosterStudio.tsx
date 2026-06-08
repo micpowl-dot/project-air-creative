@@ -21,7 +21,7 @@ import {
   participantsFromSchedule,
   sessionToPoster,
   profileToPoster,
-  defaultSessionStyle,
+  defaultSessionStyleFor,
   defaultProfileStyle,
   DEFAULT_PROFILE_TAG,
   TRACK_SCHEME,
@@ -106,7 +106,7 @@ export function PosterStudio({
   const selectedSession = isProfile ? null : (selected as import("@/lib/poster").PosterEntry);
   const selectedPerson = isProfile ? (selected as import("@/lib/poster").ParticipantEntry) : null;
   const track = selectedSession ? selectedSession.session.track : "explore";
-  const baseStyle = isProfile ? defaultProfileStyle() : defaultSessionStyle(track);
+  const baseStyle = isProfile ? defaultProfileStyle() : defaultSessionStyleFor(selectedSession!.session);
   const style: SessionStyle = { ...baseStyle, ...overrides[selected.id] };
   const variant = getVariant(style.variantId);
   const tagText = (style.tagText ?? DEFAULT_PROFILE_TAG).trim() || DEFAULT_PROFILE_TAG;

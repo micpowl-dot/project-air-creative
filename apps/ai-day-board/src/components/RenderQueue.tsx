@@ -10,7 +10,7 @@ import {
   participantsFromSchedule,
   sessionToPoster,
   profileToPoster,
-  defaultSessionStyle,
+  defaultSessionStyleFor,
   defaultProfileStyle,
   DEFAULT_PROFILE_TAG,
   POSTER_DIMS,
@@ -174,7 +174,7 @@ export function RenderQueue({
       });
     }
     return posterEntriesFromSchedule(schedule).map((e) => {
-      const style: SessionStyle = { ...defaultSessionStyle(e.session.track), ...overrides[e.id] };
+      const style: SessionStyle = { ...defaultSessionStyleFor(e.session), ...overrides[e.id] };
       const data = sessionToPoster(e.session, style.site, e.time);
       return {
         id: e.id,
