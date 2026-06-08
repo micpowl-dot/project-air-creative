@@ -39,12 +39,57 @@ type View = (typeof VIEW_ORDER)[number];
 // "How to join" steps, mirrored from the /snap/instructions phone page but laid
 // out for a 16:9 screen. Kept in sync by hand — it's a tiny list.
 const STEPS = [
-  { n: "1", icon: "📱", title: "Scan the QR code", body: "Point your phone camera at the code. It opens instantly, no app to download." },
-  { n: "2", icon: "📸", title: "Take a selfie", body: "Tap for a live selfie, or upload a photo from your library." },
-  { n: "3", icon: "✍️", title: "Add your @handle", body: "Type your Slack handle so everyone knows it's you. Optional." },
-  { n: "4", icon: "✨", title: "Hit “AI Day Me”", body: "Your photo gets illustrated in the AI Day style and lands on this wall." },
-];
+  { n: "1", icon: "scan", title: "Scan the QR code", body: "Point your phone camera at the code. It opens instantly, no app to download." },
+  { n: "2", icon: "camera", title: "Take a selfie", body: "Tap for a live selfie, or upload a photo from your library." },
+  { n: "3", icon: "at", title: "Add your @handle", body: "Type your Slack handle so everyone knows it's you. Optional." },
+  { n: "4", icon: "sparkle", title: "Hit “AI Day Me”", body: "Your photo gets illustrated in the AI Day style and lands on this wall." },
+] as const;
 const SNAP_URL = "ai-day-board.vercel.weather.com/snap";
+
+// Inline line-icons (stroke = currentColor) so the slide carries no emoji,
+// which render inconsistently on smart-TV browsers.
+type IconName = "scan" | "camera" | "at" | "sparkle";
+function Icon({ name, style }: { name: IconName; style?: React.CSSProperties }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    style,
+    "aria-hidden": true,
+  };
+  switch (name) {
+    case "scan":
+      return (
+        <svg {...common}>
+          <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18" />
+        </svg>
+      );
+    case "camera":
+      return (
+        <svg {...common}>
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+          <circle cx="12" cy="13" r="3.2" />
+        </svg>
+      );
+    case "at":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="4" />
+          <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
+        </svg>
+      );
+    case "sparkle":
+      return (
+        <svg {...common}>
+          <path d="M12 2.5l2.2 6.8L21 11.5l-6.8 2.2L12 20.5l-2.2-6.8L3 11.5l6.8-2.2z" />
+          <path d="M19 3.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" />
+        </svg>
+      );
+  }
+}
 
 // Deterministic random palette backdrop per tile (stable across re-renders and
 // the duplicated loop copy). Shows through transparent cutouts; real photos
@@ -187,17 +232,19 @@ function PosterCycleView({ schedule }: { schedule: Schedule }) {
   );
 }
 
-/** Full-screen 16:9 "how to get on the wall" slide. */
+/** Full-screen 16:9 "how to get on the wall" slide. Uses the violet scheme. */
 function InstructionsView() {
+  const v = getVariant("violet");
   const qr = `https://api.qrserver.com/v1/create-qr-code/?size=480x480&data=https://${SNAP_URL}&color=0D142A`;
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden" style={{ background: BG }}>
+    <div className="relative flex h-full w-full flex-col overflow-hidden" style={{ background: v.bg }}>
       {/* header */}
       <div className="flex items-center gap-[1.6vw] px-[4vw] pt-[5vh]">
-        <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "13vw" }} />
+        <AiDayLogo accent={v.accent} ink={INK} light="#fff" style={{ width: "13vw" }} />
         <div>
-          <div className="font-display font-bold text-white" style={{ fontSize: "3vw", lineHeight: 1.05 }}>
-            Get your AI portrait on the wall <span style={{ color: ACCENT }}>🎨</span>
+          <div className="flex items-center gap-[1vw] font-display font-bold text-white" style={{ fontSize: "3vw", lineHeight: 1.05 }}>
+            Get your AI portrait on the wall
+            <Icon name="sparkle" style={{ width: "2.6vw", height: "2.6vw", color: v.accent, flex: "none" }} />
           </div>
           <div className="text-white/85" style={{ fontSize: "1.25vw", marginTop: "1.2vh" }}>
             Snap a selfie and watch yourself appear as an illustrated AI Day portrait.
@@ -205,47 +252,49 @@ function InstructionsView() {
         </div>
       </div>
 
-      {/* body: steps on the left, QR on the right */}
+      {/* body: QR on the left, steps on the right */}
       <div className="flex flex-1 items-center gap-[3.5vw] px-[4vw] py-[4vh]">
-        <div className="grid flex-1 grid-cols-2 gap-[1.8vw]">
-          {STEPS.map((s) => (
-            <div
-              key={s.n}
-              className="flex items-start gap-[1.2vw] rounded-[0.8vw]"
-              style={{ background: "rgba(13,20,42,0.55)", padding: "1.8vh 1.6vw" }}
-            >
-              <div
-                className="flex items-center justify-center rounded-full font-display font-bold"
-                style={{ width: "3.2vw", height: "3.2vw", minWidth: "3.2vw", background: ACCENT, color: INK, fontSize: "1.5vw" }}
-              >
-                {s.n}
-              </div>
-              <div>
-                <div className="font-display font-bold text-white" style={{ fontSize: "1.5vw", marginBottom: "0.5vh" }}>
-                  {s.icon} {s.title}
-                </div>
-                <div className="text-white/75" style={{ fontSize: "1.05vw", lineHeight: 1.4 }}>{s.body}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* QR card */}
         <div
           className="flex flex-col items-center text-center rounded-[1vw]"
           style={{ background: "rgba(13,20,42,0.55)", padding: "3.5vh 2.5vw" }}
         >
-          <div className="font-display font-bold text-white" style={{ fontSize: "1.7vw", marginBottom: "2vh" }}>
-            📱 Scan to get started
+          <div className="flex items-center justify-center gap-[0.7vw] font-display font-bold text-white" style={{ fontSize: "1.7vw", marginBottom: "2vh" }}>
+            <Icon name="scan" style={{ width: "1.7vw", height: "1.7vw", color: v.accent, flex: "none" }} />
+            Scan to get started
           </div>
           <div className="rounded-[0.8vw] bg-white" style={{ padding: "1.4vw" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qr} alt="QR code to the photo station" style={{ width: "16vw", height: "16vw", imageRendering: "pixelated" }} />
           </div>
-          <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "1.1vw", marginTop: "2vh" }}>{SNAP_URL}</div>
+          <div className="font-display font-bold" style={{ color: v.accent, fontSize: "1.1vw", marginTop: "2vh" }}>{SNAP_URL}</div>
           <div className="text-white/70" style={{ fontSize: "0.95vw", marginTop: "1vh", maxWidth: "22vw" }}>
             Works on any phone. Takes about 30 seconds.
           </div>
+        </div>
+
+        <div className="flex flex-1 flex-col justify-center gap-[1.6vh]">
+          {STEPS.map((s) => (
+            <div
+              key={s.n}
+              className="flex items-center gap-[1.2vw] rounded-[0.8vw]"
+              style={{ background: "rgba(13,20,42,0.55)", padding: "1.6vh 1.6vw" }}
+            >
+              <div
+                className="flex items-center justify-center rounded-full font-display font-bold"
+                style={{ width: "3.2vw", height: "3.2vw", minWidth: "3.2vw", background: v.accent, color: INK, fontSize: "1.5vw" }}
+              >
+                {s.n}
+              </div>
+              <div>
+                <div className="flex items-center gap-[0.6vw] font-display font-bold text-white" style={{ fontSize: "1.5vw", marginBottom: "0.5vh" }}>
+                  <Icon name={s.icon} style={{ width: "1.5vw", height: "1.5vw", color: v.accent, flex: "none" }} />
+                  {s.title}
+                </div>
+                <div className="text-white/75" style={{ fontSize: "1.05vw", lineHeight: 1.4 }}>{s.body}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
