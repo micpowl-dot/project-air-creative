@@ -66,6 +66,7 @@ export function Snap() {
   }, []);
 
   function capture() {
+    if (!picked) return; // name required first
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
@@ -91,6 +92,7 @@ export function Snap() {
   }
 
   function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    if (!picked) return; // name required first
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
@@ -104,13 +106,13 @@ export function Snap() {
   }
 
   async function submit() {
-    if (!snapshot) return;
+    if (!snapshot || !picked) return; // name required first
     setStep("submitting");
     try {
       const res = await fetch("/api/snap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: snapshot, userId: picked?.id || "", name: picked?.name || query.trim() }),
+        body: JSON.stringify({ image: snapshot, userId: picked.id, name: picked.name }),
       });
       if (!res.ok) throw new Error((await res.json()).error || "Unknown error");
       setStep("done");
@@ -256,7 +258,7 @@ export function Snap() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Find your name (optional)"
+              placeholder="Find your name to start"
               className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-base font-semibold text-white placeholder:font-normal placeholder:text-white/40 focus:border-white/60 focus:outline-none"
               style={{ caretColor: palette.accent }}
             />
@@ -275,23 +277,28 @@ export function Snap() {
               ))}
             </div>
           )}
-          <p className="mt-1 text-xs text-white/45">Pick yourself to get tagged on the wall.</p>
+          <p className="mt-1 text-xs text-white/45">Pick your name first to continue.</p>
         </div>
 
         {/* Actions */}
         <div className="mt-5 flex flex-col gap-3">
           {step === "camera" && (
             <>
+              {!picked && (
+                <p className="text-center text-sm font-semibold text-white/70">👆 Pick your name above to start</p>
+              )}
               <button
                 onClick={capture}
-                className="rounded-xl py-4 text-lg font-bold shadow-lg"
+                disabled={!picked}
+                className="rounded-xl py-4 text-lg font-bold shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
                 style={{ background: palette.accent, color: palette.ink }}
               >
                 📸 Take selfie
               </button>
               <button
                 onClick={() => uploadRef.current?.click()}
-                className="rounded-xl border border-white/30 py-3 text-base font-semibold text-white hover:bg-white/10"
+                disabled={!picked}
+                className="rounded-xl border border-white/30 py-3 text-base font-semibold text-white hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
               >
                 📁 Upload a photo instead
               </button>
@@ -308,7 +315,8 @@ export function Snap() {
             <>
               <button
                 onClick={submit}
-                className="rounded-xl py-4 text-lg font-bold shadow-lg"
+                disabled={!picked}
+                className="rounded-xl py-4 text-lg font-bold shadow-lg disabled:cursor-not-allowed disabled:opacity-40"
                 style={{ background: palette.accent, color: palette.ink }}
               >
                 ✨ AI Day Me
