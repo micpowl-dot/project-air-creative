@@ -42,7 +42,8 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938639846339.png",
       "handle": "@denise.denson",
       "ts": "1780938639.846339",
-      "model": "pro"
+      "model": "pro",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938653843569.png",
