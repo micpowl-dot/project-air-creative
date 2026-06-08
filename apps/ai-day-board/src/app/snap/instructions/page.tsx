@@ -77,7 +77,7 @@ export default function InstructionsPage() {
         .sign .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
         .sign .col-sub { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin: 0.35rem 0 1.25rem; }
 
-        .sign .steps { display: flex; flex-direction: column; gap: 0.9rem; }
+        .sign .steps { display: flex; flex-direction: column; gap: 0.9rem; margin: 0 -20px; }
         .sign .step { background: var(--card); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.1rem 1.25rem; display: flex; gap: 0.9rem; align-items: flex-start; }
         .sign .step-num { display: flex; align-items: center; justify-content: center; width: 2.1rem; height: 2.1rem; min-width: 2.1rem; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; }
         .sign .step-body h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.45rem; }
