@@ -27,14 +27,15 @@ export async function POST(request: Request) {
   const mimeType = mimeMatch?.[1] || "image/jpeg";
   const ext = mimeType.split("/")[1]?.replace("jpeg", "jpg") || "jpg";
   const buf = Buffer.from(b64, "base64");
-  const filename = `snap-${Date.now()}.${ext}`;
+  // Carry the user id in the FILENAME (machine-readable, the cron parses it)
+  // rather than the visible message, so humans never see a raw "ref:Uxxxx".
+  const filename = `snap-${Date.now()}${userId ? `-${userId}` : ""}.${ext}`;
 
-  // Post the raw selfie QUIETLY — no @mention here, so the person isn't pinged
-  // about their unprocessed upload. We embed a plain-text `ref:<id>` token (not
-  // a real mention, so it doesn't notify) that the cron reads to know who this
-  // is. The cron posts the *finished* portrait back with the real @mention.
-  const ref = userId ? ` (ref:${userId})` : name && name.trim() ? ` — ${name.trim()}` : "";
-  const comment = `New AI Day selfie at the photo station 📸${ref}`;
+  // Post the raw selfie QUIETLY — show the person's name (no @mention, so no
+  // ping about the unprocessed upload). The cron posts the *finished* portrait
+  // back with the real @mention.
+  const who = name && name.trim() ? name.trim() : "Someone";
+  const comment = `📸 ${who} at the AI Day photo station`;
 
   try {
     // Slack's new 3-step upload flow (files.upload was deprecated).
@@ -56,7 +57,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        files: [{ id: up.file_id, title: filename }],
+        files: [{ id: up.file_id, title: "AI Day selfie" }],
         channel_id: channel,
         initial_comment: comment,
       }),

@@ -142,7 +142,7 @@ export async function GET(request: Request) {
   const MAX_ATTEMPTS = 5; // give up on a snap after this many failed tries, then move on
   manifest.attempts = manifest.attempts || {};
 
-  for (const m of msgs as { ts: string; user: string; text?: string; files: { mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
+  for (const m of msgs as { ts: string; user: string; text?: string; files: { name?: string; mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
     if (processed >= MAX_PER_RUN) break;
     const file = m.files.find((f) => String(f.mimetype || "").startsWith("image/"));
     if (!file) { newLastTs = m.ts; continue; } // non-image: skip past permanently
@@ -158,9 +158,13 @@ export async function GET(request: Request) {
         background: { mimeType: "image/png", data: bgData },
       });
       const url = await putImage(m.ts.replace(".", ""), Buffer.from(out, "base64"));
-      // /api/snap embeds a plain-text `ref:<id>` token (older messages used a
-      // real <@mention>). Resolve whichever is present to the person's handle.
-      const uid = (m.text || "").match(/ref:(U[A-Z0-9]+)/)?.[1] || (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
+      // Resolve who snapped. Current /api/snap encodes the user id in the
+      // filename (snap-<ts>-<U…>.ext); older messages used a `ref:<id>` token
+      // or a real <@mention> in the text. Try each in order.
+      const uid =
+        (file.name || "").match(/-(U[A-Z0-9]+)\.[a-z0-9]+$/i)?.[1] ||
+        (m.text || "").match(/ref:(U[A-Z0-9]+)/)?.[1] ||
+        (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
       const handle = await resolveHandle(uid || m.user, token);
       manifest.images.push({ src: url, handle, ts: m.ts });
       if (uid) {
