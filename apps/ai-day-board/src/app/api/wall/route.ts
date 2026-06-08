@@ -90,7 +90,11 @@ async function storiesFromSlack(): Promise<Story[] | null> {
     const cand: { user: string; text: string }[] = [];
     for (const m of body.messages) {
       if (m.subtype || m.bot_id || !m.text) continue; // skip joins/bots/system
-      const text = String(m.text).replace(/<[^>]+>/g, "").trim(); // strip mentions/links markup
+      const text = String(m.text)
+        .replace(/<[^>]+>/g, "")   // strip mentions/links markup
+        .replace(/\[[^\]]*\]/g, "") // strip [bracketed notes] meant for chat readers, not the wall
+        .replace(/\s{2,}/g, " ")
+        .trim();
       if (text.length < 8 || text.length > 240) continue;
       cand.push({ user: m.user, text });
     }
