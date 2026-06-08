@@ -46,9 +46,10 @@ function Icon({ name, className }: { name: string; className?: string }) {
 
 // Falling ticker-tape confetti. Values are derived deterministically from the
 // index (no Math.random) so server and client markup match — no hydration
-// mismatch. Sits behind the cards, above the flat panel color.
+// mismatch. One page-wide layer; pieces start above the viewport (clipped) so
+// they enter from the top, out of frame, and fall the full height.
 const CONFETTI_COLORS = ["#FFE500", "#67FAE0", "#ffffff", "#0D142A"];
-const CONFETTI = Array.from({ length: 24 }, (_, i) => ({
+const CONFETTI = Array.from({ length: 30 }, (_, i) => ({
   left: (i * 4.7 + (i % 5) * 3.1) % 100,        // % across the panel
   delay: ((i * 29) % 120) / 10,                  // 0–12s stagger
   dur: 8 + ((i * 17) % 60) / 10,                 // 8–14s fall
@@ -96,33 +97,39 @@ export default function InstructionsPage() {
           --blue: #0062FF; --blue-accent: #67FAE0;
           --ink: #0D142A; --light: #fff;
           --card: rgba(13,20,42,0.5);
-          font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--ink); color: var(--light); min-height: 100vh;
-          display: flex; flex-direction: column;
+          font-family: 'IBM Plex Sans', system-ui, sans-serif; color: var(--light); min-height: 100vh;
+          background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%);
+          display: flex; flex-direction: column; position: relative;
         }
 
-        .sign .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
+        .sign .masthead { background: transparent; position: relative; z-index: 2; padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
         .sign .masthead svg { width: clamp(150px, 24vw, 230px); filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35)); }
         .sign .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
         .sign .sub { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.9); max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 
-        .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; flex: 1 0 auto; }
+        .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; flex: 1 0 auto; position: relative; z-index: 2; }
         @media (min-width: 780px) { .sign .split { grid-template-columns: 1fr 1fr; } }
 
         .sign .col { padding: calc(2.25rem - 35px) 1.5rem 3rem; position: relative; overflow: hidden; }
         .sign .ico { width: 1.15em; height: 1.15em; flex-shrink: 0; }
         .sign .col-inner { max-width: 540px; margin: 0 auto; position: relative; z-index: 1; }
 
-        .sign .confetti { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .sign .confetti { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
         .sign .confetti i { position: absolute; top: 0; display: block; border-radius: 1px; opacity: 0; will-change: transform, opacity; animation-name: confetti-fall; animation-timing-function: linear; animation-iteration-count: infinite; }
         @keyframes confetti-fall {
-          0%   { transform: translate3d(0, -15vh, 0) rotateZ(0deg); opacity: 0; }
-          10%  { opacity: var(--op, 0.8); }
+          0%   { transform: translate3d(0, -20vh, 0) rotateZ(0deg); opacity: var(--op, 0.8); }
           90%  { opacity: var(--op, 0.8); }
-          100% { transform: translate3d(var(--sway, 0), 115vh, 0) rotateZ(var(--rot, 180deg)); opacity: 0; }
+          100% { transform: translate3d(var(--sway, 0), 120vh, 0) rotateZ(var(--rot, 180deg)); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) { .sign .confetti { display: none; } }
-        .sign .col-snap  { background: var(--magenta); --accent: var(--magenta-accent); }
-        .sign .col-quote { background: var(--blue);    --accent: var(--blue-accent); }
+        @media (max-width: 779px) {
+          .sign { background: var(--ink); }
+          .sign .masthead, .sign .footer { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); }
+          .sign .col-snap  { background: var(--magenta); }
+          .sign .col-quote { background: var(--blue); }
+        }
+        .sign .col-snap  { background: transparent; --accent: var(--magenta-accent); }
+        .sign .col-quote { background: transparent; --accent: var(--blue-accent); }
 
         .sign .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
         .sign .col-sub { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin: 0.35rem 0 1.25rem; }
@@ -145,7 +152,7 @@ export default function InstructionsPage() {
         .sign .examples .accent { color: var(--accent); font-style: normal; font-weight: 700; }
         .sign .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
 
-        .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.85); padding: 1.25rem; background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.85); padding: 1.25rem; background: transparent; position: relative; z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
 
         @media print {
           .sign { background: #fff; color: #111; }
@@ -181,7 +188,6 @@ export default function InstructionsPage() {
         <div className="split">
           {/* LEFT — magenta — Snap a portrait */}
           <div className="col col-snap">
-            <Confetti />
             <div className="col-inner">
               <div className="col-title"><Icon name="camera" className="ico" /> Get your portrait up</div>
               <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
@@ -215,7 +221,6 @@ export default function InstructionsPage() {
 
           {/* RIGHT — blue — Share a quote */}
           <div className="col col-quote">
-            <Confetti />
             <div className="col-inner">
               <div className="col-title"><Icon name="message" className="ico" /> Get your words up</div>
               <div className="col-sub">Tell us what AI helped you do. Your quote runs on the wall right alongside the portraits.</div>
@@ -243,6 +248,7 @@ export default function InstructionsPage() {
         </div>
 
         <div className="footer">AI Day · June 9, 2026 · The Weather Company</div>
+        <Confetti />
       </div>
     </>
   );
