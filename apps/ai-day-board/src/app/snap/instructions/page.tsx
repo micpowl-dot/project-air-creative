@@ -1,4 +1,5 @@
 export const metadata = { title: "Photo Station · AI Day" };
+export const viewport = { width: "device-width", initialScale: 1 };
 
 const SNAP_STEPS = [
   { n: "1", icon: "📱", title: "Scan the QR code", body: "Point your phone camera at the code below. It opens instantly, no app download needed." },
@@ -16,72 +17,67 @@ export default function InstructionsPage() {
   const url = "ai-day-board.vercel.weather.com/snap";
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&display=swap');
-          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-          :root {
-            --magenta: #FB00FF; --magenta-accent: #FFE500;
-            --blue: #0062FF; --blue-accent: #67FAE0;
-            --ink: #0D142A; --light: #fff;
-            --card: rgba(13,20,42,0.5);
-          }
-          body { font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--ink); color: var(--light); min-height: 100vh; }
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&display=swap');
+        .sign, .sign *, .sign *::before, .sign *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        .sign {
+          --magenta: #FB00FF; --magenta-accent: #FFE500;
+          --blue: #0062FF; --blue-accent: #67FAE0;
+          --ink: #0D142A; --light: #fff;
+          --card: rgba(13,20,42,0.5);
+          font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--ink); color: var(--light); min-height: 100vh;
+        }
 
-          /* masthead spans both halves with the same magenta|blue split */
-          .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
-          .masthead svg { width: clamp(150px, 24vw, 230px); filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35)); }
-          .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
-          .sub { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.9); max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+        .sign .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
+        .sign .masthead svg { width: clamp(150px, 24vw, 230px); filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35)); }
+        .sign .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+        .sign .sub { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.9); max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
 
-          /* two colored halves */
-          .split { display: grid; grid-template-columns: 1fr; align-items: stretch; }
-          @media (min-width: 780px) { .split { grid-template-columns: 1fr 1fr; } }
+        .sign .split { display: grid; grid-template-columns: 1fr; align-items: stretch; }
+        @media (min-width: 780px) { .sign .split { grid-template-columns: 1fr 1fr; } }
 
-          .col { padding: 2.25rem 1.5rem 3rem; }
-          .col-inner { max-width: 540px; margin: 0 auto; }
-          .col-snap  { background: var(--magenta); --accent: var(--magenta-accent); }
-          .col-quote { background: var(--blue);    --accent: var(--blue-accent); }
+        .sign .col { padding: 2.25rem 1.5rem 3rem; }
+        .sign .col-inner { max-width: 540px; margin: 0 auto; }
+        .sign .col-snap  { background: var(--magenta); --accent: var(--magenta-accent); }
+        .sign .col-quote { background: var(--blue);    --accent: var(--blue-accent); }
 
-          .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
-          .col-sub { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin: 0.35rem 0 1.25rem; }
+        .sign .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
+        .sign .col-sub { font-size: 0.9rem; color: rgba(255,255,255,0.82); margin: 0.35rem 0 1.25rem; }
 
-          .steps { display: flex; flex-direction: column; gap: 0.9rem; }
-          .step { background: var(--card); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.1rem 1.25rem; display: flex; gap: 0.9rem; align-items: flex-start; }
-          .step-num { display: flex; align-items: center; justify-content: center; width: 2.1rem; height: 2.1rem; min-width: 2.1rem; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; }
-          .step-body h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; }
-          .step-body p  { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.45; }
+        .sign .steps { display: flex; flex-direction: column; gap: 0.9rem; }
+        .sign .step { background: var(--card); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.1rem 1.25rem; display: flex; gap: 0.9rem; align-items: flex-start; }
+        .sign .step-num { display: flex; align-items: center; justify-content: center; width: 2.1rem; height: 2.1rem; min-width: 2.1rem; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; }
+        .sign .step-body h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; }
+        .sign .step-body p  { font-size: 0.85rem; color: rgba(255,255,255,0.8); line-height: 1.45; }
 
-          .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.5rem 1.25rem; text-align: center; }
-          .qr-box  { background: #fff; border-radius: 0.7rem; padding: 0.9rem; display: inline-flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-          .qr-img  { width: clamp(130px, 26vw, 180px); height: clamp(130px, 26vw, 180px); image-rendering: pixelated; }
-          .qr-url  { font-size: 0.75rem; color: var(--ink); font-weight: 700; word-break: break-all; }
-          .qr-label { font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 700; }
+        .sign .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.5rem 1.25rem; text-align: center; }
+        .sign .qr-box  { background: #fff; border-radius: 0.7rem; padding: 0.9rem; display: inline-flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+        .sign .qr-img  { width: clamp(130px, 26vw, 180px); height: clamp(130px, 26vw, 180px); image-rendering: pixelated; }
+        .sign .qr-url  { font-size: 0.75rem; color: var(--ink); font-weight: 700; word-break: break-all; }
+        .sign .qr-label { font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 700; }
 
-          .examples { margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.25rem 1.4rem; }
-          .examples .lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); margin-bottom: 0.6rem; }
-          .examples p { font-size: 0.9rem; line-height: 1.4; font-style: italic; margin-bottom: 0.55rem; }
-          .examples .accent { color: var(--accent); font-style: normal; font-weight: 700; }
-          .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
+        .sign .examples { margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.25rem 1.4rem; }
+        .sign .examples .lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.55); margin-bottom: 0.6rem; }
+        .sign .examples p { font-size: 0.9rem; line-height: 1.4; font-style: italic; margin-bottom: 0.55rem; }
+        .sign .examples .accent { color: var(--accent); font-style: normal; font-weight: 700; }
+        .sign .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
 
-          .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.55); padding: 1.25rem; background: var(--ink); }
+        .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.55); padding: 1.25rem; background: var(--ink); }
 
-          @media print {
-            body { background: #fff; color: #111; }
-            .masthead { background: #fff; }
-            .tagline, .sub { color: #111; text-shadow: none; }
-            .col-snap  { background: #fff; --accent: #FB00FF; }
-            .col-quote { background: #fff; --accent: #0062FF; }
-            .col-sub, .step-body p, .examples p { color: #333; }
-            .step, .examples, .qr-wrap { border: 1px solid rgba(0,0,0,0.12); --card: rgba(0,0,0,0.04); }
-            .footer { background: #fff; color: #555; }
-          }
-        `}</style>
-      </head>
-      <body>
+        @media print {
+          .sign { background: #fff; color: #111; }
+          .sign .masthead { background: #fff; }
+          .sign .tagline, .sign .sub { color: #111; text-shadow: none; }
+          .sign .col-snap  { background: #fff; --accent: #FB00FF; }
+          .sign .col-quote { background: #fff; --accent: #0062FF; }
+          .sign .col-sub, .sign .step-body p, .sign .examples p { color: #333; }
+          .sign .step, .sign .examples, .sign .qr-wrap { border: 1px solid rgba(0,0,0,0.12); --card: rgba(0,0,0,0.04); }
+          .sign .footer { background: #fff; color: #555; }
+        }
+      `}</style>
+
+      <div className="sign">
         <div className="masthead">
           <svg viewBox="0 0 798 331" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AI DAY">
             <path d="M553.492 2.72792H521.41V111.256L547.579 198.255H521.41V263.444H567.112L586.671 328.606H651.892L553.492 2.72792Z" fill="#FFE500" />
@@ -161,7 +157,7 @@ export default function InstructionsPage() {
         </div>
 
         <div className="footer">AI Day · June 9, 2026 · The Weather Company</div>
-      </body>
-    </html>
+      </div>
+    </>
   );
 }
