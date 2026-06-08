@@ -1,32 +1,15 @@
-import { AiDayLogo } from "@/components/AiDayLogo";
-
 export const metadata = { title: "Photo Station · AI Day" };
 
-const STEPS = [
-  {
-    n: "1",
-    icon: "📱",
-    title: "Scan the QR code",
-    body: "Point your phone camera at the QR code below. It opens instantly — no app download needed.",
-  },
-  {
-    n: "2",
-    icon: "📸",
-    title: "Take a selfie (or upload)",
-    body: "Tap the camera button for a live selfie, or choose a photo from your library if you prefer.",
-  },
-  {
-    n: "3",
-    icon: "✍️",
-    title: "Add your @handle",
-    body: "Type your Slack handle so everyone knows it's you on the wall. Totally optional.",
-  },
-  {
-    n: "4",
-    icon: "✨",
-    title: "Hit \"AI Day Me\"",
-    body: "Your photo gets illustrated in the AI Day art style and appears on the screens. Watch for yourself!",
-  },
+const SNAP_STEPS = [
+  { n: "1", icon: "📱", title: "Scan the QR code", body: "Point your phone camera at the code below. It opens instantly, no app download needed." },
+  { n: "2", icon: "📸", title: "Pick your name, then snap", body: "Choose your name, then take a live selfie or upload a photo from your library." },
+  { n: "3", icon: "✨", title: "Hit \"AI Day Me\"", body: "Your photo gets illustrated in the AI Day art style and appears on the screens. Watch for yourself!" },
+];
+
+const QUOTE_STEPS = [
+  { n: "1", icon: "💬", title: "Open #twco_ai_practice", body: "Find the channel in Slack. It's where everyone's sharing AI wins today." },
+  { n: "2", icon: "⌨️", title: "Start with \"AI helped me…\"", body: "Finish the thought in one sentence. Keep it under 240 characters." },
+  { n: "3", icon: "📺", title: "Watch the wall", body: "Your words appear on the screens within about a minute, with your name." },
 ];
 
 export default function InstructionsPage() {
@@ -38,7 +21,7 @@ export default function InstructionsPage() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&display=swap');
           *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
           :root {
             --bg: #FB00FF; --accent: #FFE500; --ink: #0D142A; --light: #fff;
@@ -46,48 +29,58 @@ export default function InstructionsPage() {
           }
           body { font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--bg); color: var(--light); min-height: 100vh; }
 
-          .page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+          .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
 
           /* header */
-          .header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; margin-bottom: 2.5rem; }
-          .header svg { width: clamp(160px, 30vw, 260px); }
-          .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 700; color: var(--light); }
-          .sub    { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.75); max-width: 520px; }
+          .header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.6rem; margin-bottom: 2.25rem; }
+          .header svg { width: clamp(150px, 26vw, 240px); }
+          .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; }
+          .sub    { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.78); max-width: 560px; }
 
-          /* steps grid */
-          .steps { display: grid; gap: 1rem; grid-template-columns: 1fr; }
-          @media (min-width: 560px) { .steps { grid-template-columns: 1fr 1fr; } }
+          /* two-column split: Snap | Quote */
+          .split { display: grid; gap: 1.75rem; grid-template-columns: 1fr; align-items: start; }
+          @media (min-width: 780px) {
+            .split { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+            .split .col + .col { border-left: 2px solid rgba(255,255,255,0.16); padding-left: 2.5rem; }
+          }
 
-          .step { background: var(--card); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
-          .step-num { display: flex; align-items: center; justify-content: center; width: 2.2rem; height: 2.2rem; min-width: 2.2rem; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; font-size: 1rem; }
-          .step-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
-          .step-body p  { font-size: 0.875rem; color: rgba(255,255,255,0.75); line-height: 1.45; }
+          .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
+          .col-sub { font-size: 0.9rem; color: rgba(255,255,255,0.72); margin: 0.35rem 0 1.25rem; }
 
-          /* QR block */
-          .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; margin-top: 2.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.25rem; padding: 2rem 1.5rem; text-align: center; }
-          .qr-box  { background: #fff; border-radius: 0.75rem; padding: 1rem; display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-          .qr-img  { width: clamp(140px, 30vw, 200px); height: clamp(140px, 30vw, 200px); image-rendering: pixelated; }
-          .qr-url  { font-size: 0.8rem; color: var(--ink); font-weight: 700; word-break: break-all; }
-          .qr-label { font-size: clamp(1rem, 2.5vw, 1.25rem); font-weight: 700; }
-          .qr-sub   { font-size: 0.875rem; color: rgba(255,255,255,0.7); max-width: 380px; }
+          /* step list (single column within each half) */
+          .steps { display: flex; flex-direction: column; gap: 0.9rem; }
+          .step { background: var(--card); backdrop-filter: blur(8px); border-radius: 1rem; padding: 1.1rem 1.25rem; display: flex; gap: 0.9rem; align-items: flex-start; }
+          .step-num { display: flex; align-items: center; justify-content: center; width: 2.1rem; height: 2.1rem; min-width: 2.1rem; border-radius: 50%; background: var(--accent); color: var(--ink); font-weight: 800; }
+          .step-body h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.2rem; }
+          .step-body p  { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.45; }
 
-          /* accent bar */
-          .accent-bar { height: 4px; border-radius: 2px; background: var(--accent); margin: 2rem 0; }
+          /* QR block (snap side) */
+          .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.5rem 1.25rem; text-align: center; }
+          .qr-box  { background: #fff; border-radius: 0.7rem; padding: 0.9rem; display: inline-flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+          .qr-img  { width: clamp(130px, 26vw, 180px); height: clamp(130px, 26vw, 180px); image-rendering: pixelated; }
+          .qr-url  { font-size: 0.75rem; color: var(--ink); font-weight: 700; word-break: break-all; }
+          .qr-label { font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 700; }
 
-          /* footer */
-          .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2rem; }
+          /* examples (quote side) */
+          .examples { margin-top: 1.5rem; background: var(--card); backdrop-filter: blur(8px); border-radius: 1.1rem; padding: 1.25rem 1.4rem; }
+          .examples .lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; }
+          .examples p { font-size: 0.9rem; line-height: 1.4; font-style: italic; margin-bottom: 0.55rem; }
+          .examples .accent { color: var(--accent); font-style: normal; font-weight: 700; }
+          .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
+
+          .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2.25rem; }
 
           @media print {
             body { background: #fff; color: #111; --bg:#fff; --accent:#FB00FF; --ink:#111; --light:#111; --card:rgba(0,0,0,0.06); }
             .page { padding: 1rem; }
-            .step { border: 1px solid rgba(0,0,0,0.1); }
+            .step, .examples { border: 1px solid rgba(0,0,0,0.1); }
+            .split .col + .col { border-left-color: rgba(0,0,0,0.15); }
           }
         `}</style>
       </head>
       <body>
         <div className="page">
           <div className="header">
-            {/* Inline AI DAY logo SVG for server render */}
             <svg viewBox="0 0 798 331" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AI DAY">
               <path d="M553.492 2.72792H521.41V111.256L547.579 198.255H521.41V263.444H567.112L586.671 328.606H651.892L553.492 2.72792Z" fill="#FFE500" />
               <path d="M475.735 263.444H521.423V328.619H456.176L475.735 263.444ZM495.268 198.255H521.41V111.256L495.268 198.255Z" fill="#0D142A" />
@@ -99,41 +92,66 @@ export default function InstructionsPage() {
               <path d="M730.103 2.78143H795.324L730.103 198.255V328.606H664.896V198.255L730.103 2.78143Z" fill="#FFE500" />
               <path d="M664.896 198.255V2.78128H599.648L664.896 198.255Z" fill="#0D142A" />
             </svg>
-            <div className="tagline">Get your AI portrait on the wall 🎨</div>
-            <div className="sub">Snap a selfie and watch yourself appear as an illustrated AI Day portrait on the screens throughout the office.</div>
+            <div className="tagline">Two ways to land on the AI Day wall 🎉</div>
+            <div className="sub">Snap a portrait, share a win, or do both. Everything shows up on the screens around the office.</div>
           </div>
 
-          <div className="steps">
-            {STEPS.map((s) => (
-              <div key={s.n} className="step">
-                <div className="step-num">{s.n}</div>
-                <div className="step-body">
-                  <h3>{s.icon} {s.title}</h3>
-                  <p>{s.body}</p>
+          <div className="split">
+            {/* LEFT — Snap a portrait */}
+            <div className="col">
+              <div className="col-title">📸 Get your portrait up</div>
+              <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
+              <div className="steps">
+                {SNAP_STEPS.map((s) => (
+                  <div key={s.n} className="step">
+                    <div className="step-num">{s.n}</div>
+                    <div className="step-body">
+                      <h3>{s.icon} {s.title}</h3>
+                      <p>{s.body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="qr-wrap">
+                <div className="qr-label">📱 Scan to start</div>
+                <div className="qr-box">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://${url}&color=0D142A`}
+                    alt="QR code to the photo booth"
+                    className="qr-img"
+                    width={200}
+                    height={200}
+                  />
+                  <div className="qr-url">{url}</div>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className="accent-bar" />
-
-          <div className="qr-wrap">
-            <div className="qr-label">📱 Scan to get started</div>
-            <div className="qr-box">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://${url}&color=0D142A`}
-                alt="QR code"
-                className="qr-img"
-                width={200}
-                height={200}
-              />
-              <div className="qr-url">{url}</div>
             </div>
-            <div className="qr-sub">Works on any phone. No app download. Takes about 30 seconds.</div>
-            <a href={`https://${url}`} style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.95rem", wordBreak: "break-all" }}>
-              https://{url}
-            </a>
+
+            {/* RIGHT — Share a quote */}
+            <div className="col">
+              <div className="col-title">💬 Get your words up</div>
+              <div className="col-sub">Tell us what AI helped you do. Your quote runs on the wall right alongside the portraits.</div>
+              <div className="steps">
+                {QUOTE_STEPS.map((s) => (
+                  <div key={s.n} className="step">
+                    <div className="step-num">{s.n}</div>
+                    <div className="step-body">
+                      <h3>{s.icon} {s.title}</h3>
+                      <p>{s.body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="examples">
+                <div className="lbl">For example</div>
+                <p><span className="accent">&ldquo;</span>AI helped me turn a messy spreadsheet into a clean report in ten minutes.<span className="accent">&rdquo;</span></p>
+                <p><span className="accent">&ldquo;</span>AI helped me draft a tough email I&apos;d been putting off for days.<span className="accent">&rdquo;</span></p>
+                <p style={{ marginTop: "0.9rem", fontStyle: "normal", fontSize: "0.82rem", color: "rgba(255,255,255,0.6)" }}>
+                  Post in <span className="chan">#twco_ai_practice</span> on Slack.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="footer">AI Day · June 9, 2026 · The Weather Company</div>
