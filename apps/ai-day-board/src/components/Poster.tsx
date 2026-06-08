@@ -234,7 +234,7 @@ function WidePoster({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />
         )}
-        {slots.tag && (
+        {slots.tag && data.tag && (
           <div className="absolute" style={{ left: px(78), top: py(40), fontFamily: mono, fontWeight: 500, fontSize: c(50 * tagSize), color: variant.accent, lineHeight: 1 }}>
             {data.tag}
           </div>
@@ -354,7 +354,7 @@ function SquarePoster({
             {slots.name && <NameLine data={data} ink={variant.ink} display={display} size={nameSize} />}
             {slots.role && data.role && <div style={{ fontFamily: display, fontWeight: 400, fontSize: c(40 * roleScale), color: variant.ink, lineHeight: 1.05 }}>{data.role}</div>}
             {slots.sessionTitle && <div style={{ fontFamily: display, fontWeight: 700, fontSize: c(40), color: variant.ink }}>{data.sessionTitle}</div>}
-            {slots.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, marginTop: c(10) }}>{data.tag}</div>}
+            {slots.tag && data.tag && <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(40 * tagSize), color: variant.accent, marginTop: c(10) }}>{data.tag}</div>}
             {(slots.location || slots.room || slots.time) && (
               <div style={{ fontFamily: mono, fontWeight: 500, fontSize: c(26), color: variant.light, letterSpacing: c(1) }}>{infoRow(data, slots)}</div>
             )}

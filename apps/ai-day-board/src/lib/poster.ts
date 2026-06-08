@@ -154,7 +154,7 @@ export function sessionToPoster(
     name: session.instructors[0] ?? "",
     names: session.instructors,
     sessionTitle: session.title,
-    tag: trackTag(session.track),
+    tag: session.noTag ? "" : trackTag(session.track),
     location: siteLabel,
     room: session.rooms[site] ? String(session.rooms[site]) : "TBD",
     time,
@@ -235,17 +235,32 @@ export function profileToPoster(
   };
 }
 
-/** Flatten the schedule into one poster entry per (session, instructor head). */
+// Full-width remarks that still earn a poster on the wall (no track tag). The
+// track only drives the color/look; the tag itself is suppressed via noTag.
+const REMARKS_TRACK: Record<string, TrackId> = {
+  "Opening Remarks": "explore",
+  "Closing Remarks": "build",
+};
+
+/** Flatten the schedule into poster entries: every track session, plus the
+ *  Opening/Closing Remarks (rendered tag-free). */
 export function posterEntriesFromSchedule(schedule: Schedule): PosterEntry[] {
   const out: PosterEntry[] = [];
   for (const slot of schedule.slots) {
-    if (slot.kind !== "sessions" || !slot.sessions) continue;
-    for (const session of slot.sessions) {
-      out.push({
-        id: `${slot.time}-${session.track}`,
-        session,
-        time: slot.time,
-      });
+    if (slot.kind === "sessions" && slot.sessions) {
+      for (const session of slot.sessions) {
+        out.push({ id: `${slot.time}-${session.track}`, session, time: slot.time });
+      }
+    } else if (slot.kind === "full" && slot.title && slot.title in REMARKS_TRACK) {
+      // Adapt a full-width remarks slot into a tag-free poster.
+      const session: Session = {
+        track: REMARKS_TRACK[slot.title],
+        title: slot.title,
+        instructors: slot.people ?? [],
+        rooms: slot.rooms ?? {},
+        noTag: true,
+      };
+      out.push({ id: `${slot.time}-${pslug(slot.title)}`, session, time: slot.time });
     }
   }
   return out;
