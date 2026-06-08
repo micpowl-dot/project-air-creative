@@ -58,18 +58,35 @@ async function resolveName(id: string, token: string): Promise<string> {
   }
 }
 
+// Server-side cache for the Slack-sourced quotes. The wall polls /api/wall
+// frequently, but Slack's conversations.history is heavily rate-limited for
+// newer apps — so we only actually call Slack every CACHE_TTL and serve the
+// cached quotes (including the last-good set) in between.
+let storiesCache: { at: number; stories: Story[] } | null = null;
+const STORIES_TTL = 5 * 60 * 1000; // 5 minutes
+
 // Pull "AI helped me..." posts from a Slack channel and turn them into cards.
 async function storiesFromSlack(): Promise<Story[] | null> {
   const token = process.env.WALL_SLACK_TOKEN;
   const channel = process.env.WALL_SLACK_CHANNEL;
   if (!token || !channel) return null;
+
+  // Serve fresh cache without hitting Slack.
+  if (storiesCache && Date.now() - storiesCache.at < STORIES_TTL) {
+    return storiesCache.stories.length ? storiesCache.stories : null;
+  }
   try {
-    const res = await fetch(`https://slack.com/api/conversations.history?channel=${channel}&limit=80`, {
+    // limit=15 to respect the strict per-call cap on the restricted tier.
+    const res = await fetch(`https://slack.com/api/conversations.history?channel=${channel}&limit=15`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     });
     const body = await res.json();
-    if (!body.ok || !Array.isArray(body.messages)) return null;
+    if (!body.ok || !Array.isArray(body.messages)) {
+      // Rate-limited / transient: keep serving the last good set rather than
+      // dropping to samples.
+      return storiesCache?.stories.length ? storiesCache.stories : null;
+    }
     const cand: { user: string; text: string }[] = [];
     for (const m of body.messages) {
       if (m.subtype || m.bot_id || !m.text) continue; // skip joins/bots/system
@@ -82,9 +99,10 @@ async function storiesFromSlack(): Promise<Story[] | null> {
     // Resolve author names (cached).
     const out: Story[] = [];
     for (const c of chosen) out.push({ name: await resolveName(c.user, token), text: c.text });
-    return out;
+    storiesCache = { at: Date.now(), stories: out };
+    return out.length ? out : null;
   } catch {
-    return null;
+    return storiesCache?.stories.length ? storiesCache.stories : null;
   }
 }
 
