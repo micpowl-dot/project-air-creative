@@ -7,6 +7,7 @@ interface AdminImage {
   handle: string;
   ts: string;
   hidden: boolean;
+  model: "pro" | "flash";
 }
 
 export function WallAdmin() {
@@ -98,8 +99,8 @@ export function WallAdmin() {
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {images.map((img) => (
+              <div key={img.ts || img.src}>
               <button
-                key={img.ts || img.src}
                 onClick={() => toggle(img)}
                 disabled={busy === img.ts}
                 className={`group relative aspect-square overflow-hidden rounded-lg border text-left transition ${
@@ -132,6 +133,18 @@ export function WallAdmin() {
                   </span>
                 )}
               </button>
+              {/* Rendered-by tag: Flash = fallback (Pro was down), stands out. */}
+              <div className="mt-1 flex justify-center">
+                <span
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                    img.model === "flash" ? "bg-orange-500/20 text-orange-300" : "bg-white/10 text-white/45"
+                  }`}
+                  title={img.model === "flash" ? "Rendered by the standard model (Pro fallback)" : "Rendered by Pro"}
+                >
+                  {img.model === "flash" ? "⚡ Flash" : "Pro"}
+                </span>
+              </div>
+              </div>
             ))}
           </div>
         )}

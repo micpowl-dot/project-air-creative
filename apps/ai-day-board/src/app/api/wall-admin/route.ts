@@ -12,11 +12,12 @@ export async function GET() {
   try {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
-    const images = (m?.images ?? []).map(({ src, handle, ts, hidden }) => ({
+    const images = (m?.images ?? []).map(({ src, handle, ts, hidden, model }) => ({
       src,
       handle: handle ?? "",
       ts: ts ?? "",
       hidden: Boolean(hidden),
+      model: model ?? "pro", // legacy images predate the field; they were all Pro
     }));
     // Newest first.
     images.reverse();

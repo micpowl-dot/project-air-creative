@@ -3,7 +3,8 @@
 // image) call. Used by the local harness (scripts/stylize.ts) and the live
 // pipeline (/api/process-photos).
 
-export const STYLIZE_MODEL = "gemini-3-pro-image-preview"; // Nano Banana Pro
+export const STYLIZE_MODEL = "gemini-3-pro-image-preview"; // Nano Banana Pro (best likeness)
+export const STANDARD_MODEL = "gemini-2.5-flash-image"; // standard Nano Banana — fallback when Pro is down
 
 export const BG_NAMES = [
   "magenta", "magenta-accent", "cyan", "cyan-accent", "violet",

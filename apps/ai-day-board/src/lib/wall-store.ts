@@ -12,6 +12,7 @@ export interface WallImage {
   handle?: string;
   ts?: string;
   hidden?: boolean; // moderated off the wall (reversible) via /wall-admin
+  model?: "pro" | "flash"; // which Gemini model rendered it (flash = Pro-outage fallback)
 }
 export interface WallManifest {
   lastTs: string;

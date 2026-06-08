@@ -12,7 +12,7 @@
 // No-ops (returns 200 with a note) if env is missing, so it never breaks deploys.
 
 import { NextResponse } from "next/server";
-import { stylize, randomBg } from "@/lib/stylize-core";
+import { stylize, randomBg, STANDARD_MODEL } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
 
 export const dynamic = "force-dynamic";
@@ -140,12 +140,18 @@ export async function GET(request: Request) {
   let newLastTs = manifest.lastTs;
   const errors: string[] = [];
   const MAX_ATTEMPTS = 3; // give up only on TERMINAL failures (bad image, etc.) after this many
+  const FALLBACK_AFTER = 3; // failed Pro tries before the (opt-in) flash fallback kicks in (~minutes)
   manifest.attempts = manifest.attempts || {};
 
   for (const m of msgs as { ts: string; user: string; text?: string; files: { name?: string; mimetype?: string; url_private?: string; url_private_download?: string }[] }[]) {
     if (processed >= MAX_PER_RUN) break;
     const file = m.files.find((f) => String(f.mimetype || "").startsWith("image/"));
     if (!file) { newLastTs = m.ts; continue; } // non-image: skip past permanently
+    // Opt-in flash fallback: only after Pro has failed on THIS snap a few times
+    // (≈ minutes), and only when STYLIZE_FALLBACK=1. Otherwise always Pro.
+    const priorFails = manifest.attempts[m.ts] ?? 0;
+    const fallbackOn = process.env.STYLIZE_FALLBACK === "1";
+    const useFlash = fallbackOn && priorFails >= FALLBACK_AFTER;
     try {
       const dl = await fetch(file.url_private_download || file.url_private || "", { headers: { Authorization: `Bearer ${token}` } });
       const personData = Buffer.from(await dl.arrayBuffer()).toString("base64");
@@ -156,6 +162,7 @@ export async function GET(request: Request) {
         style: { mimeType: "image/png", data: styleData },
         person: { mimeType: file.mimetype || "image/jpeg", data: personData },
         background: { mimeType: "image/png", data: bgData },
+        ...(useFlash ? { model: STANDARD_MODEL } : {}),
       });
       const url = await putImage(m.ts.replace(".", ""), Buffer.from(out, "base64"));
       // Resolve who snapped. Current /api/snap encodes the user id in the
@@ -166,7 +173,7 @@ export async function GET(request: Request) {
         (m.text || "").match(/ref:(U[A-Z0-9]+)/)?.[1] ||
         (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
       const handle = await resolveHandle(uid || m.user, token);
-      manifest.images.push({ src: url, handle, ts: m.ts });
+      manifest.images.push({ src: url, handle, ts: m.ts, model: useFlash ? "flash" : "pro" });
       if (uid) {
         // Post the finished portrait back to the channel (the real notification)
         // and DM it directly. Both best-effort; need chat:write (+ im:write for DM).
@@ -178,12 +185,15 @@ export async function GET(request: Request) {
       delete manifest.attempts[m.ts];
     } catch (e) {
       const msg = String(e);
-      // Transient = Pro overloaded/busy/network. Per the Pro-only choice, keep
-      // the snap queued and retry every run indefinitely until Pro frees up
-      // (don't advance the cursor, don't count toward the give-up cap).
+      // Transient = Pro overloaded/busy/network. Keep the snap queued and retry
+      // every run; bump the counter so the opt-in flash fallback can kick in
+      // after FALLBACK_AFTER tries (if STYLIZE_FALLBACK=1). With fallback off it
+      // just keeps retrying Pro indefinitely.
       const transient = /\b(429|500|503)\b|high demand|overload|unavailable|rate limit|timeout|ETIMEDOUT|ECONN|fetch failed/i.test(msg);
       if (transient) {
-        errors.push(`${m.ts} (transient, will retry): ${msg.slice(0, 100)}`);
+        const n = (manifest.attempts[m.ts] ?? 0) + 1;
+        manifest.attempts[m.ts] = n;
+        errors.push(`${m.ts} (transient try ${n}${useFlash ? ", flash" : ""}): ${msg.slice(0, 90)}`);
         break; // leave the cursor so the next run retries this snap (oldest-first)
       }
       // Terminal (bad image, malformed response): give up after a few tries so
