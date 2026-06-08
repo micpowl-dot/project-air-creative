@@ -186,10 +186,13 @@ export async function GET(request: Request) {
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
       manifest.rendered[useFlash ? "flash" : "pro"]++;
-      // ALWAYS post the finished portrait back to the channel (with @mention if
-      // we know who, generic if not — e.g. they skipped the name picker). DM
-      // only works when we have a user id.
-      await postPortraitToChannel(channel, uid ?? null, url, token);
+      // Post the finished portrait to the DISPLAY channel (RENDER_POST_CHANNEL)
+      // so the public photobooth shows only renders; the raw selfie stays in
+      // the intake channel (HEADSHOT_SLACK_CHANNEL) that the pipeline reads.
+      // Falls back to the intake channel if no separate display channel is set.
+      // @mention if we know who, generic if not. DM only with a user id.
+      const postChannel = process.env.RENDER_POST_CHANNEL || channel;
+      await postPortraitToChannel(postChannel, uid ?? null, url, token);
       if (uid) await dmPortrait(uid, url, token);
       processed++;
       newLastTs = m.ts;                 // advance only on success
