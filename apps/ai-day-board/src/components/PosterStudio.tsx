@@ -191,6 +191,21 @@ export function PosterStudio({
     setFlash({ text: `Randomized palettes & graphics across all ${entries.length} ${isProfile ? "profiles" : "posters"}` });
     window.setTimeout(() => setFlash(null), 2400);
   }
+  // Copy this poster's ENTIRE look (colors, graphics, sizes, offsets, element
+  // visibility) to every poster in the series — including Opening/Closing
+  // Remarks. Leaves each poster's own location/site alone.
+  function applyEntireStyleToAll() {
+    const snap: Partial<SessionStyle> = JSON.parse(JSON.stringify(style));
+    delete snap.site; // keep each poster's own location/room
+    setOverrides((prev) => {
+      const next: StyleOverrides = { ...prev };
+      for (const e of entries) next[e.id] = { ...next[e.id], ...snap };
+      saveStyleOverrides(next);
+      return next;
+    });
+    setFlash({ text: `Full style applied to all ${entries.length} posters` });
+    window.setTimeout(() => setFlash(null), 2400);
+  }
   function applyToAll(p: Partial<SessionStyle>, label: string) {
     setOverrides((prev) => {
       const next: StyleOverrides = { ...prev };
@@ -231,6 +246,7 @@ export function PosterStudio({
           bottomOffsetX: style.bottomOffsetX,
           bottomOffsetY: style.bottomOffsetY,
           squiggleSize: style.squiggleSize,
+          squiggleOpacity: style.squiggleOpacity,
           squiggleOffsetX: style.squiggleOffsetX,
           squiggleOffsetY: style.squiggleOffsetY,
         };
@@ -348,6 +364,7 @@ export function PosterStudio({
                 bottomOffsetX={style.bottomOffsetX}
                 bottomOffsetY={style.bottomOffsetY}
                 squiggleSize={style.squiggleSize}
+                squiggleOpacity={style.squiggleOpacity}
                 squiggleOffsetX={style.squiggleOffsetX}
                 squiggleOffsetY={style.squiggleOffsetY}
                 layout={style.layout}
@@ -435,6 +452,17 @@ export function PosterStudio({
                 {sizeRow("roleScale", "Title", TEXT_SIZE, "x", "Job-title size")}
                 {sizeRow("tagSize", "Tag", TEXT_SIZE, "x", "Tag size")}
               </Group>
+            )}
+
+            {!isProfile && (
+              <button
+                onClick={applyEntireStyleToAll}
+                title="Copy this poster's entire look (colors, graphics, sizes, positions, element visibility) to every poster, including Opening/Closing Remarks. Locations are left alone."
+                className="w-full rounded-md px-3 py-2 text-xs font-semibold text-[#111]"
+                style={{ background: accent }}
+              >
+                ⇉ Apply this entire style to all {entries.length} posters
+              </button>
             )}
 
             <Group title="Color">
@@ -537,6 +565,21 @@ export function PosterStudio({
             {!isProfile && (
               <Group title="Squiggle">
                 {sizeRow("squiggleSize", "Size", SQUIGGLE_SIZE, "x", "Squiggle size")}
+                <Row label="Opacity" onAll={() => applyToAll({ squiggleOpacity: style.squiggleOpacity }, `Squiggle opacity ${Math.round((style.squiggleOpacity ?? 1) * 100)}%`)}>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="range"
+                      min={0}
+                      max={1}
+                      step={0.05}
+                      value={style.squiggleOpacity ?? 1}
+                      onChange={(e) => patch({ squiggleOpacity: Number(e.target.value) })}
+                      className="min-w-0 flex-1"
+                      style={{ accentColor: variant.accent }}
+                    />
+                    <span className="w-12 shrink-0 text-right text-[11px] tabular-nums text-white/55">{Math.round((style.squiggleOpacity ?? 1) * 100)}%</span>
+                  </div>
+                </Row>
                 {sizeRow("squiggleOffsetX", "X", OFFSET_X, "px", "Squiggle X")}
                 {sizeRow("squiggleOffsetY", "Y", OFFSET_Y, "px", "Squiggle Y")}
               </Group>

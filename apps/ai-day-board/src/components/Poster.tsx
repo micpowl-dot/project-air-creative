@@ -173,6 +173,7 @@ export interface PosterProps {
   bottomOffsetX?: number;
   bottomOffsetY?: number;
   squiggleSize?: number;
+  squiggleOpacity?: number;
   squiggleOffsetX?: number;
   squiggleOffsetY?: number;
   layout?: ProfileLayout;
@@ -202,6 +203,7 @@ function WidePoster({
   bottomOffsetX = 0,
   bottomOffsetY = 0,
   squiggleSize = SQUIGGLE_SIZE.default,
+  squiggleOpacity = 1,
   squiggleOffsetX = 0,
   squiggleOffsetY = 0,
 }: PosterProps) {
@@ -229,7 +231,7 @@ function WidePoster({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/poster-elements/bottom-left/quarter-circles.png" alt="" className="absolute object-contain object-left-bottom" style={{ left: 0, bottom: 0, width: px(986), height: py(365), opacity: 0.9, transform: `translate(${c(bottomOffsetX)}, ${c(bottomOffsetY)})` }} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-120), top: py(905), width: px(1100 * squiggleSize), height: py(240 * squiggleSize), transform: `translate(${c(squiggleOffsetX)}, ${c(squiggleOffsetY)})` }} />
+        <img src="/poster-elements/mid/squiggle.png" alt="" className="absolute object-contain" style={{ left: px(-120), top: py(905), width: px(1100 * squiggleSize), height: py(240 * squiggleSize), opacity: squiggleOpacity, transform: `translate(${c(squiggleOffsetX)}, ${c(squiggleOffsetY)})` }} />
         {slots.ringBadge && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={`/poster-elements/center/${ringStyle}.png`} alt="" className="absolute object-contain" style={{ left: px(ringLeft), top: py(ringTop), width: px(ringPx), height: py(ringPx) }} />

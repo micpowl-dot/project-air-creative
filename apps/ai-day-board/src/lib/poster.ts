@@ -320,6 +320,7 @@ export interface SessionStyle {
   bottomOffsetX: number;
   bottomOffsetY: number;
   squiggleSize: number;
+  squiggleOpacity: number; // squiggle graphic opacity (0–1)
   squiggleOffsetX: number;
   squiggleOffsetY: number;
   site: SiteId;
@@ -384,6 +385,7 @@ export const FACTORY_DEFAULTS = {
   bottomOffsetX: 0,
   bottomOffsetY: 0,
   squiggleSize: 1.45,
+  squiggleOpacity: 1,
   squiggleOffsetX: 0,
   squiggleOffsetY: 0,
 };

@@ -118,6 +118,7 @@ function RenderCard({
               bottomOffsetX={item.style.bottomOffsetX}
               bottomOffsetY={item.style.bottomOffsetY}
               squiggleSize={item.style.squiggleSize}
+              squiggleOpacity={item.style.squiggleOpacity}
               squiggleOffsetX={item.style.squiggleOffsetX}
               squiggleOffsetY={item.style.squiggleOffsetY}
               layout={item.style.layout}
