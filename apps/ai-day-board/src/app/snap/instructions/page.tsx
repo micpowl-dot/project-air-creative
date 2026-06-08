@@ -32,7 +32,7 @@ export default function InstructionsPage() {
           body { font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--ink); color: var(--light); min-height: 100vh; }
 
           /* masthead spans both halves with the same magenta|blue split */
-          .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: calc(2rem - 15px) 1rem 2.25rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
+          .masthead { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); padding: 2.75rem 1rem calc(2.25rem - 20px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; }
           .masthead svg { width: clamp(150px, 24vw, 230px); filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35)); }
           .tagline { font-size: clamp(1.1rem, 3vw, 1.5rem); font-weight: 800; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
           .sub { font-size: clamp(0.85rem, 2vw, 1rem); color: rgba(255,255,255,0.9); max-width: 560px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
@@ -95,7 +95,7 @@ export default function InstructionsPage() {
             <path d="M664.896 198.255V2.78128H599.648L664.896 198.255Z" fill="#0D142A" />
           </svg>
           <div className="tagline">Two ways to land on the AI Day wall 🎉</div>
-          <div className="sub">Snap a portrait, share a win, or do both. Everything shows up on the screens around the office.</div>
+          <div className="sub">Snap a portrait, share a win, or do both.<br />Everything shows up on the screens around the office.</div>
         </div>
 
         <div className="split">
