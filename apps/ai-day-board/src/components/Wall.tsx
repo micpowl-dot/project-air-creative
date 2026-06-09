@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AiDayLogo } from "./AiDayLogo";
 import { Poster } from "./Poster";
 import type { Schedule } from "@/lib/types";
@@ -479,6 +479,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
   const [stories, setStories] = useState<Story[]>([]);
   const [live, setLive] = useState(false);
   const [view, setView] = useState<View>("wall");
+  const pendingUpdate = useRef(false); // a new deploy is waiting; apply it on the next instructions→wall handoff
 
   // Optional ?view= override so a specific slide can be previewed/QA'd directly
   // (e.g. /wall?view=instructions). Applied after mount to avoid a hydration
@@ -525,11 +526,10 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     return () => { active = false; clearInterval(id); };
   }, []);
 
-  // Auto-refresh the unattended display when a NEW VERSION is deployed. We only
-  // reload when the deployment id actually changes (not on a timer), so the
-  // monitor stays current with code updates without anyone refreshing it and
-  // without needless flashes. Live data (photos/stories) already updates via
-  // the poll above, so this is only for picking up new code.
+  // Watch for a NEW VERSION (deploy). Instead of reloading immediately (which
+  // would interrupt the photo wall), just flag it; the reload happens at the
+  // instructions→wall handoff below, so the wall is never cut off and comes up
+  // fresh. Live data (photos/stories) already updates via the poll above.
   useEffect(() => {
     let active = true;
     let baseline: string | null = null;
@@ -539,7 +539,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
         const { version } = await res.json();
         if (!active || !version) return;
         if (baseline === null) { baseline = version; return; }
-        if (version !== baseline) window.location.reload();
+        if (version !== baseline) pendingUpdate.current = true; // apply at the next safe moment
       } catch {
         /* ignore — try again next tick */
       }
@@ -549,13 +549,19 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     return () => { active = false; clearInterval(id); };
   }, []);
 
-  // Cycle through the views in VIEW_ORDER: waterfall → how-to-join → posters → …
+  // Cycle through the views (wall → instructions → wall …). When the
+  // instructions slide ends and a deploy is pending, reload NOW — on the
+  // instructions page, right before the wall — so the wall comes up on the new
+  // build and is never interrupted mid-display.
   useEffect(() => {
     const dwell = view === "wall" ? WALL_MS : view === "posters" ? POSTERS_MS : INSTRUCTIONS_MS;
-    const t = setTimeout(
-      () => setView((v) => VIEW_ORDER[(VIEW_ORDER.indexOf(v) + 1) % VIEW_ORDER.length]),
-      dwell,
-    );
+    const t = setTimeout(() => {
+      if (view === "instructions" && pendingUpdate.current) {
+        window.location.reload();
+        return;
+      }
+      setView((v) => VIEW_ORDER[(VIEW_ORDER.indexOf(v) + 1) % VIEW_ORDER.length]);
+    }, dwell);
     return () => clearTimeout(t);
   }, [view]);
 
