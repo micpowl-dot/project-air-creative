@@ -182,7 +182,7 @@
       "model": "flash",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B8Y7L2M3R/snap-1781028828261-u06pvezev3r.jpg",
       "hidden": false,
-      "flip": false
+      "flip": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781029138150529-rmq6zb12l.png",
