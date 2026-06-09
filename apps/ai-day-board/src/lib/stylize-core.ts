@@ -15,22 +15,31 @@ export function randomBg(): string {
   return BG_NAMES[Math.floor(Math.random() * BG_NAMES.length)];
 }
 
+// Style references: a DIVERSE set of already-stylized AI Day headshots (varied
+// gender / ethnicity / look). Passing several different people forces the model
+// to copy the shared illustration STYLE rather than any one person's identity —
+// fixes the "everyone comes out looking like the single reference" bleed.
+export const STYLE_REFS = ["shannon-king", "sahana-subbanna", "thomas-hinson", "rohit-agarwal"];
+
 export const STYLIZE_PROMPT =
-  "There are three images. IMAGE 1 is ONLY an art-style reference: copy its " +
-  "illustration style (clean semi-realistic vector look, smooth cel-shaded " +
-  "gradient shading, crisp confident linework, full color). Do NOT copy ANYTHING " +
-  "ELSE from image 1 — not its face, hair, gender, skin tone, clothing, pose, " +
-  "expression, or background. Image 1 is a style swatch, NOT a person to draw. " +
-  "IMAGE 2 is the ACTUAL PERSON to draw: " +
+  "You are given several images. ALL IMAGES EXCEPT THE LAST TWO are STYLE " +
+  "REFERENCES: they show the SAME illustration style applied to DIFFERENT " +
+  "people. Copy ONLY that shared drawing style from them — clean semi-realistic " +
+  "vector look, smooth cel-shaded gradient shading, crisp confident linework, " +
+  "full color. Do NOT copy any face, hair, gender, skin tone, clothing, pose, " +
+  "expression, or background from the style references. They are style swatches, " +
+  "NOT people to draw; they are intentionally different people so you never copy " +
+  "any single one of them. " +
+  "THE SECOND-TO-LAST IMAGE is the ACTUAL PERSON to draw: " +
   "keep their exact likeness — the SAME apparent gender/sex, the same age, and " +
   "the same ethnicity and skin tone, plus the same face shape, head and " +
   "hairline, facial hair, glasses, and clothing. Do NOT change the person's " +
   "gender, age, or ethnicity, and do not make them look more masculine or more " +
-  "feminine than image 2. It must clearly and unmistakably be the same person " +
-  "as image 2. IMAGE 3 is the BACKGROUND: place the illustrated person directly in " +
-  "front of this exact background. Keep image 3's colors and pattern exactly " +
-  "as-is behind the person — do not alter, restyle, recolor, or add anything " +
-  "to the background. " +
+  "feminine than they are. It must clearly and unmistakably be the same person " +
+  "as that image. THE LAST IMAGE is the BACKGROUND: place the illustrated person " +
+  "directly in front of this exact background. Keep its colors and pattern " +
+  "exactly as-is behind the person — do not alter, restyle, recolor, or add " +
+  "anything to the background. " +
   "FRAMING (identical crop every time, regardless of the input photo's zoom): " +
   "a head-and-shoulders portrait where the top of the head sits just inside the " +
   "top edge with a small margin above it, the face is centered in the " +
@@ -39,11 +48,12 @@ export const STYLIZE_PROMPT =
   "upper chest, never leave large empty headroom. " +
   "Centered, facing forward, friendly expression. Square 1:1. " +
   "MOST IMPORTANT, ABOVE THE ART STYLE: the result must be immediately and " +
-  "unmistakably recognizable as the EXACT same individual as image 2 — the " +
-  "same gender/sex, age, ethnicity, skin tone, and facial structure. Read those " +
-  "attributes from image 2 and reproduce them faithfully; never guess or change " +
-  "them. If the art style and the person's true likeness ever conflict, always " +
-  "preserve the likeness.";
+  "unmistakably recognizable as the EXACT same individual as the actual-person " +
+  "image — the same gender/sex, age, ethnicity, skin tone, and facial structure. " +
+  "Read those attributes from that image and reproduce them faithfully; never " +
+  "guess or change them, and never let a style reference influence the person's " +
+  "identity. If the art style and the person's true likeness ever conflict, " +
+  "always preserve the likeness.";
 
 export interface ImgPart {
   mimeType: string;
@@ -52,11 +62,12 @@ export interface ImgPart {
 
 /**
  * Run the stylization. Returns base64 PNG data of the finished headshot.
+ * `styles` is one or more style references (different people, same style).
  * Throws on API error or if no image came back.
  */
 export async function stylize(opts: {
   apiKey: string;
-  style: ImgPart;
+  styles: ImgPart[];
   person: ImgPart;
   background: ImgPart;
   model?: string;
@@ -68,7 +79,7 @@ export async function stylize(opts: {
         role: "user",
         parts: [
           { text: STYLIZE_PROMPT },
-          { inlineData: opts.style },
+          ...opts.styles.map((s) => ({ inlineData: s })),
           { inlineData: opts.person },
           { inlineData: opts.background },
         ],

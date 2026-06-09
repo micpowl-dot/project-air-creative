@@ -65,7 +65,7 @@ async function main() {
   console.log(`→ Stylizing ${path.basename(selfie)} onto "${bgName}", style ${path.basename(style)}, via ${model}…`);
 
   try {
-    const data = await stylize({ apiKey: key, style: part(style), person: part(selfie), background: part(bgPath), model });
+    const data = await stylize({ apiKey: key, styles: [part(style)], person: part(selfie), background: part(bgPath), model });
     const out = path.join(ROOT, "stylized-output.png");
     writeFileSync(out, Buffer.from(data, "base64"));
     console.log(`\n✓ Wrote ${out} — finished headshot on the "${bgName}" background.`);

@@ -12,7 +12,7 @@
 // No-ops (returns 200 with a note) if env is missing, so it never breaks deploys.
 
 import { NextResponse } from "next/server";
-import { stylize, randomBg, STANDARD_MODEL } from "@/lib/stylize-core";
+import { stylize, randomBg, STANDARD_MODEL, STYLE_REFS } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
 
 export const dynamic = "force-dynamic";
@@ -141,7 +141,10 @@ export async function GET(request: Request) {
     .sort((a: { ts: string }, b: { ts: string }) => Number(a.ts) - Number(b.ts));
 
   const origin = new URL(request.url).origin;
-  const styleData = await fetchB64(`${origin}/headshots/cutout/max-jacubowsky.png`);
+  // Diverse style references (fetched once, reused for the whole batch).
+  const styleParts = await Promise.all(
+    STYLE_REFS.map(async (slug) => ({ mimeType: "image/png", data: await fetchB64(`${origin}/headshots/cutout/${slug}.png`) }))
+  );
 
   let processed = 0;
   let newLastTs = manifest.lastTs;
@@ -163,7 +166,7 @@ export async function GET(request: Request) {
       const bgData = await fetchB64(`${origin}/headshots/bg/${bg}.png`);
       const styleArgs = {
         apiKey,
-        style: { mimeType: "image/png", data: styleData },
+        styles: styleParts,
         person: { mimeType: file.mimetype || "image/jpeg", data: personData },
         background: { mimeType: "image/png", data: bgData },
       };

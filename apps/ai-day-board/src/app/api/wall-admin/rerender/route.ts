@@ -6,7 +6,7 @@
 //   POST /api/wall-admin/rerender { ts }
 // Gated by the admin password via src/proxy.ts (under /api/wall-admin).
 import { NextResponse } from "next/server";
-import { stylize, randomBg, STANDARD_MODEL } from "@/lib/stylize-core";
+import { stylize, randomBg, STANDARD_MODEL, STYLE_REFS } from "@/lib/stylize-core";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -60,13 +60,15 @@ export async function POST(request: Request) {
     const personData = Buffer.from(await pres.arrayBuffer()).toString("base64");
     // Style reference + a fresh random background.
     const fetchB64 = async (u: string) => Buffer.from(await (await fetch(u, { cache: "no-store" })).arrayBuffer()).toString("base64");
-    const styleData = await fetchB64(`${origin}/headshots/cutout/max-jacubowsky.png`);
+    const styleParts = await Promise.all(
+      STYLE_REFS.map(async (slug) => ({ mimeType: "image/png", data: await fetchB64(`${origin}/headshots/cutout/${slug}.png`) }))
+    );
     const bg = randomBg();
     const bgData = await fetchB64(`${origin}/headshots/bg/${bg}.png`);
 
     const styleArgs = {
       apiKey,
-      style: { mimeType: "image/png", data: styleData },
+      styles: styleParts,
       person: { mimeType: personMime, data: personData },
       background: { mimeType: "image/png", data: bgData },
     };
