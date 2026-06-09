@@ -255,6 +255,21 @@ function slotToMinutes(time: string): number {
   return h * 60 + m;
 }
 
+// "Now" as minutes since midnight in US Eastern (the audience's zone), pinned
+// to America/New_York so it's correct regardless of the display machine's clock
+// or timezone (auto-handles EST/EDT — EDT in June).
+function easternNowMinutes(): number {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date());
+  const h = (Number(parts.find((p) => p.type === "hour")?.value) || 0) % 24;
+  const m = Number(parts.find((p) => p.type === "minute")?.value) || 0;
+  return h * 60 + m;
+}
+
 /** Full-screen cycle through the UPCOMING session posters (16:9), one at a time.
  *  Past slots drop off; we show the slot in progress plus everything still to
  *  come, soonest first, so the wall always promotes what's happening now/next. */
@@ -264,8 +279,7 @@ function PosterCycleView({ schedule }: { schedule: Schedule }) {
   // Computed when this view mounts (every rotation) so it tracks the clock.
   const entries = useMemo(() => {
     const slots = schedule.slots;
-    const now = new Date();
-    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const nowMin = easternNowMinutes();
     const starts = slots.map((s) => slotToMinutes(s.time));
     const keep = new Set<string>();
     slots.forEach((s, idx) => {
