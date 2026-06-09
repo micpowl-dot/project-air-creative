@@ -103,11 +103,12 @@
       "hidden": true
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781008265825889.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781008265825889-rmq6zexoa.png",
       "handle": "@serhiy.likhanov",
       "ts": "1781008265.825889",
-      "model": "pro",
-      "hidden": true
+      "model": "flash",
+      "hidden": false,
+      "flip": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781008699167459.png",
@@ -306,7 +307,7 @@
   "attempts": {},
   "rendered": {
     "pro": 16,
-    "flash": 29
+    "flash": 30
   },
   "cooldownUntil": 1781022255383
 }
