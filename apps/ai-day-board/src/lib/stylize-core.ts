@@ -20,9 +20,12 @@ export const STYLIZE_PROMPT =
   "illustration style (clean semi-realistic vector look, smooth cel-shaded " +
   "gradient shading, crisp confident linework, full color). Do NOT copy the " +
   "face, hair, or identity from image 1. IMAGE 2 is the ACTUAL PERSON to draw: " +
-  "keep their exact likeness — same face shape, head and hairline, facial hair, " +
-  "glasses, skin tone, and clothing. It must clearly be the same person as " +
-  "image 2. IMAGE 3 is the BACKGROUND: place the illustrated person directly in " +
+  "keep their exact likeness — the SAME apparent gender/sex, the same age, and " +
+  "the same ethnicity and skin tone, plus the same face shape, head and " +
+  "hairline, facial hair, glasses, and clothing. Do NOT change the person's " +
+  "gender, age, or ethnicity, and do not make them look more masculine or more " +
+  "feminine than image 2. It must clearly and unmistakably be the same person " +
+  "as image 2. IMAGE 3 is the BACKGROUND: place the illustrated person directly in " +
   "front of this exact background. Keep image 3's colors and pattern exactly " +
   "as-is behind the person — do not alter, restyle, recolor, or add anything " +
   "to the background. " +
