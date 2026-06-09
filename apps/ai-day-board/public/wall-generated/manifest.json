@@ -121,7 +121,9 @@
       "model": "pro"
     }
   ],
-  "attempts": {},
+  "attempts": {
+    "1781009268.017889": 1
+  },
   "rendered": {
     "pro": 14,
     "flash": 0
