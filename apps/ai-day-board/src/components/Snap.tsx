@@ -14,10 +14,6 @@ const PALETTES = [
 ];
 const palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
 
-// PAUSE SWITCH: when true, /snap shows a "back shortly" overlay and the camera
-// stays off. Flip to false (and redeploy) to reopen the photo booth.
-const PAUSED = true;
-
 type Step = "camera" | "preview" | "submitting" | "done" | "error";
 
 export function Snap() {
@@ -27,6 +23,24 @@ export function Snap() {
   const [step, setStep] = useState<Step>("camera");
   const [snapshot, setSnapshot] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  // Booth pause state, read live from /api/snap-status (toggled in /wall-admin).
+  // null = still loading; true = show "back shortly" overlay; false = open.
+  const [paused, setPaused] = useState<boolean | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    async function check() {
+      try {
+        const r = await fetch("/api/snap-status", { cache: "no-store" });
+        const d = await r.json();
+        if (!cancelled) setPaused(Boolean(d.paused));
+      } catch {
+        if (!cancelled) setPaused((p) => (p === null ? false : p)); // default open on error
+      }
+    }
+    check();
+    const id = setInterval(check, 15000); // pick up un-pause without a reload
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
 
   // Directory typeahead — pick yourself so the wall + Slack tag are exact.
   type DirUser = { id: string; name: string; real: string; handle: string };
@@ -63,9 +77,9 @@ export function Snap() {
       .slice(0, 6);
   })();
 
-  // Start camera on mount (skip entirely while the booth is paused).
+  // Start the camera once we know the booth is open (and not while paused).
   useEffect(() => {
-    if (PAUSED) return;
+    if (paused !== false) return;
     let stream: MediaStream;
     navigator.mediaDevices
       .getUserMedia({ video: { facingMode: "user" }, audio: false })
@@ -81,7 +95,7 @@ export function Snap() {
         setStep("error");
       });
     return () => stream?.getTracks().forEach((t) => t.stop());
-  }, []);
+  }, [paused]);
 
   function capture() {
     if (!picked) return; // name required first
@@ -140,8 +154,13 @@ export function Snap() {
     }
   }
 
+  // --- Still checking whether the booth is open: brief neutral splash ---
+  if (paused === null) {
+    return <div className="min-h-screen" style={{ background: palette.bg }} />;
+  }
+
   // --- Paused overlay: booth temporarily closed while we tune the portraits ---
-  if (PAUSED) {
+  if (paused) {
     return (
       <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-8 text-center" style={{ background: palette.bg }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}

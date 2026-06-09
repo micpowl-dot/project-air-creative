@@ -32,18 +32,29 @@ export async function GET() {
       budgetUsd > 0 && (proCost > 0 || flashCost > 0)
         ? { budgetUsd, spent: Math.round(spent * 100) / 100, remaining: Math.round((budgetUsd - spent) * 100) / 100, proCost, flashCost }
         : null;
-    return NextResponse.json({ images, rendered, budget });
+    return NextResponse.json({ images, rendered, budget, paused: m?.paused ?? true });
   } catch (e) {
     return NextResponse.json({ images: [], error: String(e) }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
-  let ts: string, hidden: boolean | undefined, remove: boolean | undefined, flip: boolean | undefined;
+  let ts: string, hidden: boolean | undefined, remove: boolean | undefined, flip: boolean | undefined, paused: boolean | undefined;
   try {
-    ({ ts, hidden, remove, flip } = await request.json());
+    ({ ts, hidden, remove, flip, paused } = await request.json());
   } catch {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
+  }
+  // Global pause toggle for the /snap booth — no ts needed.
+  if (typeof paused === "boolean") {
+    try {
+      const { setPaused } = await import("@/lib/wall-store");
+      const m = await setPaused(paused);
+      if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
+      return NextResponse.json({ ok: true, paused });
+    } catch (e) {
+      return NextResponse.json({ error: String(e) }, { status: 502 });
+    }
   }
   if (!ts) return NextResponse.json({ error: "Need { ts }" }, { status: 400 });
   try {

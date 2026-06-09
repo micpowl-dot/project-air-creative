@@ -35,6 +35,24 @@ export function WallAdmin() {
 
   const [batch, setBatch] = useState<{ done: number; total: number } | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set()); // ts marked for batch re-render
+  const [paused, setPaused] = useState(true); // /snap booth pause state
+
+  async function togglePause() {
+    const next = !paused;
+    setPaused(next); // optimistic
+    setErr(null);
+    try {
+      const res = await fetch("/api/wall-admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paused: next }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || `HTTP ${res.status}`);
+    } catch (e) {
+      setPaused(!next); // revert
+      setErr(String(e));
+    }
+  }
 
   function toggleSelect(ts: string, e: React.MouseEvent) {
     e.stopPropagation();
@@ -48,6 +66,7 @@ export function WallAdmin() {
       setImages(Array.isArray(body.images) ? body.images : []);
       if (body.rendered) setRendered(body.rendered);
       setBudget(body.budget ?? null);
+      setPaused(body.paused ?? true);
     } catch (e) {
       setErr(String(e));
     } finally {
@@ -256,6 +275,20 @@ export function WallAdmin() {
             {err}
           </div>
         )}
+
+        {/* Photo-booth pause toggle */}
+        <div className={`mb-5 flex flex-wrap items-center justify-between gap-3 rounded-lg border px-4 py-3 ${paused ? "border-orange-500/50 bg-orange-500/10" : "border-emerald-500/40 bg-emerald-500/10"}`}>
+          <div className="text-sm">
+            <span className="font-semibold">{paused ? "📸 Photo booth is PAUSED" : "📸 Photo booth is OPEN"}</span>
+            <span className="text-white/55"> — {paused ? "/snap shows a “back shortly” overlay; no new selfies." : "people can take selfies at /snap."}</span>
+          </div>
+          <button
+            onClick={togglePause}
+            className={`rounded-md px-3.5 py-1.5 text-sm font-semibold ${paused ? "bg-emerald-500 text-white hover:bg-emerald-600" : "bg-orange-500 text-black hover:bg-orange-600"}`}
+          >
+            {paused ? "Reopen booth" : "Pause booth"}
+          </button>
+        </div>
 
         {/* Sort toggle */}
         <div className="mb-4 flex items-center gap-2 text-xs">

@@ -22,6 +22,7 @@ export interface WallManifest {
   attempts?: Record<string, number>; // per-message stylize retry counter (cron)
   rendered?: { pro: number; flash: number }; // lifetime render tally (survives the 400-image cap)
   cooldownUntil?: number; // epoch ms; after a 429/quota cap, skip runs until then to stop burning quota
+  paused?: boolean; // when true, /snap shows a "back shortly" overlay (toggled from /wall-admin)
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";
@@ -97,6 +98,15 @@ export async function setHidden(ts: string, hidden: boolean): Promise<WallManife
   const img = m.images.find((i) => i.ts === ts);
   if (!img) return m;
   img.hidden = hidden;
+  await writeManifest(m);
+  return m;
+}
+
+/** Pause/resume the /snap photo booth (shows a "back shortly" overlay). */
+export async function setPaused(paused: boolean): Promise<WallManifest | null> {
+  const m = await readManifest();
+  if (!m) return null;
+  m.paused = paused;
   await writeManifest(m);
   return m;
 }
