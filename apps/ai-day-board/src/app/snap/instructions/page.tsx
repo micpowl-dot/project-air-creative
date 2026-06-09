@@ -273,7 +273,7 @@ export default function InstructionsPage() {
           </div>
         </div>
 
-        <div className="footer">Portraits are AI processed, so results may not always be accurate.<br />AI Day · June 9, 2026 · The Weather Company</div>
+        <div className="footer"><span style={{ fontSize: "1.05rem", fontWeight: 800 }}>Portraits are AI processed,<br />so results may not always be accurate.</span><br /><span style={{ opacity: 0.7 }}>AI Day · June 9, 2026 · The Weather Company</span></div>
         <Confetti />
       </div>
     </>

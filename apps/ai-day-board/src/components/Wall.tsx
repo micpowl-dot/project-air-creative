@@ -421,8 +421,8 @@ function InstructionsView() {
         </div>
       </div>
 
-      <div className="absolute bottom-[2vh] left-[2.5vw] text-white/55" style={{ fontSize: "0.85vw", zIndex: 2 }}>
-        Portraits are AI processed, so results may not always be accurate.
+      <div className="absolute bottom-[2vh] left-[2.5vw] font-display font-bold text-white/85" style={{ fontSize: "1vw", lineHeight: 1.25, zIndex: 2 }}>
+        Portraits are AI processed,<br />so results may not always be accurate.
       </div>
       <div className="absolute bottom-[2vh] right-[2.5vw] text-white/60" style={{ fontSize: "0.9vw", zIndex: 2 }}>
         AI Day · June 9, 2026 · The Weather Company

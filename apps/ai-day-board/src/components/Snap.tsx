@@ -342,8 +342,8 @@ export function Snap() {
           )}
         </div>
 
-        <p className="mt-6 text-center text-xs leading-relaxed text-white/40">
-          Portraits are AI processed, so results may not always be accurate.
+        <p className="mt-6 text-center text-sm font-semibold leading-snug text-white/85">
+          Portraits are AI processed,<br />so results may not always be accurate.
         </p>
       </div>
     </div>
