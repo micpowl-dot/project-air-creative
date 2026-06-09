@@ -20,6 +20,7 @@ export interface WallManifest {
   images: WallImage[];
   attempts?: Record<string, number>; // per-message stylize retry counter (cron)
   rendered?: { pro: number; flash: number }; // lifetime render tally (survives the 400-image cap)
+  cooldownUntil?: number; // epoch ms; after a 429/quota cap, skip runs until then to stop burning quota
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";

@@ -128,6 +128,13 @@ export async function GET(request: Request) {
     return NextResponse.json({ initialized: true, lastTs: init.lastTs });
   }
 
+  // Rate-cap cooldown: after a 429/quota error we back off for a few minutes so
+  // the every-minute cron doesn't keep burning quota on requests that will just
+  // 429 again. Snaps stay queued and render once we probe again and succeed.
+  if (manifest.cooldownUntil && Date.now() < manifest.cooldownUntil) {
+    return NextResponse.json({ skipped: "rate-cap cooldown", until: manifest.cooldownUntil });
+  }
+
   // New image posts since lastTs.
   const histRes = await fetch(
     `https://slack.com/api/conversations.history?channel=${channel}&oldest=${manifest.lastTs}&limit=50`,
@@ -210,6 +217,10 @@ export async function GET(request: Request) {
         const n = (manifest.attempts[m.ts] ?? 0) + 1;
         manifest.attempts[m.ts] = n;
         errors.push(`${m.ts} (transient try ${n}): ${msg.slice(0, 90)}`);
+        // Rate cap (429/quota): back off ~5 min so the every-minute cron stops
+        // burning quota on requests that will just 429 again. The snap stays
+        // queued and renders once we probe again and succeed.
+        if (/\b429\b|quota|rate limit/i.test(msg)) manifest.cooldownUntil = Date.now() + 5 * 60 * 1000;
         // A GLOBAL outage (quota/429, or 503 overload) hits every snap and
         // recovers later — never skip past those, or we'd silently drop every
         // queued photo during the outage. Keep them queued so they all render

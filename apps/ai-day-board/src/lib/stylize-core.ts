@@ -74,7 +74,10 @@ export async function stylize(opts: {
     const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     json = await res.json();
     if (res.ok) break;
-    const retriable = res.status === 503 || res.status === 429 || res.status === 500;
+    // 429 = rate/quota cap. Retrying it immediately just burns more of the
+    // quota for nothing, so fail fast and let the caller back off. 503/500 are
+    // transient overload — worth a quick retry.
+    const retriable = res.status === 503 || res.status === 500;
     if (!retriable || attempt === MAX_TRIES) {
       throw new Error(`Gemini ${res.status}: ${JSON.stringify(json.error || json).slice(0, 300)}`);
     }
