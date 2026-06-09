@@ -227,7 +227,8 @@
       "handle": "@lizzy.salazar",
       "ts": "1781024554.842719",
       "model": "flash",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9D3B2Q8J/snap-1781024551715-u06j7uaaf7h.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9D3B2Q8J/snap-1781024551715-u06j7uaaf7h.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781025099125909.png",
