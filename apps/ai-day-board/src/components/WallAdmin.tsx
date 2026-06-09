@@ -74,6 +74,42 @@ export function WallAdmin() {
     }
   }
 
+  // DM every person on the wall (incl. speakers) their portrait. Previews
+  // first, confirms, then loops the batched endpoint until done. Idempotent.
+  const [sending, setSending] = useState<{ sent: number; total: number } | null>(null);
+  async function sendAllPortraits() {
+    let preview: { error?: string; pending: number; alreadySent: number; unmatched: number };
+    try {
+      preview = await fetch("/api/wall-admin/send-portraits", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ dryRun: true }),
+      }).then((r) => r.json());
+    } catch (e) { setErr(String(e)); return; }
+    if (preview.error) { setErr(preview.error); return; }
+    if (!preview.pending) {
+      window.alert(`Nothing to send — ${preview.alreadySent} already DMed, ${preview.unmatched} couldn't be matched.`);
+      return;
+    }
+    if (!window.confirm(
+      `DM portraits to everyone on the wall?\n\n• ${preview.pending} people will be DMed now\n• ${preview.alreadySent} already got theirs (skipped)\n• ${preview.unmatched} couldn't be matched to a Slack user (skipped)\n\nEach person gets a direct message with their portrait. Proceed?`
+    )) return;
+    setErr(null);
+    const total = preview.pending;
+    setSending({ sent: 0, total });
+    let done = false;
+    while (!done) {
+      try {
+        const res = await fetch("/api/wall-admin/send-portraits", {
+          method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({}),
+        }).then((r) => r.json());
+        if (res.error) { setErr(res.error); break; }
+        setSending({ sent: total - res.remaining, total });
+        done = Boolean(res.done);
+      } catch (e) { setErr(String(e)); break; }
+    }
+    setSending(null);
+    window.alert("Finished DMing portraits.");
+  }
+
   // Re-render only the SELECTED portraits with the current (fixed) prompt — so
   // you redo just the bad/Max ones, not the whole gallery. Runs one at a time
   // from the browser so each call stays under the function timeout.
@@ -415,6 +451,21 @@ export function WallAdmin() {
             ))}
           </div>
         )}
+
+        {/* Send-everyone-their-portrait (for the day-after Slack send) */}
+        <div className="mt-10 rounded-lg border border-white/15 bg-white/5 p-4">
+          <h2 className="text-sm font-semibold text-[#f4f0e6]">Send everyone their portrait</h2>
+          <p className="mt-1 max-w-2xl text-xs text-white/50">
+            DMs each person currently on the wall (including speakers) their illustrated portrait via Slack. Previews the count first and asks you to confirm. Anonymous and unmatched names are skipped, and no one is DMed twice (safe to re-run).
+          </p>
+          <button
+            onClick={sendAllPortraits}
+            disabled={sending !== null}
+            className="mt-3 rounded-md border border-sky-500/40 bg-sky-500/15 px-3.5 py-1.5 text-sm font-semibold text-sky-200 hover:bg-sky-500/30 disabled:opacity-50"
+          >
+            {sending ? `DMing… ${sending.sent}/${sending.total}` : "📩 DM everyone their portrait"}
+          </button>
+        </div>
       </div>
     </main>
   );
