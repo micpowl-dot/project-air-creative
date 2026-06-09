@@ -210,7 +210,12 @@ export async function GET(request: Request) {
         const n = (manifest.attempts[m.ts] ?? 0) + 1;
         manifest.attempts[m.ts] = n;
         errors.push(`${m.ts} (transient try ${n}): ${msg.slice(0, 90)}`);
-        break; // leave the cursor so the next run retries this snap (oldest-first)
+        // Don't let one stuck snap block the whole queue. After many transient
+        // retries (a "poison" image that keeps erroring, or a long Pro outage),
+        // skip past it so newer snaps keep rendering — the queue self-heals.
+        const TRANSIENT_MAX = 12;
+        if (n >= TRANSIENT_MAX) { newLastTs = m.ts; delete manifest.attempts[m.ts]; continue; }
+        break; // otherwise retry oldest-first on the next run
       }
       // Terminal (bad image, malformed response): give up after a few tries so
       // it can't block the queue.
