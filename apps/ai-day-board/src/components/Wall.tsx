@@ -186,8 +186,15 @@ function Tile({ item, tilt }: { item: WallImage; tilt: number }) {
 function WaterfallView({ images, stories, live }: { images: WallImage[]; stories: Story[]; live: boolean }) {
   const [storyIdx, setStoryIdx] = useState(0);
   useEffect(() => {
-    if (stories.length === 0) return;
-    const id = setInterval(() => setStoryIdx((i) => (i + 1) % stories.length), 20000);
+    if (stories.length <= 1) return;
+    // Show a random quote every 6s (avoid repeating the one on screen).
+    const id = setInterval(() => {
+      setStoryIdx((i) => {
+        let n = Math.floor(Math.random() * stories.length);
+        if (n === i) n = (n + 1) % stories.length;
+        return n;
+      });
+    }, 6000);
     return () => clearInterval(id);
   }, [stories.length]);
 
@@ -196,7 +203,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
     images.forEach((img, i) => out[i % COLUMNS].push(img));
     return out;
   }, [images]);
-  const story = stories[storyIdx];
+  const story = stories.length ? stories[storyIdx % stories.length] : undefined;
 
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: BG }}>
