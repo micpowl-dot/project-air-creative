@@ -30,14 +30,15 @@ const BLUE = "#0062FF";
 const TEAL = "#67FAE0";
 
 // How long each view stays on screen before alternating.
-const WALL_MS = 42000;
+const WALL_MS = 90000; // photo wall holds for 90s
 const POSTERS_MS = 28000;
-const INSTRUCTIONS_MS = 16000; // "how to join" slide between waterfall and posters
+const INSTRUCTIONS_MS = 16000; // "how to join" slide between waterfall views
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
 
-// Rotation order for the wall. Add/remove views here to change the loop.
-const VIEW_ORDER = ["wall", "instructions", "posters"] as const;
-type View = (typeof VIEW_ORDER)[number];
+// Rotation order for the wall. Posters are retired from the loop — just the
+// photo wall and the "how to join" instructions now.
+type View = "wall" | "instructions" | "posters";
+const VIEW_ORDER: View[] = ["wall", "instructions"];
 
 // Two ways to join, mirrored from the /snap/instructions sign but laid out for
 // a 16:9 screen. Kept in sync by hand — tiny lists.
