@@ -304,7 +304,7 @@
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BA8HRMJ9W/snap-1781033196588.jpg"
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781033201313539-rmq730pkl.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781033201313539-rmq7311oa.png",
       "handle": "",
       "ts": "1781033201.313539",
       "model": "flash",
@@ -383,7 +383,7 @@
   "attempts": {},
   "rendered": {
     "pro": 16,
-    "flash": 73
+    "flash": 74
   },
   "cooldownUntil": 1781022255383,
   "paused": false
