@@ -119,7 +119,7 @@
       "handle": "@will.sheridan",
       "ts": "1781023816.534469",
       "model": "flash",
-      "hidden": true,
+      "hidden": false,
       "flip": false
     },
     {
