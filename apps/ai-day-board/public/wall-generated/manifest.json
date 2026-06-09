@@ -105,7 +105,8 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781008265825889.png",
       "handle": "@serhiy.likhanov",
       "ts": "1781008265.825889",
-      "model": "pro"
+      "model": "pro",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781008699167459.png",
