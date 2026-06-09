@@ -129,7 +129,9 @@
       "hidden": true
     }
   ],
-  "attempts": {},
+  "attempts": {
+    "1781010328.618419": 1
+  },
   "rendered": {
     "pro": 14,
     "flash": 1
