@@ -35,7 +35,13 @@ export const STYLIZE_PROMPT =
   "upper-middle, and BOTH shoulders and the upper chest are fully visible " +
   "across the bottom. Never crop the shoulders, never zoom tighter than the " +
   "upper chest, never leave large empty headroom. " +
-  "Centered, facing forward, friendly expression. Square 1:1.";
+  "Centered, facing forward, friendly expression. Square 1:1. " +
+  "MOST IMPORTANT, ABOVE THE ART STYLE: the result must be immediately and " +
+  "unmistakably recognizable as the EXACT same individual as image 2 — the " +
+  "same gender/sex, age, ethnicity, skin tone, and facial structure. Read those " +
+  "attributes from image 2 and reproduce them faithfully; never guess or change " +
+  "them. If the art style and the person's true likeness ever conflict, always " +
+  "preserve the likeness.";
 
 export interface ImgPart {
   mimeType: string;

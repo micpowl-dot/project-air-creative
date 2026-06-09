@@ -12,7 +12,7 @@
 // No-ops (returns 200 with a note) if env is missing, so it never breaks deploys.
 
 import { NextResponse } from "next/server";
-import { stylize, randomBg } from "@/lib/stylize-core";
+import { stylize, randomBg, STANDARD_MODEL } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
 
 export const dynamic = "force-dynamic";
@@ -128,13 +128,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ initialized: true, lastTs: init.lastTs });
   }
 
-  // Rate-cap cooldown: after a 429/quota error we back off for a few minutes so
-  // the every-minute cron doesn't keep burning quota on requests that will just
-  // 429 again. Snaps stay queued and render once we probe again and succeed.
-  if (manifest.cooldownUntil && Date.now() < manifest.cooldownUntil) {
-    return NextResponse.json({ skipped: "rate-cap cooldown", until: manifest.cooldownUntil });
-  }
-
   // New image posts since lastTs.
   const histRes = await fetch(
     `https://slack.com/api/conversations.history?channel=${channel}&oldest=${manifest.lastTs}&limit=50`,
@@ -160,19 +153,31 @@ export async function GET(request: Request) {
     if (processed >= MAX_PER_RUN) break;
     const file = m.files.find((f) => String(f.mimetype || "").startsWith("image/"));
     if (!file) { newLastTs = m.ts; continue; } // non-image: skip past permanently
-    // Image processing ALWAYS uses Pro (Nano Banana Pro) for best likeness —
-    // no flash-model fallback. Transient Pro failures just keep retrying.
+    // Pro first (best likeness). If Pro is at its rate/daily cap, fall back to
+    // Flash so the portrait still renders during the event — Pro resumes
+    // automatically once its daily quota resets.
     try {
       const dl = await fetch(file.url_private_download || file.url_private || "", { headers: { Authorization: `Bearer ${token}` } });
       const personData = Buffer.from(await dl.arrayBuffer()).toString("base64");
       const bg = randomBg();
       const bgData = await fetchB64(`${origin}/headshots/bg/${bg}.png`);
-      const out = await stylize({
+      const styleArgs = {
         apiKey,
         style: { mimeType: "image/png", data: styleData },
         person: { mimeType: file.mimetype || "image/jpeg", data: personData },
         background: { mimeType: "image/png", data: bgData },
-      });
+      };
+      let out: string;
+      let usedModel: "pro" | "flash" = "pro";
+      try {
+        out = await stylize(styleArgs);
+      } catch (proErr) {
+        // Only fall back to Flash on a Pro rate/quota cap. Any other Pro error
+        // (bad image, etc.) is re-thrown to the transient/terminal handling.
+        if (!/\b429\b|quota|rate limit/i.test(String(proErr))) throw proErr;
+        out = await stylize({ ...styleArgs, model: STANDARD_MODEL });
+        usedModel = "flash";
+      }
       const url = await putImage(m.ts.replace(".", ""), Buffer.from(out, "base64"));
       // Resolve who snapped. Current /api/snap encodes the user id in the
       // filename (snap-<ts>-<U…>.ext); older messages used a `ref:<id>` token
@@ -193,10 +198,10 @@ export async function GET(request: Request) {
           if ((i.handle || "") === handle) i.hidden = true;
         }
       }
-      manifest.images.push({ src: url, handle, ts: m.ts, model: "pro" });
+      manifest.images.push({ src: url, handle, ts: m.ts, model: usedModel });
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
-      manifest.rendered.pro++;
+      manifest.rendered[usedModel]++;
       // Post the finished portrait to the DISPLAY channel (RENDER_POST_CHANNEL)
       // so the public photobooth shows only renders; the raw selfie stays in
       // the intake channel (HEADSHOT_SLACK_CHANNEL) that the pipeline reads.
@@ -217,10 +222,6 @@ export async function GET(request: Request) {
         const n = (manifest.attempts[m.ts] ?? 0) + 1;
         manifest.attempts[m.ts] = n;
         errors.push(`${m.ts} (transient try ${n}): ${msg.slice(0, 90)}`);
-        // Rate cap (429/quota): back off ~5 min so the every-minute cron stops
-        // burning quota on requests that will just 429 again. The snap stays
-        // queued and renders once we probe again and succeed.
-        if (/\b429\b|quota|rate limit/i.test(msg)) manifest.cooldownUntil = Date.now() + 5 * 60 * 1000;
         // A GLOBAL outage (quota/429, or 503 overload) hits every snap and
         // recovers later — never skip past those, or we'd silently drop every
         // queued photo during the outage. Keep them queued so they all render
