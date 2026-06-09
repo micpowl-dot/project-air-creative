@@ -14,6 +14,10 @@ const PALETTES = [
 ];
 const palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
 
+// PAUSE SWITCH: when true, /snap shows a "back shortly" overlay and the camera
+// stays off. Flip to false (and redeploy) to reopen the photo booth.
+const PAUSED = true;
+
 type Step = "camera" | "preview" | "submitting" | "done" | "error";
 
 export function Snap() {
@@ -59,8 +63,9 @@ export function Snap() {
       .slice(0, 6);
   })();
 
-  // Start camera on mount.
+  // Start camera on mount (skip entirely while the booth is paused).
   useEffect(() => {
+    if (PAUSED) return;
     let stream: MediaStream;
     navigator.mediaDevices
       .getUserMedia({ video: { facingMode: "user" }, audio: false })
@@ -133,6 +138,30 @@ export function Snap() {
       setErrorMsg(String(e));
       setStep("error");
     }
+  }
+
+  // --- Paused overlay: booth temporarily closed while we tune the portraits ---
+  if (PAUSED) {
+    return (
+      <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-8 text-center" style={{ background: palette.bg }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/poster-elements/top-edge/${palette.top}.png`} alt="" aria-hidden className="absolute right-0 top-0 w-2/3 object-cover opacity-60" style={{ height: "40%" }} />
+        <div className="relative z-10 flex flex-col items-center">
+          <AiDayLogo accent={palette.accent} ink={palette.ink} light={palette.light} style={{ width: "min(60vw, 280px)" }} />
+          <div className="mt-8 rounded-2xl px-7 py-6" style={{ background: "rgba(13,20,42,0.55)", backdropFilter: "blur(8px)" }}>
+            <div className="text-3xl">🛠️</div>
+            <h1 className="mt-3 font-display text-2xl font-bold text-white">Taking a quick break</h1>
+            <p className="mt-2 max-w-xs text-white/80">
+              We&apos;re tuning the AI portraits so they look just right. The photo booth will be back shortly.
+            </p>
+            <p className="mt-3 text-sm text-white/55">
+              In the meantime, check out the portraits already up on the wall. Thanks for your patience!
+            </p>
+          </div>
+          <p className="mt-6 text-sm text-white/50">June 9, 2026 · AI Day</p>
+        </div>
+      </div>
+    );
   }
 
   // --- Confirmation card (step === "done") ---

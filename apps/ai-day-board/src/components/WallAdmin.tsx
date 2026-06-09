@@ -34,6 +34,12 @@ export function WallAdmin() {
   }
 
   const [batch, setBatch] = useState<{ done: number; total: number } | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set()); // ts marked for batch re-render
+
+  function toggleSelect(ts: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    setSelected((prev) => { const n = new Set(prev); if (n.has(ts)) n.delete(ts); else n.add(ts); return n; });
+  }
 
   async function load() {
     try {
@@ -49,13 +55,13 @@ export function WallAdmin() {
     }
   }
 
-  // Re-render every visible Flash portrait with the current (fixed) prompt.
-  // These are the ones rendered during the Max-bleed window. Runs one at a time
+  // Re-render only the SELECTED portraits with the current (fixed) prompt — so
+  // you redo just the bad/Max ones, not the whole gallery. Runs one at a time
   // from the browser so each call stays under the function timeout.
-  async function rerenderAllFlash() {
-    const targets = images.filter((i) => i.model === "flash" && !i.hidden);
-    if (!targets.length) { setErr("No visible Flash portraits to re-render."); return; }
-    if (!window.confirm(`Re-render ${targets.length} Flash portraits with the fixed prompt?\n\nRuns one at a time (~20s each, about ${Math.ceil((targets.length * 20) / 60)} min). You can keep moderating while it runs; leave this tab open.`)) return;
+  async function rerenderSelected() {
+    const targets = images.filter((i) => selected.has(i.ts));
+    if (!targets.length) { setErr("Select the portraits to redo first — tap 'Select' on each bad one."); return; }
+    if (!window.confirm(`Re-render the ${targets.length} selected portrait(s) with the fixed prompt?\n\nRuns one at a time (~20s each). You can keep moderating while it runs; leave this tab open.`)) return;
     setErr(null);
     setBatch({ done: 0, total: targets.length });
     for (let k = 0; k < targets.length; k++) {
@@ -76,6 +82,7 @@ export function WallAdmin() {
       setBatch({ done: k + 1, total: targets.length });
     }
     setBatch(null);
+    setSelected(new Set());
     load();
   }
 
@@ -224,12 +231,12 @@ export function WallAdmin() {
             )}
             <div className="mt-1 flex items-center justify-end gap-2">
               <button
-                onClick={rerenderAllFlash}
-                disabled={batch !== null}
+                onClick={rerenderSelected}
+                disabled={batch !== null || selected.size === 0}
                 className="rounded-md border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 text-xs font-semibold text-emerald-200 hover:bg-emerald-500/30 disabled:opacity-50"
-                title="Re-render every visible Flash portrait with the fixed prompt"
+                title="Re-render only the selected portraits with the fixed prompt"
               >
-                {batch ? `Re-rendering ${batch.done}/${batch.total}…` : "↻ Re-render all Flash"}
+                {batch ? `Re-rendering ${batch.done}/${batch.total}…` : `↻ Re-render selected${selected.size ? ` (${selected.size})` : ""}`}
               </button>
               <button
                 onClick={() => {
@@ -273,7 +280,7 @@ export function WallAdmin() {
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {sorted.map((img) => (
-              <div key={img.ts || img.src} className="relative">
+              <div key={img.ts || img.src} className={`relative rounded-lg ${selected.has(img.ts) ? "ring-2 ring-emerald-400 ring-offset-2 ring-offset-[#11100c]" : ""}`}>
               {/* Remove-from-gallery (moves to orphaned; file kept) */}
               <button
                 onClick={(e) => remove(img, e)}
@@ -324,8 +331,17 @@ export function WallAdmin() {
                   </span>
                 )}
               </button>
-              {/* Source/Render toggle + Re-render + Mirror toggle + rendered-by tag. */}
+              {/* Select (batch) + Source/Render + Re-render + Mirror + rendered-by tag. */}
               <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
+                <button
+                  onClick={(e) => toggleSelect(img.ts, e)}
+                  title="Select for batch re-render"
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide transition ${
+                    selected.has(img.ts) ? "bg-emerald-500 text-white" : "bg-white/10 text-white/55 hover:bg-white/20"
+                  }`}
+                >
+                  {selected.has(img.ts) ? "✓ Selected" : "Select"}
+                </button>
                 <button
                   onClick={(e) => toggleSrc(img.ts, e)}
                   title="Show the original selfie to QA the render"
