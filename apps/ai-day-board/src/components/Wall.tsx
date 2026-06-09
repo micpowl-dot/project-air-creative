@@ -245,9 +245,36 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
   );
 }
 
-/** Full-screen cycle through the session posters (16:9), one at a time. */
+// Parse a schedule slot time ("9:00", "1:45") to minutes since midnight. The
+// schedule is a daytime event written without AM/PM, so hours 1–7 are PM.
+function slotToMinutes(time: string): number {
+  const [hRaw, mRaw] = time.split(":");
+  let h = parseInt(hRaw, 10) || 0;
+  const m = parseInt(mRaw, 10) || 0;
+  if (h >= 1 && h <= 7) h += 12; // 1:00–7:59 → afternoon
+  return h * 60 + m;
+}
+
+/** Full-screen cycle through the UPCOMING session posters (16:9), one at a time.
+ *  Past slots drop off; we show the slot in progress plus everything still to
+ *  come, soonest first, so the wall always promotes what's happening now/next. */
 function PosterCycleView({ schedule }: { schedule: Schedule }) {
-  const entries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
+  const allEntries = useMemo(() => posterEntriesFromSchedule(schedule), [schedule]);
+  // A slot stays "current" until the NEXT slot starts (the last runs to EOD).
+  // Computed when this view mounts (every rotation) so it tracks the clock.
+  const entries = useMemo(() => {
+    const slots = schedule.slots;
+    const now = new Date();
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    const starts = slots.map((s) => slotToMinutes(s.time));
+    const keep = new Set<string>();
+    slots.forEach((s, idx) => {
+      const end = idx + 1 < slots.length ? starts[idx + 1] : 24 * 60;
+      if (end > nowMin) keep.add(s.time);
+    });
+    const upcoming = allEntries.filter((e) => keep.has(e.time));
+    return upcoming.length ? upcoming : allEntries; // never blank (e.g. after the event)
+  }, [schedule, allEntries]);
   const [i, setI] = useState(0);
   useEffect(() => {
     if (entries.length === 0) return;
