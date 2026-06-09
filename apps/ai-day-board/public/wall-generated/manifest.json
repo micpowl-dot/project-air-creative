@@ -202,7 +202,7 @@
       "ts": "1781025099.125909",
       "model": "flash",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B8XME02K1/snap-1781025097392-u06f5jbqwsv.jpg",
-      "hidden": false,
+      "hidden": true,
       "flip": false
     },
     {
