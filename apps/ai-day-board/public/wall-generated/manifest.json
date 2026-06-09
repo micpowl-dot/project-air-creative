@@ -128,7 +128,7 @@
       "model": "flash"
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529-rmq6zrw89.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529-rmq706bhm.png",
       "handle": "@michael.klein",
       "ts": "1781024292.776529",
       "model": "flash",
@@ -182,7 +182,7 @@
       "model": "flash",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B8Y7L2M3R/snap-1781028828261-u06pvezev3r.jpg",
       "hidden": false,
-      "flip": true
+      "flip": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781029138150529-rmq6zb12l.png",
@@ -211,7 +211,7 @@
   "attempts": {},
   "rendered": {
     "pro": 16,
-    "flash": 41
+    "flash": 42
   },
   "cooldownUntil": 1781022255383,
   "paused": false
