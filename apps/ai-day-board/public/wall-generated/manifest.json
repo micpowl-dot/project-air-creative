@@ -124,7 +124,8 @@
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781009268017889.png",
       "handle": "@sachay.lee",
       "ts": "1781009268.017889",
-      "model": "flash"
+      "model": "flash",
+      "hidden": true
     }
   ],
   "attempts": {},
