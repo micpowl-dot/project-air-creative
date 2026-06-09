@@ -210,11 +210,14 @@ export async function GET(request: Request) {
         const n = (manifest.attempts[m.ts] ?? 0) + 1;
         manifest.attempts[m.ts] = n;
         errors.push(`${m.ts} (transient try ${n}): ${msg.slice(0, 90)}`);
-        // Don't let one stuck snap block the whole queue. After many transient
-        // retries (a "poison" image that keeps erroring, or a long Pro outage),
-        // skip past it so newer snaps keep rendering — the queue self-heals.
+        // A GLOBAL outage (quota/429, or 503 overload) hits every snap and
+        // recovers later — never skip past those, or we'd silently drop every
+        // queued photo during the outage. Keep them queued so they all render
+        // once capacity returns. Only skip a per-image "poison" snap (e.g. a
+        // 500 on one bad image) after many tries so it can't block the queue.
+        const globalOutage = /\b(429|503)\b|quota|rate limit|overload|high demand|unavailable/i.test(msg);
         const TRANSIENT_MAX = 12;
-        if (n >= TRANSIENT_MAX) { newLastTs = m.ts; delete manifest.attempts[m.ts]; continue; }
+        if (!globalOutage && n >= TRANSIENT_MAX) { newLastTs = m.ts; delete manifest.attempts[m.ts]; continue; }
         break; // otherwise retry oldest-first on the next run
       }
       // Terminal (bad image, malformed response): give up after a few tries so
