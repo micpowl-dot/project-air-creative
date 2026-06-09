@@ -198,7 +198,7 @@ export async function GET(request: Request) {
           if ((i.handle || "") === handle) i.hidden = true;
         }
       }
-      manifest.images.push({ src: url, handle, ts: m.ts, model: usedModel });
+      manifest.images.push({ src: url, handle, ts: m.ts, model: usedModel, srcUrl: file.url_private });
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
       manifest.rendered[usedModel]++;

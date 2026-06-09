@@ -22,6 +22,16 @@ export function WallAdmin() {
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [sort, setSort] = useState<"recent" | "lastname">("recent");
+  const [showSrc, setShowSrc] = useState<Set<string>>(new Set()); // ts showing the original selfie
+
+  function toggleSrc(ts: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    setShowSrc((prev) => {
+      const next = new Set(prev);
+      if (next.has(ts)) next.delete(ts); else next.add(ts);
+      return next;
+    });
+  }
 
   async function load() {
     try {
@@ -216,12 +226,13 @@ export function WallAdmin() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={img.src}
+                  src={showSrc.has(img.ts) ? `/api/wall-admin/source?ts=${encodeURIComponent(img.ts)}` : img.src}
                   alt={img.handle || "wall image"}
                   className={`h-full w-full object-cover transition ${
                     img.hidden ? "opacity-30 grayscale" : "opacity-100"
                   }`}
-                  style={img.flip ? { transform: "scaleX(-1)" } : undefined}
+                  style={!showSrc.has(img.ts) && img.flip ? { transform: "scaleX(-1)" } : undefined}
+                  onError={(e) => { if (showSrc.has(img.ts)) (e.currentTarget as HTMLImageElement).src = img.src; }}
                 />
                 {/* Status pill */}
                 <span
@@ -231,6 +242,12 @@ export function WallAdmin() {
                 >
                   {img.hidden ? "Hidden" : "On wall"}
                 </span>
+                {/* Showing the original selfie (QA) */}
+                {showSrc.has(img.ts) && (
+                  <span className="absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-sky-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow">
+                    SOURCE
+                  </span>
+                )}
                 {busy === img.ts && (
                   <span className="absolute inset-0 grid place-items-center bg-black/50 text-xs">saving…</span>
                 )}
@@ -240,8 +257,17 @@ export function WallAdmin() {
                   </span>
                 )}
               </button>
-              {/* Mirror toggle + rendered-by tag. */}
+              {/* Source/Render toggle + Mirror toggle + rendered-by tag. */}
               <div className="mt-1 flex items-center justify-center gap-2">
+                <button
+                  onClick={(e) => toggleSrc(img.ts, e)}
+                  title="Show the original selfie to QA the render"
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide transition ${
+                    showSrc.has(img.ts) ? "bg-sky-500 text-white" : "bg-white/10 text-white/55 hover:bg-white/20"
+                  }`}
+                >
+                  {showSrc.has(img.ts) ? "Render" : "Source"}
+                </button>
                 <button
                   onClick={(e) => flip(img, e)}
                   disabled={busy === img.ts}
