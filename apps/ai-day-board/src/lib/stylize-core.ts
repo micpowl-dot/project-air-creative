@@ -23,10 +23,14 @@ export const STYLE_REFS: string[] = [];
 
 export const STYLIZE_PROMPT =
   "There are two images. The FIRST image is the ACTUAL PERSON. Redraw this exact " +
-  "person as a polished illustrated portrait in THIS style: a clean semi-realistic " +
-  "vector illustration with smooth cel-shaded gradient shading, crisp confident " +
-  "linework, full saturated color, and a warm, friendly look (like a high-quality " +
-  "digital illustration of the person). " +
+  "person as a bold, clearly STYLIZED digital ILLUSTRATION — a polished vector / " +
+  "cel-shaded character portrait. It MUST look hand-illustrated, and must NOT be " +
+  "a photograph or a lightly-filtered/retouched photo. Apply the full illustrated " +
+  "treatment: clean confident dark outlines and linework, smooth FLAT cel-shaded " +
+  "color regions with simple soft gradients, and crisp saturated color. Render the " +
+  "skin, hair, and clothing as illustrated shapes — do NOT keep photographic skin " +
+  "texture, pores, or photo realism. If it looks like a photo, it is wrong; it " +
+  "must read unmistakably as a drawn illustration. " +
   "Preserve their likeness EXACTLY — the SAME apparent gender/sex, the same age, " +
   "the same ethnicity and skin tone, and the same face shape, head and hairline, " +
   "hairstyle, facial hair, glasses, and clothing as in the photo. Do NOT change " +
