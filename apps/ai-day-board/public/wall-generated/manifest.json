@@ -213,5 +213,6 @@
     "pro": 16,
     "flash": 41
   },
-  "cooldownUntil": 1781022255383
+  "cooldownUntil": 1781022255383,
+  "paused": false
 }
