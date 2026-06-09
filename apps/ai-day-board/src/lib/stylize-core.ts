@@ -33,10 +33,14 @@ export const STYLIZE_PROMPT =
   "must read unmistakably as a drawn illustration. " +
   "Preserve their likeness EXACTLY — the SAME apparent gender/sex, the same age, " +
   "the same ethnicity and skin tone, and the same face shape, head and hairline, " +
-  "hairstyle, facial hair, glasses, and clothing as in the photo. Do NOT change " +
-  "their gender, age, ethnicity, or features, do NOT make them more masculine or " +
-  "more feminine, and NEVER substitute anyone else's face. It must be immediately " +
-  "and unmistakably the same individual as the first image. " +
+  "hairstyle, facial hair, and clothing as in the photo. " +
+  "Match accessories to the photo EXACTLY: include glasses ONLY if the person is " +
+  "actually wearing glasses in the photo — if they are NOT wearing glasses, do " +
+  "NOT add any. Likewise never add or remove hats, jewelry, earrings, piercings, " +
+  "or facial hair; render only what is actually present in the photo. " +
+  "Do NOT change their gender, age, ethnicity, or features, do NOT make them more " +
+  "masculine or more feminine, and NEVER substitute anyone else's face. It must " +
+  "be immediately and unmistakably the same individual as the first image. " +
   "The SECOND image is the BACKGROUND: place the illustrated person directly in " +
   "front of it and keep its colors and pattern exactly as-is — do not alter, " +
   "restyle, recolor, or add anything to the background. " +
