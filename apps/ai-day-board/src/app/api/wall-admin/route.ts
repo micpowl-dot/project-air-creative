@@ -12,11 +12,12 @@ export async function GET() {
   try {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
-    const images = (m?.images ?? []).map(({ src, handle, ts, hidden, model }) => ({
+    const images = (m?.images ?? []).map(({ src, handle, ts, hidden, flip, model }) => ({
       src,
       handle: handle ?? "",
       ts: ts ?? "",
       hidden: Boolean(hidden),
+      flip: Boolean(flip),
       model: model ?? "pro", // legacy images predate the field; they were all Pro
     }));
     // Newest first.
@@ -38,9 +39,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  let ts: string, hidden: boolean | undefined, remove: boolean | undefined;
+  let ts: string, hidden: boolean | undefined, remove: boolean | undefined, flip: boolean | undefined;
   try {
-    ({ ts, hidden, remove } = await request.json());
+    ({ ts, hidden, remove, flip } = await request.json());
   } catch {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
@@ -53,8 +54,15 @@ export async function POST(request: Request) {
       if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
       return NextResponse.json({ ok: true, removed: true });
     }
+    // flip: mirror (horizontal flip) the portrait on the wall.
+    if (typeof flip === "boolean") {
+      const { setFlip } = await import("@/lib/wall-store");
+      const m = await setFlip(ts, flip);
+      if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
+      return NextResponse.json({ ok: true, flip });
+    }
     if (typeof hidden !== "boolean") {
-      return NextResponse.json({ error: "Need { ts, hidden } or { ts, remove }" }, { status: 400 });
+      return NextResponse.json({ error: "Need { ts, hidden }, { ts, flip } or { ts, remove }" }, { status: 400 });
     }
     const { setHidden } = await import("@/lib/wall-store");
     const m = await setHidden(ts, hidden);

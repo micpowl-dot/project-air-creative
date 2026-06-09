@@ -7,6 +7,7 @@ interface AdminImage {
   handle: string;
   ts: string;
   hidden: boolean;
+  flip: boolean;
   model: "pro" | "flash";
 }
 
@@ -62,6 +63,30 @@ export function WallAdmin() {
     }
   }
 
+  // Mirror (horizontal flip) the portrait on the wall. Reversible.
+  async function flip(img: AdminImage, e: React.MouseEvent) {
+    e.stopPropagation(); // don't trigger the tile's show/hide toggle
+    setBusy(img.ts);
+    setErr(null);
+    const next = !img.flip;
+    // Optimistic update.
+    setImages((prev) => prev.map((i) => (i.ts === img.ts ? { ...i, flip: next } : i)));
+    try {
+      const res = await fetch("/api/wall-admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ts: img.ts, flip: next }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || `HTTP ${res.status}`);
+    } catch (e) {
+      // Revert on failure.
+      setImages((prev) => prev.map((i) => (i.ts === img.ts ? { ...i, flip: img.flip } : i)));
+      setErr(String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   // Remove from the gallery (drops the manifest entry; the image file stays in
   // the repo as an orphan and can be re-added). Confirms first.
   async function remove(img: AdminImage, e: React.MouseEvent) {
@@ -110,7 +135,7 @@ export function WallAdmin() {
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Wall Moderation</h1>
             <p className="mt-1 text-sm text-white/50">
-              Tap a tile to show or hide it on the live wall. Changes save instantly; the wall updates within a few seconds. Nothing is deleted.
+              Tap a tile to show or hide it on the live wall. Use ⇄ Mirror to flip a portrait horizontally. Changes save instantly; the wall updates within a few seconds. Nothing is deleted.
             </p>
           </div>
           <div className="text-right text-sm text-white/60">
@@ -196,6 +221,7 @@ export function WallAdmin() {
                   className={`h-full w-full object-cover transition ${
                     img.hidden ? "opacity-30 grayscale" : "opacity-100"
                   }`}
+                  style={img.flip ? { transform: "scaleX(-1)" } : undefined}
                 />
                 {/* Status pill */}
                 <span
@@ -214,8 +240,18 @@ export function WallAdmin() {
                   </span>
                 )}
               </button>
-              {/* Rendered-by tag: Flash = fallback (Pro was down), stands out. */}
-              <div className="mt-1 flex justify-center">
+              {/* Mirror toggle + rendered-by tag. */}
+              <div className="mt-1 flex items-center justify-center gap-2">
+                <button
+                  onClick={(e) => flip(img, e)}
+                  disabled={busy === img.ts}
+                  title="Mirror (horizontal flip) on the wall"
+                  className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide transition ${
+                    img.flip ? "bg-amber-400 text-black" : "bg-white/10 text-white/55 hover:bg-white/20"
+                  }`}
+                >
+                  ⇄ Mirror
+                </button>
                 <span
                   className={`rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                     img.model === "flash" ? "bg-orange-500/20 text-orange-300" : "bg-white/10 text-white/45"

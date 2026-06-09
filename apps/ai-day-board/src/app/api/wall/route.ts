@@ -113,7 +113,7 @@ async function storiesFromSlack(): Promise<Story[] | null> {
   }
 }
 
-interface WallImage { src: string; handle?: string }
+interface WallImage { src: string; handle?: string; flip?: boolean }
 
 // Primary: generated headshots from the Blob manifest (written by /api/process-photos).
 // Cache the manifest-derived images. The wall polls every ~8s and reads the
@@ -131,7 +131,7 @@ async function imagesFromBlob(): Promise<WallImage[] | null> {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
     if (!m || !m.images.length) return imagesCache?.images.length ? imagesCache.images : null;
-    const visible = m.images.filter((i) => !i.hidden).map(({ src, handle }) => ({ src, handle }));
+    const visible = m.images.filter((i) => !i.hidden).map(({ src, handle, flip }) => ({ src, handle, flip }));
     imagesCache = { at: Date.now(), images: visible };
     return visible.length ? visible : null;
   } catch {

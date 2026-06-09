@@ -12,6 +12,7 @@ export interface WallImage {
   handle?: string;
   ts?: string;
   hidden?: boolean; // moderated off the wall (reversible) via /wall-admin
+  flip?: boolean;   // mirror (horizontal flip) the portrait on the wall, via /wall-admin
   model?: "pro" | "flash"; // which Gemini model rendered it (flash = Pro-outage fallback)
 }
 export interface WallManifest {
@@ -94,6 +95,17 @@ export async function setHidden(ts: string, hidden: boolean): Promise<WallManife
   const img = m.images.find((i) => i.ts === ts);
   if (!img) return m;
   img.hidden = hidden;
+  await writeManifest(m);
+  return m;
+}
+
+/** Mirror (horizontal flip) an image on the wall (matched by ts). Reversible. */
+export async function setFlip(ts: string, flip: boolean): Promise<WallManifest | null> {
+  const m = await readManifest();
+  if (!m) return null;
+  const img = m.images.find((i) => i.ts === ts);
+  if (!img) return m;
+  img.flip = flip;
   await writeManifest(m);
   return m;
 }

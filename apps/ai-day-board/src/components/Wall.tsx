@@ -19,6 +19,7 @@ interface Story {
 interface WallImage {
   src: string;
   handle?: string;
+  flip?: boolean; // mirror (horizontal flip), toggled in /wall-admin
 }
 
 const COLUMNS = 5;
@@ -169,7 +170,7 @@ function Tile({ item, tilt }: { item: WallImage; tilt: number }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={item.src} alt="" className="absolute inset-0 h-full w-full object-cover" style={item.flip ? { transform: "scaleX(-1)" } : undefined} />
         {item.handle && (
           <div className="absolute bottom-0 left-0 right-0" style={{ background: "rgba(13,20,42,0.72)", padding: "0.35vw 0.6vw" }}>
             <span className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.95vw" }}>{item.handle}</span>
@@ -455,16 +456,21 @@ export function Wall({ schedule }: { schedule: Schedule }) {
         if (!active) return;
         setImages((prev) => {
           const incoming = (body.images as WallImage[]).filter((it) => it?.src);
-          const incomingSrcs = new Set(incoming.map((i) => i.src));
+          const bySrc = new Map(incoming.map((i) => [i.src, i]));
           // Keep tiles still being served (stable order) and DROP any that are no
           // longer returned — e.g. hidden in /wall-admin. The old code only ever
-          // appended, so hidden images lingered until a full page reload.
-          const kept = prev.filter((p) => incomingSrcs.has(p.src));
+          // appended, so hidden images lingered until a full page reload. Use the
+          // latest data for kept tiles so flip/handle changes propagate live.
+          const kept = prev.filter((p) => bySrc.has(p.src)).map((p) => bySrc.get(p.src)!);
           const keptSrcs = new Set(kept.map((p) => p.src));
           // Append genuinely new tiles so the wall keeps building through the day.
           const added = incoming.filter((i) => !keptSrcs.has(i.src));
-          if (added.length === 0 && kept.length === prev.length) return prev; // unchanged
-          return [...kept, ...added];
+          const next = [...kept, ...added];
+          // Skip the state update when nothing changed (order, membership, flip).
+          const unchanged =
+            next.length === prev.length &&
+            next.every((n, i) => prev[i] && prev[i].src === n.src && Boolean(prev[i].flip) === Boolean(n.flip));
+          return unchanged ? prev : next;
         });
         setStories(body.stories ?? []);
         setLive(Boolean(body.live?.images));
