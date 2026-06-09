@@ -240,7 +240,8 @@
       "handle": "",
       "ts": "1781026134.484569",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BA7HYDPBJ/image.png"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BA7HYDPBJ/image.png",
+      "hidden": true
     }
   ],
   "attempts": {},
