@@ -198,7 +198,7 @@
       "handle": "@melina.preston",
       "ts": "1781024050.402129",
       "model": "flash",
-      "hidden": true
+      "hidden": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024059413089.png",
