@@ -188,7 +188,13 @@ export async function GET(request: Request) {
         (m.text || "").match(/<@(U[A-Z0-9]+)>/)?.[1];
       // Caption only when we know who (no falling back to the bot's own handle
       // for anonymous snaps — that produced a bogus "@ai.day.wall" caption).
-      const handle = uid ? await resolveHandle(uid, token) : "";
+      let handle = uid ? await resolveHandle(uid, token) : "";
+      if (!handle) {
+        // Free-text submission (no Slack id): caption with the name the person
+        // typed, parsed from the post comment "📸 NAME using the AI Day Me app".
+        const nm = (m.text || "").match(/📸\s+(.+?)\s+using the AI Day Me app/);
+        if (nm && nm[1] && nm[1].trim().toLowerCase() !== "someone") handle = nm[1].trim();
+      }
       // One image per tagged person ON THE WALL: hide (don't delete) any earlier
       // render for this handle so only the latest is active. Prior versions stay
       // in /wall-admin, grayed out, and can be re-activated by tapping them.

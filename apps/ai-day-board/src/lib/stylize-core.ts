@@ -18,8 +18,10 @@ export function randomBg(): string {
 export const STYLIZE_PROMPT =
   "There are three images. IMAGE 1 is ONLY an art-style reference: copy its " +
   "illustration style (clean semi-realistic vector look, smooth cel-shaded " +
-  "gradient shading, crisp confident linework, full color). Do NOT copy the " +
-  "face, hair, or identity from image 1. IMAGE 2 is the ACTUAL PERSON to draw: " +
+  "gradient shading, crisp confident linework, full color). Do NOT copy ANYTHING " +
+  "ELSE from image 1 — not its face, hair, gender, skin tone, clothing, pose, " +
+  "expression, or background. Image 1 is a style swatch, NOT a person to draw. " +
+  "IMAGE 2 is the ACTUAL PERSON to draw: " +
   "keep their exact likeness — the SAME apparent gender/sex, the same age, and " +
   "the same ethnicity and skin tone, plus the same face shape, head and " +
   "hairline, facial hair, glasses, and clothing. Do NOT change the person's " +

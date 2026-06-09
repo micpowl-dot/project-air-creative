@@ -274,7 +274,7 @@ export function Snap() {
               style={{ caretColor: palette.accent }}
             />
           )}
-          {matches.length > 0 && (
+          {!picked && query.trim().length >= 2 && (
             <div className="absolute z-20 mt-1 w-full overflow-hidden rounded-xl border border-white/20 bg-[#0D142A] shadow-2xl">
               {matches.map((u) => (
                 <button
@@ -286,9 +286,18 @@ export function Snap() {
                   {u.handle && <span className="text-xs text-white/45">@{u.handle}</span>}
                 </button>
               ))}
+              {/* Free-text fallback: anyone not found in the directory can still
+                  use their typed name (no one gets blocked by a missing entry). */}
+              <button
+                onClick={() => { const n = query.trim(); setPicked({ id: "", name: n, real: n, handle: "" }); setQuery(n); }}
+                className="flex w-full items-center gap-2 border-t border-white/10 px-4 py-2.5 text-left hover:bg-white/10"
+              >
+                <span className="text-white/90">Use &ldquo;<span className="font-semibold">{query.trim()}</span>&rdquo;</span>
+                <span className="text-xs text-white/40">— not in the list</span>
+              </button>
             </div>
           )}
-          <p className="mt-1 text-xs text-white/45">Pick your name first to continue.</p>
+          <p className="mt-1 text-xs text-white/45">Pick your name, or tap &ldquo;Use…&rdquo; if you&apos;re not listed.</p>
         </div>
 
         {/* Actions */}

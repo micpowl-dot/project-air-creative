@@ -20,10 +20,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
 
-  // Name is required: every portrait must be identified (for the @mention, the
-  // DM, and one-image-per-person dedupe). Reject submissions without a picked user.
-  if (!userId || !userId.trim()) {
-    return NextResponse.json({ error: "Please pick your name before submitting." }, { status: 400 });
+  // A NAME is required (so every portrait is identified on the wall), but a
+  // Slack userId is optional: people not found in the directory can submit a
+  // free-text name. With a userId we also @mention + DM them; without one, the
+  // typed name still captions the wall tile.
+  if (!name || !name.trim()) {
+    return NextResponse.json({ error: "Please enter your name before submitting." }, { status: 400 });
   }
 
   // image is a data URL (data:image/jpeg;base64,...).
