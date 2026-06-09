@@ -32,10 +32,23 @@ export function Snap() {
   const handle = picked ? `@${picked.handle || picked.name}` : query.trim();
 
   useEffect(() => {
-    fetch("/api/users")
-      .then((r) => r.json())
-      .then((d) => setDir(d.users || []))
-      .catch(() => {});
+    let cancelled = false;
+    let tries = 0;
+    // Load the name directory; if it comes back empty (Slack slow/rate-limited),
+    // retry a few times so the typeahead self-heals instead of staying blank.
+    async function load() {
+      try {
+        const r = await fetch("/api/users", { cache: "no-store" });
+        const d = await r.json();
+        if (cancelled) return;
+        if (d.users?.length) { setDir(d.users); return; }
+      } catch {
+        /* fall through to retry */
+      }
+      if (!cancelled && tries++ < 6) setTimeout(load, 2500);
+    }
+    load();
+    return () => { cancelled = true; };
   }, []);
 
   const matches = (() => {

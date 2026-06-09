@@ -26,12 +26,13 @@ export async function GET() {
 
   const users: DirUser[] = [];
   let cursor = "";
+  let complete = true; // did we page all the way through without a Slack error?
   try {
     do {
       const url = `https://slack.com/api/users.list?limit=200${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
       const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" });
       const body = await res.json();
-      if (!body.ok) break;
+      if (!body.ok) { complete = false; break; } // rate-limited / error mid-pagination
       for (const m of body.members ?? []) {
         if (m.deleted || m.is_bot || m.id === "USLACKBOT") continue;
         const p = m.profile ?? {};
@@ -42,10 +43,17 @@ export async function GET() {
       cursor = body.response_metadata?.next_cursor || "";
     } while (cursor);
   } catch {
-    /* serve whatever we collected */
+    complete = false;
   }
 
   users.sort((a, b) => a.name.localeCompare(b.name));
-  cache = { at: Date.now(), users };
-  return NextResponse.json({ users });
+  // Only cache a COMPLETE directory. A partial fetch (Slack rate limit) must not
+  // poison the typeahead for an hour and leave people unable to find their name
+  // — keep serving the last good cache, and let the next request retry.
+  if (complete && users.length) {
+    cache = { at: Date.now(), users };
+    return NextResponse.json({ users });
+  }
+  if (cache?.users.length) return NextResponse.json({ users: cache.users }); // last good
+  return NextResponse.json({ users }); // best effort, uncached → next call retries
 }
