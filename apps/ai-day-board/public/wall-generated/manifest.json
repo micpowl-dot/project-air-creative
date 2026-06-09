@@ -211,7 +211,8 @@
       "handle": "@melina.preston",
       "ts": "1781024174.702219",
       "model": "flash",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9ES4QP4Z/snap-1781024173511-u06h8aj26tu.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9ES4QP4Z/snap-1781024173511-u06h8aj26tu.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529.png",
