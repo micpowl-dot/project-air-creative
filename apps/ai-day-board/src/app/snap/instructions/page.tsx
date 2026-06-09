@@ -143,12 +143,6 @@ export default function InstructionsPage() {
           to { transform: rotateX(var(--rx, 1turn)) rotateY(var(--ry, 1turn)) rotateZ(var(--rz, 0.5turn)); }
         }
         @media (prefers-reduced-motion: reduce) { .sign .confetti { display: none; } }
-        @media (max-width: 779px) {
-          .sign { background: var(--ink); }
-          .sign .masthead, .sign .footer { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); }
-          .sign .col-snap  { background: var(--magenta); }
-          .sign .col-quote { background: var(--blue); }
-        }
         .sign .col-snap  { background: transparent; --accent: var(--magenta-accent); }
         .sign .col-quote { background: transparent; --accent: var(--blue-accent); }
 
@@ -174,6 +168,16 @@ export default function InstructionsPage() {
         .sign .chan { background: var(--accent); color: var(--ink); font-weight: 800; padding: 0.05rem 0.4rem; border-radius: 0.35rem; }
 
         .sign .footer { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.85); padding: 1.25rem; background: transparent; position: relative; z-index: 2; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+        /* Narrow / stacked layout: panels carry their own solid color (the
+           50/50 sign gradient only lines up when the two columns sit side by
+           side). Placed last so it wins over the transparent base rules. */
+        @media (max-width: 779px) {
+          .sign { background: var(--ink); }
+          .sign .masthead, .sign .footer { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); }
+          .sign .col-snap  { background: var(--magenta); }
+          .sign .col-quote { background: var(--blue); }
+        }
 
         @media print {
           .sign { background: #fff; color: #111; }
@@ -212,6 +216,7 @@ export default function InstructionsPage() {
             <div className="col-inner">
               <div className="col-title"><Icon name="camera" className="ico" /> Get your portrait up</div>
               <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", margin: "-0.75rem 0 1.1rem" }}>💡 Flash or bright, even lighting is recommended for best results.</div>
               <div className="steps">
                 {SNAP_STEPS.map((s) => (
                   <div key={s.n} className="step">
@@ -268,7 +273,7 @@ export default function InstructionsPage() {
           </div>
         </div>
 
-        <div className="footer">AI Day · June 9, 2026 · The Weather Company</div>
+        <div className="footer">Portraits are AI processed, so results may not always be accurate.<br />AI Day · June 9, 2026 · The Weather Company</div>
         <Confetti />
       </div>
     </>

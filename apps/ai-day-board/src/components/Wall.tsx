@@ -369,8 +369,11 @@ function InstructionsView() {
             <Icon name="camera" style={{ width: "1.9vw", height: "1.9vw", color: ACCENT, flex: "none" }} />
             Get your portrait up
           </div>
-          <div className="text-white/80" style={{ fontSize: "1.05vw", margin: "0.6vh 0 2vh" }}>
+          <div className="text-white/80" style={{ fontSize: "1.05vw", margin: "0.6vh 0 0.4vh" }}>
             Take a selfie and watch yourself appear as an illustrated AI Day portrait.
+          </div>
+          <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.95vw", marginBottom: "1.6vh" }}>
+            Flash or bright, even lighting is recommended for best results.
           </div>
           <div className="flex items-start gap-[2vw]">
             {/* QR */}
@@ -418,6 +421,9 @@ function InstructionsView() {
         </div>
       </div>
 
+      <div className="absolute bottom-[2vh] left-[2.5vw] text-white/55" style={{ fontSize: "0.85vw", zIndex: 2 }}>
+        Portraits are AI processed, so results may not always be accurate.
+      </div>
       <div className="absolute bottom-[2vh] right-[2.5vw] text-white/60" style={{ fontSize: "0.9vw", zIndex: 2 }}>
         AI Day · June 9, 2026 · The Weather Company
       </div>
