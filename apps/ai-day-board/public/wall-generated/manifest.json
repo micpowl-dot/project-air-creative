@@ -128,7 +128,7 @@
       "model": "flash"
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529-rmq6zmrsw.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529-rmq6zrw89.png",
       "handle": "@michael.klein",
       "ts": "1781024292.776529",
       "model": "flash",
@@ -211,7 +211,7 @@
   "attempts": {},
   "rendered": {
     "pro": 16,
-    "flash": 40
+    "flash": 41
   },
   "cooldownUntil": 1781022255383
 }
