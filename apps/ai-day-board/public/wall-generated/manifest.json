@@ -282,7 +282,7 @@
       "ts": "1781029138.150529",
       "model": "flash",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BA81K1YG0/snap-1781029136760-u06ffpxcqu8.jpg",
-      "hidden": true
+      "hidden": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781029222808539.png",
