@@ -73,6 +73,31 @@ export function WallAdmin() {
     }
   }
 
+  // Re-render this portrait from its original selfie using the current prompt
+  // (Pro if available, else Flash). Replaces the image in place. Costs 1 render.
+  async function rerender(img: AdminImage, e: React.MouseEvent) {
+    e.stopPropagation();
+    if (!window.confirm(`Re-render ${img.handle || "this portrait"} with the latest prompt?\n\nUses one render (Pro if available, otherwise Flash) and replaces the current image. Takes up to ~30s.`)) return;
+    setBusy(img.ts);
+    setErr(null);
+    try {
+      const res = await fetch("/api/wall-admin/rerender", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ts: img.ts }),
+      });
+      const body = await res.json();
+      if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+      // Swap in the new render (cache-bust the img so the new file loads).
+      setImages((prev) => prev.map((i) => (i.ts === img.ts ? { ...i, src: `${body.src}?t=${Date.now()}`, model: body.model, hidden: false, flip: false } : i)));
+      setShowSrc((prev) => { const n = new Set(prev); n.delete(img.ts); return n; });
+    } catch (e) {
+      setErr(String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   // Mirror (horizontal flip) the portrait on the wall. Reversible.
   async function flip(img: AdminImage, e: React.MouseEvent) {
     e.stopPropagation(); // don't trigger the tile's show/hide toggle
@@ -257,8 +282,8 @@ export function WallAdmin() {
                   </span>
                 )}
               </button>
-              {/* Source/Render toggle + Mirror toggle + rendered-by tag. */}
-              <div className="mt-1 flex items-center justify-center gap-2">
+              {/* Source/Render toggle + Re-render + Mirror toggle + rendered-by tag. */}
+              <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5">
                 <button
                   onClick={(e) => toggleSrc(img.ts, e)}
                   title="Show the original selfie to QA the render"
@@ -267,6 +292,14 @@ export function WallAdmin() {
                   }`}
                 >
                   {showSrc.has(img.ts) ? "Render" : "Source"}
+                </button>
+                <button
+                  onClick={(e) => rerender(img, e)}
+                  disabled={busy === img.ts}
+                  title="Re-render from the original selfie with the latest prompt"
+                  className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/55 transition hover:bg-emerald-500 hover:text-white disabled:opacity-40"
+                >
+                  ↻ Re-render
                 </button>
                 <button
                   onClick={(e) => flip(img, e)}
