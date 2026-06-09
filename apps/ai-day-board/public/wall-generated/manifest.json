@@ -1,5 +1,5 @@
 {
-  "lastTs": "1781013677.748059",
+  "lastTs": "1781014634.171979",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780934092594009.png",
@@ -136,9 +136,7 @@
       "hidden": true
     }
   ],
-  "attempts": {
-    "1781014634.171979": 11
-  },
+  "attempts": {},
   "rendered": {
     "pro": 14,
     "flash": 2
