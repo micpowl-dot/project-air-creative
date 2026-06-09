@@ -477,6 +477,30 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     return () => { active = false; clearInterval(id); };
   }, []);
 
+  // Auto-refresh the unattended display when a NEW VERSION is deployed. We only
+  // reload when the deployment id actually changes (not on a timer), so the
+  // monitor stays current with code updates without anyone refreshing it and
+  // without needless flashes. Live data (photos/stories) already updates via
+  // the poll above, so this is only for picking up new code.
+  useEffect(() => {
+    let active = true;
+    let baseline: string | null = null;
+    async function checkVersion() {
+      try {
+        const res = await fetch("/api/version", { cache: "no-store" });
+        const { version } = await res.json();
+        if (!active || !version) return;
+        if (baseline === null) { baseline = version; return; }
+        if (version !== baseline) window.location.reload();
+      } catch {
+        /* ignore — try again next tick */
+      }
+    }
+    checkVersion();
+    const id = setInterval(checkVersion, 60000);
+    return () => { active = false; clearInterval(id); };
+  }, []);
+
   // Cycle through the views in VIEW_ORDER: waterfall → how-to-join → posters → …
   useEffect(() => {
     const dwell = view === "wall" ? WALL_MS : view === "posters" ? POSTERS_MS : INSTRUCTIONS_MS;
