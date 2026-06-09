@@ -128,7 +128,7 @@
       "handle": "@lauren.fucci",
       "ts": "1781010328.618419",
       "model": "flash",
-      "hidden": false
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781021505129259.png",
