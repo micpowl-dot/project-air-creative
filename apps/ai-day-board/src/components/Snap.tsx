@@ -221,7 +221,7 @@ export function Snap() {
       <div className="mx-auto flex w-full max-w-sm flex-1 flex-col px-5 pb-8 pt-4">
         <h1 className="mb-1 text-center font-display text-2xl font-bold text-white">AI Day Me</h1>
         <p className="mb-2 text-center text-sm text-white/70">Take a selfie and appear on the wall<br />as an illustrated portrait.</p>
-        <p className="mb-4 text-center text-xs font-semibold" style={{ color: palette.accent }}>💡 Flash or bright, even lighting is recommended for best results.</p>
+        <p className="mb-4 text-center text-xs font-semibold" style={{ color: palette.accent }}>💡 Best results: one face per photo, in bright light or with flash.</p>
 
         {/* Camera / snapshot */}
         <div className="relative overflow-hidden rounded-2xl shadow-xl" style={{ aspectRatio: "1/1", background: "#111" }}>

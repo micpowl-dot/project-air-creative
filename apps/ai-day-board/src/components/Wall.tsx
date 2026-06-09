@@ -373,7 +373,7 @@ function InstructionsView() {
             Take a selfie and watch yourself appear as an illustrated AI Day portrait.
           </div>
           <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.95vw", marginBottom: "1.6vh" }}>
-            Flash or bright, even lighting is recommended for best results.
+            Best results: one face per photo, in bright light or with flash.
           </div>
           <div className="flex items-start gap-[2vw]">
             {/* QR */}

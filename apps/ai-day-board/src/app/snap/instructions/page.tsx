@@ -216,7 +216,7 @@ export default function InstructionsPage() {
             <div className="col-inner">
               <div className="col-title"><Icon name="camera" className="ico" /> Get your portrait up</div>
               <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
-              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", margin: "-0.75rem 0 1.1rem" }}>💡 Flash or bright, even lighting is recommended for best results.</div>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", margin: "-0.75rem 0 1.1rem" }}>💡 Best results: one face per photo, in bright light or with flash.</div>
               <div className="steps">
                 {SNAP_STEPS.map((s) => (
                   <div key={s.n} className="step">
