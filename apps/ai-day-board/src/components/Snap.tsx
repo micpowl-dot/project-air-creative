@@ -232,6 +232,16 @@ export function Snap() {
             className="absolute inset-0 h-full w-full object-cover"
             style={{ transform: "scaleX(-1)", display: step === "camera" ? "block" : "none" }}
           />
+          {(step === "camera" || step === "preview") && (
+            <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-center p-2">
+              <span
+                className="rounded-full px-3 py-1 text-center text-xs font-semibold text-white"
+                style={{ background: "rgba(13,20,42,0.65)", backdropFilter: "blur(4px)" }}
+              >
+                📸 One face · bright light or flash
+              </span>
+            </div>
+          )}
           {snapshot && step === "preview" && (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={snapshot} alt="Your selfie" className="absolute inset-0 h-full w-full object-cover" />
