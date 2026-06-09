@@ -15,45 +15,37 @@ export function randomBg(): string {
   return BG_NAMES[Math.floor(Math.random() * BG_NAMES.length)];
 }
 
-// Style references: a DIVERSE set of already-stylized AI Day headshots (varied
-// gender / ethnicity / look). Passing several different people forces the model
-// to copy the shared illustration STYLE rather than any one person's identity —
-// fixes the "everyone comes out looking like the single reference" bleed.
-export const STYLE_REFS = ["shannon-king", "sahana-subbanna", "thomas-hinson", "rohit-agarwal"];
+// No image style references. Feeding the model ANY real person's photo as a
+// "style" exemplar causes identity bleed (subjects came out looking like the
+// reference, e.g. Max). The style is described in TEXT instead, so the ONLY
+// face the model ever sees is the actual person's selfie — nothing to copy.
+export const STYLE_REFS: string[] = [];
 
 export const STYLIZE_PROMPT =
-  "You are given several images. ALL IMAGES EXCEPT THE LAST TWO are STYLE " +
-  "REFERENCES: they show the SAME illustration style applied to DIFFERENT " +
-  "people. Copy ONLY that shared drawing style from them — clean semi-realistic " +
-  "vector look, smooth cel-shaded gradient shading, crisp confident linework, " +
-  "full color. Do NOT copy any face, hair, gender, skin tone, clothing, pose, " +
-  "expression, or background from the style references. They are style swatches, " +
-  "NOT people to draw; they are intentionally different people so you never copy " +
-  "any single one of them. " +
-  "THE SECOND-TO-LAST IMAGE is the ACTUAL PERSON to draw: " +
-  "keep their exact likeness — the SAME apparent gender/sex, the same age, and " +
-  "the same ethnicity and skin tone, plus the same face shape, head and " +
-  "hairline, facial hair, glasses, and clothing. Do NOT change the person's " +
-  "gender, age, or ethnicity, and do not make them look more masculine or more " +
-  "feminine than they are. It must clearly and unmistakably be the same person " +
-  "as that image. THE LAST IMAGE is the BACKGROUND: place the illustrated person " +
-  "directly in front of this exact background. Keep its colors and pattern " +
-  "exactly as-is behind the person — do not alter, restyle, recolor, or add " +
-  "anything to the background. " +
+  "There are two images. The FIRST image is the ACTUAL PERSON. Redraw this exact " +
+  "person as a polished illustrated portrait in THIS style: a clean semi-realistic " +
+  "vector illustration with smooth cel-shaded gradient shading, crisp confident " +
+  "linework, full saturated color, and a warm, friendly look (like a high-quality " +
+  "digital illustration of the person). " +
+  "Preserve their likeness EXACTLY — the SAME apparent gender/sex, the same age, " +
+  "the same ethnicity and skin tone, and the same face shape, head and hairline, " +
+  "hairstyle, facial hair, glasses, and clothing as in the photo. Do NOT change " +
+  "their gender, age, ethnicity, or features, do NOT make them more masculine or " +
+  "more feminine, and NEVER substitute anyone else's face. It must be immediately " +
+  "and unmistakably the same individual as the first image. " +
+  "The SECOND image is the BACKGROUND: place the illustrated person directly in " +
+  "front of it and keep its colors and pattern exactly as-is — do not alter, " +
+  "restyle, recolor, or add anything to the background. " +
   "FRAMING (identical crop every time, regardless of the input photo's zoom): " +
   "a head-and-shoulders portrait where the top of the head sits just inside the " +
   "top edge with a small margin above it, the face is centered in the " +
-  "upper-middle, and BOTH shoulders and the upper chest are fully visible " +
-  "across the bottom. Never crop the shoulders, never zoom tighter than the " +
-  "upper chest, never leave large empty headroom. " +
+  "upper-middle, and BOTH shoulders and the upper chest are fully visible across " +
+  "the bottom. Never crop the shoulders, never zoom tighter than the upper chest, " +
+  "never leave large empty headroom. " +
   "Centered, facing forward, friendly expression. Square 1:1. " +
-  "MOST IMPORTANT, ABOVE THE ART STYLE: the result must be immediately and " +
-  "unmistakably recognizable as the EXACT same individual as the actual-person " +
-  "image — the same gender/sex, age, ethnicity, skin tone, and facial structure. " +
-  "Read those attributes from that image and reproduce them faithfully; never " +
-  "guess or change them, and never let a style reference influence the person's " +
-  "identity. If the art style and the person's true likeness ever conflict, " +
-  "always preserve the likeness.";
+  "MOST IMPORTANT: the result must be unmistakably the same person as the first " +
+  "image. If the art style and the person's true likeness ever conflict, always " +
+  "preserve the likeness.";
 
 export interface ImgPart {
   mimeType: string;
