@@ -118,9 +118,10 @@ interface WallImage { src: string; handle?: string }
 // Primary: generated headshots from the Blob manifest (written by /api/process-photos).
 // Cache the manifest-derived images. The wall polls every ~8s and reads the
 // manifest from the GitHub API — without this, that burns the GitHub rate
-// limit fast (especially with multiple screens open). 30s is plenty fresh.
+// limit fast (especially with multiple screens open). 15s keeps GitHub reads
+// modest while letting /wall-admin hide/show changes show up quickly.
 let imagesCache: { at: number; images: WallImage[] } | null = null;
-const IMAGES_TTL = 30 * 1000;
+const IMAGES_TTL = 15 * 1000;
 
 async function imagesFromBlob(): Promise<WallImage[] | null> {
   if (imagesCache && Date.now() - imagesCache.at < IMAGES_TTL) {

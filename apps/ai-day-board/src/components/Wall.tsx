@@ -454,9 +454,17 @@ export function Wall({ schedule }: { schedule: Schedule }) {
         const body = await res.json();
         if (!active) return;
         setImages((prev) => {
-          const seen = new Set(prev.map((p) => p.src));
-          const added = (body.images as WallImage[]).filter((it) => it?.src && !seen.has(it.src));
-          return added.length ? [...prev, ...added] : prev;
+          const incoming = (body.images as WallImage[]).filter((it) => it?.src);
+          const incomingSrcs = new Set(incoming.map((i) => i.src));
+          // Keep tiles still being served (stable order) and DROP any that are no
+          // longer returned — e.g. hidden in /wall-admin. The old code only ever
+          // appended, so hidden images lingered until a full page reload.
+          const kept = prev.filter((p) => incomingSrcs.has(p.src));
+          const keptSrcs = new Set(kept.map((p) => p.src));
+          // Append genuinely new tiles so the wall keeps building through the day.
+          const added = incoming.filter((i) => !keptSrcs.has(i.src));
+          if (added.length === 0 && kept.length === prev.length) return prev; // unchanged
+          return [...kept, ...added];
         });
         setStories(body.stories ?? []);
         setLive(Boolean(body.live?.images));
