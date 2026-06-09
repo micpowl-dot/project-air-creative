@@ -110,7 +110,7 @@ export async function POST(request: Request) {
           channel,
           text: heading,
           blocks: [
-            { type: "section", text: { type: "mrkdwn", text: `${heading}\nThanks for being part of AI Day. Here's your illustrated portrait from the wall — feel free to use it however you like.` } },
+            { type: "section", text: { type: "mrkdwn", text: `${heading}\nThanks so much for being part of AI Day. Here's your illustrated portrait from the photo wall, yours to keep and use however you like.\n\nThanks,\nMichael` } },
             { type: "image", image_url: r.src, alt_text: "Your AI Day portrait" },
           ],
         }),
