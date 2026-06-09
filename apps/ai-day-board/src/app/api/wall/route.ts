@@ -65,6 +65,32 @@ async function resolveName(id: string, token: string): Promise<string> {
 let storiesCache: { at: number; stories: Story[] } | null = null;
 const STORIES_TTL = 30 * 1000; // 30s — quick to surface new quotes; last-good is served if Slack throttles
 
+// Slack returns emoji as :shortcodes: in message text (picker emoji come
+// through as real unicode and need no help). Convert the common ones to unicode
+// so the wall shows the emoji; drop unrecognized/custom shortcodes (workspace
+// emoji we can't render) so there are no leftover ":colon:" tokens.
+const EMOJI: Record<string, string> = {
+  smile: "😄", smiley: "😃", grinning: "😀", grin: "😁", joy: "😂", rofl: "🤣", rolling_on_the_floor_laughing: "🤣",
+  sweat_smile: "😅", laughing: "😆", blush: "😊", slightly_smiling_face: "🙂", upside_down_face: "🙃",
+  wink: "😉", sunglasses: "😎", smirk: "😏", thinking: "🤔", thinking_face: "🤔", exploding_head: "🤯",
+  star_struck: "🤩", partying_face: "🥳", tada: "🎉", confetti_ball: "🎊", nerd_face: "🤓", face_with_monocle: "🧐",
+  heart_eyes: "😍", relieved: "😌", grimacing: "😬", sweat: "😓", flushed: "😳", eyes: "👀",
+  raised_hands: "🙌", clap: "👏", pray: "🙏", muscle: "💪", ok_hand: "👌", wave: "👋", point_up: "☝️",
+  raised_hand: "✋", handshake: "🤝", "+1": "👍", thumbsup: "👍", "-1": "👎", thumbsdown: "👎", v: "✌️", crossed_fingers: "🤞",
+  rocket: "🚀", fire: "🔥", sparkles: "✨", star: "⭐", star2: "🌟", zap: "⚡", boom: "💥", "100": "💯",
+  bulb: "💡", brain: "🧠", robot_face: "🤖", robot: "🤖", computer: "💻", keyboard: "⌨️", gear: "⚙️",
+  mag: "🔍", dart: "🎯", trophy: "🏆", chart_with_upwards_trend: "📈", bar_chart: "📊", clipboard: "📋",
+  memo: "📝", pencil: "✏️", white_check_mark: "✅", heavy_check_mark: "✔️", checkered_flag: "🏁",
+  hourglass: "⌛", hourglass_flowing_sand: "⏳", alarm_clock: "⏰", stopwatch: "⏱️", clap_tone: "👏",
+  heart: "❤️", sparkling_heart: "💖", two_hearts: "💕", blue_heart: "💙", green_heart: "💚", yellow_heart: "💛",
+  purple_heart: "💜", tada2: "🎉", magic_wand: "🪄", crystal_ball: "🔮", coffee: "☕", saluting_face: "🫡",
+  pinched_fingers: "🤌", mind_blown: "🤯", sob: "😭", smiling_face_with_tear: "🥲", cry: "😢", grinning_face: "😀",
+  raising_hands: "🙌", fire_engine: "🚒", chart: "📈", check: "✅",
+};
+function emojify(text: string): string {
+  return text.replace(/:([a-z0-9_'+-]+):/gi, (_m, name: string) => EMOJI[name.toLowerCase()] ?? "");
+}
+
 // Pull "AI helped me..." posts from a Slack channel and turn them into cards.
 async function storiesFromSlack(): Promise<Story[] | null> {
   const token = process.env.WALL_SLACK_TOKEN;
@@ -90,9 +116,11 @@ async function storiesFromSlack(): Promise<Story[] | null> {
     const cand: { user: string; text: string }[] = [];
     for (const m of body.messages) {
       if (m.subtype || m.bot_id || !m.text) continue; // skip joins/bots/system
-      const text = String(m.text)
-        .replace(/<[^>]+>/g, "")   // strip mentions/links markup
-        .replace(/\[[^\]]*\]/g, "") // strip [bracketed notes] meant for chat readers, not the wall
+      const text = emojify(
+        String(m.text)
+          .replace(/<[^>]+>/g, "")    // strip mentions/links markup
+          .replace(/\[[^\]]*\]/g, "") // strip [bracketed notes] meant for chat readers, not the wall
+      )
         .replace(/\s{2,}/g, " ")
         .trim();
       if (text.length < 8 || text.length > 240) continue;
