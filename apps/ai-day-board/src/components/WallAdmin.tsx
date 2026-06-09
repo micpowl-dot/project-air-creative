@@ -33,6 +33,8 @@ export function WallAdmin() {
     });
   }
 
+  const [batch, setBatch] = useState<{ done: number; total: number } | null>(null);
+
   async function load() {
     try {
       const res = await fetch("/api/wall-admin", { cache: "no-store" });
@@ -45,6 +47,36 @@ export function WallAdmin() {
     } finally {
       setLoading(false);
     }
+  }
+
+  // Re-render every visible Flash portrait with the current (fixed) prompt.
+  // These are the ones rendered during the Max-bleed window. Runs one at a time
+  // from the browser so each call stays under the function timeout.
+  async function rerenderAllFlash() {
+    const targets = images.filter((i) => i.model === "flash" && !i.hidden);
+    if (!targets.length) { setErr("No visible Flash portraits to re-render."); return; }
+    if (!window.confirm(`Re-render ${targets.length} Flash portraits with the fixed prompt?\n\nRuns one at a time (~20s each, about ${Math.ceil((targets.length * 20) / 60)} min). You can keep moderating while it runs; leave this tab open.`)) return;
+    setErr(null);
+    setBatch({ done: 0, total: targets.length });
+    for (let k = 0; k < targets.length; k++) {
+      const img = targets[k];
+      try {
+        const res = await fetch("/api/wall-admin/rerender", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ts: img.ts }),
+        });
+        const body = await res.json();
+        if (res.ok) {
+          setImages((prev) => prev.map((i) => (i.ts === img.ts ? { ...i, src: `${body.src}?t=${Date.now()}`, model: body.model, flip: false } : i)));
+        }
+      } catch {
+        /* skip this one, keep going */
+      }
+      setBatch({ done: k + 1, total: targets.length });
+    }
+    setBatch(null);
+    load();
   }
 
   useEffect(() => {
@@ -190,15 +222,25 @@ export function WallAdmin() {
                 <span className="text-white/40"> (est.)</span>
               </div>
             )}
-            <button
-              onClick={() => {
-                setLoading(true);
-                load();
-              }}
-              className="mt-1 rounded-md border border-white/15 px-2.5 py-1 text-xs text-white/70 hover:bg-white/10"
-            >
-              Refresh
-            </button>
+            <div className="mt-1 flex items-center justify-end gap-2">
+              <button
+                onClick={rerenderAllFlash}
+                disabled={batch !== null}
+                className="rounded-md border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-1 text-xs font-semibold text-emerald-200 hover:bg-emerald-500/30 disabled:opacity-50"
+                title="Re-render every visible Flash portrait with the fixed prompt"
+              >
+                {batch ? `Re-rendering ${batch.done}/${batch.total}…` : "↻ Re-render all Flash"}
+              </button>
+              <button
+                onClick={() => {
+                  setLoading(true);
+                  load();
+                }}
+                className="rounded-md border border-white/15 px-2.5 py-1 text-xs text-white/70 hover:bg-white/10"
+              >
+                Refresh
+              </button>
+            </div>
           </div>
         </header>
 
