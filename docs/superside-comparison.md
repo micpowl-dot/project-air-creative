@@ -27,7 +27,7 @@ We studied them because they have already solved several problems we need to sol
 | **What they refuse** | Media buying, unlimited revisions (2 rounds max), designer selection, free trial, custom web dev, open scope | Same no-list, plus: no executive-sponsor-less projects, no work without committed embedded team member |
 | **Onboarding** | 2 days to 3 months. Creative Workshop to load brand context. CPM from day one. | Brand Brain setup sprint. We load context into GitHub, Figma, Claude, n8n. Train embedded person before we leave. |
 | **Client type** | Enterprise only ($100M+ revenue companies) | FP partner companies, internal TWCo teams. Not enterprise-only. |
-| **SaaS/apps layer** | None | Poster Generator, PPT Distiller, Video Distiller, Brand Intake Agent, Mission Control |
+| **SaaS/apps layer** | None | Mission Control (live). PPT Distiller, Video Distiller, Brand Intake Agent, Poster Generator (planned, not built) |
 | **Revision policy** | 2 rounds standard, zero on rush | Defined in scope. Not unlimited. |
 
 ---
@@ -109,9 +109,11 @@ Superside runs a Creative Workshop session to load brand context before any prod
 
 ---
 
-## AIR Skills Inventory: What We Have Already Built
+## Project AIR Systems Inventory: What We Have Already Built
 
-These are not concepts. They are live, documented systems built during Project AIR. Each one maps directly to a service we are offering.
+Most of these are live, documented systems built during Project AIR (our TWCo AI Day project), and each maps to a service we are offering. Two items are NOT built and are flagged as such below: the PPT Distiller as a packaged product (we have the PowerPoint capability through Claude's PowerPoint skill, but no shipped product), and the Brand Intake Agent (an approach we want to build, not yet developed).
+
+> Note: "Project AIR" here is our internal AI Day project. It is not Air.Inc (air.inc), the outside company whose published creative-AI skills we reference separately for benchmarking. The systems below are ours.
 
 ---
 
@@ -126,7 +128,7 @@ These are not concepts. They are live, documented systems built during Project A
 | AI context | Claude project | Brand voice, deliverable specs, anti-patterns, team roles, loaded at session start via raw GitHub URLs |
 | Live data | n8n + asset-tracker-status.json | Task status, blockers, deadlines, signals from Slack/Drive/GitHub/Figma, written every 15 minutes |
 
-**What it proves:** A brand can be fully loaded into an AI system from open tools, no proprietary platform required. Every creative decision made during AIR is logged, searchable, and feedable into the next session automatically.
+**What it proves:** A brand can be fully loaded into an AI system from open tools, no proprietary platform required. Every creative decision made during Project AIR is logged, searchable, and feedable into the next session automatically.
 
 **Service it supports:** Brand Brain Setup, Brand system setup
 
@@ -186,9 +188,9 @@ These are not concepts. They are live, documented systems built during Project A
 
 ---
 
-### 5. Programmatic PowerPoint Generator
+### 5. PowerPoint Generation (Claude PowerPoint Skill + Script)
 
-**What it is:** A Node.js script (`build-logo-presentation.js`) that generates a fully produced PowerPoint presentation from a design spec, with no manual work in Keynote or PowerPoint.
+**What it is:** A working PowerPoint capability, not a packaged product. We generate slides through Claude's PowerPoint skill, and we have a one-off Node.js script (`build-logo-presentation.js`) that produced the logo presentation from a design spec, with no manual work in Keynote or PowerPoint.
 
 **What it generates:**
 - Title slide with brand typography and vertical tagline treatment
@@ -198,15 +200,15 @@ These are not concepts. They are live, documented systems built during Project A
 - Next steps slide with numbered list in brand amber
 - Outputs a `.pptx` file with embedded fonts and images
 
-**What it proves:** A presentation can be regenerated from a design spec in seconds. Brand updates propagate automatically. This is the foundation of the PPT Distiller App as a Service tool.
+**What it proves:** A presentation can be generated from a design spec in seconds, and brand updates propagate automatically. To be clear: we have the PowerPoint capability through Claude's skill, but we have NOT built a "PPT Distiller" product. The PPT Distiller is a roadmap idea, not a shipped tool.
 
-**Service it supports:** PowerPoint template design, Apps as a Service (PPT Distiller)
+**Service it supports:** PowerPoint template design (live capability via Claude's PowerPoint skill). A packaged PPT Distiller app is planned, not built.
 
 ---
 
 ### 6. Figma Component Library
 
-**What it is:** A published Figma team library that every working file subscribes to. Built during AIR as the visual source of truth.
+**What it is:** A published Figma team library that every working file subscribes to. Built during Project AIR as the visual source of truth.
 
 **Contents:**
 - Logo in all four variants (color/black-R, color/white-R, all-black, all-white)
@@ -229,7 +231,7 @@ These are not concepts. They are live, documented systems built during Project A
 **How it works:**
 - At session start, paste raw GitHub URLs for the current task context (disciplines, asset tracker, style guide)
 - Claude reads the latest version from the repo and works from it
-- Used throughout AIR for: resourcing decisions, creative direction, poster copy, vendor emails, RFQ drafts, status summaries, quality checks against the style guide, and decision support
+- Used throughout Project AIR for: resourcing decisions, creative direction, poster copy, vendor emails, RFQ drafts, status summaries, quality checks against the style guide, and decision support
 
 **What it proves:** A small team can operate above its weight class when Claude has the brand context loaded. The quality of output is consistent because the brief is always in the conversation. This is directly teachable to an embedded team member at a partner company.
 
@@ -237,34 +239,36 @@ These are not concepts. They are live, documented systems built during Project A
 
 ---
 
-### 8. Brand Intake Agent (Apps as a Service, live now)
+### 8. Brand Intake Agent (Proposed, NOT built yet)
 
-**What it is:** A Claude-powered chat app that collects a full creative brief from a partner company team member before the first meeting. Single HTML file, deployed to Vercel.
+**What it is:** A proposed approach, not a built or deployed system. We have not developed this. It is a direction we want to incorporate. The idea: a Claude-powered chat app that would collect a full creative brief from a partner company team member before the first meeting.
 
-**How it works:**
-- Partner company team member opens the URL and chats with the agent
-- Agent asks one question at a time across 10 topic areas: company, project type, deliverables, audience, tone, timeline, scale, tooling, budget signal, and success definition
-- When it has enough, it generates a structured Creative Brief block
-- Team member clicks Copy Brief and pastes it into email or Slack before the meeting
+**How it would work:**
+- A partner company team member would open a URL and chat with the agent
+- The agent would ask one question at a time across 10 topic areas: company, project type, deliverables, audience, tone, timeline, scale, tooling, budget signal, and success definition
+- Once it had enough, it would generate a structured Creative Brief block
+- The team member would copy the brief and paste it into email or Slack before the meeting
 
-**What it proves:** The blank-slate first meeting is preventable. We can walk into every engagement already knowing what the partner needs, what tools they have, and what success looks like to them.
+**Why we want it:** The blank-slate first meeting is preventable. If we build this, we could walk into every engagement already knowing what the partner needs, what tools they have, and what success looks like to them.
 
-**Service it supports:** Brand intake agents, Apps as a Service
+**Status:** Idea only. Not started, not deployed.
+
+**Service it would support:** Brand intake agents, Apps as a Service. Not available until built.
 
 ---
 
-### Skills to Services Map
+### Project AIR Systems to Services Map
 
-| AIR System | Service Offering |
+| Project AIR System | Service Offering |
 |---|---|
 | Brand Brain (GitHub + Figma + Claude + n8n) | Brand Brain Setup |
 | Three n8n workflows | AI automation workflow setup |
 | Poster system + manifest.json | Modular design system, Poster Generator app |
 | Mission Control dashboard | Real-time project dashboards |
-| PPT generator script | PowerPoint template design, PPT Distiller app |
+| PowerPoint (Claude skill + generator script) | PowerPoint template design (live). PPT Distiller app: planned, not built |
 | Figma component library | Brand system setup, Modular design system |
 | Claude workflow | Training and handoff, all production services |
-| Brand Intake Agent | Brand intake agents, Apps as a Service |
+| Brand Intake Agent (proposed, not built) | Brand intake agents, Apps as a Service: planned |
 
 ---
 

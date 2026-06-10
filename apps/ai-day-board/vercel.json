@@ -3,10 +3,6 @@
     {
       "path": "/api/process-photos",
       "schedule": "* * * * *"
-    },
-    {
-      "path": "/api/portraits-catchup",
-      "schedule": "0 * * * *"
     }
   ]
 }

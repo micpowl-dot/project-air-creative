@@ -1,22 +1,28 @@
-# Brand Intake Agent
+# Brand Intake Agent (Prototype)
 
-An AI-powered creative brief intake tool built for AIR Creative. Before the first client meeting, a team member at the partner company chats with this agent. The agent asks all the right questions one at a time, then outputs a fully structured Creative Brief that Michael and Mark can walk into the meeting with.
+> **Status: unshipped prototype.** This is an early proof-of-concept mockup, not a deployed product. It has not been built into a real tool, it has not been validated with any client, and it is not in use. The idea is on the Project AIR roadmap as an approach we want to develop. Treat everything below as "how it could work," not "how it works today."
 
-Built as a single self-contained HTML file. No build step, no npm, no framework. Open it in a browser and go.
+An AI-powered creative brief intake tool, prototyped for Project AIR. The intended idea: before the first client meeting, a team member at the partner company would chat with this agent. The agent would ask all the right questions one at a time, then output a structured Creative Brief that Michael and Mark could walk into the meeting with.
 
----
-
-## What it does
-
-1. Asks the client about their company, project type, deliverables, audience, tone, timeline, scale, tooling, budget signal, and success definition.
-2. Asks one question at a time in a natural conversation.
-3. When it has enough information, outputs a formatted **Creative Brief** block.
-4. Lets the client (or you) click **Copy Brief** to grab the structured text.
-5. Includes a **Start Over** button to reset for a new engagement.
+This prototype is a single self-contained HTML file so anyone can open it in a browser and see the concept. It is a demonstration of the approach, not a production tool.
 
 ---
 
-## How to use it
+## What it would do (concept)
+
+The prototype demonstrates this intended flow:
+
+1. Ask the client about their company, project type, deliverables, audience, tone, timeline, scale, tooling, budget signal, and success definition.
+2. Ask one question at a time in a natural conversation.
+3. When it has enough information, output a formatted **Creative Brief** block.
+4. Let the client (or you) click **Copy Brief** to grab the structured text.
+5. Include a **Start Over** button to reset for a new engagement.
+
+None of this has been validated in a real engagement yet.
+
+---
+
+## How to try the prototype
 
 1. Open `index.html` in any modern browser (Chrome, Safari, Edge, Firefox).
 2. Paste your **Anthropic API key** (starts with `sk-ant-`) into the field at the top.
@@ -28,34 +34,11 @@ Built as a single self-contained HTML file. No build step, no npm, no framework.
 
 ---
 
-## Deploying to Vercel
+## If we ever take the prototype further
 
-You do not need to run `npm install` or any build step. The file is static HTML.
+These notes are forward-looking only. Nothing here has been done, and the prototype is not currently hosted anywhere.
 
-**Option A: Drag and drop**
-1. Go to [vercel.com/new](https://vercel.com/new)
-2. Drag the `brand-intake-agent/` folder into the upload area.
-3. Click Deploy. Done.
-
-**Option B: Vercel CLI**
-```bash
-# Install the CLI once if you haven't
-npm i -g vercel
-
-# From the brand-intake-agent folder
-cd path/to/brand-intake-agent
-vercel --prod
-```
-
-Vercel will detect it as a static site and deploy `index.html` as the root.
-
----
-
-## Sharing with clients
-
-After deploying, share the Vercel URL with the client contact before the first meeting. Ask them to go through the intake at least 24 hours before the call so you have the brief in hand.
-
-The client will need an Anthropic API key to use the tool. If you want to avoid asking clients to provide their own key, you can embed your key directly in the HTML (replace the key input field with a hardcoded variable). Note: that means anyone with the URL can use your API credits.
+Because the file is static HTML with no build step, a future version could be hosted on a static host such as Vercel for internal demos. If that happens, we would also need to decide how API keys are handled before anyone outside the team touches it. Right now this is a local-only mockup, and there is no plan to share it with clients in its current state.
 
 ---
 
@@ -64,8 +47,8 @@ The client will need an Anthropic API key to use the tool. If you want to avoid 
 - Pure HTML / CSS / JavaScript. Zero dependencies installed locally.
 - [DM Sans](https://fonts.google.com/specimen/DM+Sans) via Google Fonts
 - [Tabler Icons](https://tabler.io/icons) via CDN
-- [Anthropic Messages API](https://docs.anthropic.com/en/api/messages) — model: `claude-opus-4-5`
-- Dark theme matching AIR Creative visual language (#030712 background, #c8910a amber accent)
+- [Anthropic Messages API](https://docs.anthropic.com/en/api/messages), model: `claude-opus-4-5`
+- Dark theme matching Project AIR visual language (#030712 background, #c8910a amber accent)
 
 ---
 
@@ -73,7 +56,7 @@ The client will need an Anthropic API key to use the tool. If you want to avoid 
 
 ```
 brand-intake-agent/
-├── index.html   ← The entire app. This is all you need.
+├── index.html   ← The prototype mockup, self-contained in one file.
 └── README.md    ← This file.
 ```
 

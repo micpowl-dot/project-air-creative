@@ -1,0 +1,13 @@
+{
+  "name": "electric-cyan",
+  "label": "Electric Cyan",
+  "status": "planned",
+  "notes": "Cyan-dominant variant. accent-primary swings to warm orange for the complementary pop.",
+  "roles": {
+    "dominant": "#00B8D9",
+    "accent-primary": "#FF5C00",
+    "anchor-dark": "#0D142A",
+    "anchor-light": "#F0F0EB",
+    "accent-secondary": "#E6147A"
+  }
+}

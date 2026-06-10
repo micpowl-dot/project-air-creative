@@ -1,0 +1,13 @@
+{
+  "name": "hot-amber",
+  "label": "Hot Amber",
+  "status": "planned",
+  "notes": "Warm orange dominant balanced by an icy cyan accent.",
+  "roles": {
+    "dominant": "#FF7A1A",
+    "accent-primary": "#3CE0FF",
+    "anchor-dark": "#0D142A",
+    "anchor-light": "#F0F0EB",
+    "accent-secondary": "#C8910A"
+  }
+}

@@ -14,6 +14,7 @@
 import { NextResponse } from "next/server";
 import { stylize, randomBg, STANDARD_MODEL, STYLE_REFS } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
+import { SENT_SEED } from "@/lib/sent-seed";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -218,14 +219,16 @@ export async function GET(request: Request) {
       // @mention if we know who, generic if not. DM only with a user id.
       const postChannel = process.env.RENDER_POST_CHANNEL || channel;
       await postPortraitToChannel(postChannel, uid ?? null, url, token);
-      // Only auto-DM Pro-quality portraits. If we fell back to Flash (Pro quota
-      // capped), skip the DM and DON'T mark them sent — the hourly catch-up will
-      // pick them up once they're re-rendered on Pro / Pro quota resets.
-      if (uid && usedModel === "pro") {
+      // Only auto-DM Pro-quality portraits, and NEVER anyone already covered.
+      // alreadySent = the backlog SEED (DM'd from Michael's account) UNION every
+      // prior auto-DM recorded in the manifest. If we fell back to Flash (Pro
+      // quota capped), skip the DM and DON'T mark them sent. Guarantees no one
+      // is ever DM'd twice, including the 80 backlog recipients.
+      manifest.sentPortraits = manifest.sentPortraits || [];
+      const alreadySent = new Set<string>([...SENT_SEED, ...manifest.sentPortraits]);
+      if (uid && usedModel === "pro" && !alreadySent.has(uid)) {
         await dmPortrait(uid, url, token);
-        // Record the per-snap DM so the hourly catch-up never re-sends to them.
-        manifest.sentPortraits = manifest.sentPortraits || [];
-        if (!manifest.sentPortraits.includes(uid)) manifest.sentPortraits.push(uid);
+        manifest.sentPortraits.push(uid);
       }
       processed++;
       newLastTs = m.ts;                 // advance only on success

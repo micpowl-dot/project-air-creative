@@ -1,0 +1,13 @@
+{
+  "name": "deep-violet",
+  "label": "Deep Violet",
+  "status": "planned",
+  "notes": "Saturated violet dominant. Higher-energy accent on yellow, with a mint secondary.",
+  "roles": {
+    "dominant": "#5B2A86",
+    "accent-primary": "#FFD400",
+    "anchor-dark": "#0D142A",
+    "anchor-light": "#F0F0EB",
+    "accent-secondary": "#00E0A4"
+  }
+}

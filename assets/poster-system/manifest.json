@@ -1,0 +1,135 @@
+{
+  "$schema": "./manifest.schema.json",
+  "version": "0.1.0",
+  "updated": "2026-05-15",
+  "description": "AIR Poster System manifest. Lists every slot, its variants, and every palette. n8n (or any picker) reads this to randomize posters.",
+  "palettes": [
+    "ai-day-magenta",
+    "electric-cyan",
+    "deep-violet",
+    "hot-amber",
+    "forest-pulse"
+  ],
+  "slots": [
+    {
+      "tag": "bg/field",
+      "folder": "slots/bg-field",
+      "description": "Solid background field, full bleed.",
+      "color_role": "dominant",
+      "variants": [
+        { "name": "solid", "file": "solid.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "top-edge/graphic",
+      "folder": "slots/top-edge-graphic",
+      "description": "Decorative banner across top edge.",
+      "color_role": ["anchor-dark", "anchor-light", "accent-primary", "dominant"],
+      "variants": [
+        { "name": "piano-stripes", "file": "piano-stripes.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "top-edge/curve",
+      "folder": "slots/top-edge-curve",
+      "description": "Flowing line overlay on the top graphic.",
+      "color_role": "accent-primary",
+      "variants": [
+        { "name": "ribbon", "file": "ribbon.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "upper-left/date",
+      "folder": "slots/upper-left-date",
+      "description": "Event date display type. One digit accented.",
+      "color_role": ["anchor-dark", "accent-primary"],
+      "variants": [
+        { "name": "june-9-2026", "file": "june-9-2026.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "center/ring-badge",
+      "folder": "slots/center-ring-badge",
+      "description": "Concentric ring target behind portrait.",
+      "color_role": "dominant",
+      "variants": [
+        { "name": "concentric-12", "file": "concentric-12.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "center/portrait",
+      "folder": "slots/center-portrait",
+      "description": "Square rounded headshot of host/subject. Image swap only.",
+      "color_role": null,
+      "variants": [
+        { "name": "maya-smith", "file": "maya-smith.png", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "mid-left/title-block",
+      "folder": "slots/mid-left-title-block",
+      "description": "Session title, 2-4 lines bold. One or two glyphs accented.",
+      "color_role": ["anchor-dark", "accent-primary"],
+      "variants": [
+        { "name": "n8n-workflows-in-action", "file": "n8n-workflows-in-action.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "mid-left/host-line",
+      "folder": "slots/mid-left-host-line",
+      "description": "Host/speaker caption below title.",
+      "color_role": "anchor-dark",
+      "variants": [
+        { "name": "host-maya-smith", "file": "host-maya-smith.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "mid/squiggle",
+      "folder": "slots/mid-squiggle",
+      "description": "Hand-drawn flowing accent line crossing mid-band.",
+      "color_role": "accent-primary",
+      "variants": [
+        { "name": "single-loop", "file": "single-loop.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "bottom-left/pattern-block",
+      "folder": "slots/bottom-left-pattern-block",
+      "description": "Tiled texture block, partial bleed off bottom-left.",
+      "color_role": "dominant",
+      "variants": [
+        { "name": "diamond-grid", "file": "diamond-grid.svg", "status": "reference" }
+      ]
+    },
+    {
+      "tag": "bottom-right/lockup",
+      "folder": "slots/bottom-right-lockup",
+      "description": "AIR brand mark + 'AI IN REACH' tagline. Lockup is locked; only dark/light swap.",
+      "color_role": "anchor-dark",
+      "variants": [
+        { "name": "air-stacked-dark", "file": "air-stacked-dark.svg", "status": "reference" },
+        { "name": "air-stacked-light", "file": "air-stacked-light.svg", "status": "planned" }
+      ]
+    }
+  ],
+  "reference_compositions": [
+    {
+      "name": "ai-day-n8n-workflows",
+      "palette": "ai-day-magenta",
+      "slots": {
+        "bg/field": "solid",
+        "top-edge/graphic": "piano-stripes",
+        "top-edge/curve": "ribbon",
+        "upper-left/date": "june-9-2026",
+        "center/ring-badge": "concentric-12",
+        "center/portrait": "maya-smith",
+        "mid-left/title-block": "n8n-workflows-in-action",
+        "mid-left/host-line": "host-maya-smith",
+        "mid/squiggle": "single-loop",
+        "bottom-left/pattern-block": "diamond-grid",
+        "bottom-right/lockup": "air-stacked-dark"
+      },
+      "figma_url": "https://www.figma.com/design/dlIEOdbrJRmxYf6137QX4a/Untitled?node-id=1-11"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "ai-day-magenta",
+  "label": "AI Day Magenta",
+  "status": "reference",
+  "notes": "Source palette from the AI Day N8N Workflows poster. dominant + accent-primary hexes are approximated by eye from the Figma render — confirm against canvas fills.",
+  "roles": {
+    "dominant": "#E6147A",
+    "accent-primary": "#F5D300",
+    "anchor-dark": "#0D142A",
+    "anchor-light": "#F0F0EB",
+    "accent-secondary": "#BA0D00"
+  }
+}

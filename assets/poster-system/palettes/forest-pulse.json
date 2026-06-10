@@ -1,0 +1,13 @@
+{
+  "name": "forest-pulse",
+  "label": "Forest Pulse",
+  "status": "planned",
+  "notes": "Deep green dominant. Sun-yellow accent. Magenta secondary keeps a thread back to AI Day Magenta.",
+  "roles": {
+    "dominant": "#1F7A4D",
+    "accent-primary": "#FFCB05",
+    "anchor-dark": "#0D142A",
+    "anchor-light": "#F0F0EB",
+    "accent-secondary": "#E6147A"
+  }
+}

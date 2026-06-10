@@ -211,4 +211,14 @@ Mark's sign-off. Denise traffics files to vendors same day.
 
 ---
 
+## Past Meeting Notes
+
+Working notes from meetings that happened outside the planned cadence above (AI Day logistics, event experience, vendor working sessions). Useful context for anyone catching up.
+
+| Date | Meeting | Notes |
+|------|---------|-------|
+| Mon May 18 | AI Day logistics (Maigh, Mark, Lee, Camille, Denise, Michael) | [meeting-notes-2026-05-18.md](meeting-notes-2026-05-18.md) — badges, posters, immersive experience, AI Photo Booth, AI Song, food/drink, attendance, budget |
+
+---
+
 *Last updated: 2026-05-18*
