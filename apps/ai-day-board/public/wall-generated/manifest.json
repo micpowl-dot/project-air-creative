@@ -464,7 +464,7 @@
       "ts": "1781103480.733179",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BAG3CH6V6/snap-1781103478285-u08708mesbe.jpg",
-      "flip": true
+      "flip": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781105875836039.png",
