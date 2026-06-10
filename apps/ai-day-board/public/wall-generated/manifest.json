@@ -495,7 +495,8 @@
       "handle": "@becky.puls",
       "ts": "1781113150.017889",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9M7UTMSA/snap-1781113148659-u06eccp0zjb.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9M7UTMSA/snap-1781113148659-u06eccp0zjb.jpg",
+      "hidden": true
     }
   ],
   "attempts": {},
