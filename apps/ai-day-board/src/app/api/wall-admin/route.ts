@@ -39,9 +39,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  let ts: string, hidden: boolean | undefined, remove: boolean | undefined, flip: boolean | undefined, paused: boolean | undefined;
+  let ts: string, hidden: boolean | undefined, remove: boolean | undefined, flip: boolean | undefined, paused: boolean | undefined, handle: string | undefined;
   try {
-    ({ ts, hidden, remove, flip, paused } = await request.json());
+    ({ ts, hidden, remove, flip, paused, handle } = await request.json());
   } catch {
     return NextResponse.json({ error: "Invalid body" }, { status: 400 });
   }
@@ -72,8 +72,15 @@ export async function POST(request: Request) {
       if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
       return NextResponse.json({ ok: true, flip });
     }
+    // handle: set/replace the caption (claim an anonymous snap for a person).
+    if (typeof handle === "string") {
+      const { setHandle } = await import("@/lib/wall-store");
+      const m = await setHandle(ts, handle.trim());
+      if (!m) return NextResponse.json({ error: "Manifest unavailable" }, { status: 503 });
+      return NextResponse.json({ ok: true, handle: handle.trim() });
+    }
     if (typeof hidden !== "boolean") {
-      return NextResponse.json({ error: "Need { ts, hidden }, { ts, flip } or { ts, remove }" }, { status: 400 });
+      return NextResponse.json({ error: "Need { ts, hidden }, { ts, flip }, { ts, handle } or { ts, remove }" }, { status: 400 });
     }
     const { setHidden } = await import("@/lib/wall-store");
     const m = await setHidden(ts, hidden);

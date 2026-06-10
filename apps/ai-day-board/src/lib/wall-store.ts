@@ -112,6 +112,18 @@ export async function setPaused(paused: boolean): Promise<WallManifest | null> {
   return m;
 }
 
+/** Set/replace the person's handle (caption) on an image, e.g. to claim an
+ *  anonymous snap for a real person. Pass "" to clear it. */
+export async function setHandle(ts: string, handle: string): Promise<WallManifest | null> {
+  const m = await readManifest();
+  if (!m) return null;
+  const img = m.images.find((i) => i.ts === ts);
+  if (!img) return m;
+  img.handle = handle;
+  await writeManifest(m);
+  return m;
+}
+
 /** Mirror (horizontal flip) an image on the wall (matched by ts). Reversible. */
 export async function setFlip(ts: string, flip: boolean): Promise<WallManifest | null> {
   const m = await readManifest();

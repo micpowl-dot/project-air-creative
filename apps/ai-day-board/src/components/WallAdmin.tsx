@@ -214,6 +214,33 @@ export function WallAdmin() {
     }
   }
 
+  // Set/replace the name on a tile (claim an anonymous snap for a real person).
+  async function setName(img: AdminImage, e: React.MouseEvent) {
+    e.stopPropagation();
+    const current = (img.handle || "").replace(/^@/, "").replace(/\./g, " ");
+    const input = window.prompt("Set the person's name (e.g. Rebecca Shore). Leave blank to clear:", current);
+    if (input === null) return; // cancelled
+    const name = input.trim();
+    const handle = name ? "@" + name.toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "") : "";
+    setBusy(img.ts);
+    setErr(null);
+    const prev = img.handle;
+    setImages((p) => p.map((i) => (i.ts === img.ts ? { ...i, handle } : i)));
+    try {
+      const res = await fetch("/api/wall-admin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ts: img.ts, handle }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || `HTTP ${res.status}`);
+    } catch (e) {
+      setImages((p) => p.map((i) => (i.ts === img.ts ? { ...i, handle: prev } : i))); // revert
+      setErr(String(e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   // Mirror (horizontal flip) the portrait on the wall. Reversible.
   async function flip(img: AdminImage, e: React.MouseEvent) {
     e.stopPropagation(); // don't trigger the tile's show/hide toggle
@@ -449,6 +476,14 @@ export function WallAdmin() {
                   className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/55 transition hover:bg-emerald-500 hover:text-white disabled:opacity-40"
                 >
                   ↻ Re-render
+                </button>
+                <button
+                  onClick={(e) => setName(img, e)}
+                  disabled={busy === img.ts}
+                  title="Set or change the name on this tile (claim an anonymous snap)"
+                  className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white/55 transition hover:bg-sky-500 hover:text-white disabled:opacity-40"
+                >
+                  ✎ Name
                 </button>
                 <button
                   onClick={(e) => flip(img, e)}
