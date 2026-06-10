@@ -39,15 +39,10 @@ export async function GET(request: Request) {
   if (!token) return NextResponse.json({ skipped: "no token" });
   const origin = new URL(request.url).origin;
 
-  // Wall set + directory.
-  let wallImages: { src: string; handle?: string }[] = [];
+  // Directory (handle / name -> Slack id).
   let dir: { id: string; name: string; handle: string }[] = [];
   try {
-    const [w, u] = await Promise.all([
-      fetch(`${origin}/api/wall`, { cache: "no-store" }).then((r) => r.json()),
-      fetch(`${origin}/api/users`, { cache: "no-store" }).then((r) => r.json()),
-    ]);
-    wallImages = Array.isArray(w.images) ? w.images : [];
+    const u = await fetch(`${origin}/api/users`, { cache: "no-store" }).then((r) => r.json());
     dir = Array.isArray(u.users) ? u.users : [];
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 502 });
@@ -64,10 +59,14 @@ export async function GET(request: Request) {
   if (!manifest) return NextResponse.json({ error: "manifest unavailable" }, { status: 200 });
   const sent = new Set<string>([...SEED, ...(manifest.sentPortraits ?? [])]);
 
-  // Resolve recipients not yet covered.
+  // Recipients: visible manifest renders, PRO quality ONLY (skip Flash — we only
+  // auto-send Pro-quality portraits; a Flash render gets picked up later once
+  // it's re-rendered on Pro), not yet covered. Speakers are all in SEED already.
   const seen = new Set<string>();
   const pending: { userId: string; src: string }[] = [];
-  for (const img of wallImages) {
+  for (const img of manifest.images) {
+    if (img.hidden) continue;
+    if (img.model === "flash") continue; // Pro only
     const h = (img.handle || "").trim();
     if (!h) continue;
     const key = h.replace(/^@/, "").toLowerCase();

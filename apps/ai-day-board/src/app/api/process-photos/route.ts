@@ -218,7 +218,10 @@ export async function GET(request: Request) {
       // @mention if we know who, generic if not. DM only with a user id.
       const postChannel = process.env.RENDER_POST_CHANNEL || channel;
       await postPortraitToChannel(postChannel, uid ?? null, url, token);
-      if (uid) {
+      // Only auto-DM Pro-quality portraits. If we fell back to Flash (Pro quota
+      // capped), skip the DM and DON'T mark them sent — the hourly catch-up will
+      // pick them up once they're re-rendered on Pro / Pro quota resets.
+      if (uid && usedModel === "pro") {
         await dmPortrait(uid, url, token);
         // Record the per-snap DM so the hourly catch-up never re-sends to them.
         manifest.sentPortraits = manifest.sentPortraits || [];
