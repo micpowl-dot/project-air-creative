@@ -409,7 +409,7 @@
       "ts": "1781101878.073949",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9MGS112N/snap-1781101877149-u06eccp0zjb.jpg",
-      "hidden": false,
+      "hidden": true,
       "flip": false
     },
     {
