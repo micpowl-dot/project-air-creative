@@ -122,10 +122,12 @@
       "hidden": true
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024059413089.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024059413089-rmq8gwm18.png",
       "handle": "@kate.ewing",
       "ts": "1781024059.413089",
-      "model": "flash"
+      "model": "pro",
+      "hidden": false,
+      "flip": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781024292776529-rmq706bhm.png",
@@ -544,7 +546,7 @@
   ],
   "attempts": {},
   "rendered": {
-    "pro": 43,
+    "pro": 44,
     "flash": 80
   },
   "cooldownUntil": 1781022255383,
