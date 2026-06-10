@@ -1,5 +1,5 @@
 {
-  "lastTs": "1781124641.119999",
+  "lastTs": "1781124709.399939",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938639846339.png",
@@ -578,12 +578,20 @@
       "handle": "@michele.kantor",
       "ts": "1781124641.119999",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9SLG2C0Z/snap-1781124639659-u06elbpa0s2.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9SLG2C0Z/snap-1781124639659-u06elbpa0s2.jpg",
+      "hidden": true
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781124709399939.png",
+      "handle": "@michele.kantor",
+      "ts": "1781124709.399939",
+      "model": "pro",
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9NPAJ7JA/snap-1781124707422-u06elbpa0s2.jpg"
     }
   ],
   "attempts": {},
   "rendered": {
-    "pro": 49,
+    "pro": 50,
     "flash": 80
   },
   "cooldownUntil": 1781022255383,
