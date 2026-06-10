@@ -218,7 +218,12 @@ export async function GET(request: Request) {
       // @mention if we know who, generic if not. DM only with a user id.
       const postChannel = process.env.RENDER_POST_CHANNEL || channel;
       await postPortraitToChannel(postChannel, uid ?? null, url, token);
-      if (uid) await dmPortrait(uid, url, token);
+      if (uid) {
+        await dmPortrait(uid, url, token);
+        // Record the per-snap DM so the hourly catch-up never re-sends to them.
+        manifest.sentPortraits = manifest.sentPortraits || [];
+        if (!manifest.sentPortraits.includes(uid)) manifest.sentPortraits.push(uid);
+      }
       processed++;
       newLastTs = m.ts;                 // advance only on success
       delete manifest.attempts[m.ts];
