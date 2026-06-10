@@ -74,6 +74,28 @@ export function WallAdmin() {
     }
   }
 
+  // Download every named portrait to the browser as "First Last.png", so they
+  // can be dragged into a Drive folder. Staggered so the browser doesn't choke.
+  function nameFor(handle: string): string {
+    return handle.replace(/^@/, "").split(".").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  }
+  async function downloadAll() {
+    const named = images.filter((i) => (i.handle || "").trim());
+    if (!named.length) { setErr("No named portraits to download."); return; }
+    if (!window.confirm(`Download all ${named.length} named portraits to your computer?\n\nYour browser will ask to allow multiple downloads — click Allow. Then drag them into a new Google Drive folder and share it.`)) return;
+    for (const img of named) {
+      const file = `${nameFor(img.handle)}.png`;
+      const abs = img.src.startsWith("http") ? img.src : `${location.origin}${img.src}`;
+      const a = document.createElement("a");
+      a.href = `/api/wall-admin/portrait?u=${encodeURIComponent(abs)}&n=${encodeURIComponent(file)}`;
+      a.download = file;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      await new Promise((r) => setTimeout(r, 400));
+    }
+  }
+
   // DM every person on the wall (incl. speakers) their portrait. Previews
   // first, confirms, then loops the batched endpoint until done. Idempotent.
   const [sending, setSending] = useState<{ sent: number; total: number } | null>(null);
@@ -458,13 +480,24 @@ export function WallAdmin() {
           <p className="mt-1 max-w-2xl text-xs text-white/50">
             DMs each person currently on the wall (including speakers) their illustrated portrait via Slack. Previews the count first and asks you to confirm. Anonymous and unmatched names are skipped, and no one is DMed twice (safe to re-run).
           </p>
-          <button
-            onClick={sendAllPortraits}
-            disabled={sending !== null}
-            className="mt-3 rounded-md border border-sky-500/40 bg-sky-500/15 px-3.5 py-1.5 text-sm font-semibold text-sky-200 hover:bg-sky-500/30 disabled:opacity-50"
-          >
-            {sending ? `DMing… ${sending.sent}/${sending.total}` : "📩 DM everyone their portrait"}
-          </button>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              onClick={downloadAll}
+              className="rounded-md border border-white/20 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-[#f4f0e6] hover:bg-white/20"
+            >
+              ⬇ Download all named portraits
+            </button>
+            <button
+              onClick={sendAllPortraits}
+              disabled={sending !== null}
+              className="rounded-md border border-sky-500/40 bg-sky-500/15 px-3.5 py-1.5 text-sm font-semibold text-sky-200 hover:bg-sky-500/30 disabled:opacity-50"
+            >
+              {sending ? `DMing… ${sending.sent}/${sending.total}` : "📩 DM everyone their portrait"}
+            </button>
+          </div>
+          <p className="mt-2 text-xs text-white/45">
+            Download saves each portrait as &ldquo;First Last.png&rdquo; — allow multiple downloads when prompted, then drag them into a Drive folder and share.
+          </p>
         </div>
       </div>
     </main>
