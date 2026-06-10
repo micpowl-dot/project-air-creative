@@ -469,6 +469,10 @@ export function WallAdmin() {
                   {img.model === "flash" ? "⚡ Flash" : "Pro"}
                 </span>
               </div>
+              {/* Underlying filename (matches the GitHub file) — click to select/copy. */}
+              <div className="mt-0.5 select-all break-all text-center font-mono text-[9px] leading-tight text-white/35" title="Image filename in the repo / Drive">
+                {(img.src.split("?")[0].split("/").pop()) || ""}
+              </div>
               </div>
             ))}
           </div>
