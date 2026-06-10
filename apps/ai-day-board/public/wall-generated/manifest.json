@@ -404,7 +404,7 @@
       "hidden": true
     },
     {
-      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781101878073949-rmq8cj16n.png",
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781101878073949-rmq8ck2ud.png",
       "handle": "@becky.puls",
       "ts": "1781101878.073949",
       "model": "pro",
@@ -493,7 +493,7 @@
   ],
   "attempts": {},
   "rendered": {
-    "pro": 33,
+    "pro": 34,
     "flash": 80
   },
   "cooldownUntil": 1781022255383,
