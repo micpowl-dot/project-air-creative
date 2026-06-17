@@ -57,6 +57,17 @@ export function proxy(request: NextRequest) {
     return basicAuthOk(request, adminPw) ? NextResponse.next() : challenge();
   }
 
+  // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
+  // including /wall) requires the shared SITE_PASSWORD via browser Basic Auth.
+  // Used to re-secure the board after the public event window. Takes precedence
+  // over WALL_PUBLIC_MODE and PUBLIC_BOARD. Fails closed if no password is set.
+  // Reversible: remove the LOCKDOWN env var (and redeploy) to restore prior mode.
+  if (process.env.LOCKDOWN === "1") {
+    const password = process.env.SITE_PASSWORD;
+    if (!password) return new NextResponse("Auth not configured", { status: 503 });
+    return basicAuthOk(request, password) ? NextResponse.next() : challenge();
+  }
+
   // No-op unless explicitly switched on (Vercel protection handles gating).
   if (process.env.WALL_PUBLIC_MODE !== "1") return NextResponse.next();
 
