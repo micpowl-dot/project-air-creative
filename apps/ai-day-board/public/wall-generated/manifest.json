@@ -781,7 +781,8 @@
       "handle": "@mark.fredo",
       "ts": "1782848894.787499",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BEB9HAR89/snap-1782848893122-u06evdta27n.png"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BEB9HAR89/snap-1782848893122-u06evdta27n.png",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1782849296882219.png",
