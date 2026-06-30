@@ -717,7 +717,7 @@
       "ts": "1781277069.251049",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9RNQMGK1/snap-1781277066261-u087lhfjk40.png",
-      "hidden": true
+      "hidden": false
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781277492454699.png",
