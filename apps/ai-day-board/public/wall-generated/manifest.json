@@ -732,7 +732,8 @@
       "handle": "@frank.guardi",
       "ts": "1781369612.146049",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9XLNAZMM/snap-1781369610752-u06elaeqn3y.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9XLNAZMM/snap-1781369610752-u06elaeqn3y.jpg",
+      "flip": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781536362071749.png",
