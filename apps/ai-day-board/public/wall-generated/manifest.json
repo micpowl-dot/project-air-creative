@@ -776,7 +776,9 @@
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BAP1ZM57X/snap-1781560429962-u06et04075g.jpg"
     }
   ],
-  "attempts": {},
+  "attempts": {
+    "1782848894.787499": 1
+  },
   "rendered": {
     "pro": 76,
     "flash": 80
