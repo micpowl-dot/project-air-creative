@@ -122,11 +122,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "blob_unavailable", detail: String(e) }, { status: 200 });
   }
 
-  // First run: don't chew the backlog — start the clock now, process nothing.
+  // readManifest() returns null on a TRANSIENT read failure (rate limit, network,
+  // a momentary non-200 from GitHub) as well as a genuine 404. We must NOT write a
+  // fresh empty manifest here: doing so overwrites the real manifest whenever a read
+  // merely blips, which silently wiped all 105 images on 2026-06-16. Skip the run
+  // instead and leave whatever is there untouched. The manifest is seeded/restored
+  // out of band; it is never auto-created from this path.
   if (!manifest) {
-    const init: WallManifest = { lastTs: String(Date.now() / 1000), images: [] };
-    try { await writeManifest(init); } catch { /* ignore */ }
-    return NextResponse.json({ initialized: true, lastTs: init.lastTs });
+    return NextResponse.json({ skipped: "manifest unavailable; not overwriting" }, { status: 200 });
   }
 
   // New image posts since lastTs.
