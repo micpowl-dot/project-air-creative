@@ -57,6 +57,13 @@ export function proxy(request: NextRequest) {
     return basicAuthOk(request, adminPw) ? NextResponse.next() : challenge();
   }
 
+  // Let the backend render cron through the gate. It authenticates itself via
+  // CRON_SECRET (Vercel injects it as a Bearer header on cron invocations), and
+  // the route rejects anything without it. Without this exemption the LOCKDOWN
+  // Basic-Auth gate 401s the Vercel cron and the photo pipeline silently stops
+  // processing (this is what stranded snaps after the 2026-06-17 lockdown).
+  if (request.nextUrl.pathname === "/api/process-photos") return NextResponse.next();
+
   // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
   // including /wall) requires the shared SITE_PASSWORD via browser Basic Auth.
   // Used to re-secure the board after the public event window. Takes precedence
