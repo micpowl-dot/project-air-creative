@@ -64,6 +64,16 @@ export function proxy(request: NextRequest) {
   // processing (this is what stranded snaps after the 2026-06-17 lockdown).
   if (request.nextUrl.pathname === "/api/process-photos") return NextResponse.next();
 
+  // Static design assets the render pipeline depends on (backgrounds, cutouts,
+  // poster art). Non-sensitive, and public pre-lockdown. The render fetches
+  // /headshots/bg from its own origin while stylizing; if the gate 401s that
+  // fetch, Gemini receives a broken background and every render fails with a
+  // "400: Unable to process input image". Keep these reachable; pages stay gated.
+  const assetPath = request.nextUrl.pathname;
+  if (assetPath.startsWith("/headshots/") || assetPath.startsWith("/poster-elements/")) {
+    return NextResponse.next();
+  }
+
   // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
   // including /wall) requires the shared SITE_PASSWORD via browser Basic Auth.
   // Used to re-secure the board after the public event window. Takes precedence
