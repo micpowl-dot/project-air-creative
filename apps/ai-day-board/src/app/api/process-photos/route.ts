@@ -179,9 +179,12 @@ export async function GET(request: Request) {
       try {
         out = await stylize(styleArgs);
       } catch (proErr) {
-        // Only fall back to Flash on a Pro rate/quota cap. Any other Pro error
-        // (bad image, etc.) is re-thrown to the transient/terminal handling.
-        if (!/\b429\b|quota|rate limit/i.test(String(proErr))) throw proErr;
+        // Pro can fail for several reasons: a 429/quota cap, OR the preview model
+        // being retired/unavailable (a "gemini-3-pro-image-preview" 404 stranded
+        // snaps on 2026-06-30). Fall back to the stable Flash model on ANY Pro
+        // error so the portrait still renders. If Flash also fails, it propagates
+        // to the transient/terminal handling below.
+        errors.push(`pro->flash (${String(proErr).slice(0, 80)})`);
         out = await stylize({ ...styleArgs, model: STANDARD_MODEL });
         usedModel = "flash";
       }
