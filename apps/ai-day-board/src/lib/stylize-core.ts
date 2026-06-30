@@ -38,6 +38,10 @@ export const STYLIZE_PROMPT =
   "actually wearing glasses in the photo — if they are NOT wearing glasses, do " +
   "NOT add any. Likewise never add or remove hats, jewelry, earrings, piercings, " +
   "or facial hair; render only what is actually present in the photo. " +
+  "Match facial-hair LENGTH and density EXACTLY: light stubble or a five o'clock " +
+  "shadow must stay light stubble, never thickened, lengthened, or filled into a " +
+  "full beard; a clean-shaven face stays clean-shaven. Do not add a beard or " +
+  "moustache that is not clearly there in the photo. " +
   "Do NOT change their gender, age, ethnicity, or features, do NOT make them more " +
   "masculine or more feminine, and NEVER substitute anyone else's face. It must " +
   "be immediately and unmistakably the same individual as the first image. " +
