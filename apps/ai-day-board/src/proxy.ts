@@ -13,6 +13,15 @@ import type { NextRequest } from "next/server";
 // Result: /wall (+ its assets) is public; every other route asks for the
 // shared password (browser Basic Auth prompt). Fails closed: if WALL_PUBLIC_MODE
 // is on but SITE_PASSWORD is missing, gated routes return 503 (never exposed).
+//
+// SCREEN TOKEN (added for the Aug 19 2026 signage run):
+// Office signage players have no keyboard, so they can never satisfy the Basic
+// Auth prompt that LOCKDOWN puts on every route. Set env SCREEN_TOKEN and the
+// player can open `?screen=<token>` once; the token is exchanged for a cookie so
+// the page's own fetches (notably /api/wall, which LOCKDOWN also gates) keep
+// working for the rest of the run. Leave SCREEN_TOKEN unset and this is inert.
+// The token is a shared display key, not per-viewer access control, so it never
+// opens the moderation routes (the admin check below runs first and wins).
 
 const PUBLIC_PREFIXES = ["/wall", "/api/wall", "/prompts", "/headshots", "/poster-elements"];
 
@@ -38,6 +47,43 @@ function basicAuthOk(request: NextRequest, password: string): boolean {
   } catch {
     return false;
   }
+}
+
+// Screen token: the query-param handshake a keyboardless signage player can do.
+const SCREEN_QUERY_PARAM = "screen";
+const SCREEN_COOKIE = "aiday_screen";
+// Long enough to cover the ~2-week unattended run without anyone revisiting the
+// token URL, short enough that a stolen cookie does not last forever.
+const SCREEN_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+
+type ScreenAuth = "none" | "cookie" | "query";
+
+// Returns how (if at all) this request proved it is an authorised screen.
+// "query" means it presented the token in the URL and still needs the cookie set.
+function screenAuth(request: NextRequest): ScreenAuth {
+  const token = process.env.SCREEN_TOKEN;
+  if (!token) return "none"; // feature off — no token configured
+  if (request.cookies.get(SCREEN_COOKIE)?.value === token) return "cookie";
+  if (request.nextUrl.searchParams.get(SCREEN_QUERY_PARAM) === token) return "query";
+  return "none";
+}
+
+// Let the screen through, and on the initial token URL trade the query param for
+// a cookie so subsequent navigations and same-origin fetches carry the proof.
+function allowScreen(how: ScreenAuth): NextResponse {
+  const response = NextResponse.next();
+  if (how === "query") {
+    response.cookies.set({
+      name: SCREEN_COOKIE,
+      value: process.env.SCREEN_TOKEN as string,
+      path: "/",
+      httpOnly: true,
+      sameSite: "lax",
+      secure: true,
+      maxAge: SCREEN_COOKIE_MAX_AGE,
+    });
+  }
+  return response;
 }
 
 function challenge(): NextResponse {
@@ -73,6 +119,12 @@ export function proxy(request: NextRequest) {
   if (assetPath.startsWith("/headshots/") || assetPath.startsWith("/poster-elements/")) {
     return NextResponse.next();
   }
+
+  // Authorised signage player: allowed past whichever gate is active below.
+  // Placed after the admin check (so a screen token can never reach /wall-admin)
+  // and before LOCKDOWN, so it works in both LOCKDOWN and WALL_PUBLIC_MODE.
+  const screen = screenAuth(request);
+  if (screen !== "none") return allowScreen(screen);
 
   // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
   // including /wall) requires the shared SITE_PASSWORD via browser Basic Auth.
