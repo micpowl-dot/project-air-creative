@@ -99,6 +99,10 @@ function isSnapPath(pathname: string): boolean {
 const EMPLOYEE_PREFIXES = [
   "/wall", "/api/wall", "/api/join-qr", // watch
   "/snap", "/api/snap", "/api/snap-status", "/api/users", // take part
+  // The wall polls this to notice a new deploy and reload itself. Leaving it out
+  // is what made the password prompt reappear every few seconds for a viewer: the
+  // page authenticated fine, then this poll 401'd on a loop behind it.
+  "/api/version",
 ];
 
 function isEmployeePath(pathname: string): boolean {
@@ -144,10 +148,16 @@ function allowToken(how: TokenAuth, cookieName: string, token: string): NextResp
   return response;
 }
 
-// The realm is the only text a browser password prompt shows, so it has to tell
-// the person which thing they are being asked for. Employees used to see
-// "AI Day Admin", which reads like they are somewhere they shouldn't be.
-function challenge(realm = "AI Day Admin"): NextResponse {
+// The realm is the only text a browser password prompt shows, so it has to read
+// sensibly to whoever sees it: employees used to be asked for "AI Day Admin",
+// which sounds like somewhere they should not be.
+//
+// It is also deliberately ONE value for the whole site. A browser caches
+// credentials per realm, so two realms on one origin mean a stray 401 anywhere
+// prompts again from scratch instead of quietly reusing what was already typed.
+const REALM = "AI Day";
+
+function challenge(realm = REALM): NextResponse {
   return new NextResponse("Authentication required", {
     status: 401,
     headers: { "WWW-Authenticate": `Basic realm="${realm}"` },
@@ -212,7 +222,7 @@ export function proxy(request: NextRequest) {
     const password = process.env.SITE_PASSWORD;
     if (!password) return new NextResponse("Auth not configured", { status: 503 });
     if (basicAuthOk(request, password)) return NextResponse.next();
-    return challenge(employeeArea && employeePassword ? "AI Day" : "AI Day Admin");
+    return challenge();
   }
 
   // No-op unless explicitly switched on (Vercel protection handles gating).
@@ -241,7 +251,7 @@ export function proxy(request: NextRequest) {
   }
   return new NextResponse("Authentication required", {
     status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="AI Day Board"' },
+    headers: { "WWW-Authenticate": `Basic realm="${REALM}"` },
   });
 }
 
