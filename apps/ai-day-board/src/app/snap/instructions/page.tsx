@@ -111,12 +111,14 @@ export default function InstructionsPage() {
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700;800&display=swap');
         .sign, .sign *, .sign *::before, .sign *::after { box-sizing: border-box; margin: 0; padding: 0; }
         .sign {
-          --magenta: #FB00FF; --magenta-accent: #FFE500;
+          /* "snap" half of the sign. Was Magenta; now Amber from the locked palette,
+             with Amber's own accent so it stays readable on the orange. */
+          --snap: #FF9500; --snap-accent: #FFE8C1; --snap-on-bg: #6B0800;
           --blue: #0062FF; --blue-accent: #67FAE0;
           --ink: #0D142A; --light: #fff;
           --card: rgba(13,20,42,0.5);
           font-family: 'IBM Plex Sans', system-ui, sans-serif; color: var(--light); min-height: 100vh;
-          background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%);
+          background: linear-gradient(90deg, var(--snap) 0 50%, var(--blue) 50% 100%);
           display: flex; flex-direction: column; position: relative;
         }
 
@@ -144,7 +146,7 @@ export default function InstructionsPage() {
           to { transform: rotateX(var(--rx, 1turn)) rotateY(var(--ry, 1turn)) rotateZ(var(--rz, 0.5turn)); }
         }
         @media (prefers-reduced-motion: reduce) { .sign .confetti { display: none; } }
-        .sign .col-snap  { background: transparent; --accent: var(--magenta-accent); }
+        .sign .col-snap  { background: transparent; --accent: var(--snap-accent); }
         .sign .col-quote { background: transparent; --accent: var(--blue-accent); }
 
         .sign .col-title { font-size: clamp(1.2rem, 3vw, 1.55rem); font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
@@ -175,8 +177,8 @@ export default function InstructionsPage() {
            side). Placed last so it wins over the transparent base rules. */
         @media (max-width: 779px) {
           .sign { background: var(--ink); }
-          .sign .masthead, .sign .footer { background: linear-gradient(90deg, var(--magenta) 0 50%, var(--blue) 50% 100%); }
-          .sign .col-snap  { background: var(--magenta); }
+          .sign .masthead, .sign .footer { background: linear-gradient(90deg, var(--snap) 0 50%, var(--blue) 50% 100%); }
+          .sign .col-snap  { background: var(--snap); }
           .sign .col-quote { background: var(--blue); }
         }
 
@@ -184,7 +186,7 @@ export default function InstructionsPage() {
           .sign { background: #fff; color: #111; }
           .sign .masthead { background: #fff; }
           .sign .tagline, .sign .sub { color: #111; text-shadow: none; }
-          .sign .col-snap  { background: #fff; --accent: #FB00FF; }
+          .sign .col-snap  { background: #fff; --accent: #FF9500; --snap-on-bg: #6B0800; }
           .sign .col-quote { background: #fff; --accent: #0062FF; }
           .sign .col-title, .sign .step-body h3, .sign .qr-label { color: #111; }
           .sign .col-sub, .sign .step-body p, .sign .examples p { color: #333; }
@@ -217,7 +219,7 @@ export default function InstructionsPage() {
             <div className="col-inner">
               <div className="col-title"><Icon name="camera" className="ico" /> Get your portrait up</div>
               <div className="col-sub">Take a selfie and watch yourself appear as an illustrated AI Day portrait.</div>
-              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", margin: "-0.75rem 0 1.1rem" }}>💡 Best results: one face per photo, in bright light or with flash.</div>
+              <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--snap-on-bg)", margin: "-0.75rem 0 1.1rem" }}>💡 Best results: one face per photo, in bright light or with flash.</div>
               <div className="steps">
                 {SNAP_STEPS.map((s) => (
                   <div key={s.n} className="step">

@@ -24,7 +24,18 @@ interface WallImage {
 }
 
 const COLUMNS = 5;
-const BG = "#FB00FF";
+// Palette values come from the locked five-scheme design system, not picked by eye.
+// The wall used to be Magenta #FB00FF. It is now Violet, and the join slide's
+// "snap" half is Amber. Each scheme carries its own accent, which is why the
+// snap half stops using the yellow ACCENT below: yellow on amber is unreadable
+// at TV distance, so it uses Amber's own accent instead.
+const PURPLE = "#46125B"; // Violet primary — wall background + title card
+const PURPLE_CARD = "rgba(70, 18, 91, 0.85)"; // same violet, for the title container
+const ORANGE = "#FF9500"; // Amber primary — left half of the join slide
+const ORANGE_ACCENT = "#6B0800"; // Amber accent — for text sitting ON the orange
+// Amber's light tone, for accents sitting on the DARK cards. The step badges are a
+// filled circle with navy text, so that fill has to be light or the number vanishes.
+const ORANGE_ON_CARD = "#FFE8C1";
 const ACCENT = "#FFE500";
 const INK = "#0D142A";
 const BLUE = "#0062FF";
@@ -208,7 +219,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
   const story = stories.length ? stories[storyIdx % stories.length] : undefined;
 
   return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: BG }}>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: PURPLE }}>
       <style>{`@keyframes wall-fall { from { transform: translateY(-50%); } to { transform: translateY(0); } }`}</style>
       <div className="absolute inset-0 flex gap-[1.5vw] px-[1.5vw]">
         {cols.map((col, ci) => (
@@ -228,7 +239,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
         className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
-        style={{ background: "rgba(251, 0, 255, 0.85)", backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        style={{ background: PURPLE_CARD, backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
@@ -401,7 +412,7 @@ function InstructionsView() {
   return (
     <div
       className="relative flex h-full w-full flex-col overflow-hidden"
-      style={{ background: `linear-gradient(90deg, ${BG} 0 50%, ${BLUE} 50% 100%)` }}
+      style={{ background: `linear-gradient(90deg, ${ORANGE} 0 50%, ${BLUE} 50% 100%)` }}
     >
       <JoinConfetti />
 
@@ -417,16 +428,16 @@ function InstructionsView() {
 
       {/* split body */}
       <div className="relative grid flex-1" style={{ zIndex: 2, gridTemplateColumns: "1fr 1fr" }}>
-        {/* LEFT — Snap (magenta / yellow) */}
+        {/* LEFT — Snap (amber / dark amber accent) */}
         <div className="flex flex-col" style={{ padding: "2vh 3vw 3vh" }}>
           <div className="flex items-center gap-[0.7vw] font-display font-bold text-white" style={{ fontSize: "1.9vw" }}>
-            <Icon name="camera" style={{ width: "1.9vw", height: "1.9vw", color: ACCENT, flex: "none" }} />
+            <Icon name="camera" style={{ width: "1.9vw", height: "1.9vw", color: ORANGE_ACCENT, flex: "none" }} />
             Get your portrait up
           </div>
           <div className="text-white/80" style={{ fontSize: "1.05vw", margin: "0.6vh 0 0.4vh" }}>
             Take a selfie and watch yourself appear as an illustrated AI Day portrait.
           </div>
-          <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.95vw", marginBottom: "1.6vh" }}>
+          <div className="font-display font-bold" style={{ color: ORANGE_ACCENT, fontSize: "0.95vw", marginBottom: "1.6vh" }}>
             Best results: one face per photo, in bright light or with flash.
           </div>
           <div className="flex items-start gap-[2vw]">
@@ -439,12 +450,12 @@ function InstructionsView() {
               {/* No typed-URL fallback any more: the booth needs the key that only
                   the QR carries, so printing the bare address would send people to
                   a password prompt. */}
-              <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.8vw", marginTop: "1vh" }}>Scan with your phone camera</div>
+              <div className="font-display font-bold" style={{ color: ORANGE_ON_CARD, fontSize: "0.8vw", marginTop: "1vh" }}>Scan with your phone camera</div>
             </div>
             {/* steps */}
             <div className="flex flex-1 flex-col gap-[1.2vh]">
               {SNAP_STEPS.map((s) => (
-                <StepRow key={s.n} s={s} accent={ACCENT} card={card} />
+                <StepRow key={s.n} s={s} accent={ORANGE_ON_CARD} card={card} />
               ))}
             </div>
           </div>
