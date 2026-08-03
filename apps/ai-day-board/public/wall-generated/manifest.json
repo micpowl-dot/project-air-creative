@@ -75,7 +75,7 @@
       "handle": "@lauren.fucci",
       "ts": "1781010328.618419",
       "model": "flash",
-      "hidden": false,
+      "hidden": true,
       "flip": false
     },
     {
@@ -620,7 +620,8 @@
       "handle": "@lucia.sabo",
       "ts": "1781183000.576489",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9F4ECQ6T/snap-1781182999037-u0ashku9x0q.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9F4ECQ6T/snap-1781182999037-u0ashku9x0q.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781183672447449.png",
