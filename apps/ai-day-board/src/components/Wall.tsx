@@ -48,7 +48,11 @@ const TEAL = "#67FAE0";
 // wall holds for longer than that, so nobody is scrolled past unseen. It is
 // derived rather than typed in, so adding a column cannot silently break it.
 const SLOWEST_COLUMN_MS = (42 + (5 - 1) * 7) * 1000; // 70s at COLUMNS = 5
-const WALL_MS = SLOWEST_COLUMN_MS + 20000; // a full pass, plus margin
+// Two full passes before the join slide interrupts. One pass is enough to show
+// everyone once, but a second means someone who walks up mid-pass still sees the
+// portraits they missed without waiting for the slide to come and go. The QR now
+// sits on the wall permanently, so the slide no longer has to come round often.
+const WALL_MS = SLOWEST_COLUMN_MS * 2 + 20000; // 160s
 const POSTERS_MS = 28000;
 const INSTRUCTIONS_MS = 16000; // "how to join" slide between waterfall views
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
