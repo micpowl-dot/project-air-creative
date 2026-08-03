@@ -21,7 +21,7 @@ const SPEAKER_SLUGS = [
   "ben-papandrea", "brennan-gerster", "brian-oneil", "dan-margulies",
   "dave-de-sa", "elizabeth-martin", "erik-petersen", "jack-kreps",
   "james-baker", "james-belanger", "javi-quinones", "lauriana-gaudet",
-  "matthew-drooker", "max-jacubowsky", "michelle-killroy", "miguel-gervassi",
+  "matthew-drooker", "max-jacubowsky", "michelle-kilroy", "miguel-gervassi",
   "rohit-agarwal", "rohit-nutalapati", "sahana-subbanna", "samantha-gates",
   "shannon-king", "thomas-hinson", "tyler-steben",
 ];

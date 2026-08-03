@@ -15,7 +15,7 @@ export const HEADSHOT_OVERRIDES: Record<string, string> = {
   // Nickname: chart says "Sam Gates" (10:00 session), art is "Samantha Gates".
   "Sam Gates": "samantha-gates",
   // Spelling mismatch: chart says "Michelle Kilroy", art is "Michelle Killroy".
-  "Michelle Kilroy": "michelle-killroy",
+  "Michelle Kilroy": "michelle-kilroy",
 };
 
 /**

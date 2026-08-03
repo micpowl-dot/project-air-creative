@@ -49,7 +49,7 @@ export async function GET(request: Request) {
     if (d.handle) byKey.set(d.handle.toLowerCase(), d.id);
     if (d.name) byKey.set(normName(d.name), d.id);
   }
-  byKey.set("michelle.killroy", "U06EQ2ZBAMT");
+  byKey.set("michelle.kilroy", "U06EQ2ZBAMT");
 
   const { readManifest, writeManifest } = await import("@/lib/wall-store");
   const manifest = await readManifest();
