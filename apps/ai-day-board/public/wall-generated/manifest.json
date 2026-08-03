@@ -492,7 +492,8 @@
       "handle": "@jessica.renz",
       "ts": "1781109971.386499",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9NRN4ZD0/snap-1781109969773-u06f11lkm9c.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9NRN4ZD0/snap-1781109969773-u06f11lkm9c.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781113150017889-rmq8d88gg.png",
