@@ -49,7 +49,10 @@ function basicAuthOk(request: NextRequest, password: string): boolean {
   try {
     const decoded = atob(header.slice(6));
     const pass = decoded.split(":").slice(1).join(":"); // accept any username
-    return pass === password;
+    // Trimmed on both sides. These passwords get copied out of a Slack post by
+    // hundreds of people, and a pasted trailing space is the most likely reason
+    // a correct password gets rejected.
+    return pass.trim() === password.trim();
   } catch {
     return false;
   }
