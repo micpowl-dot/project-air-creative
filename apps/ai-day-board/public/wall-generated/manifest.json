@@ -806,7 +806,7 @@
       "handle": "@becky.puls",
       "ts": "1781101878.073950",
       "model": "pro",
-      "hidden": true
+      "hidden": false
     }
   ],
   "attempts": {},
