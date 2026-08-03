@@ -78,20 +78,28 @@ const SNAP_PREFIXES = ["/snap", "/api/snap", "/api/snap-status", "/api/users"];
 function isSnapPath(pathname: string): boolean {
   return SNAP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
-// A wall-only password, deliberately NOT the same secret as SITE_PASSWORD.
+// The employee password: one secret covering both halves of what a person does,
+// watch the wall and make their own portrait. Deliberately NOT SITE_PASSWORD.
 //
 // SITE_PASSWORD opens the whole board, including the poster and profile studios
-// and the schedule, so it cannot be circulated: handing it to everyone would hand
-// over the roster, titles and headshots, which is the surface Dan asked us to
-// close. WALL_PASSWORD opens the wall and nothing else, so it is safe to give out
-// and safe to change without locking the team out of their own tools.
+// and the schedule, so it can never be circulated: handing it out would hand over
+// the roster, titles and headshots, which is exactly the surface Dan asked us to
+// close after June. This one opens the wall and the booth and nothing else, so it
+// is safe to send round and safe to change without locking the team out.
 //
-// Unlike a link key this is not carried in the URL, so forwarding the link does
-// not forward the access. Leave WALL_PASSWORD unset and nothing changes.
-const WALL_PASSWORD_PREFIXES = ["/wall", "/api/wall", "/api/join-qr"];
+// Why a password and not another link key: a key lives in the URL, so forwarding
+// the link forwards the access, and mailing one to the whole company would put it
+// everywhere. A password does not travel with the link.
+//
+// Link keys stay for the things that cannot type: the players, and phones scanning
+// the QR off a monitor in the building. Everyone else uses this.
+const EMPLOYEE_PREFIXES = [
+  "/wall", "/api/wall", "/api/join-qr", // watch
+  "/snap", "/api/snap", "/api/snap-status", "/api/users", // take part
+];
 
-function isWallPath(pathname: string): boolean {
-  return WALL_PASSWORD_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
+function isEmployeePath(pathname: string): boolean {
+  return EMPLOYEE_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
 // Long enough to cover the ~2-week unattended run without anyone revisiting the
@@ -134,8 +142,8 @@ function allowToken(how: TokenAuth, cookieName: string, token: string): NextResp
 }
 
 // The realm is the only text a browser password prompt shows, so it has to tell
-// the person which thing they are being asked for. Viewers landing on the wall
-// used to see "AI Day Admin", which reads like they are somewhere they shouldn't be.
+// the person which thing they are being asked for. Employees used to see
+// "AI Day Admin", which reads like they are somewhere they shouldn't be.
 function challenge(realm = "AI Day Admin"): NextResponse {
   return new NextResponse("Authentication required", {
     status: 401,
@@ -191,17 +199,17 @@ export function proxy(request: NextRequest) {
   // Used to re-secure the board after the public event window. Takes precedence
   // over WALL_PUBLIC_MODE and PUBLIC_BOARD. Fails closed if no password is set.
   // Reversible: remove the LOCKDOWN env var (and redeploy) to restore prior mode.
-  // The wall's own password, checked before the site-wide one. A wrong answer falls
-  // through so the team's SITE_PASSWORD still opens the wall as it always did.
-  const onWall = isWallPath(request.nextUrl.pathname);
-  const wallPassword = process.env.WALL_PASSWORD;
-  if (onWall && wallPassword && basicAuthOk(request, wallPassword)) return NextResponse.next();
+  // The employee password, checked before the site-wide one. A wrong answer falls
+  // through so the team's SITE_PASSWORD still works everywhere as it always did.
+  const employeeArea = isEmployeePath(request.nextUrl.pathname);
+  const employeePassword = process.env.EMPLOYEE_PASSWORD;
+  if (employeeArea && employeePassword && basicAuthOk(request, employeePassword)) return NextResponse.next();
 
   if (process.env.LOCKDOWN === "1") {
     const password = process.env.SITE_PASSWORD;
     if (!password) return new NextResponse("Auth not configured", { status: 503 });
     if (basicAuthOk(request, password)) return NextResponse.next();
-    return challenge(onWall && wallPassword ? "AI Day Wall" : "AI Day Admin");
+    return challenge(employeeArea && employeePassword ? "AI Day" : "AI Day Admin");
   }
 
   // No-op unless explicitly switched on (Vercel protection handles gating).
