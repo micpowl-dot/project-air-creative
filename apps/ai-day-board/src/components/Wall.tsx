@@ -25,12 +25,12 @@ interface WallImage {
 
 const COLUMNS = 5;
 // Palette values come from the locked five-scheme design system, not picked by eye.
-// The wall used to be Magenta #FB00FF. It is now Violet, and the join slide's
-// "snap" half is Amber. Each scheme carries its own accent, which is why the
-// snap half stops using the yellow ACCENT below: yellow on amber is unreadable
-// at TV distance, so it uses Amber's own accent instead.
-const PURPLE = "#46125B"; // Violet primary — wall background + title card
-const PURPLE_CARD = "rgba(70, 18, 91, 0.85)"; // same violet, for the title container
+// The wall was Magenta, then Violet, and is now Cyan blue. The driver is colour
+// blindness: blue against the yellow ACCENT is the pairing that stays legible
+// across every common type of it, where magenta and violet against yellow do not.
+// The join slide's "snap" half is Amber, which is also distinguishable from blue.
+const WALL_BG = "#0062FF"; // Cyan primary — wall background + title card
+const WALL_CARD = "rgba(0, 98, 255, 0.85)"; // same blue, for the title container
 const ORANGE = "#FF9500"; // Amber primary — left half of the join slide
 const ORANGE_ACCENT = "#6B0800"; // Amber accent — for text sitting ON the orange
 // Amber's light tone, for accents sitting on the DARK cards. The step badges are a
@@ -42,7 +42,13 @@ const BLUE = "#0062FF";
 const TEAL = "#67FAE0";
 
 // How long each view stays on screen before alternating.
-const WALL_MS = 90000; // photo wall holds for 90s
+//
+// The wall's columns scroll at 42s, 49s, ... (see the animation below), so the
+// slowest column needs SLOWEST_COLUMN_MS to show every portrait in it once. The
+// wall holds for longer than that, so nobody is scrolled past unseen. It is
+// derived rather than typed in, so adding a column cannot silently break it.
+const SLOWEST_COLUMN_MS = (42 + (5 - 1) * 7) * 1000; // 70s at COLUMNS = 5
+const WALL_MS = SLOWEST_COLUMN_MS + 20000; // a full pass, plus margin
 const POSTERS_MS = 28000;
 const INSTRUCTIONS_MS = 16000; // "how to join" slide between waterfall views
 const POSTER_EACH_MS = 7000; // per-poster within the poster cycle
@@ -219,7 +225,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
   const story = stories.length ? stories[storyIdx % stories.length] : undefined;
 
   return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: PURPLE }}>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: WALL_BG }}>
       <style>{`@keyframes wall-fall { from { transform: translateY(-50%); } to { transform: translateY(0); } }`}</style>
       <div className="absolute inset-0 flex gap-[1.5vw] px-[1.5vw]">
         {cols.map((col, ci) => (
@@ -239,7 +245,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(13,20,42,0.55) 0%, rgba(13,20,42,0.15) 60%, transparent 100%)" }} />
       <div
         className="absolute left-[2.5vw] top-[2.5vh] flex items-center gap-[1.2vw]"
-        style={{ background: PURPLE_CARD, backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
+        style={{ background: WALL_CARD, backdropFilter: "blur(1.5px)", WebkitBackdropFilter: "blur(1.5px)", padding: "calc(1.4vh + 20px) calc(1.6vw + 20px)", boxShadow: "0 0.6vw 1.8vw rgba(13,20,42,0.45)" }}
       >
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
@@ -259,8 +265,22 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
           </div>
         </div>
       )}
-      <div className="absolute bottom-[2vh] right-[2.5vw] text-white/60" style={{ fontSize: "0.9vw" }}>
-        {images.length} moments{live ? "" : " · sample mode"}
+      {/* Always-on QR, bottom right above the moments count. The join slide only
+          comes round every couple of minutes, so anyone glancing at the wall in
+          between still has a way in without waiting for it. */}
+      <div className="absolute bottom-[2vh] right-[2.5vw] flex flex-col items-end gap-[0.8vh]">
+        <div className="flex items-center gap-[0.6vw] rounded-[0.5vw]" style={{ background: "rgba(13,20,42,0.72)", padding: "0.8vh 0.7vw" }}>
+          <div className="text-right font-display font-bold leading-tight" style={{ color: ACCENT, fontSize: "0.95vw" }}>
+            Add<br />yourself
+          </div>
+          <div className="rounded-[0.25vw] bg-white" style={{ padding: "0.25vw" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/api/join-qr" alt="QR code to the photo station" style={{ width: "6vw", height: "6vw", imageRendering: "pixelated", display: "block" }} />
+          </div>
+        </div>
+        <div className="text-white/60" style={{ fontSize: "0.9vw" }}>
+          {images.length} moments{live ? "" : " · sample mode"}
+        </div>
       </div>
     </div>
   );
@@ -590,11 +610,32 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     return () => clearTimeout(t);
   }, [view]);
 
+  // The wall stays mounted for the whole run and the other views sit on top of
+  // it. Unmounting it restarted the CSS scroll from the beginning every time the
+  // join slide came and went, so anyone whose portrait was about to appear had to
+  // wait out another full pass to see themselves. Hidden with visibility rather
+  // than display:none on purpose: display:none stops the animation advancing,
+  // visibility:hidden lets it keep scrolling behind the overlay.
+  const wallHidden = view !== "wall";
   return (
-    <div className="h-screen w-screen overflow-hidden" style={{ background: INK }}>
-      {view === "wall" && <WaterfallView images={images} stories={stories} live={live} />}
-      {view === "instructions" && <InstructionsView />}
-      {view === "posters" && <PosterCycleView schedule={schedule} />}
+    <div className="relative h-screen w-screen overflow-hidden" style={{ background: INK }}>
+      <div
+        className="absolute inset-0"
+        style={{ visibility: wallHidden ? "hidden" : "visible" }}
+        aria-hidden={wallHidden}
+      >
+        <WaterfallView images={images} stories={stories} live={live} />
+      </div>
+      {view === "instructions" && (
+        <div className="absolute inset-0">
+          <InstructionsView />
+        </div>
+      )}
+      {view === "posters" && (
+        <div className="absolute inset-0">
+          <PosterCycleView schedule={schedule} />
+        </div>
+      )}
     </div>
   );
 }
