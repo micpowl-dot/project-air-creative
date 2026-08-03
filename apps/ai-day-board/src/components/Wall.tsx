@@ -11,6 +11,7 @@ import {
   getVariant,
   HEADSHOT_BACKGROUNDS,
 } from "@/lib/poster";
+import { COMPANY_LABEL, EVENT_DATE_LABEL } from "@/lib/event";
 
 interface Story {
   name: string;
@@ -53,7 +54,8 @@ const QUOTE_STEPS: Step[] = [
   { n: "2", icon: "edit", title: "Start with “AI helped me…”", body: "Finish the thought in one sentence. Keep it under 240 characters." },
   { n: "3", icon: "monitor", title: "Watch the wall", body: "Your words appear here within about a minute, with your name." },
 ];
-const SNAP_URL = "ai-day-board.vercel.weather.com/snap";
+// (The booth address used to be printed under the QR. It is no longer typeable,
+// because reaching the booth now needs the key the QR carries.)
 
 // Deterministic ticker-tape confetti for the join slide (no Math.random, so
 // server/client markup match). Each piece falls (outer span) and flips fast in
@@ -231,7 +233,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
         <AiDayLogo accent={ACCENT} ink={INK} light="#fff" style={{ width: "12vw" }} />
         <div>
           <div className="font-display font-bold text-white" style={{ fontSize: "2.2vw", lineHeight: 1, textShadow: "0 0.12vw 0.5vw rgba(13,20,42,0.55)" }}>AI Helped Me…</div>
-          <div className="text-white" style={{ fontSize: "1vw", textShadow: "0 0.1vw 0.4vw rgba(13,20,42,0.6)", opacity: 0.9 }}>June 9, 2026 · share yours at the photo wall</div>
+          <div className="text-white" style={{ fontSize: "1vw", textShadow: "0 0.1vw 0.4vw rgba(13,20,42,0.6)", opacity: 0.9 }}>{EVENT_DATE_LABEL} · share yours at the photo wall</div>
         </div>
       </div>
       {story && (
@@ -392,7 +394,9 @@ function StepRow({ s, accent, card }: { s: Step; accent: string; card: string })
 
 /** Full-screen 16:9 "two ways to join" slide — magenta Snap / blue Quote. */
 function InstructionsView() {
-  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=480x480&data=https://${SNAP_URL}&color=0D142A`;
+  // Served from our own origin (see app/api/join-qr). The encoded URL carries the
+  // submission key, so it must not be handed to a third-party QR renderer.
+  const qr = "/api/join-qr";
   const card = "rgba(13,20,42,0.5)";
   return (
     <div
@@ -432,7 +436,10 @@ function InstructionsView() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={qr} alt="QR code to the photo station" style={{ width: "11vw", height: "11vw", imageRendering: "pixelated" }} />
               </div>
-              <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.8vw", marginTop: "1vh" }}>{SNAP_URL}</div>
+              {/* No typed-URL fallback any more: the booth needs the key that only
+                  the QR carries, so printing the bare address would send people to
+                  a password prompt. */}
+              <div className="font-display font-bold" style={{ color: ACCENT, fontSize: "0.8vw", marginTop: "1vh" }}>Scan with your phone camera</div>
             </div>
             {/* steps */}
             <div className="flex flex-1 flex-col gap-[1.2vh]">
@@ -475,7 +482,7 @@ function InstructionsView() {
         Portraits are AI processed,<br />so results may not always be accurate.
       </div>
       <div className="absolute bottom-[2vh] right-[2.5vw] text-white/60" style={{ fontSize: "0.9vw", zIndex: 2 }}>
-        AI Day · June 9, 2026 · The Weather Company
+        AI Day · {EVENT_DATE_LABEL} · {COMPANY_LABEL}
       </div>
     </div>
   );

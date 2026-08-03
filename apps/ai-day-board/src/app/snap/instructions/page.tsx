@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { COMPANY_LABEL, EVENT_DATE_LABEL } from "@/lib/event";
 
 export const metadata = { title: "Photo Station · AI Day" };
 export const viewport = { width: "device-width", initialScale: 1 };
@@ -102,7 +103,7 @@ function Confetti() {
 }
 
 export default function InstructionsPage() {
-  const url = "ai-day-board.vercel.weather.com/snap";
+  // No typed URL here any more: the booth needs the key that only the QR carries.
 
   return (
     <>
@@ -231,15 +232,17 @@ export default function InstructionsPage() {
               <div className="qr-wrap">
                 <div className="qr-label"><Icon name="phone" className="ico" /> Scan to start</div>
                 <div className="qr-box">
+                  {/* Own-origin QR (app/api/join-qr): the encoded URL carries the
+                      submission key, so it never goes to a third-party renderer. */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://${url}&color=0D142A`}
+                    src="/api/join-qr"
                     alt="QR code to the photo booth"
                     className="qr-img"
                     width={200}
                     height={200}
                   />
-                  <div className="qr-url">{url}</div>
+                  <div className="qr-url">Scan with your phone camera</div>
                 </div>
               </div>
             </div>
@@ -273,7 +276,7 @@ export default function InstructionsPage() {
           </div>
         </div>
 
-        <div className="footer"><span style={{ fontSize: "1.05rem", fontWeight: 800 }}>Portraits are AI processed,<br />so results may not always be accurate.</span><br /><span style={{ opacity: 0.7 }}>AI Day · June 9, 2026 · The Weather Company</span></div>
+        <div className="footer"><span style={{ fontSize: "1.05rem", fontWeight: 800 }}>Portraits are AI processed,<br />so results may not always be accurate.</span><br /><span style={{ opacity: 0.7 }}>AI Day · {EVENT_DATE_LABEL} · {COMPANY_LABEL}</span></div>
         <Confetti />
       </div>
     </>

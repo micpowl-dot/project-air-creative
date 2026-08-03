@@ -6,6 +6,7 @@ import {
   Fira_Code,
 } from "next/font/google";
 import "./globals.css";
+import { EVENT_DATE_LABEL } from "@/lib/event";
 
 // Body / supporting type — IBM Plex Sans (brand body font, free on Google).
 const plex = IBM_Plex_Sans({
@@ -37,7 +38,7 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: "AI Day Board — Project AIR",
-  description: "AI Day (US), June 9, 2026. Live schedule board.",
+  description: `AI Day (US), ${EVENT_DATE_LABEL}. Live schedule board.`,
 };
 
 export default function RootLayout({

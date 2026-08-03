@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AiDayLogo } from "./AiDayLogo";
+import { EVENT_DATE_LABEL } from "@/lib/event";
 
 const BG = "#0D142A";
 const MAGENTA = "#FB00FF";
@@ -85,7 +86,7 @@ export function Prompts() {
           The first answer is a starting point, not the final word, push back and ask follow-ups.
         </p>
         <p className="pt-2 text-center text-xs font-semibold uppercase tracking-widest" style={{ color: ACCENT }}>
-          AI Day · June 9, 2026
+          AI Day · {EVENT_DATE_LABEL}
         </p>
       </div>
     </div>

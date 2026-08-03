@@ -22,6 +22,12 @@ import type { NextRequest } from "next/server";
 // working for the rest of the run. Leave SCREEN_TOKEN unset and this is inert.
 // The token is a shared display key, not per-viewer access control, so it never
 // opens the moderation routes (the admin check below runs first and wins).
+//
+// SUBMISSION TOKEN (same run): the monitors show a QR to the photo booth, and a
+// phone cannot type the password either. Set env SNAP_TOKEN and the QR carries
+// `?k=<token>`, which opens the submission routes and nothing else. The QR image
+// is rendered by /api/join-qr on the server so the key never reaches a
+// third-party QR service or the client bundle.
 
 const PUBLIC_PREFIXES = ["/wall", "/api/wall", "/prompts", "/headshots", "/poster-elements"];
 
@@ -52,30 +58,55 @@ function basicAuthOk(request: NextRequest, password: string): boolean {
 // Screen token: the query-param handshake a keyboardless signage player can do.
 const SCREEN_QUERY_PARAM = "screen";
 const SCREEN_COOKIE = "aiday_screen";
+
+// Submission token: the key encoded in the QR code on the monitors, so people
+// can reach the photo booth from their phones without the shared password.
+//
+// Treat this key as visible to anyone standing in an office, because it is: a
+// QR on a wall can be scanned or photographed by whoever walks past. So it is
+// deliberately scoped to the submission routes ONLY and kept separate from the
+// display key, which means neither key can be used to reach what the other
+// opens, and either can be rotated without disturbing the other.
+//
+// SNAP_PREFIXES is the whole surface this key exposes. /api/users is the one
+// worth thinking twice about: it serves the workspace directory that powers the
+// "pick your name" step. Adding anything here widens what a scanned QR reaches.
+const SNAP_QUERY_PARAM = "k";
+const SNAP_COOKIE = "aiday_snap";
+const SNAP_PREFIXES = ["/snap", "/api/snap", "/api/snap-status", "/api/users"];
+
+function isSnapPath(pathname: string): boolean {
+  return SNAP_PREFIXES.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
 // Long enough to cover the ~2-week unattended run without anyone revisiting the
 // token URL, short enough that a stolen cookie does not last forever.
 const SCREEN_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
-type ScreenAuth = "none" | "cookie" | "query";
+type TokenAuth = "none" | "cookie" | "query";
 
-// Returns how (if at all) this request proved it is an authorised screen.
-// "query" means it presented the token in the URL and still needs the cookie set.
-function screenAuth(request: NextRequest): ScreenAuth {
-  const token = process.env.SCREEN_TOKEN;
+// Returns how (if at all) this request presented a valid token.
+// "query" means it came in the URL and still needs trading for a cookie.
+function tokenAuth(
+  request: NextRequest,
+  token: string | undefined,
+  cookieName: string,
+  queryParam: string,
+): TokenAuth {
   if (!token) return "none"; // feature off — no token configured
-  if (request.cookies.get(SCREEN_COOKIE)?.value === token) return "cookie";
-  if (request.nextUrl.searchParams.get(SCREEN_QUERY_PARAM) === token) return "query";
+  if (request.cookies.get(cookieName)?.value === token) return "cookie";
+  if (request.nextUrl.searchParams.get(queryParam) === token) return "query";
   return "none";
 }
 
-// Let the screen through, and on the initial token URL trade the query param for
+// Let the holder through, and on the initial token URL trade the query param for
 // a cookie so subsequent navigations and same-origin fetches carry the proof.
-function allowScreen(how: ScreenAuth): NextResponse {
+// The phone keeps this cookie, so a person only ever scans the QR once.
+function allowToken(how: TokenAuth, cookieName: string, token: string): NextResponse {
   const response = NextResponse.next();
   if (how === "query") {
     response.cookies.set({
-      name: SCREEN_COOKIE,
-      value: process.env.SCREEN_TOKEN as string,
+      name: cookieName,
+      value: token,
       path: "/",
       httpOnly: true,
       sameSite: "lax",
@@ -123,8 +154,18 @@ export function proxy(request: NextRequest) {
   // Authorised signage player: allowed past whichever gate is active below.
   // Placed after the admin check (so a screen token can never reach /wall-admin)
   // and before LOCKDOWN, so it works in both LOCKDOWN and WALL_PUBLIC_MODE.
-  const screen = screenAuth(request);
-  if (screen !== "none") return allowScreen(screen);
+  const screenToken = process.env.SCREEN_TOKEN;
+  const screen = tokenAuth(request, screenToken, SCREEN_COOKIE, SCREEN_QUERY_PARAM);
+  if (screen !== "none") return allowToken(screen, SCREEN_COOKIE, screenToken as string);
+
+  // Phone arriving from the QR code: the submission routes only. Checked inside
+  // the isSnapPath guard so a leaked QR key cannot be replayed against the board,
+  // the posters or anything else, no matter what URL it is appended to.
+  if (isSnapPath(request.nextUrl.pathname)) {
+    const snapToken = process.env.SNAP_TOKEN;
+    const snap = tokenAuth(request, snapToken, SNAP_COOKIE, SNAP_QUERY_PARAM);
+    if (snap !== "none") return allowToken(snap, SNAP_COOKIE, snapToken as string);
+  }
 
   // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
   // including /wall) requires the shared SITE_PASSWORD via browser Basic Auth.

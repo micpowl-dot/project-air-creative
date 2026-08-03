@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AiDayLogo } from "./AiDayLogo";
+import { EVENT_DATE_LABEL } from "@/lib/event";
 
 // One of the 5 palettes, picked once per session.
 const PALETTES = [
@@ -177,7 +178,7 @@ export function Snap() {
               In the meantime, check out the portraits already up on the wall. Thanks for your patience!
             </p>
           </div>
-          <p className="mt-6 text-sm text-white/50">June 9, 2026 · AI Day</p>
+          <p className="mt-6 text-sm text-white/50">{EVENT_DATE_LABEL} · AI Day</p>
         </div>
       </div>
     );
@@ -226,7 +227,7 @@ export function Snap() {
             Watch the wall →
           </Link>
 
-          <p className="mt-4 text-sm text-white/50">June 9, 2026 · AI Day</p>
+          <p className="mt-4 text-sm text-white/50">{EVENT_DATE_LABEL} · AI Day</p>
         </div>
       </div>
     );
