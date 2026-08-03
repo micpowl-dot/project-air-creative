@@ -14,13 +14,16 @@ export const dynamic = "force-dynamic";
 
 // Speaker / participant headshots that ALWAYS populate the wall so it looks
 // full from the start. Live selfie snaps (from /snap) are merged in on top.
+// NOTE: these are hardcoded, so they never appear in /wall-admin and cannot be
+// hidden or removed from there. Taking someone off this layer means editing this
+// list and redeploying. (Removed: sara-peal, 2026-08-03, at Michael's request.)
 const SPEAKER_SLUGS = [
   "ben-papandrea", "brennan-gerster", "brian-oneil", "dan-margulies",
   "dave-de-sa", "elizabeth-martin", "erik-petersen", "jack-kreps",
   "james-baker", "james-belanger", "javi-quinones", "lauriana-gaudet",
   "matthew-drooker", "max-jacubowsky", "michelle-killroy", "miguel-gervassi",
   "rohit-agarwal", "rohit-nutalapati", "sahana-subbanna", "samantha-gates",
-  "sara-peal", "shannon-king", "thomas-hinson", "tyler-steben",
+  "shannon-king", "thomas-hinson", "tyler-steben",
 ];
 
 const SPEAKER_IMAGES: WallImage[] = SPEAKER_SLUGS.map((s) => ({
