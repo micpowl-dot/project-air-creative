@@ -78,6 +78,18 @@ const QUOTE_STEPS: Step[] = [
 // (The booth address used to be printed under the QR. It is no longer typeable,
 // because reaching the booth now needs the key the QR carries.)
 
+// Signage players do not reliably keep the cookie the proxy issues in exchange
+// for the ?screen= token: the Andover TVs loaded the page fine on 2026-08-04 and
+// then 401'd on every follow-up request, so the wall sat at "0 moments" all
+// morning. So carry the token explicitly on each request the page makes instead
+// of depending on cookie state. Returns "" for password-authenticated viewers,
+// whose browser re-sends Basic auth on every request anyway.
+function screenQuery(): string {
+  if (typeof window === "undefined") return "";
+  const t = new URLSearchParams(window.location.search).get("screen");
+  return t ? `?screen=${encodeURIComponent(t)}` : "";
+}
+
 // Deterministic ticker-tape confetti for the join slide (no Math.random, so
 // server/client markup match). Each piece falls (outer span) and flips fast in
 // 3D (inner). Sized up for a big wall screen.
@@ -279,7 +291,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
           </div>
           <div className="rounded-[0.25vw] bg-white" style={{ padding: "0.25vw" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/api/join-qr" alt="QR code to the photo station" style={{ width: "6vw", height: "6vw", imageRendering: "pixelated", display: "block" }} />
+            <img src={`/api/join-qr${screenQuery()}`} alt="QR code to the photo station" style={{ width: "6vw", height: "6vw", imageRendering: "pixelated", display: "block" }} />
           </div>
         </div>
         <div className="text-white/60" style={{ fontSize: "0.9vw" }}>
@@ -431,7 +443,7 @@ function StepRow({ s, accent, card }: { s: Step; accent: string; card: string })
 function InstructionsView() {
   // Served from our own origin (see app/api/join-qr). The encoded URL carries the
   // submission key, so it must not be handed to a third-party QR renderer.
-  const qr = "/api/join-qr";
+  const qr = `/api/join-qr${screenQuery()}`;
   const card = "rgba(13,20,42,0.5)";
   return (
     <div
@@ -543,7 +555,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     let active = true;
     async function pull() {
       try {
-        const res = await fetch("/api/wall", { cache: "no-store" });
+        const res = await fetch(`/api/wall${screenQuery()}`, { cache: "no-store" });
         const body = await res.json();
         if (!active) return;
         setImages((prev) => {
@@ -584,7 +596,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     let baseline: string | null = null;
     async function checkVersion() {
       try {
-        const res = await fetch("/api/version", { cache: "no-store" });
+        const res = await fetch(`/api/version${screenQuery()}`, { cache: "no-store" });
         const { version } = await res.json();
         if (!active || !version) return;
         if (baseline === null) { baseline = version; return; }
