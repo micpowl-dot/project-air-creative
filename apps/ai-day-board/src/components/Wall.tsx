@@ -84,10 +84,8 @@ const QUOTE_STEPS: Step[] = [
 // morning. So carry the token explicitly on each request the page makes instead
 // of depending on cookie state. Returns "" for password-authenticated viewers,
 // whose browser re-sends Basic auth on every request anyway.
-function screenQuery(): string {
-  if (typeof window === "undefined") return "";
-  const t = new URLSearchParams(window.location.search).get("screen");
-  return t ? `?screen=${encodeURIComponent(t)}` : "";
+function screenQuery(screen: string): string {
+  return screen ? `?screen=${encodeURIComponent(screen)}` : "";
 }
 
 // Deterministic ticker-tape confetti for the join slide (no Math.random, so
@@ -218,7 +216,7 @@ function Tile({ item, tilt }: { item: WallImage; tilt: number }) {
 }
 
 /** The waterfall of photobooth photos + a rotating "AI helped me..." card. */
-function WaterfallView({ images, stories, live }: { images: WallImage[]; stories: Story[]; live: boolean }) {
+function WaterfallView({ images, stories, live, screen }: { images: WallImage[]; stories: Story[]; live: boolean; screen: string }) {
   const [storyIdx, setStoryIdx] = useState(0);
   useEffect(() => {
     if (stories.length <= 1) return;
@@ -291,7 +289,7 @@ function WaterfallView({ images, stories, live }: { images: WallImage[]; stories
           </div>
           <div className="rounded-[0.25vw] bg-white" style={{ padding: "0.25vw" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/api/join-qr${screenQuery()}`} alt="QR code to the photo station" style={{ width: "6vw", height: "6vw", imageRendering: "pixelated", display: "block" }} />
+            <img src={`/api/join-qr${screenQuery(screen)}`} alt="QR code to the photo station" style={{ width: "6vw", height: "6vw", imageRendering: "pixelated", display: "block" }} />
           </div>
         </div>
         <div className="text-white/60" style={{ fontSize: "0.9vw" }}>
@@ -440,10 +438,10 @@ function StepRow({ s, accent, card }: { s: Step; accent: string; card: string })
 }
 
 /** Full-screen 16:9 "two ways to join" slide — magenta Snap / blue Quote. */
-function InstructionsView() {
+function InstructionsView({ screen }: { screen: string }) {
   // Served from our own origin (see app/api/join-qr). The encoded URL carries the
   // submission key, so it must not be handed to a third-party QR renderer.
-  const qr = `/api/join-qr${screenQuery()}`;
+  const qr = `/api/join-qr${screenQuery(screen)}`;
   const card = "rgba(13,20,42,0.5)";
   return (
     <div
@@ -535,7 +533,7 @@ function InstructionsView() {
   );
 }
 
-export function Wall({ schedule }: { schedule: Schedule }) {
+export function Wall({ schedule, screen = "" }: { schedule: Schedule; screen?: string }) {
   const [images, setImages] = useState<WallImage[]>([]);
   const [stories, setStories] = useState<Story[]>([]);
   const [live, setLive] = useState(false);
@@ -555,7 +553,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     let active = true;
     async function pull() {
       try {
-        const res = await fetch(`/api/wall${screenQuery()}`, { cache: "no-store" });
+        const res = await fetch(`/api/wall${screenQuery(screen)}`, { cache: "no-store" });
         const body = await res.json();
         if (!active) return;
         setImages((prev) => {
@@ -596,7 +594,7 @@ export function Wall({ schedule }: { schedule: Schedule }) {
     let baseline: string | null = null;
     async function checkVersion() {
       try {
-        const res = await fetch(`/api/version${screenQuery()}`, { cache: "no-store" });
+        const res = await fetch(`/api/version${screenQuery(screen)}`, { cache: "no-store" });
         const { version } = await res.json();
         if (!active || !version) return;
         if (baseline === null) { baseline = version; return; }
@@ -640,11 +638,11 @@ export function Wall({ schedule }: { schedule: Schedule }) {
         style={{ visibility: wallHidden ? "hidden" : "visible" }}
         aria-hidden={wallHidden}
       >
-        <WaterfallView images={images} stories={stories} live={live} />
+        <WaterfallView images={images} stories={stories} live={live} screen={screen} />
       </div>
       {view === "instructions" && (
         <div className="absolute inset-0">
-          <InstructionsView />
+          <InstructionsView screen={screen} />
         </div>
       )}
       {view === "posters" && (
