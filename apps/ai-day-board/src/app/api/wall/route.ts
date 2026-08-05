@@ -38,24 +38,37 @@ const SPEAKER_IMAGES: WallImage[] = SPEAKER_SLUGS.map((s) => ({
 
 interface Story { name: string; text: string }
 
-// Resolve Slack user IDs to display names, cached on the warm instance so we
-// only fetch each person once (the wall polls frequently).
-const nameCache = new Map<string, string>();
-async function resolveName(id: string, token: string): Promise<string> {
-  if (!id) return "";
-  if (nameCache.has(id)) return nameCache.get(id)!;
+// Resolve Slack user IDs to a display name plus whether the account is still
+// active, cached on the warm instance so we only fetch each person once (the
+// wall polls frequently). Quotes from deactivated accounts are dropped, matching
+// how portraits of leavers are handled.
+const authorCache = new Map<string, Author>();
+interface Author { name: string; deleted: boolean }
+
+async function resolveAuthor(id: string, token: string): Promise<Author> {
+  if (!id) return { name: "", deleted: false };
+  const hit = authorCache.get(id);
+  if (hit) return hit;
   try {
     const res = await fetch(`https://slack.com/api/users.info?user=${id}`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     });
     const b = await res.json();
-    const p = b.ok ? b.user?.profile : null;
-    const name = (p?.display_name || p?.real_name || b.user?.real_name || "").trim();
-    nameCache.set(id, name);
-    return name;
+    // A failed lookup is NOT cached and NOT treated as deactivated. Dropping a
+    // real person's quote because of a transient Slack error would be worse than
+    // showing a leaver's for one more cache cycle; only a definite deleted=true
+    // removes anyone.
+    if (!b.ok || !b.user) return { name: "", deleted: false };
+    const p = b.user.profile || {};
+    const author: Author = {
+      name: (p.display_name || p.real_name || b.user.real_name || "").trim(),
+      deleted: Boolean(b.user.deleted),
+    };
+    authorCache.set(id, author);
+    return author;
   } catch {
-    return "";
+    return { name: "", deleted: false };
   }
 }
 
@@ -150,7 +163,11 @@ async function storiesFromSlack(): Promise<Story[] | null> {
     const chosen = helped.slice(0, 40).reverse();
     // Resolve author names (cached).
     const out: Story[] = [];
-    for (const c of chosen) out.push({ name: await resolveName(c.user, token), text: c.text });
+    for (const c of chosen) {
+      const author = await resolveAuthor(c.user, token);
+      if (author.deleted) continue; // no longer with the company
+      out.push({ name: author.name, text: c.text });
+    }
     storiesCache = { at: Date.now(), stories: out };
     return out.length ? out : null;
   } catch {
