@@ -128,6 +128,16 @@ async function storiesFromSlack(): Promise<Story[] | null> {
           .replace(/<[^>]+>/g, "")    // strip mentions/links markup
           .replace(/\[[^\]]*\]/g, "") // strip [bracketed notes] meant for chat readers, not the wall
       )
+        // Slack sends text HTML-escaped and people use *bold*. Both render
+        // literally on a wall, so a real quote came out as "AI helped me &amp;
+        // the TWC Comms Team…" with the entity visible. Formatting only: the
+        // person's words are never changed.
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#0?39;/g, "'")
+        .replace(/[*_]+/g, "")
         .replace(/\s{2,}/g, " ")
         .trim();
       if (text.length < 8 || text.length > 240) continue;
