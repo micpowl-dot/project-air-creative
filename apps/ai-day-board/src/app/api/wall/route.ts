@@ -31,12 +31,10 @@ const SPEAKER_IMAGES: WallImage[] = SPEAKER_SLUGS.map((s) => ({
   handle: `@${s.replace(/-/g, ".")}`,
 }));
 
-const SAMPLE_STORIES = [
-  { name: "Dave de Sa", text: "AI helped me turn a week of manual reporting into a 5-minute workflow." },
-  { name: "Sahana Subbanna", text: "AI helped me draft, test, and ship a client integration in one afternoon." },
-  { name: "Tyler Steben", text: "AI helped me make sense of a messy spreadsheet I'd been avoiding for months." },
-  { name: "Lauriana Gaudet", text: "AI helped me prep for a tough conversation by role-playing it first." },
-];
+// No placeholder quotes. There used to be four here attributed to real, named
+// colleagues, which meant that whenever the live pull came up empty the wall
+// showed those people saying things they had never said. On office monitors, for
+// two weeks. If there are no real quotes, the wall shows no quote card at all.
 
 interface Story { name: string; text: string }
 
@@ -66,7 +64,9 @@ async function resolveName(id: string, token: string): Promise<string> {
 // newer apps — so we only actually call Slack every CACHE_TTL and serve the
 // cached quotes (including the last-good set) in between.
 let storiesCache: { at: number; stories: Story[] } | null = null;
-const STORIES_TTL = 30 * 1000; // 30s — quick to surface new quotes; last-good is served if Slack throttles
+// 90s, up from 30s. Restricted-tier apps get roughly one history call a minute,
+// and a 30s TTL meant two, which risks 429s and losing the quotes to a throttle.
+const STORIES_TTL = 90 * 1000;
 
 // Slack returns emoji as :shortcodes: in message text (picker emoji come
 // through as real unicode and need no help). Convert the common ones to unicode
@@ -105,8 +105,12 @@ async function storiesFromSlack(): Promise<Story[] | null> {
     return storiesCache.stories.length ? storiesCache.stories : null;
   }
   try {
-    // limit=15 to respect the strict per-call cap on the restricted tier.
-    const res = await fetch(`https://slack.com/api/conversations.history?channel=${channel}&limit=15`, {
+    // Reads 200, not 15. At 15 the window only covered the newest handful of
+    // posts, and the channel has drifted to general AI chat, so every real
+    // "AI helped me…" statement — 31 of them, from AI Day itself — sat outside
+    // the window and the wall never saw one. Verified this token returns 200 per
+    // call. Paired with a longer cache TTL below to stay inside the rate limit.
+    const res = await fetch(`https://slack.com/api/conversations.history?channel=${channel}&limit=200`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: "no-store",
     });
@@ -130,8 +134,8 @@ async function storiesFromSlack(): Promise<Story[] | null> {
       cand.push({ user: m.user, text });
     }
     // Only real testimonials: contains "helped" (the prompted phrasing) or
-    // starts with "AI ...". Never fall back to arbitrary channel chatter —
-    // if there are no matches we return nothing and the curated samples show.
+    // starts with "AI ...". Never fall back to arbitrary channel chatter — if
+    // there are no matches the wall shows no quote card at all.
     const helped = cand.filter((s) => /helped/i.test(s.text) || /^ai\b/i.test(s.text.trim()));
     const chosen = helped.slice(0, 40).reverse();
     // Resolve author names (cached).
@@ -204,7 +208,8 @@ export async function GET() {
   // Speakers are the base layer (wall looks full); live snaps merge on top,
   // newest first so they're noticeable as they arrive.
   const images: WallImage[] = [...liveImages, ...speakers];
-  const stories = slackStories && slackStories.length ? slackStories : SAMPLE_STORIES;
+  // Fails closed: empty means the wall simply renders no quote card.
+  const stories = slackStories ?? [];
   return Response.json({
     images,
     stories,
