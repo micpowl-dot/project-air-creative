@@ -76,6 +76,17 @@ const SCREEN_COOKIE = "aiday_screen";
 // "pick your name" step. Adding anything here widens what a scanned QR reaches.
 const SNAP_QUERY_PARAM = "k";
 const SNAP_COOKIE = "aiday_snap";
+
+// A SECOND pre-signed key for the same submission routes, for the link that goes
+// out in company comms. Dan asked for "another pre-signed url to the image submit
+// portal" specifically so employees get no login prompt at their desks.
+//
+// Separate from SNAP_TOKEN on purpose. SNAP_TOKEN is what the on-screen QR
+// encodes and it never leaves the office; this one goes to ~800 inboxes, so it is
+// the far likelier to leak. Keeping them apart means this can be rotated without
+// changing the QR on the monitors, and vice versa.
+const SUBMIT_QUERY_PARAM = "s";
+const SUBMIT_COOKIE = "aiday_submit";
 const SNAP_PREFIXES = ["/snap", "/api/snap", "/api/snap-status", "/api/users"];
 
 function isSnapPath(pathname: string): boolean {
@@ -112,6 +123,27 @@ function isEmployeePath(pathname: string): boolean {
 // Long enough to cover the ~2-week unattended run without anyone revisiting the
 // token URL, short enough that a stolen cookie does not last forever.
 const SCREEN_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+
+// Expiry for the pre-signed links, requested by Dan Margulies on 2026-08-06:
+// "These links can have validity from now until some amount of time after the
+// event, and then it should close."
+//
+// LINK_KEYS_EXPIRE is an ISO timestamp. Past it, every link key stops being
+// accepted and those URLs fall through to the password gate instead — the pages
+// keep working for anyone with the password, the no-login shortcut is simply
+// closed. Unset means no expiry.
+//
+// An unparseable value is treated as "no expiry" rather than "expired". A typo in
+// this variable should not take the office screens dark mid-event; the failure
+// mode of a stale link outliving its date is the lesser one, and it is visible in
+// the value itself.
+function linkKeysExpired(): boolean {
+  const raw = process.env.LINK_KEYS_EXPIRE;
+  if (!raw) return false;
+  const at = Date.parse(raw);
+  if (Number.isNaN(at)) return false;
+  return Date.now() > at;
+}
 
 type TokenAuth = "none" | "cookie" | "query";
 
@@ -191,20 +223,28 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Authorised signage player: allowed past whichever gate is active below.
-  // Placed after the admin check (so a screen token can never reach /wall-admin)
-  // and before LOCKDOWN, so it works in both LOCKDOWN and WALL_PUBLIC_MODE.
-  const screenToken = process.env.SCREEN_TOKEN;
-  const screen = tokenAuth(request, screenToken, SCREEN_COOKIE, SCREEN_QUERY_PARAM);
-  if (screen !== "none") return allowToken(screen, SCREEN_COOKIE, screenToken as string);
+  // Link keys, only while they are still in date.
+  if (!linkKeysExpired()) {
+    // Authorised signage player: allowed past whichever gate is active below.
+    // Placed after the admin check (so a screen token can never reach /wall-admin)
+    // and before LOCKDOWN, so it works in both LOCKDOWN and WALL_PUBLIC_MODE.
+    const screenToken = process.env.SCREEN_TOKEN;
+    const screen = tokenAuth(request, screenToken, SCREEN_COOKIE, SCREEN_QUERY_PARAM);
+    if (screen !== "none") return allowToken(screen, SCREEN_COOKIE, screenToken as string);
 
-  // Phone arriving from the QR code: the submission routes only. Checked inside
-  // the isSnapPath guard so a leaked QR key cannot be replayed against the board,
-  // the posters or anything else, no matter what URL it is appended to.
-  if (isSnapPath(request.nextUrl.pathname)) {
-    const snapToken = process.env.SNAP_TOKEN;
-    const snap = tokenAuth(request, snapToken, SNAP_COOKIE, SNAP_QUERY_PARAM);
-    if (snap !== "none") return allowToken(snap, SNAP_COOKIE, snapToken as string);
+    // Phone or desk browser arriving from the submit link or the QR: the
+    // submission routes only. Checked inside the isSnapPath guard so a leaked key
+    // cannot be replayed against the board, the posters or anything else, no
+    // matter what URL it is appended to.
+    if (isSnapPath(request.nextUrl.pathname)) {
+      const snapToken = process.env.SNAP_TOKEN;
+      const snap = tokenAuth(request, snapToken, SNAP_COOKIE, SNAP_QUERY_PARAM);
+      if (snap !== "none") return allowToken(snap, SNAP_COOKIE, snapToken as string);
+
+      const submitToken = process.env.SUBMIT_TOKEN;
+      const submit = tokenAuth(request, submitToken, SUBMIT_COOKIE, SUBMIT_QUERY_PARAM);
+      if (submit !== "none") return allowToken(submit, SUBMIT_COOKIE, submitToken as string);
+    }
   }
 
   // Full lockdown: when LOCKDOWN=1 the ENTIRE site (every non-admin route,
