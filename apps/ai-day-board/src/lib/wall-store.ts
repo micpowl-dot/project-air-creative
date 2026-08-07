@@ -14,6 +14,8 @@ export interface WallImage {
   hidden?: boolean; // moderated off the wall (reversible) via /wall-admin
   flip?: boolean;   // mirror (horizontal flip) the portrait on the wall, via /wall-admin
   srcUrl?: string;  // Slack url_private of the original selfie (admin-only QA; never public)
+  uid?: string;     // Slack user id of whoever submitted, so a later sweep can DM
+                    // them without re-deriving identity from the handle text
   model?: "pro" | "flash"; // which Gemini model rendered it (flash = Pro-outage fallback)
 }
 export interface WallManifest {

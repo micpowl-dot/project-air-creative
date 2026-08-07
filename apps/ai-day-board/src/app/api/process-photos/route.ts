@@ -14,6 +14,7 @@
 import { NextResponse } from "next/server";
 import { stylize, randomBg, STANDARD_MODEL, STYLE_REFS } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
+import { dmPortrait } from "@/lib/portrait-dm";
 import { SENT_SEED } from "@/lib/sent-seed";
 
 export const dynamic = "force-dynamic";
@@ -73,34 +74,6 @@ async function postPortraitToChannel(channel: string, userId: string | null, ima
   }
 }
 
-// DM the person their finished portrait. Opens a DM channel then posts the
-// image URL with a friendly note. Best-effort — never throws.
-async function dmPortrait(userId: string, imageUrl: string, token: string): Promise<void> {
-  try {
-    const open = await fetch("https://slack.com/api/conversations.open", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ users: userId }),
-    });
-    const oj = await open.json();
-    const dm = oj.ok ? oj.channel?.id : null;
-    if (!dm) return;
-    await fetch("https://slack.com/api/chat.postMessage", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        channel: dm,
-        text: "You're on the AI Day wall! ✨ Here's your illustrated portrait — see it live with everyone else's at https://ai-day-board.vercel.weather.com/wall",
-        blocks: [
-          { type: "section", text: { type: "mrkdwn", text: "*You're on the AI Day wall!* ✨\nHere's your illustrated portrait — watch it cycle with everyone else's at <https://ai-day-board.vercel.weather.com/wall|the live wall>." } },
-          { type: "image", image_url: imageUrl, alt_text: "Your AI Day illustrated portrait" },
-        ],
-      }),
-    });
-  } catch {
-    /* best-effort */
-  }
-}
 
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
@@ -214,7 +187,7 @@ export async function GET(request: Request) {
           if ((i.handle || "") === handle) i.hidden = true;
         }
       }
-      manifest.images.push({ src: url, handle, ts: m.ts, model: usedModel, srcUrl: file.url_private });
+      manifest.images.push({ src: url, handle, ts: m.ts, model: usedModel, srcUrl: file.url_private, uid });
       // Lifetime render tally (for the credit/usage estimate in /wall-admin).
       manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
       manifest.rendered[usedModel]++;
@@ -246,10 +219,19 @@ export async function GET(request: Request) {
       const alreadyDone = thisRun
         ? manifest.sentRenders.includes(m.ts)
         : !uid || legacyBlocked.has(uid);
-      if (uid && usedModel === "pro" && !alreadyDone) {
-        await dmPortrait(uid, url, token);
-        manifest.sentRenders.push(m.ts);
-        if (!manifest.sentPortraits.includes(uid)) manifest.sentPortraits.push(uid);
+      // Flash renders are DMed too. Skipping them meant that whenever Pro hit its
+      // quota, people got a portrait on the wall and silence in their DMs, with
+      // nothing recorded, so it could never be put right.
+      if (uid && !alreadyDone) {
+        const delivered = await dmPortrait(uid, url, token);
+        // Only record a DM that actually landed. Recording a failure marked the
+        // portrait as sent forever and the person never heard anything.
+        if (delivered) {
+          manifest.sentRenders.push(m.ts);
+          if (!manifest.sentPortraits.includes(uid)) manifest.sentPortraits.push(uid);
+        } else {
+          errors.push(`${m.ts}: DM to ${uid} failed, left for the sweep`);
+        }
       }
       processed++;
       newLastTs = m.ts;                 // advance only on success
