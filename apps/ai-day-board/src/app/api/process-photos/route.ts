@@ -230,11 +230,26 @@ export async function GET(request: Request) {
       // prior auto-DM recorded in the manifest. If we fell back to Flash (Pro
       // quota capped), skip the DM and DON'T mark them sent. Guarantees no one
       // is ever DM'd twice, including the 80 backlog recipients.
+      // Guard on the RENDER, not the person. The old per-person check meant
+      // anyone who took part in June could never be DMed again, so when the
+      // all-company post on 2026-08-06 invited everyone back for "a fresh,
+      // futuristic redo" and told them to watch their DMs, Javi Quiñones, Jay Lee
+      // and Rita Wood submitted, landed on the wall, and received nothing.
+      //
+      // Renders from before the August run keep the old protection, so replaying
+      // old messages can never spam the June cohort a second time.
       manifest.sentPortraits = manifest.sentPortraits || [];
-      const alreadySent = new Set<string>([...SENT_SEED, ...manifest.sentPortraits]);
-      if (uid && usedModel === "pro" && !alreadySent.has(uid)) {
+      manifest.sentRenders = manifest.sentRenders || [];
+      const AUGUST_RUN_FROM = 1785000000; // 2026-07-24; anything newer is this run
+      const thisRun = Number(m.ts) > AUGUST_RUN_FROM;
+      const legacyBlocked = new Set<string>([...SENT_SEED, ...manifest.sentPortraits]);
+      const alreadyDone = thisRun
+        ? manifest.sentRenders.includes(m.ts)
+        : !uid || legacyBlocked.has(uid);
+      if (uid && usedModel === "pro" && !alreadyDone) {
         await dmPortrait(uid, url, token);
-        manifest.sentPortraits.push(uid);
+        manifest.sentRenders.push(m.ts);
+        if (!manifest.sentPortraits.includes(uid)) manifest.sentPortraits.push(uid);
       }
       processed++;
       newLastTs = m.ts;                 // advance only on success

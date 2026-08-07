@@ -23,7 +23,8 @@ export interface WallManifest {
   rendered?: { pro: number; flash: number }; // lifetime render tally (survives the 400-image cap)
   cooldownUntil?: number; // epoch ms; after a 429/quota cap, skip runs until then to stop burning quota
   paused?: boolean; // when true, /snap shows a "back shortly" overlay (toggled from /wall-admin)
-  sentPortraits?: string[]; // Slack user ids already DMed their portrait (idempotent batch send)
+  sentPortraits?: string[]; // Slack user ids ever DMed a portrait (batch-send bookkeeping)
+  sentRenders?: string[];   // render timestamps already DMed — the real once-only guard
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";
