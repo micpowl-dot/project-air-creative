@@ -17,7 +17,7 @@ const palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
 
 type Step = "camera" | "preview" | "submitting" | "done" | "error";
 
-export function Snap() {
+export function Snap({ keyQuery = "" }: { keyQuery?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const uploadRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ export function Snap() {
     let cancelled = false;
     async function check() {
       try {
-        const r = await fetch("/api/snap-status", { cache: "no-store" });
+        const r = await fetch(`/api/snap-status${keyQuery}`, { cache: "no-store" });
         const d = await r.json();
         if (!cancelled) setPaused(Boolean(d.paused));
       } catch {
@@ -57,7 +57,7 @@ export function Snap() {
     // retry a few times so the typeahead self-heals instead of staying blank.
     async function load() {
       try {
-        const r = await fetch("/api/users", { cache: "no-store" });
+        const r = await fetch(`/api/users${keyQuery}`, { cache: "no-store" });
         const d = await r.json();
         if (cancelled) return;
         if (d.users?.length) { setDir(d.users); return; }
@@ -142,7 +142,7 @@ export function Snap() {
     if (!snapshot || !picked) return; // name required first
     setStep("submitting");
     try {
-      const res = await fetch("/api/snap", {
+      const res = await fetch(`/api/snap${keyQuery}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image: snapshot, userId: picked.id, name: picked.name }),
