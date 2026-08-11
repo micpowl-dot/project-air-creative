@@ -874,7 +874,8 @@
       "handle": "@toluwani.oluyemi",
       "ts": "1786028217.160479",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BNM73R4KE/snap-1786028215800-u0a4xa0f72p.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BNM73R4KE/snap-1786028215800-u0a4xa0f72p.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1786028333053099.png",
