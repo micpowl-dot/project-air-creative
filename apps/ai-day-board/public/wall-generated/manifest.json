@@ -1003,7 +1003,8 @@
       "ts": "1786554221.512129",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BPRBC4GTY/snap-1786554220562-u06ffn7qtps.jpg",
-      "uid": "U06FFN7QTPS"
+      "uid": "U06FFN7QTPS",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1786554721364119.png",
