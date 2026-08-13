@@ -1053,7 +1053,8 @@
       "handle": "",
       "ts": "1786642856.721399",
       "model": "flash",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BQ6K1Q4LU/snap-1786642855857.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BQ6K1Q4LU/snap-1786642855857.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1786642936896909.png",
