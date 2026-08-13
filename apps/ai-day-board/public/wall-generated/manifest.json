@@ -708,7 +708,8 @@
       "handle": "@james.mazlen",
       "ts": "1781269337.782469",
       "model": "pro",
-      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9QKA5H3R/snap-1781269335777-u06et0z1lje.jpg"
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0B9QKA5H3R/snap-1781269335777-u06et0z1lje.jpg",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1781276753103079.png",
