@@ -22,6 +22,20 @@ const RUN_STARTED = 1785000000; // 2026-07-24
 /** Bounded so a bad state can never turn into a wall of Slack messages. */
 const MAX_DMS_PER_RUN = 3;
 
+/**
+ * When sentRenders became the authoritative record (this fold shipping).
+ *
+ * Anything rendered BEFORE this was DMed by the old code, which recorded only the
+ * PERSON in sentPortraits, not the render. So for older renders that per-person
+ * record is the only evidence a DM went out, and it has to be honoured.
+ *
+ * This guard was missing on the first deploy and it cost 8 people a duplicate:
+ * backfilling uid onto historical entries made them eligible for the sweep, and
+ * "carries a uid" had been quietly doing the job of "is recent". Two protections
+ * that looked independent were the same one.
+ */
+const SENT_RENDERS_AUTHORITATIVE_FROM = 1786982400; // 2026-08-17T16:00:00Z
+
 /** How often the leaver check runs. Every minute would be 25 Slack calls a minute
  *  for no reason; deactivations are not urgent. */
 const DEACTIVATION_INTERVAL_MS = 30 * 60 * 1000;
@@ -45,9 +59,15 @@ export async function sweepPendingDms(
   manifest.sentPortraits = manifest.sentPortraits || [];
   const sent = new Set(manifest.sentRenders);
 
-  const pending = manifest.images.filter(
-    (i) => !i.hidden && isBooth(i.src) && i.uid && i.ts && Number(i.ts) > RUN_STARTED && !sent.has(String(i.ts))
-  );
+  const alreadyByPerson = new Set(manifest.sentPortraits);
+  const pending = manifest.images.filter((i) => {
+    if (i.hidden || !isBooth(i.src) || !i.uid || !i.ts) return false;
+    if (Number(i.ts) <= RUN_STARTED) return false;      // June, handled by hand
+    if (sent.has(String(i.ts))) return false;           // this render already went
+    // Older render: the per-person record is the only proof we have, so trust it.
+    if (Number(i.ts) < SENT_RENDERS_AUTHORITATIVE_FROM && alreadyByPerson.has(String(i.uid))) return false;
+    return true;
+  });
 
   const delivered: string[] = [];
   const failed: string[] = [];
