@@ -14,7 +14,8 @@ export async function GET(request: Request) {
   // Only allow our own image hosts (no open proxy).
   const allowed =
     u.startsWith("https://raw.githubusercontent.com/micpowl-dot/") ||
-    u.startsWith(`${url.origin}/headshots/`);
+    u.startsWith(`${url.origin}/headshots/`) ||
+    u.startsWith(`${url.origin}/api/portrait/`);
   if (!allowed) return NextResponse.json({ error: "url not allowed" }, { status: 400 });
 
   try {

@@ -224,6 +224,11 @@ export function proxy(request: NextRequest) {
   if (assetPath.startsWith("/headshots/") || assetPath.startsWith("/poster-elements/")) {
     return NextResponse.next();
   }
+  // Portraits, served from our own origin so the CDN absorbs the load instead of
+  // GitHub throttling us. Open for the same reason /headshots is: these exact
+  // bytes are already public on raw.githubusercontent.com, and the signage players
+  // do not keep cookies, so requiring a key here would break the screens.
+  if (assetPath.startsWith("/api/portrait/")) return NextResponse.next();
 
   // Link keys, only while they are still in date.
   if (!linkKeysExpired()) {

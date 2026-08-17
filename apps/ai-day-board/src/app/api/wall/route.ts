@@ -234,7 +234,15 @@ export async function GET() {
   const speakers = SPEAKER_IMAGES.filter((s) => !liveHandles.has((s.handle || "").toLowerCase()));
   // Speakers are the base layer (wall looks full); live snaps merge on top,
   // newest first so they're noticeable as they arrive.
-  const images: WallImage[] = [...liveImages, ...speakers];
+  // Point tiles at our own origin, not GitHub. See app/api/portrait/[file] for
+  // why: browsers hammering raw.githubusercontent.com got 429s and the wall
+  // rendered broken tiles. The manifest still stores the GitHub URL, which is what
+  // the portrait DMs use, so this only changes what the browser fetches.
+  const viaOwnOrigin = (u: string) =>
+    u.startsWith("https://raw.githubusercontent.com/")
+      ? `/api/portrait/${u.split("/").pop()}`
+      : u;
+  const images: WallImage[] = [...liveImages, ...speakers].map((i) => ({ ...i, src: viaOwnOrigin(String(i.src)) }));
   // Fails closed: empty means the wall simply renders no quote card.
   const stories = slackStories ?? [];
   return Response.json({
