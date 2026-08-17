@@ -1,3 +1,4 @@
+import { viaOwnOrigin } from "@/lib/wall-store";
 // Moderation API for the wall gallery (/wall-admin).
 //   GET  → every image in the manifest, including hidden ones (with ts + hidden).
 //   POST → { ts, hidden } toggles an image's visibility on the wall.
@@ -13,7 +14,7 @@ export async function GET() {
     const { readManifest } = await import("@/lib/wall-store");
     const m = await readManifest();
     const images = (m?.images ?? []).map(({ src, handle, ts, hidden, flip, model }) => ({
-      src,
+      src: viaOwnOrigin(String(src)),
       handle: handle ?? "",
       ts: ts ?? "",
       hidden: Boolean(hidden),

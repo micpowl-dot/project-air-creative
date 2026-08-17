@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   if (!token || !apiKey) return NextResponse.json({ error: "missing env" }, { status: 503 });
   const channel = process.env.HEADSHOT_SLACK_CHANNEL;
 
-  const { readManifest, writeManifest, putImage } = await import("@/lib/wall-store");
+  const { readManifest, writeManifest, putImage, viaOwnOrigin } = await import("@/lib/wall-store");
   const manifest = await readManifest();
   if (!manifest) return NextResponse.json({ error: "manifest unavailable" }, { status: 503 });
   const entry = manifest.images.find((i) => i.ts === ts);
@@ -91,7 +91,9 @@ export async function POST(request: Request) {
     manifest.rendered = manifest.rendered || { pro: 0, flash: 0 };
     manifest.rendered[usedModel]++;
     await writeManifest(manifest);
-    return NextResponse.json({ ok: true, model: usedModel, src: url });
+    // Hand the admin our own-origin URL, or the freshly re-rendered tile would be
+    // the one image on the page still fetched straight from GitHub.
+    return NextResponse.json({ ok: true, model: usedModel, src: viaOwnOrigin(url) });
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 502 });
   }

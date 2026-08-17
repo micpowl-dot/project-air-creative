@@ -37,6 +37,21 @@ const TOKEN   = () => process.env.GITHUB_TOKEN;
 const BASE    = "apps/ai-day-board/public/wall-generated";
 const MANIFEST_PATH = `${BASE}/manifest.json`;
 
+/**
+ * Rewrite a GitHub raw portrait URL to our own origin.
+ *
+ * Browsers must never fetch portraits from raw.githubusercontent.com: the wall
+ * draws every tile twice and the admin grid draws all of them, so a single page
+ * load fires hundreds of requests and GitHub answers 429. Served through
+ * /api/portrait the CDN absorbs it. The manifest keeps the GitHub URL, which is
+ * what the portrait DMs embed for Slack to fetch.
+ */
+export function viaOwnOrigin(url: string): string {
+  return url.startsWith("https://raw.githubusercontent.com/")
+    ? `/api/portrait/${url.split("/").pop()}`
+    : url;
+}
+
 const RAW = (path: string) =>
   `https://raw.githubusercontent.com/${REPO()}/${BRANCH()}/${path}?t=${Date.now()}`;
 
