@@ -28,6 +28,7 @@ export interface WallManifest {
   paused?: boolean; // when true, /snap shows a "back shortly" overlay (toggled from /wall-admin)
   sentPortraits?: string[]; // Slack user ids ever DMed a portrait (batch-send bookkeeping)
   sentRenders?: string[];   // render timestamps already DMed — the real once-only guard
+  lastDeactivationSweep?: number; // epoch ms; throttles the leaver check
 }
 
 const REPO    = () => process.env.GITHUB_REPO   || "micpowl-dot/project-air-creative";

@@ -212,9 +212,6 @@ export function proxy(request: NextRequest) {
   // Basic-Auth gate 401s the Vercel cron and the photo pipeline silently stops
   // processing (this is what stranded snaps after the 2026-06-17 lockdown).
   if (request.nextUrl.pathname === "/api/process-photos") return NextResponse.next();
-  // Same for the catch-up sweep: it authenticates itself with CRON_SECRET.
-  if (request.nextUrl.pathname === "/api/portrait-sweep") return NextResponse.next();
-  if (request.nextUrl.pathname === "/api/deactivated-sweep") return NextResponse.next();
 
   // Static design assets the render pipeline depends on (backgrounds, cutouts,
   // poster art). Non-sensitive, and public pre-lockdown. The render fetches

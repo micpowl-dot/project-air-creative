@@ -15,6 +15,7 @@ import { NextResponse } from "next/server";
 import { stylize, randomBg, STANDARD_MODEL, STYLE_REFS } from "@/lib/stylize-core";
 import { readManifest, writeManifest, putImage, type WallManifest } from "@/lib/wall-store";
 import { dmPortrait } from "@/lib/portrait-dm";
+import { sweepPendingDms, sweepDeactivated } from "@/lib/wall-upkeep";
 import { SENT_SEED } from "@/lib/sent-seed";
 
 export const dynamic = "force-dynamic";
@@ -267,7 +268,27 @@ export async function GET(request: Request) {
 
   manifest.lastTs = newLastTs;
   manifest.images = manifest.images.slice(-400);
+
+  // Upkeep, folded in because its own cron never fired. Wrapped so neither task can
+  // fail a render run, and both mutate the manifest we are about to write anyway, so
+  // there is exactly one writer and no clobbering between jobs.
+  let dmSweep = null;
+  let leavers = null;
+  try {
+    dmSweep = await sweepPendingDms(manifest, token);
+    leavers = await sweepDeactivated(manifest, token);
+  } catch (e) {
+    errors.push(`upkeep: ${String(e).slice(0, 120)}`);
+  }
+
   try { await writeManifest(manifest); } catch (e) { errors.push(`write: ${String(e).slice(0, 120)}`); }
 
-  return NextResponse.json({ processed, total: manifest.images.length, lastTs: manifest.lastTs, errors });
+  return NextResponse.json({
+    processed,
+    total: manifest.images.length,
+    lastTs: manifest.lastTs,
+    dmSweep,
+    leavers,
+    errors,
+  });
 }

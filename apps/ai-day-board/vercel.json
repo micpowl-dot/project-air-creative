@@ -3,14 +3,6 @@
     {
       "path": "/api/process-photos",
       "schedule": "* * * * *"
-    },
-    {
-      "path": "/api/portrait-sweep",
-      "schedule": "0,30 * * * *"
-    },
-    {
-      "path": "/api/deactivated-sweep",
-      "schedule": "15 0,6,12,18 * * *"
     }
   ]
 }
