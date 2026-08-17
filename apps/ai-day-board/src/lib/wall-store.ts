@@ -16,6 +16,7 @@ export interface WallImage {
   srcUrl?: string;  // Slack url_private of the original selfie (admin-only QA; never public)
   uid?: string;     // Slack user id of whoever submitted, so a later sweep can DM
                     // them without re-deriving identity from the handle text
+  checkedAt?: number; // epoch ms of the last "is this person still here" check
   model?: "pro" | "flash"; // which Gemini model rendered it (flash = Pro-outage fallback)
 }
 export interface WallManifest {
