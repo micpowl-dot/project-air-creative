@@ -1,5 +1,5 @@
 {
-  "lastTs": "1787161565.761259",
+  "lastTs": "1787161711.846329",
   "images": [
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1780938639846339.png",
@@ -1356,7 +1356,8 @@
       "ts": "1787161507.528249",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BR5CBSM35/snap-1787161505512-u07ewuybysh.jpg",
-      "uid": "U07EWUYBYSH"
+      "uid": "U07EWUYBYSH",
+      "hidden": true
     },
     {
       "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1787161565761259.png",
@@ -1364,11 +1365,19 @@
       "ts": "1787161565.761259",
       "model": "pro",
       "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BRDHXJNLR/snap-1787161563664.jpg"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/micpowl-dot/project-air-creative/ai-day-board-v1/apps/ai-day-board/public/wall-generated/1787161711846329.png",
+      "handle": "@emily.bian",
+      "ts": "1787161711.846329",
+      "model": "pro",
+      "srcUrl": "https://files.slack.com/files-pri/T0647S09LF2-F0BRFAQN0AY/snap-1787161709838-u07ewuybysh.jpg",
+      "uid": "U07EWUYBYSH"
     }
   ],
   "attempts": {},
   "rendered": {
-    "pro": 120,
+    "pro": 121,
     "flash": 84
   },
   "cooldownUntil": 1781022255383,
@@ -1469,7 +1478,8 @@
     "1786642936.896909",
     "1786987180.939849",
     "1787134763.933579",
-    "1787161507.528249"
+    "1787161507.528249",
+    "1787161711.846329"
   ],
   "lastDeactivationSweep": 1787160381683
 }
